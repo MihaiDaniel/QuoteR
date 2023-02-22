@@ -9,9 +9,13 @@
 			_cache = new Dictionary<string, object?>();
 		}
 
-		public void TryAdd<T>(string key, T value)
+		public void TryAddOrUpdate<T>(string key, T value)
 		{
-			if(!_cache.ContainsKey(key))
+			if(_cache.ContainsKey(key))
+			{
+				_cache[key] = value;
+			}
+			else
 			{
 				_cache.Add(key, value);
 			}

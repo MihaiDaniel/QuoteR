@@ -1,7 +1,10 @@
 using Quoter.App.Forms;
+using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Views;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services.DependencyInjection;
+using System.ComponentModel;
 using System.Resources;
 
 namespace Quoter.App
@@ -10,15 +13,21 @@ namespace Quoter.App
 	{
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;
-		private readonly ResourceManager _resourceManager;
+		private readonly IStringResources _stringResources;
+		private readonly IFormsManager _formsManager;
 
-		public SettingsForm()
+		public SettingsForm(IFormAnimationService formAnimationService,
+							IFormPositioningService formPositioningService,
+							IStringResources stringResources,
+							IFormsManager formsManager)
 		{
 			InitializeComponent();
-			_formAnimationService = new FormAnimationsService();
-			_positioningService = new FormPositioningService();
-			_resourceManager = new ResourceManager("Quoter.App.Resources.Strings", typeof(SettingsForm).Assembly);
-			lblTopBar.Text = _resourceManager.GetString("settings");
+			_formAnimationService = formAnimationService;
+			_positioningService = formPositioningService;
+			_stringResources = stringResources;
+			_formsManager = formsManager;
+
+			lblTopBar.Text = _stringResources["Settings"];
 		}
 
 
@@ -30,12 +39,12 @@ namespace Quoter.App
 				Body = "Acesta este un text lung care vorbeste despre un citat asa ca sa vedem ceva mai lung textul foarte bine!",
 				Footer = "Acesta este un footer"
 			};
-			new MessageForm(messageModel).Show();
+			_formsManager.ShowDialog<MessageForm>(messageModel);
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			_formsManager.Close(this);
 		}
 
 		private void SettingsForm_Load(object sender, EventArgs e)
@@ -60,7 +69,7 @@ namespace Quoter.App
 				}
 				else
 				{
-					ShowErrorMessageBox(_resourceManager.GetString("error"), _resourceManager.GetString("folderNotExists"));
+					ShowErrorMessageBox(_stringResources["error"], _stringResources["folderNotExists"]);
 				}
 				
 			}

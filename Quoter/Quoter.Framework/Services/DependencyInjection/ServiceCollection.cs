@@ -1,43 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quoter.Framework.Services.DependencyInjection
+﻿namespace Quoter.Framework.Services.DependencyInjection
 {
 	public class ServiceCollection
 	{
+		private readonly Dictionary<Type, ServiceDescriptor> _registeredServices;
 
-		Dictionary<Type, ServiceDescriptor> _registeredServices;
-
-		public ServiceCollection() 
+		public ServiceCollection()
 		{
 			_registeredServices = new Dictionary<Type, ServiceDescriptor>();
-			//_registeredSingletons = new Dictionary<Type, object>();
 		}
 
-		public void AddTransient<I, T>(I typeInterface, T implementation)
+		public void AddSingleton<TInterface, TImplementation>() where TImplementation : TInterface
 		{
-			_registeredServices.Add(typeof(I), new ServiceDescriptor(typeInterface.GetType(), implementation, EnumServiceLifetime.Transient));
+			_registeredServices.Add(typeof(TInterface), new ServiceDescriptor(typeof(TInterface), typeof(TImplementation), EnumServiceLifetime.Singleton));
 		}
 
-		public void AddTransient<T>(T implementation)
+		public void AddSingleton<TImplementation>()
 		{
-			_registeredServices.Add(typeof(T), new ServiceDescriptor(implementation, EnumServiceLifetime.Transient));
+			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), EnumServiceLifetime.Singleton));
 		}
 
-		public void Build()
+		public void AddSingleton<TImplementation>(object implementation)
 		{
-			foreach(Type type in _registeredServices.Keys)
+			if(implementation.GetType() != typeof(TImplementation))
 			{
-				Resolve(type);
+				throw new ArgumentException($"Cannot register service of type {typeof(TImplementation)} with implementation type {implementation.GetType()}");
 			}
+			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), implementation, EnumServiceLifetime.Singleton));
 		}
 
-		private void Resolve(Type type)
+		public void AddTransient<TInterface, TImplementation>()
 		{
-			type.GetConstructor(new Type[0]).Invoke(new object?[0]);
+			_registeredServices.Add(typeof(TInterface), new ServiceDescriptor(typeof(TInterface), typeof(TImplementation), EnumServiceLifetime.Transient));
 		}
+
+		public void AddTransient<TImplementation>()
+		{
+			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), EnumServiceLifetime.Transient));
+		}
+
+		public DependencyInjectionContainer GetContainer()
+		{
+			DependencyInjectionContainer diContainer = new(_registeredServices);
+			AddSingleton<DependencyInjectionContainer>(diContainer); // Also add the container itself
+			return diContainer;
+		}
+
 	}
 }

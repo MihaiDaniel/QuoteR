@@ -8,7 +8,7 @@ namespace Quoter.Framework.Services
 {
 	public interface IMemoryCache
 	{
-		void TryAdd<T>(string key, T value);
+		void TryAddOrUpdate<T>(string key, T value);
 		T GetOrDefault<T>(string key);
 		bool Contains(string key);
 	}

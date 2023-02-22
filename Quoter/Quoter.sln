@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quoter.App", "Quoter.App\Quoter.App.csproj", "{AD63344C-1CE1-4E2A-834D-0B4D8AED7DDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoter.App", "Quoter.App\Quoter.App.csproj", "{AD63344C-1CE1-4E2A-834D-0B4D8AED7DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quoter.Framework", "Quoter.Framework\Quoter.Framework.csproj", "{9826281C-4B96-4ED4-B9BB-87DC05819341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoter.Framework", "Quoter.Framework\Quoter.Framework.csproj", "{9826281C-4B96-4ED4-B9BB-87DC05819341}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,24 +10,30 @@ namespace Quoter.Framework.Services.DependencyInjection
 	{
 		public Type Type { get; private set; }
 
-		public Type? InterfaceType { get; private set; }
+		public Type ImplementationType { get; private set; }
 
-		public object Implementation { get; private set; }
+		public object? Implementation { get; internal set; }
 
 		public EnumServiceLifetime Lifetime { get; private set; }
 
-		public ServiceDescriptor(Type interfaceType, object implementation, EnumServiceLifetime serviceLifetime)
+		public ServiceDescriptor(Type type, Type implementationType, EnumServiceLifetime serviceLifetime)
 		{
-			Type = implementation.GetType();
-			InterfaceType = interfaceType;
-			Implementation = implementation;
+			Type = type;
+			ImplementationType = implementationType;
 			Lifetime = serviceLifetime;
 		}
 
-		public ServiceDescriptor(object implementation, EnumServiceLifetime serviceLifetime)
+		public ServiceDescriptor(Type type, EnumServiceLifetime serviceLifetime)
 		{
-			Type = implementation.GetType();
-			InterfaceType = null;
+			Type = type;
+			ImplementationType = type;
+			Lifetime = serviceLifetime;
+		}
+
+		public ServiceDescriptor(Type type, object implementation, EnumServiceLifetime serviceLifetime)
+		{
+			Type = type;
+			ImplementationType = type;
 			Implementation = implementation;
 			Lifetime = serviceLifetime;
 		}

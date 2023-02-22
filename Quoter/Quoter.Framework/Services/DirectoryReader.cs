@@ -80,7 +80,7 @@ namespace Quoter.Framework.Services
 
 			if (lastWriteDateTimeInMemCache == default)
 			{
-				_memoryCache.TryAdd(filePath, lastWriteDateTime);
+				_memoryCache.TryAddOrUpdate(filePath, lastWriteDateTime);
 				return true;
 			}
 			else if(lastWriteDateTime > lastWriteDateTimeInMemCache)
