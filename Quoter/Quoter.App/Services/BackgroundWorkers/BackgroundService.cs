@@ -39,6 +39,7 @@ namespace Quoter.App.Services.BackgroundWorkers
 			}
 		}
 
+
 		private bool __isShowingNotification = false;
 		private bool _isShowingNotification
 		{

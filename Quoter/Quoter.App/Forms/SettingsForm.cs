@@ -82,7 +82,7 @@ namespace Quoter.App
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			new WelcomeForm().Show();
+			_formsManager.Show<WelcomeForm>();
 		}
 	}
 }
