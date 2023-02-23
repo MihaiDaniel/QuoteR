@@ -1,4 +1,5 @@
-﻿using Quoter.App.Helpers;
+﻿using Quoter.App.Forms;
+using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.BackgroundWorkers;
 using Quoter.Framework.Services;
@@ -61,6 +62,21 @@ namespace Quoter.App
 
 		}
 
+
+		void PauseOrResume(object? sender, EventArgs e)
+		{
+			bool isPaused = _memoryCache.GetOrDefault<bool>(Const.IsPaused);
+			isPaused = !isPaused;
+			_memoryCache.TryAddOrUpdate<bool>(Const.IsPaused, isPaused);
+
+			_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
+		}
+
+		void Manage(object? sender, EventArgs e)
+		{
+			_formsManager.Show<ManageQuotesForm>();
+		}
+
 		void Settings(object? sender, EventArgs e)
 		{
 			_formsManager.Show<SettingsForm>();
@@ -73,14 +89,6 @@ namespace Quoter.App
 			Application.Exit();
 		}
 
-		void PauseOrResume(object? sender, EventArgs e)
-		{
-			bool isPaused = _memoryCache.GetOrDefault<bool>(Const.IsPaused);
-			isPaused = !isPaused;
-			_memoryCache.TryAddOrUpdate<bool>(Const.IsPaused, isPaused);
-
-			_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
-		}
 
 		private ContextMenuStrip GetContextMenuStrip(bool isPaused = false)
 		{
@@ -92,6 +100,7 @@ namespace Quoter.App
 				{
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResume), "PauseOrResume"),
 					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(Settings), "Settings"),
+					new ToolStripMenuItem(_stringResources["Manage"], Resources.Resources.book_open_64, new EventHandler(Manage), "Settings"),
 					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_64, new EventHandler(Exit), "Exit")
 				}
 			};

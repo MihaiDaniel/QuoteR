@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Quoter.App.Services.FormAnimation
+﻿namespace Quoter.App.Services.FormAnimation
 {
 	public class FormPositioningService : IFormPositioningService
 	{
@@ -13,21 +6,22 @@ namespace Quoter.App.Services.FormAnimation
 		private Point _lastLocation;
 		private Form _form;
 
+		/// <inheritdoc/>
 		public void RegisterFormDragableByControl(Form form, Control control)
 		{
 			_form = form;
-			control.MouseDown += new MouseEventHandler(pnlTitle_MouseDown);
-			control.MouseMove += new MouseEventHandler(pnlTitle_MouseMove);
-			control.MouseUp += new MouseEventHandler(pnlTitle_MouseUp);
+			control.MouseDown += new MouseEventHandler(control_MouseDown);
+			control.MouseMove += new MouseEventHandler(control_MouseMove);
+			control.MouseUp += new MouseEventHandler(control_MouseUp);
 		}
 
-		private void pnlTitle_MouseDown(object sender, MouseEventArgs e)
+		private void control_MouseDown(object sender, MouseEventArgs e)
 		{
 			_isMouseDown = true;
 			_lastLocation = e.Location;
 		}
 
-		private void pnlTitle_MouseMove(object sender, MouseEventArgs e)
+		private void control_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (_isMouseDown)
 			{
@@ -36,7 +30,7 @@ namespace Quoter.App.Services.FormAnimation
 			}
 		}
 
-		private void pnlTitle_MouseUp(object sender, MouseEventArgs e)
+		private void control_MouseUp(object sender, MouseEventArgs e)
 		{
 			_isMouseDown = false;
 		}

@@ -73,6 +73,26 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap book_open_64 {
+            get {
+                object obj = ResourceManager.GetObject("book_open_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete_32 {
+            get {
+                object obj = ResourceManager.GetObject("delete_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exit_64 {
             get {
                 object obj = ResourceManager.GetObject("exit_64", resourceCulture);
@@ -136,6 +156,16 @@ namespace Quoter.App.Resources {
         internal static System.Drawing.Bitmap play_64 {
             get {
                 object obj = ResourceManager.GetObject("play_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap plus_32 {
+            get {
+                object obj = ResourceManager.GetObject("plus_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

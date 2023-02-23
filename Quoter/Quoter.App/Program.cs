@@ -41,10 +41,14 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IMemoryCache, MemoryCache>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
+			serviceCollection.AddSingleton<IRepository, Repository>();
 
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<MessageForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
+			serviceCollection.AddTransient<ManageQuotesForm>();
+			serviceCollection.AddTransient<DialogInputForm>();
+			serviceCollection.AddTransient<DialogMessageForm>();
 
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();

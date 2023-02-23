@@ -1,4 +1,5 @@
-﻿using Quoter.App.Models;
+﻿using Quoter.App.Helpers;
+using Quoter.App.Models;
 using Quoter.Framework.Services.DependencyInjection;
 
 namespace Quoter.App.Services
@@ -35,7 +36,7 @@ namespace Quoter.App.Services
 				// Open the new form
 				Form form = _diContainer.GetService<TForm>();
 				_lstOpenedForms.Add(new FormStateModel(formType, form, isModal: false));
-				ShowForm(form, false);
+				form.Show();
 			}
 			else
 			{
@@ -44,11 +45,19 @@ namespace Quoter.App.Services
 		}
 
 		/// <inheritdoc/>
-		public void ShowDialog<TForm>(params object[] arrParameters) where TForm : Form
+		public IDialogReturnable ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogReturnable
 		{
 			Form form = _diContainer.GetService<TForm>(arrParameters);
 			_lstOpenedForms.Add(new FormStateModel(typeof(TForm), form, true));
-			ShowForm(form, true);
+			form.ShowDialog();
+
+			IDialogReturnable dialogReturnable = form as IDialogReturnable;
+			DialogReturnable result = new (dialogReturnable.DialogResult, dialogReturnable.StringResult);
+			if(!form.IsDisposed)
+			{
+				form.Dispose();
+			}
+			return result;
 		}
 
 		/// <inheritdoc/>
@@ -57,38 +66,12 @@ namespace Quoter.App.Services
 			FormStateModel? formState = _lstOpenedForms.FirstOrDefault(f => f.Form == form);
 			if (formState is not null)
 			{
-				CloseForm(formState.Form, formState.IsModal);
+				form.Close();
 				_lstOpenedForms.Remove(formState);
 			}
 			else
 			{
 				throw new ArgumentException($"Form to close not opened with FormsManager: {form.GetType()}");
-			}
-		}
-
-		private void ShowForm(Form form, bool isModal)
-		{
-			if (isModal)
-			{
-				form.ShowDialog();
-			}
-			else
-			{
-				form.Show();
-			}
-		}
-
-
-		private void CloseForm(Form form, bool isModal)
-		{
-			if (isModal)
-			{
-				form.Close();
-				form.Dispose();
-			}
-			else
-			{
-				form.Close();
 			}
 		}
 

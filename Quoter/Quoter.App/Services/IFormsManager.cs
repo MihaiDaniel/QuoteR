@@ -1,4 +1,6 @@
-﻿namespace Quoter.App.Services
+﻿using Quoter.App.Helpers;
+
+namespace Quoter.App.Services
 {
 	/// <summary>
 	/// Interface for handling forms and their opened or closed states.
@@ -16,7 +18,7 @@
 		/// </summary>
 		/// <typeparam name="TForm">Type of form to show</typeparam>
 		/// <param name="arrParameters">Optional parameters to pass to the form's constructor if needed</param>
-		void ShowDialog<TForm>(params object[] arrParameters) where TForm : Form;
+		IDialogReturnable ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogReturnable;
 
 		/// <summary>
 		/// Closes a form opened with the formsManager

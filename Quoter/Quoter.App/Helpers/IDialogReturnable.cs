@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.Helpers
 {
-	public static class Const
+	public interface IDialogReturnable
 	{
-		public const string IsPaused = "IsPaused";
+		DialogResult DialogResult { get; }
 
+		string StringResult { get; }
 	}
 }

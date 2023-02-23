@@ -30,7 +30,6 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
 			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.button3 = new System.Windows.Forms.Button();
 			this.lblTopBar = new System.Windows.Forms.Label();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
@@ -46,30 +45,12 @@
 			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.pnlTitle.BackColor = System.Drawing.Color.SlateGray;
-			this.pnlTitle.Controls.Add(this.button3);
 			this.pnlTitle.Controls.Add(this.lblTopBar);
 			this.pnlTitle.Controls.Add(this.btnClose);
 			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
 			this.pnlTitle.Name = "pnlTitle";
 			this.pnlTitle.Size = new System.Drawing.Size(400, 40);
 			this.pnlTitle.TabIndex = 0;
-			// 
-			// button3
-			// 
-			this.button3.BackColor = System.Drawing.Color.Transparent;
-			this.button3.BackgroundImage = global::Quoter.App.Resources.Resources.icons8_save_50;
-			this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.button3.FlatAppearance.BorderSize = 0;
-			this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(255)))), ((int)(((byte)(40)))));
-			this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(255)))), ((int)(((byte)(150)))));
-			this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button3.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.button3.ForeColor = System.Drawing.Color.White;
-			this.button3.Location = new System.Drawing.Point(302, -1);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(46, 40);
-			this.button3.TabIndex = 3;
-			this.button3.UseVisualStyleBackColor = false;
 			// 
 			// lblTopBar
 			// 
@@ -85,7 +66,6 @@
 			// btnClose
 			// 
 			this.btnClose.BackColor = System.Drawing.Color.Transparent;
-			this.btnClose.BackgroundImage = global::Quoter.App.Resources.Resources.icons8_close_50;
 			this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.btnClose.FlatAppearance.BorderSize = 0;
 			this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
@@ -97,6 +77,7 @@
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(46, 40);
 			this.btnClose.TabIndex = 1;
+			this.btnClose.Text = "X";
 			this.btnClose.UseVisualStyleBackColor = false;
 			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
@@ -187,7 +168,6 @@
 		private Button btnClose;
 		private Label lblTopBar;
 		private Button button1;
-		private Button button3;
 		private TextBox txtFolder;
 		private Label lblFolder;
 		private Button btnBrowse;

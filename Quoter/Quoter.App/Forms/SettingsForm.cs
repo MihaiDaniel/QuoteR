@@ -1,4 +1,6 @@
 using Quoter.App.Forms;
+using Quoter.App.Helpers;
+using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Views;
@@ -33,13 +35,23 @@ namespace Quoter.App
 
 		private void button1_Click_1(object sender, EventArgs e)
 		{
-			MessageModel messageModel = new()
+			//MessageModel messageModel = new()
+			//{
+			//	Title = "Matei 3:15",
+			//	Body = "Acesta este un text lung care vorbeste despre un citat asa ca sa vedem ceva mai lung textul foarte bine!",
+			//	Footer = "Acesta este un footer"
+			//};
+			DialogModel dialogModel = new()
 			{
-				Title = "Matei 3:15",
-				Body = "Acesta este un text lung care vorbeste despre un citat asa ca sa vedem ceva mai lung textul foarte bine!",
-				Footer = "Acesta este un footer"
+				TitleColor= Color.Red,
+				Message = "Acesta este un mesaj",
+				Title = "Acesta este un titlu"
 			};
-			_formsManager.ShowDialog<MessageForm>(messageModel);
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(dialogModel);
+			if(result.DialogResult== DialogResult.OK)
+			{
+				lblTopBar.Text = result.StringResult;
+			}
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
