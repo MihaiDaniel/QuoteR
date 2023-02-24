@@ -22,5 +22,10 @@ namespace Quoter.App.Services
 		{
 			get;
 		}
+
+		string this[string name, params string[] param]
+		{
+			get;
+		}
 	}
 }

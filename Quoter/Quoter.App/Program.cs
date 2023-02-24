@@ -1,6 +1,7 @@
 using Quoter.App.Forms;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
+using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework;
 using Quoter.Framework.Services;
@@ -9,7 +10,7 @@ using System.Resources;
 
 namespace Quoter.App
 {
-	internal static class Program
+    internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -41,6 +42,8 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IMemoryCache, MemoryCache>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
+			serviceCollection.AddSingleton<ISettings, Settings>();
+			serviceCollection.AddSingleton<IFormLifecycleService, FormLifecycleService>();
 			serviceCollection.AddSingleton<IRepository, Repository>();
 
 			serviceCollection.AddTransient<SettingsForm>();

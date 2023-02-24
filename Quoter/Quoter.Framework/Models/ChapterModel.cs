@@ -15,5 +15,10 @@ namespace Quoter.Framework.Models
 		public string Name { get; set; }
 
 		public List<string> LstContent { get; set; }
+
+		public ChapterModel()
+		{
+			LstContent = new List<string>();
+		}
 	}
 }

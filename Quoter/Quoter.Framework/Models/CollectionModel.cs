@@ -12,5 +12,10 @@ namespace Quoter.Framework.Models
 
 		public List<BookModel> LstBooks { get; set; }
 
+		public CollectionModel()
+		{
+			LstBooks = new List<BookModel>();
+		}
+
 	}
 }

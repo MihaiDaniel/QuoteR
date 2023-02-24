@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.Services.FormAnimation
 {
-    public interface IFormAnimationService
-    {
-        Task AnimateAsync(Form form, EnumAnimation enumAnimation);
+	public interface IFormAnimationService
+	{
+		Task AnimateAsync(Form form, EnumAnimation enumAnimation);
 
-        Task CloseDelayedAsync(Form form, int delay, EnumAnimation enumAnimation = EnumAnimation.FadeOut);
-    }
+		//Task CloseDelayedAsync(Form form, int delay, EnumAnimation enumAnimation = EnumAnimation.FadeOut);
+	}
 }

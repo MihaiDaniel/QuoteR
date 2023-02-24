@@ -1,20 +1,12 @@
 ﻿using Quoter.App.Models;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Quoter.App.Helpers;
+using Quoter.App.Services.Forms;
 
 namespace Quoter.App.Forms
 {
-	public partial class DialogMessageForm : Form, IDialogReturnable
+    public partial class DialogMessageForm : Form, IDialogReturnable
 	{
 		private readonly IFormsManager _formsManager;
 
@@ -31,20 +23,16 @@ namespace Quoter.App.Forms
 			pnlTitle.BackColor = dialogModel.TitleColor;
 			lblTopBar.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
-
-
+			btnOk.Text = stringResources["OK"];
 
 			_formsManager = formsManager;
 		}
 
-		private void btnRight_Click(object sender, EventArgs e)
+
+		private void btnOk_Click(object sender, EventArgs e)
 		{
-
-		}
-
-		private void btnLeft_Click(object sender, EventArgs e)
-		{
-
+			DialogResult = DialogResult.OK;
+			_formsManager.Close(this);
 		}
 	}
 }

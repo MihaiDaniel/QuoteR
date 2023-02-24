@@ -142,6 +142,57 @@
     <value>Cancel</value>
   </data>
   <data name="Manage" xml:space="preserve">
-    <value>Manage quotes</value>
+    <value>Manage</value>
+  </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>Book</value>
+  </data>
+  <data name="Chapters" xml:space="preserve">
+    <value>Chapters</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CreateEditQuotes" xml:space="preserve">
+    <value>Create and edit quotes</value>
+  </data>
+  <data name="ErrTextTooLong" xml:space="preserve">
+    <value>Value is too long</value>
+  </data>
+  <data name="ErrTextInvalidChars" xml:space="preserve">
+    <value>Invalid characters detected</value>
+  </data>
+  <data name="CollectionCreated" xml:space="preserve">
+    <value>Collection {0} created</value>
+  </data>
+  <data name="ErrPleaseInputValue" xml:space="preserve">
+    <value>Please input a value</value>
+  </data>
+  <data name="NewCollection" xml:space="preserve">
+    <value>New collection</value>
+  </data>
+  <data name="SetCollectionName" xml:space="preserve">
+    <value>Set the name of the new collection</value>
+  </data>
+  <data name="CollectionAlreadyExists" xml:space="preserve">
+    <value>A collection with the same name already exists</value>
+  </data>
+  <data name="Quoter" xml:space="preserve">
+    <value>Quoter</value>
+  </data>
+  <data name="WelcomeStartupMessage" xml:space="preserve">
+    <value>Application has started. It will notify you regularly with quotes.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
   </data>
 </root>

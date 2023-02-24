@@ -35,47 +35,79 @@ namespace Quoter.Framework.Services
 		{
 			List<BookModel> bookModels = new List<BookModel>();
 
-			bookModels.Add(new BookModel()
+			if (collectionName == "My collection one")
 			{
-				Name = "My book 1",
-				LstChapters = new List<ChapterModel>()
+				bookModels.Add(new BookModel()
 				{
-					new ChapterModel()
+					Name = "Harry potter and the prisoner",
+					LstChapters = new List<ChapterModel>()
 					{
-						Name= "Chapter 1",
-						LstContent = new List<string>()
+						new ChapterModel()
 						{
-							"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
-							"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							Name= "A new prisoner",
+							LstContent = new List<string>()
+							{
+								"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
+								"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							}
+						},
+						new ChapterModel()
+						{
+							Name= "Going to castle",
+							LstContent = new List<string>()
+							{
+								"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
+								"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							}
 						}
 					},
-					new ChapterModel()
-					{
-						Name= "Chapter 2",
-						LstContent = new List<string>()
-						{
-							"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
-							"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
-						}
-					}
-				},
-			});
-			bookModels.Add(new BookModel()
-			{
-				Name = "Harry potter and the something stone",
-				LstChapters = new List<ChapterModel>()
+				});
+				bookModels.Add(new BookModel()
 				{
-					new ChapterModel()
+					Name = "Harry potter and the something stone",
+					LstChapters = new List<ChapterModel>()
 					{
-						Name= "Chapter 1",
-						LstContent = new List<string>()
+						new ChapterModel()
 						{
-							"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
-							"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							Name= "The stone cold",
+							LstContent = new List<string>()
+							{
+								"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
+								"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							}
 						}
-					}
-				},
-			});
+					},
+				});
+			}
+			else if (collectionName == "My collection two")
+			{
+				bookModels.Add(new BookModel()
+				{
+					Name = "Discovey channel",
+					LstChapters = new List<ChapterModel>()
+					{
+						new ChapterModel()
+						{
+							Name= "The new discovery",
+							LstContent = new List<string>()
+							{
+								"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
+								"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							}
+						},
+						new ChapterModel()
+						{
+							Name= "Discovery two",
+							LstContent = new List<string>()
+							{
+								"ed version of the accepted answer that does NOT require you to type names of properties manually in every pro",
+								"anged(\"some-property-name\"). Instead you just call OnPropertyChanged() withou"
+							}
+						}
+					},
+				});
+			}
+
 			return Task.FromResult(bookModels);
 		}
 

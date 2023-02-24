@@ -2,6 +2,9 @@
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.BackgroundWorkers;
+using Quoter.App.Services.Forms;
+using Quoter.App.Views;
+using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using System;
 using System.Collections.Generic;
@@ -20,12 +23,15 @@ namespace Quoter.App
 		private readonly IFormsManager _formsManager;
 		private readonly IMemoryCache _memoryCache;
 		private readonly IStringResources _stringResources;
+		private readonly ISettings _settings;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
+										ISettings settings,
 										IMemoryCache memoryCache,
 										IStringResources stringResources)
 		{
 			_formsManager = formsManager;
+			_settings = settings;
 			_memoryCache = memoryCache;
 			_stringResources = stringResources;
 			_trayIcon = new NotifyIcon()
@@ -34,22 +40,61 @@ namespace Quoter.App
 				ContextMenuStrip = GetContextMenuStrip(),
 				Visible = true
 			};
-
-			InitializeBacgroundTimers();
+			InitializeApplication();
+			InitializeBackgroundTimers();
+			ShowWelcomeMessage();
 		}
 
-		private void InitializeBacgroundTimers()
+		private async void InitializeApplication()
 		{
-			int notificationIntervalSec = (int)Properties.Settings.Default["NotificationIntervalSeconds"];
-			int scanFolderIntervalSec = (int)Properties.Settings.Default["ScanFolderInterval"];
+			string? collectionDirectory = _settings.Get<string>(Const.Setting.CollectionsDirectory);
+			if(collectionDirectory == null)
+			{
+				// If we don't have collectionDirectory we assume the application was started for the first time.
+				// So we setup the 
+				collectionDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Collections");
+				_settings.Set(Const.Setting.CollectionsDirectory, collectionDirectory);
+				_settings.Set(Const.Setting.NotificationIntervalSeconds, Const.SettingDefault.NotificationIntervalSeconds);
+				_settings.Set(Const.Setting.AutoCloseNotificationSeconds, Const.SettingDefault.AutoCloseNotificationSeconds);
+				_settings.Set(Const.Setting.ShowWelcomeNotification, Const.SettingDefault.ShowWelcomeNotification);
+				_settings.Set(Const.Setting.KeepNotificationOpenOnMouseOver, Const.SettingDefault.KeepNotificationOpenOnMouseOver);
+			}
+			else
+			{
+				_settings.Set(Const.Setting.IsPaused, false);
+
+			}
+			
+		}
+
+		private void InitializeBackgroundTimers()
+		{
+			int notificationIntervalSec = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds);
+			//int scanFolderIntervalSec = (int)Properties.Settings.Default["ScanFolderInterval"];
 
 			System.Timers.Timer  timerShowNotifications = new(notificationIntervalSec * 1000);
 			timerShowNotifications.Elapsed += async (sender, e) => await ElapsedTimerEventShowNotifications();
 			timerShowNotifications.Start();
 
-			System.Timers.Timer  timerScanWorkFolder = new(scanFolderIntervalSec * 1000);
-			timerScanWorkFolder.Elapsed += async (sender, e) => await ElapsedTimerScanWorkFolder();
-			timerScanWorkFolder.Start();
+			//System.Timers.Timer  timerScanWorkFolder = new(scanFolderIntervalSec * 1000);
+			//timerScanWorkFolder.Elapsed += async (sender, e) => await ElapsedTimerScanWorkFolder();
+			//timerScanWorkFolder.Start();
+		}
+
+		private async void ShowWelcomeMessage()
+		{
+			if(_settings.Get<bool>(Const.Setting.ShowWelcomeNotification))
+			{
+				await Task.Delay(1000);
+				int autoHideWelcomeMessageSeconds = 7;
+				MessageModel messageModel = new()
+				{
+					Title = _stringResources["Welcome"],
+					Body = _stringResources["WelcomeStartupMessage"],
+					CloseAnimation = Framework.Enums.EnumAnimation.FadeOut
+				};
+				_formsManager.ShowDialog<MessageForm>(autoHideWelcomeMessageSeconds, messageModel);
+			}
 		}
 
 		private async Task ElapsedTimerEventShowNotifications()
@@ -65,10 +110,9 @@ namespace Quoter.App
 
 		void PauseOrResume(object? sender, EventArgs e)
 		{
-			bool isPaused = _memoryCache.GetOrDefault<bool>(Const.IsPaused);
+			bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
 			isPaused = !isPaused;
-			_memoryCache.TryAddOrUpdate<bool>(Const.IsPaused, isPaused);
-
+			_settings.Set(Const.Setting.IsPaused, isPaused);
 			_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
 		}
 

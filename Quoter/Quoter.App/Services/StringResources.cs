@@ -26,5 +26,24 @@ namespace Quoter.App.Services
 				return _resourceManager.GetString(name) ?? throw new ArgumentException($"String not found: {name}");
 			}
 		}
+
+		/// <inheritdoc/>
+		public string this[string name, params string[] param]
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(name))
+				{
+					throw new ArgumentNullException(nameof(name));
+				}
+				string localizedString = _resourceManager.GetString(name) ?? throw new ArgumentException($"String not found: {name}");
+				for(int index = 0; index < param.Length; index++)
+				{
+					string parameterInString = $"{{{index}}}";
+					localizedString = localizedString.Replace(parameterInString, param[index]);
+				}
+				return localizedString;
+			}
+		}
 	}
 }

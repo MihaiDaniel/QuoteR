@@ -132,10 +132,10 @@ namespace Quoter.App.Services.BackgroundWorkers
 					Footer = quote.Chapter + ":" + quote.Subchapter
 				};
 
-				MessageForm messageForm = new(messageModel);
+				//MessageForm messageForm = new(messageModel);
 				//messageForm.InvokeIfRequired(() =>
 				//{
-				messageForm.ShowDialog();
+				//messageForm.ShowDialog();
 				//});
 				//await Task.Run(() => { messageForm.Show(); });
 			}

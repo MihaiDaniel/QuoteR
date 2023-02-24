@@ -67,5 +67,32 @@ namespace Quoter.App.Properties {
                 return ((bool)(this["IsPaused"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CollectionsDirectory {
+            get {
+                return ((string)(this["CollectionsDirectory"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowWelcomeNotification {
+            get {
+                return ((bool)(this["ShowWelcomeNotification"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool KeepNotificationOpenOnMouseOver {
+            get {
+                return ((bool)(this["KeepNotificationOpenOnMouseOver"]));
+            }
+        }
     }
 }

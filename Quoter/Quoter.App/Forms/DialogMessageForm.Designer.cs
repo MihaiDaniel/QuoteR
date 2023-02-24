@@ -30,9 +30,9 @@
 		{
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.lblTopBar = new System.Windows.Forms.Label();
-			this.btnLeft = new System.Windows.Forms.Button();
+			this.btnOk = new System.Windows.Forms.Button();
 			this.txtMessage = new System.Windows.Forms.TextBox();
-			this.btnRight = new System.Windows.Forms.Button();
+			this.panel1 = new System.Windows.Forms.Panel();
 			this.pnlTitle.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -40,11 +40,11 @@
 			// 
 			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlTitle.BackColor = System.Drawing.Color.SlateGray;
+			this.pnlTitle.BackColor = System.Drawing.Color.DarkOrange;
 			this.pnlTitle.Controls.Add(this.lblTopBar);
 			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
 			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(336, 40);
+			this.pnlTitle.Size = new System.Drawing.Size(340, 40);
 			this.pnlTitle.TabIndex = 2;
 			// 
 			// lblTopBar
@@ -58,15 +58,15 @@
 			this.lblTopBar.TabIndex = 2;
 			this.lblTopBar.Text = "Manage quotes";
 			// 
-			// btnLeft
+			// btnOk
 			// 
-			this.btnLeft.Location = new System.Drawing.Point(90, 119);
-			this.btnLeft.Name = "btnLeft";
-			this.btnLeft.Size = new System.Drawing.Size(114, 31);
-			this.btnLeft.TabIndex = 3;
-			this.btnLeft.Text = "button1";
-			this.btnLeft.UseVisualStyleBackColor = true;
-			this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
+			this.btnOk.Location = new System.Drawing.Point(214, 127);
+			this.btnOk.Name = "btnOk";
+			this.btnOk.Size = new System.Drawing.Size(114, 31);
+			this.btnOk.TabIndex = 3;
+			this.btnOk.Text = "button1";
+			this.btnOk.UseVisualStyleBackColor = true;
+			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
 			// 
 			// txtMessage
 			// 
@@ -75,33 +75,32 @@
 			this.txtMessage.Location = new System.Drawing.Point(12, 46);
 			this.txtMessage.Multiline = true;
 			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.Size = new System.Drawing.Size(312, 67);
+			this.txtMessage.Size = new System.Drawing.Size(312, 75);
 			this.txtMessage.TabIndex = 4;
 			this.txtMessage.Text = "A aparut un mesaj de atentionare ca sa stii ca s-a intamplat ceva anume";
 			// 
-			// btnRight
+			// panel1
 			// 
-			this.btnRight.Location = new System.Drawing.Point(210, 119);
-			this.btnRight.Name = "btnRight";
-			this.btnRight.Size = new System.Drawing.Size(114, 31);
-			this.btnRight.TabIndex = 5;
-			this.btnRight.Text = "button2";
-			this.btnRight.UseVisualStyleBackColor = true;
-			this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
+			this.panel1.BackColor = System.Drawing.Color.White;
+			this.panel1.Location = new System.Drawing.Point(4, 35);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(331, 131);
+			this.panel1.TabIndex = 5;
 			// 
-			// DialogForm
+			// DialogMessageForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.White;
-			this.ClientSize = new System.Drawing.Size(336, 162);
+			this.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.ClientSize = new System.Drawing.Size(340, 170);
 			this.ControlBox = false;
-			this.Controls.Add(this.btnRight);
-			this.Controls.Add(this.txtMessage);
-			this.Controls.Add(this.btnLeft);
 			this.Controls.Add(this.pnlTitle);
+			this.Controls.Add(this.txtMessage);
+			this.Controls.Add(this.btnOk);
+			this.Controls.Add(this.panel1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Name = "DialogForm";
+			this.Name = "DialogMessageForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "DialogForm";
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
@@ -114,8 +113,8 @@
 
 		private Panel pnlTitle;
 		private Label lblTopBar;
-		private Button btnLeft;
+		private Button btnOk;
 		private TextBox txtMessage;
-		private Button btnRight;
+		private Panel panel1;
 	}
 }

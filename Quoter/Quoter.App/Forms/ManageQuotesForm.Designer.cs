@@ -32,20 +32,10 @@
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.btnClose = new System.Windows.Forms.Button();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tab1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.button2 = new System.Windows.Forms.Button();
-			this.cmbTodoNewCollection = new System.Windows.Forms.ComboBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.lblCollections = new System.Windows.Forms.Label();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.cmbToDoBooks = new System.Windows.Forms.ComboBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.gbQuotes = new System.Windows.Forms.GroupBox();
+			this.txtStatus = new System.Windows.Forms.TextBox();
 			this.btnSaveQuotes = new System.Windows.Forms.Button();
 			this.rtbQuotes = new System.Windows.Forms.RichTextBox();
 			this.gbChapters = new System.Windows.Forms.GroupBox();
@@ -61,10 +51,8 @@
 			this.cbCollection = new System.Windows.Forms.ComboBox();
 			this.btnAddCollection = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
-			this.tabControl1.SuspendLayout();
+			this.tab1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
-			this.tabPage2.SuspendLayout();
-			this.tabPage3.SuspendLayout();
 			this.gbQuotes.SuspendLayout();
 			this.gbChapters.SuspendLayout();
 			this.gbBooks.SuspendLayout();
@@ -113,175 +101,62 @@
 			this.btnClose.UseVisualStyleBackColor = false;
 			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
 			// 
-			// tabControl1
+			// tab1
 			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Controls.Add(this.tabPage3);
-			this.tabControl1.Location = new System.Drawing.Point(12, 46);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(776, 422);
-			this.tabControl1.TabIndex = 2;
+			this.tab1.Controls.Add(this.tabPage1);
+			this.tab1.Location = new System.Drawing.Point(12, 46);
+			this.tab1.Name = "tab1";
+			this.tab1.SelectedIndex = 0;
+			this.tab1.Size = new System.Drawing.Size(776, 422);
+			this.tab1.TabIndex = 2;
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.Controls.Add(this.button2);
-			this.tabPage1.Controls.Add(this.cmbTodoNewCollection);
-			this.tabPage1.Controls.Add(this.button1);
-			this.tabPage1.Controls.Add(this.lblCollections);
+			this.tabPage1.Controls.Add(this.gbQuotes);
+			this.tabPage1.Controls.Add(this.gbChapters);
+			this.tabPage1.Controls.Add(this.gbBooks);
+			this.tabPage1.Controls.Add(this.gbCollections);
 			this.tabPage1.Location = new System.Drawing.Point(4, 24);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage1.Size = new System.Drawing.Size(768, 394);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
+			this.tabPage1.TabIndex = 2;
+			this.tabPage1.Text = "Create your own quotes library";
 			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// button2
-			// 
-			this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button2.Location = new System.Drawing.Point(517, 114);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(40, 30);
-			this.button2.TabIndex = 3;
-			this.button2.Text = "+";
-			this.button2.UseVisualStyleBackColor = true;
-			// 
-			// cmbTodoNewCollection
-			// 
-			this.cmbTodoNewCollection.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cmbTodoNewCollection.FormattingEnabled = true;
-			this.cmbTodoNewCollection.Items.AddRange(new object[] {
-            "Colectia1",
-            "Colectia cu nume lung 2"});
-			this.cmbTodoNewCollection.Location = new System.Drawing.Point(266, 116);
-			this.cmbTodoNewCollection.Name = "cmbTodoNewCollection";
-			this.cmbTodoNewCollection.Size = new System.Drawing.Size(245, 27);
-			this.cmbTodoNewCollection.TabIndex = 2;
-			// 
-			// button1
-			// 
-			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button1.Location = new System.Drawing.Point(662, 348);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(100, 40);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Next";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
-			// lblCollections
-			// 
-			this.lblCollections.AutoSize = true;
-			this.lblCollections.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblCollections.Location = new System.Drawing.Point(337, 68);
-			this.lblCollections.Name = "lblCollections";
-			this.lblCollections.Size = new System.Drawing.Size(94, 23);
-			this.lblCollections.TabIndex = 0;
-			this.lblCollections.Text = "Collections";
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Controls.Add(this.button5);
-			this.tabPage2.Controls.Add(this.button4);
-			this.tabPage2.Controls.Add(this.button3);
-			this.tabPage2.Controls.Add(this.cmbToDoBooks);
-			this.tabPage2.Controls.Add(this.label1);
-			this.tabPage2.Location = new System.Drawing.Point(4, 24);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(768, 394);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
-			// 
-			// button5
-			// 
-			this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button5.Location = new System.Drawing.Point(556, 348);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(100, 40);
-			this.button5.TabIndex = 8;
-			this.button5.Text = "Skip";
-			this.button5.UseVisualStyleBackColor = true;
-			// 
-			// button4
-			// 
-			this.button4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button4.Location = new System.Drawing.Point(662, 348);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(100, 40);
-			this.button4.TabIndex = 7;
-			this.button4.Text = "Next";
-			this.button4.UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this.button3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button3.Location = new System.Drawing.Point(495, 107);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(40, 30);
-			this.button3.TabIndex = 6;
-			this.button3.Text = "+";
-			this.button3.UseVisualStyleBackColor = true;
-			// 
-			// cmbToDoBooks
-			// 
-			this.cmbToDoBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cmbToDoBooks.FormattingEnabled = true;
-			this.cmbToDoBooks.Items.AddRange(new object[] {
-            "Colectia1",
-            "Colectia cu nume lung 2"});
-			this.cmbToDoBooks.Location = new System.Drawing.Point(244, 109);
-			this.cmbToDoBooks.Name = "cmbToDoBooks";
-			this.cmbToDoBooks.Size = new System.Drawing.Size(245, 27);
-			this.cmbToDoBooks.TabIndex = 5;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label1.Location = new System.Drawing.Point(344, 60);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(49, 23);
-			this.label1.TabIndex = 4;
-			this.label1.Text = "Book";
-			// 
-			// tabPage3
-			// 
-			this.tabPage3.Controls.Add(this.gbQuotes);
-			this.tabPage3.Controls.Add(this.gbChapters);
-			this.tabPage3.Controls.Add(this.gbBooks);
-			this.tabPage3.Controls.Add(this.gbCollections);
-			this.tabPage3.Location = new System.Drawing.Point(4, 24);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(768, 394);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "tabPage3";
-			this.tabPage3.UseVisualStyleBackColor = true;
 			// 
 			// gbQuotes
 			// 
+			this.gbQuotes.Controls.Add(this.txtStatus);
 			this.gbQuotes.Controls.Add(this.btnSaveQuotes);
 			this.gbQuotes.Controls.Add(this.rtbQuotes);
-			this.gbQuotes.Location = new System.Drawing.Point(211, 6);
+			this.gbQuotes.Location = new System.Drawing.Point(243, 6);
 			this.gbQuotes.Name = "gbQuotes";
-			this.gbQuotes.Size = new System.Drawing.Size(551, 382);
+			this.gbQuotes.Size = new System.Drawing.Size(519, 382);
 			this.gbQuotes.TabIndex = 17;
 			this.gbQuotes.TabStop = false;
 			this.gbQuotes.Text = "Quotes";
 			// 
+			// txtStatus
+			// 
+			this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtStatus.ForeColor = System.Drawing.Color.Green;
+			this.txtStatus.Location = new System.Drawing.Point(6, 356);
+			this.txtStatus.Name = "txtStatus";
+			this.txtStatus.Size = new System.Drawing.Size(433, 16);
+			this.txtStatus.TabIndex = 15;
+			this.txtStatus.Text = "Status acesta este un status ca s-a facut ceva corect bravo tie mai ce sa zicem";
+			// 
 			// btnSaveQuotes
 			// 
 			this.btnSaveQuotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnSaveQuotes.Location = new System.Drawing.Point(477, 352);
+			this.btnSaveQuotes.ForeColor = System.Drawing.Color.Green;
+			this.btnSaveQuotes.Location = new System.Drawing.Point(445, 352);
 			this.btnSaveQuotes.Name = "btnSaveQuotes";
 			this.btnSaveQuotes.Size = new System.Drawing.Size(68, 24);
 			this.btnSaveQuotes.TabIndex = 9;
 			this.btnSaveQuotes.Text = "Save";
 			this.btnSaveQuotes.UseVisualStyleBackColor = true;
+			this.btnSaveQuotes.Click += new System.EventHandler(this.btnSaveQuotes_Click);
 			// 
 			// rtbQuotes
 			// 
@@ -291,7 +166,7 @@
 			this.rtbQuotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.rtbQuotes.Location = new System.Drawing.Point(6, 17);
 			this.rtbQuotes.Name = "rtbQuotes";
-			this.rtbQuotes.Size = new System.Drawing.Size(539, 329);
+			this.rtbQuotes.Size = new System.Drawing.Size(507, 329);
 			this.rtbQuotes.TabIndex = 13;
 			this.rtbQuotes.Text = resources.GetString("rtbQuotes.Text");
 			// 
@@ -302,7 +177,7 @@
 			this.gbChapters.Controls.Add(this.lbChapters);
 			this.gbChapters.Location = new System.Drawing.Point(6, 172);
 			this.gbChapters.Name = "gbChapters";
-			this.gbChapters.Size = new System.Drawing.Size(199, 216);
+			this.gbChapters.Size = new System.Drawing.Size(231, 216);
 			this.gbChapters.TabIndex = 16;
 			this.gbChapters.TabStop = false;
 			this.gbChapters.Text = "Capitole";
@@ -310,22 +185,26 @@
 			// btnDeleteChapter
 			// 
 			this.btnDeleteChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnDeleteChapter.ForeColor = System.Drawing.Color.Red;
 			this.btnDeleteChapter.Location = new System.Drawing.Point(6, 186);
 			this.btnDeleteChapter.Name = "btnDeleteChapter";
 			this.btnDeleteChapter.Size = new System.Drawing.Size(68, 24);
 			this.btnDeleteChapter.TabIndex = 7;
 			this.btnDeleteChapter.Text = "Șterge";
 			this.btnDeleteChapter.UseVisualStyleBackColor = true;
+			this.btnDeleteChapter.Click += new System.EventHandler(this.btnDeleteChapter_Click);
 			// 
 			// btnAddChapter
 			// 
 			this.btnAddChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddChapter.Location = new System.Drawing.Point(123, 186);
+			this.btnAddChapter.ForeColor = System.Drawing.Color.Green;
+			this.btnAddChapter.Location = new System.Drawing.Point(157, 186);
 			this.btnAddChapter.Name = "btnAddChapter";
 			this.btnAddChapter.Size = new System.Drawing.Size(68, 24);
 			this.btnAddChapter.TabIndex = 6;
 			this.btnAddChapter.Text = "Adaugă";
 			this.btnAddChapter.UseVisualStyleBackColor = true;
+			this.btnAddChapter.Click += new System.EventHandler(this.btnAddChapter_Click);
 			// 
 			// lbChapters
 			// 
@@ -338,7 +217,7 @@
             "test4"});
 			this.lbChapters.Location = new System.Drawing.Point(6, 16);
 			this.lbChapters.Name = "lbChapters";
-			this.lbChapters.Size = new System.Drawing.Size(187, 166);
+			this.lbChapters.Size = new System.Drawing.Size(219, 166);
 			this.lbChapters.TabIndex = 5;
 			this.lbChapters.SelectedValueChanged += new System.EventHandler(this.lbChapters_SelectedValueChanged);
 			// 
@@ -349,7 +228,7 @@
 			this.gbBooks.Controls.Add(this.btnAddBook);
 			this.gbBooks.Location = new System.Drawing.Point(6, 89);
 			this.gbBooks.Name = "gbBooks";
-			this.gbBooks.Size = new System.Drawing.Size(199, 77);
+			this.gbBooks.Size = new System.Drawing.Size(231, 77);
 			this.gbBooks.TabIndex = 15;
 			this.gbBooks.TabStop = false;
 			this.gbBooks.Text = "Book";
@@ -357,12 +236,14 @@
 			// btnDeleteBook
 			// 
 			this.btnDeleteBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnDeleteBook.ForeColor = System.Drawing.Color.Red;
 			this.btnDeleteBook.Location = new System.Drawing.Point(6, 47);
 			this.btnDeleteBook.Name = "btnDeleteBook";
 			this.btnDeleteBook.Size = new System.Drawing.Size(68, 24);
 			this.btnDeleteBook.TabIndex = 7;
 			this.btnDeleteBook.Text = "Șterge";
 			this.btnDeleteBook.UseVisualStyleBackColor = true;
+			this.btnDeleteBook.Click += new System.EventHandler(this.btnDeleteBook_Click);
 			// 
 			// cbBooks
 			// 
@@ -370,19 +251,21 @@
 			this.cbBooks.FormattingEnabled = true;
 			this.cbBooks.Location = new System.Drawing.Point(6, 17);
 			this.cbBooks.Name = "cbBooks";
-			this.cbBooks.Size = new System.Drawing.Size(185, 26);
+			this.cbBooks.Size = new System.Drawing.Size(219, 26);
 			this.cbBooks.TabIndex = 2;
 			this.cbBooks.SelectedValueChanged += new System.EventHandler(this.cbBooks_SelectedValueChanged);
 			// 
 			// btnAddBook
 			// 
 			this.btnAddBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddBook.Location = new System.Drawing.Point(123, 47);
+			this.btnAddBook.ForeColor = System.Drawing.Color.Green;
+			this.btnAddBook.Location = new System.Drawing.Point(157, 47);
 			this.btnAddBook.Name = "btnAddBook";
 			this.btnAddBook.Size = new System.Drawing.Size(68, 24);
 			this.btnAddBook.TabIndex = 6;
 			this.btnAddBook.Text = "Adaugă";
 			this.btnAddBook.UseVisualStyleBackColor = true;
+			this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
 			// 
 			// gbCollections
 			// 
@@ -391,7 +274,7 @@
 			this.gbCollections.Controls.Add(this.btnAddCollection);
 			this.gbCollections.Location = new System.Drawing.Point(6, 6);
 			this.gbCollections.Name = "gbCollections";
-			this.gbCollections.Size = new System.Drawing.Size(199, 77);
+			this.gbCollections.Size = new System.Drawing.Size(231, 77);
 			this.gbCollections.TabIndex = 14;
 			this.gbCollections.TabStop = false;
 			this.gbCollections.Text = "Colectia";
@@ -401,7 +284,7 @@
 			this.btnDeleteCollection.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.btnDeleteCollection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnDeleteCollection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnDeleteCollection.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnDeleteCollection.ForeColor = System.Drawing.Color.Red;
 			this.btnDeleteCollection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.btnDeleteCollection.Location = new System.Drawing.Point(6, 47);
 			this.btnDeleteCollection.Name = "btnDeleteCollection";
@@ -409,6 +292,7 @@
 			this.btnDeleteCollection.TabIndex = 7;
 			this.btnDeleteCollection.Text = "Delete";
 			this.btnDeleteCollection.UseVisualStyleBackColor = true;
+			this.btnDeleteCollection.Click += new System.EventHandler(this.btnDeleteCollection_Click);
 			// 
 			// cbCollection
 			// 
@@ -416,7 +300,7 @@
 			this.cbCollection.FormattingEnabled = true;
 			this.cbCollection.Location = new System.Drawing.Point(6, 17);
 			this.cbCollection.Name = "cbCollection";
-			this.cbCollection.Size = new System.Drawing.Size(185, 26);
+			this.cbCollection.Size = new System.Drawing.Size(219, 26);
 			this.cbCollection.TabIndex = 2;
 			this.cbCollection.SelectedValueChanged += new System.EventHandler(this.cbCollection_SelectedValueChanged);
 			// 
@@ -425,13 +309,14 @@
 			this.btnAddCollection.BackColor = System.Drawing.Color.Transparent;
 			this.btnAddCollection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnAddCollection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddCollection.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnAddCollection.Location = new System.Drawing.Point(123, 47);
+			this.btnAddCollection.ForeColor = System.Drawing.Color.Green;
+			this.btnAddCollection.Location = new System.Drawing.Point(157, 47);
 			this.btnAddCollection.Name = "btnAddCollection";
 			this.btnAddCollection.Size = new System.Drawing.Size(68, 24);
 			this.btnAddCollection.TabIndex = 6;
 			this.btnAddCollection.Text = "Adaugă";
 			this.btnAddCollection.UseVisualStyleBackColor = false;
+			this.btnAddCollection.Click += new System.EventHandler(this.btnAddCollection_Click);
 			// 
 			// ManageQuotesForm
 			// 
@@ -439,22 +324,20 @@
 			this.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.ClientSize = new System.Drawing.Size(800, 480);
 			this.ControlBox = false;
-			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.tab1);
 			this.Controls.Add(this.pnlTitle);
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "ManageQuotesForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ManageQuotesForm";
 			this.Load += new System.EventHandler(this.ManageQuotesForm_Load);
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
+			this.tab1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			this.tabPage2.PerformLayout();
-			this.tabPage3.ResumeLayout(false);
 			this.gbQuotes.ResumeLayout(false);
+			this.gbQuotes.PerformLayout();
 			this.gbChapters.ResumeLayout(false);
 			this.gbBooks.ResumeLayout(false);
 			this.gbCollections.ResumeLayout(false);
@@ -467,19 +350,8 @@
 		private Panel pnlTitle;
 		private Label lblTitle;
 		private Button btnClose;
-		private TabControl tabControl1;
+		private TabControl tab1;
 		private TabPage tabPage1;
-		private Button button2;
-		private ComboBox cmbTodoNewCollection;
-		private Button button1;
-		private Label lblCollections;
-		private TabPage tabPage2;
-		private Button button5;
-		private Button button4;
-		private Button button3;
-		private ComboBox cmbToDoBooks;
-		private Label label1;
-		private TabPage tabPage3;
 		private Button btnAddCollection;
 		private ListBox lbChapters;
 		private ComboBox cbCollection;
@@ -495,5 +367,6 @@
 		private RichTextBox rtbQuotes;
 		private GroupBox gbQuotes;
 		private Button btnSaveQuotes;
+		private TextBox txtStatus;
 	}
 }

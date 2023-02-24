@@ -3,6 +3,7 @@ using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
+using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services.DependencyInjection;
@@ -11,7 +12,7 @@ using System.Resources;
 
 namespace Quoter.App
 {
-	public partial class SettingsForm : Form
+    public partial class SettingsForm : Form
 	{
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;

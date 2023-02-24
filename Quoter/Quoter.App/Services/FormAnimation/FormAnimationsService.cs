@@ -30,37 +30,37 @@ namespace Quoter.App.Services.FormAnimation
 			}
 		}
 
-		public async Task CloseDelayedAsync(Form form, int delay, EnumAnimation enumAnimation = EnumAnimation.FadeOut)
-		{
-			Debug.WriteLine($"Start {nameof(CloseDelayedAsync)} Thread: {Thread.CurrentThread.ManagedThreadId}");
-			if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
-			{
-				_timerCloseDelay.Stop();
-				_timerCloseDelay.Dispose();
-			}
-			_timerCloseDelay = new(delay);
-			_timerCloseDelay.Elapsed += async (sender, e) => await ElapsedTimerEventCloseDelayed(form, enumAnimation);
-			_timerCloseDelay.Start();
-		}
+		//public async Task CloseDelayedAsync(Form form, int delay, EnumAnimation enumAnimation = EnumAnimation.FadeOut)
+		//{
+		//	Debug.WriteLine($"Start {nameof(CloseDelayedAsync)} Thread: {Thread.CurrentThread.ManagedThreadId}");
+		//	if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
+		//	{
+		//		_timerCloseDelay.Stop();
+		//		_timerCloseDelay.Dispose();
+		//	}
+		//	_timerCloseDelay = new(delay);
+		//	_timerCloseDelay.Elapsed += async (sender, e) => await ElapsedTimerEventCloseDelayed(form, enumAnimation);
+		//	_timerCloseDelay.Start();
+		//}
 
-		private async Task ElapsedTimerEventCloseDelayed(Form form, EnumAnimation enumAnimation)
-		{
-			Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)} Thread: {Thread.CurrentThread.ManagedThreadId}");
-			if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
-			{
-				_timerCloseDelay.Stop();
-				_timerCloseDelay.Dispose();
-			}
-			await AnimateAsync(form, enumAnimation);
-			if (!form.IsDisposed)
-			{
-				form.InvokeIfRequired(() =>
-				{
-					Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)}.CloseForm Thread: {Thread.CurrentThread.ManagedThreadId}");
-					form.Close();
-				});
-			}
-		}
+		//private async Task ElapsedTimerEventCloseDelayed(Form form, EnumAnimation enumAnimation)
+		//{
+		//	Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)} Thread: {Thread.CurrentThread.ManagedThreadId}");
+		//	if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
+		//	{
+		//		_timerCloseDelay.Stop();
+		//		_timerCloseDelay.Dispose();
+		//	}
+		//	await AnimateAsync(form, enumAnimation);
+		//	if (!form.IsDisposed)
+		//	{
+		//		form.InvokeIfRequired(() =>
+		//		{
+		//			Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)}.CloseForm Thread: {Thread.CurrentThread.ManagedThreadId}");
+		//			form.Close();
+		//		});
+		//	}
+		//}
 
 		private async Task FadeInFromBottomRight(Form form)
 		{

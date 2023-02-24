@@ -144,4 +144,55 @@
   <data name="Manage" xml:space="preserve">
     <value>Administrează</value>
   </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Colecție</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>Carte</value>
+  </data>
+  <data name="Chapters" xml:space="preserve">
+    <value>Capitole</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="CreateEditQuotes" xml:space="preserve">
+    <value>Creează și modifică citatele</value>
+  </data>
+  <data name="ErrTextTooLong" xml:space="preserve">
+    <value>Lungimea este prea mare</value>
+  </data>
+  <data name="ErrTextInvalidChars" xml:space="preserve">
+    <value>Simboluri invalide detectate</value>
+  </data>
+  <data name="CollectionCreated" xml:space="preserve">
+    <value>S-a creat colecția {0}</value>
+  </data>
+  <data name="ErrPleaseInputValue" xml:space="preserve">
+    <value>Introduceți o valoare validă</value>
+  </data>
+  <data name="NewCollection" xml:space="preserve">
+    <value>Colecție nouă</value>
+  </data>
+  <data name="SetCollectionName" xml:space="preserve">
+    <value>Introduceți numele noii colecții</value>
+  </data>
+  <data name="CollectionAlreadyExists" xml:space="preserve">
+    <value>O colecție cu același nume deja există</value>
+  </data>
+  <data name="Quoter" xml:space="preserve">
+    <value>Quoter</value>
+  </data>
+  <data name="WelcomeStartupMessage" xml:space="preserve">
+    <value>Aplicația a pornit în fundal. Va afișa periodic citatele tale preferate.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bine te-am găsit</value>
+  </data>
 </root>

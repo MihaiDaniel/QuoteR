@@ -1,8 +1,9 @@
 ﻿using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.Framework.Services.DependencyInjection;
 
-namespace Quoter.App.Services
+namespace Quoter.App.Services.Forms
 {
 	/// <summary>
 	/// Default implementation of <see cref="IFormsManager"/>
@@ -11,10 +12,12 @@ namespace Quoter.App.Services
 	{
 		private readonly List<FormStateModel> _lstOpenedForms;
 		private readonly DependencyInjectionContainer _diContainer;
+		private readonly IFormLifecycleService _lifecycleService;
 
-		public FormsManager(DependencyInjectionContainer diContainer)
+		public FormsManager(DependencyInjectionContainer diContainer, IFormLifecycleService lifecycleService)
 		{
 			_diContainer = diContainer;
+			_lifecycleService = lifecycleService;
 			_lstOpenedForms = new List<FormStateModel>();
 		}
 
@@ -52,12 +55,26 @@ namespace Quoter.App.Services
 			form.ShowDialog();
 
 			IDialogReturnable dialogReturnable = form as IDialogReturnable;
-			DialogReturnable result = new (dialogReturnable.DialogResult, dialogReturnable.StringResult);
-			if(!form.IsDisposed)
+			DialogReturnable result = new(dialogReturnable.DialogResult, dialogReturnable.StringResult);
+			if (!form.IsDisposed)
 			{
 				form.Dispose();
 			}
 			return result;
+		}
+
+		public void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
+		{
+			Form form = _diContainer.GetService<TForm>(arrParameters);
+			_lstOpenedForms.Add(new FormStateModel(typeof(TForm), form, true));
+			_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
+
+			form.ShowDialog();
+
+			if (!form.IsDisposed)
+			{
+				form.Dispose();
+			}
 		}
 
 		/// <inheritdoc/>
@@ -66,7 +83,10 @@ namespace Quoter.App.Services
 			FormStateModel? formState = _lstOpenedForms.FirstOrDefault(f => f.Form == form);
 			if (formState is not null)
 			{
-				form.Close();
+				form.InvokeIfRequired(() =>
+				{
+					form.Close();
+				});
 				_lstOpenedForms.Remove(formState);
 			}
 			else

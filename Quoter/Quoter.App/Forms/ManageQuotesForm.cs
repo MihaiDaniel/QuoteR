@@ -1,11 +1,15 @@
-﻿using Quoter.App.Services;
+﻿using Quoter.App.Helpers;
+using Quoter.App.Models;
+using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
+using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,10 +18,11 @@ using System.Windows.Forms;
 
 namespace Quoter.App.Forms
 {
-	public partial class ManageQuotesForm : Form
+    public partial class ManageQuotesForm : Form
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;
+		private readonly IStringResources _stringResources;
 		private readonly IRepository _repository;
 
 		private BindingList<CollectionModel> _collections;
@@ -27,6 +32,7 @@ namespace Quoter.App.Forms
 		public ManageQuotesForm(IFormsManager formsManager,
 								IFormPositioningService formPositioningService,
 								IFormAnimationService formAnimationService,
+								IStringResources stringResources,
 								IRepository repository)
 		{
 			InitializeComponent();
@@ -34,12 +40,37 @@ namespace Quoter.App.Forms
 
 			_formsManager = formsManager;
 			_formAnimationService = formAnimationService;
+			_stringResources = stringResources;
 			_repository = repository;
 
 			_collections = new BindingList<CollectionModel>();
 			_books = new BindingList<BookModel>();
 			_chapters = new BindingList<ChapterModel>();
 
+			LocalizeControls();
+			BindControls();
+
+			SetStatus(string.Empty, Color.Black);
+		}
+
+		private void LocalizeControls()
+		{
+			lblTitle.Text = _stringResources["Manage"];
+			tabPage1.Text = _stringResources["CreateEditQuotes"];
+			gbCollections.Text = _stringResources["Collection"];
+			btnAddCollection.Text = _stringResources["Add"];
+			btnDeleteCollection.Text = _stringResources["Delete"];
+			gbBooks.Text = _stringResources["Book"];
+			btnAddBook.Text = _stringResources["Add"];
+			btnDeleteBook.Text = _stringResources["Delete"];
+			gbChapters.Text = _stringResources["Chapters"];
+			btnAddChapter.Text = _stringResources["Add"];
+			btnDeleteChapter.Text = _stringResources["Delete"];
+			btnSaveQuotes.Text = _stringResources["Save"];
+		}
+
+		private void BindControls()
+		{
 			BindingSource bindingSourceCollections = new();
 			bindingSourceCollections.DataSource = _collections;
 
@@ -66,14 +97,11 @@ namespace Quoter.App.Forms
 		{
 			await _formAnimationService.AnimateAsync(this, Framework.Enums.EnumAnimation.FadeIn);
 
-			//cbCollection.DataBindings.Add("Text", )
-
-			var lstCollections = await _repository.GetCollectionsAsync();
-			foreach (var collection in lstCollections)
+			List<CollectionModel> lstCollections = await _repository.GetCollectionsAsync();
+			foreach (CollectionModel collection in lstCollections)
 			{
 				_collections.Add(collection);
 			}
-			cbCollection.SelectedIndex = 0;
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
@@ -83,35 +111,122 @@ namespace Quoter.App.Forms
 
 		private async void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
-			var lstBooks = await _repository.GetBooksAsync(cbCollection.SelectedValue as string);
-			_books.Clear();
-			foreach (var book in lstBooks)
+			if (cbCollection.SelectedItem != null)
 			{
-				_books.Add(book);
+				CollectionModel selectedCollection = cbCollection.SelectedItem as CollectionModel;
+				List<BookModel> lstBooks = await _repository.GetBooksAsync(selectedCollection.Name);
+				_books.Clear();
+				foreach (BookModel book in lstBooks)
+				{
+					_books.Add(book);
+				}
 			}
-			//cbBooks.SelectedIndex = 0;
 		}
 
 		private void cbBooks_SelectedValueChanged(object sender, EventArgs e)
 		{
-			BookModel bookModel = _books.FirstOrDefault(b => b.Name == ((BookModel)cbBooks.SelectedItem).Name);
-			_chapters.Clear();
-			foreach(var chapter in bookModel.LstChapters)
+			if (cbBooks.SelectedItem != null)
 			{
-				_chapters.Add(chapter);
+				BookModel bookModel = cbBooks.SelectedItem as BookModel;
+				_chapters.Clear();
+				if (bookModel != null)
+				{
+					foreach (var chapter in bookModel.LstChapters)
+					{
+						_chapters.Add(chapter);
+					}
+				}
 			}
-			lbChapters.SelectedIndex = 0;
+			else
+			{
+				_chapters.Clear();
+			}
+
 		}
 
 		private void lbChapters_SelectedValueChanged(object sender, EventArgs e)
 		{
-			// Throws exception here
-			ChapterModel chapterModel = _chapters.FirstOrDefault(c => c.Name == ((ChapterModel)lbChapters.SelectedItem).Name);
-			rtbQuotes.Clear();
-			foreach(string quote in chapterModel.LstContent)
+			if (lbChapters.SelectedItem != null)
 			{
-				rtbQuotes.AppendText(quote + "\r\n");
+				ChapterModel selectedChapter = lbChapters.SelectedItem as ChapterModel;
+				rtbQuotes.Clear();
+				foreach (string quote in selectedChapter.LstContent)
+				{
+					rtbQuotes.AppendText(quote + "\r\n");
+				}
 			}
+			else
+			{
+				rtbQuotes.Clear();
+			}
+		}
+
+		private void btnAddCollection_Click(object sender, EventArgs e)
+		{
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			{
+				Title = _stringResources["NewCollection"],
+				Message = _stringResources["SetCollectionName"],
+			});
+
+			if (result.DialogResult == DialogResult.OK)
+			{
+				string newCollectionName = result.StringResult;
+				if (_collections.Any(c => c.Name == newCollectionName))
+				{
+                    _formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+					{
+						Title = _stringResources["Quoter"],
+						Message = _stringResources["CollectionAlreadyExists"],
+						TitleColor = Helpers.Const.ColorWarn,
+					});
+					btnAddCollection_Click(sender, e);
+				}
+				else
+				{
+					CollectionModel newCollection = new() { Name = result.StringResult };
+					_collections.Add(newCollection);
+					cbCollection.SelectedItem = newCollection;
+                    SetStatus(_stringResources["CollectionCreated", result.StringResult], Helpers.Const.ColorOk);
+				}
+			}
+
+		}
+
+		private void btnDeleteCollection_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnAddBook_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnDeleteBook_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnAddChapter_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnDeleteChapter_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnSaveQuotes_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void SetStatus(string message, Color color)
+		{
+			txtStatus.Text = message;
+			txtStatus.ForeColor = color;
 		}
 	}
 }
