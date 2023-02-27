@@ -180,7 +180,7 @@
   <data name="NewCollection" xml:space="preserve">
     <value>Colecție nouă</value>
   </data>
-  <data name="SetCollectionName" xml:space="preserve">
+  <data name="NewCollectionName" xml:space="preserve">
     <value>Introduceți numele noii colecții</value>
   </data>
   <data name="CollectionAlreadyExists" xml:space="preserve">
@@ -194,5 +194,77 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Bine te-am găsit</value>
+  </data>
+  <data name="EditCollection" xml:space="preserve">
+    <value>Modifică numele colecției</value>
+  </data>
+  <data name="EditCollectionMsg" xml:space="preserve">
+    <value>Introduceți noul nume al colecției</value>
+  </data>
+  <data name="DeleteCollection" xml:space="preserve">
+    <value>Șterge colecția</value>
+  </data>
+  <data name="DeleteCollectionMsg" xml:space="preserve">
+    <value>Doriți să ștergeți colecția {0}? Tot conținutul acesteia se va pierde.</value>
+  </data>
+  <data name="QuotesSaved" xml:space="preserve">
+    <value>Noile citate s-au salvat cu success</value>
+  </data>
+  <data name="NewBook" xml:space="preserve">
+    <value>Carte nouă</value>
+  </data>
+  <data name="NewBookName" xml:space="preserve">
+    <value>Introduceți numele noii cărți din colecția {0}</value>
+  </data>
+  <data name="BookAlreadyExists" xml:space="preserve">
+    <value>O carte cu același nume deja există</value>
+  </data>
+  <data name="BookCreated" xml:space="preserve">
+    <value>S-a creat cartea {0} în colecția {1}</value>
+  </data>
+  <data name="EditBook" xml:space="preserve">
+    <value>Modifică numele cărții</value>
+  </data>
+  <data name="EditBookMsg" xml:space="preserve">
+    <value>Introduceți noul nume al cărții</value>
+  </data>
+  <data name="DeleteBook" xml:space="preserve">
+    <value>Șterge carte</value>
+  </data>
+  <data name="DeleteBookMsg" xml:space="preserve">
+    <value>Doriți să ștergeți cartea {0}? Tot conținutul acesteia se va pierde.</value>
+  </data>
+  <data name="NewChapter" xml:space="preserve">
+    <value>Capitol nou</value>
+  </data>
+  <data name="NewChapterName" xml:space="preserve">
+    <value>Introduceți numele noului capitol din cartea {0}</value>
+  </data>
+  <data name="ChapterAlreadyExists" xml:space="preserve">
+    <value>Un capitol cu același nume deja există</value>
+  </data>
+  <data name="ChapterCreated" xml:space="preserve">
+    <value>S-a creat capitolul {0} din cartea {1}</value>
+  </data>
+  <data name="EditChapter" xml:space="preserve">
+    <value>Modifică numele capitolului</value>
+  </data>
+  <data name="EditChapterMsg" xml:space="preserve">
+    <value>Introduceți noul nume al capitolului</value>
+  </data>
+  <data name="DeleteChapter" xml:space="preserve">
+    <value>Șterge capitol</value>
+  </data>
+  <data name="DeleteChapterMsg" xml:space="preserve">
+    <value>Doriți să ștergeți capitolul {0}? Tot conținutul acestuia se va pierde.</value>
+  </data>
+  <data name="ModifyQuotes" xml:space="preserve">
+    <value>Modifică colecția de citate</value>
+  </data>
+  <data name="ManageQuotes" xml:space="preserve">
+    <value>Administrează citatele preferate</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Citate</value>
   </data>
 </root>

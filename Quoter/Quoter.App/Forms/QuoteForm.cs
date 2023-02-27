@@ -5,20 +5,11 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Quoter.App.Views
 {
-	public partial class MessageForm : Form, IMonitoredForm
+	public partial class QuoteForm : Form, IMonitoredForm
 	{
 		private const int TitleMaxChars = 35;
 		private const int BodyMaxChars = 170;
@@ -31,13 +22,13 @@ namespace Quoter.App.Views
 
 		private List<IFormMonitor> _lstFormMonitors;
 
-		private readonly MessageModel _messageModel;
+		private readonly QuoteModel _messageModel;
 
-		public MessageForm(IFormsManager formsManager,
+		public QuoteForm(IFormsManager formsManager,
 							ISettings settings,
 							IFormPositioningService positioningService,
 							IFormAnimationService animationService,
-							MessageModel messageModel)
+							QuoteModel messageModel)
 		{
 			InitializeComponent();
 			_formsManager = formsManager;
@@ -52,7 +43,7 @@ namespace Quoter.App.Views
 			InitializeMessage(messageModel);
 		}
 
-		private void InitializeMessage(MessageModel messageModel)
+		private void InitializeMessage(QuoteModel messageModel)
 		{
 			SetControlText(lblTitle, messageModel.Title, TitleMaxChars);
 			SetControlText(txtBody, messageModel.Body, BodyMaxChars);
@@ -75,23 +66,29 @@ namespace Quoter.App.Views
 			_lstFormMonitors.Add(formMonitor);
 		}
 
-		public bool CanClose()
+		public EnumFormCloseState CanClose()
 		{
 			bool keepOpen = _settings.Get<bool>(Const.Setting.KeepNotificationOpenOnMouseOver);
 
 			// Keep open while mouse is over the form
+			if(this.IsDisposed)
+			{
+				return EnumFormCloseState.Disposed;
+			}
+
 			if(keepOpen)
 			{
-				return this.InvokeIfRequiredReturn<bool>(() =>
+				return this.InvokeIfRequiredReturn<EnumFormCloseState>(() =>
 				{
 					if (ClientRectangle.Contains(PointToClient(Control.MousePosition)))
 					{
-						return false;
+						return EnumFormCloseState.NotClosable;
 					}
-					return true;
+					return EnumFormCloseState.IsClosable;
 				});
 			}
-			return true;
+			return EnumFormCloseState.IsClosable;
+			
 		}
 
 		public async new void Close()

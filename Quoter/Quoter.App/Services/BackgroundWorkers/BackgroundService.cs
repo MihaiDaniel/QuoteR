@@ -59,14 +59,14 @@ namespace Quoter.App.Services.BackgroundWorkers
 			}
 		}
 
-		private readonly ConcurrentBag<QuoteModel> _concurrentBagQuotes;
+		private readonly ConcurrentBag<QuoteModelToDelete> _concurrentBagQuotes;
 		private readonly Dictionary<string, DateTime> _filesScanned;
 		private readonly IFileReader _fileReader;
 
 		public BackgroundService()
 		{
 			_fileReader = new FileReader();
-			_concurrentBagQuotes = new ConcurrentBag<QuoteModel>();
+			_concurrentBagQuotes = new ConcurrentBag<QuoteModelToDelete>();
 			_filesScanned = new Dictionary<string, DateTime>();
 		}
 
@@ -112,7 +112,7 @@ namespace Quoter.App.Services.BackgroundWorkers
 				}
 
 				_isShowingNotification = true;
-				QuoteModel? quote = null;
+				QuoteModelToDelete? quote = null;
 				int tryAttempt = 10;
 				while (tryAttempt > 0 && quote is null)
 				{
@@ -125,7 +125,7 @@ namespace Quoter.App.Services.BackgroundWorkers
 					return;
 				}
 
-				MessageModel messageModel = new()
+				QuoteModel messageModel = new()
 				{
 					Title = quote.File,
 					Body = quote.Body,

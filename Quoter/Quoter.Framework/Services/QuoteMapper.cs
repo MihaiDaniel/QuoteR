@@ -9,12 +9,12 @@ namespace Quoter.Framework.Services
 {
 	public class QuoteMapper : IQuoteMapper
 	{
-		public List<QuoteModel> GetQuotes(List<string> lstString, string title)
+		public List<QuoteModelToDelete> GetQuotes(List<string> lstString, string title)
 		{
-			List<QuoteModel> lstQuotes = new List<QuoteModel>();
+			List<QuoteModelToDelete> lstQuotes = new List<QuoteModelToDelete>();
 			foreach (string line in lstString)
 			{
-				QuoteModel? quote = TryGetQuoteFromLine(line);
+				QuoteModelToDelete? quote = TryGetQuoteFromLine(line);
 				if (quote != null)
 				{
 					lstQuotes.Add(quote);
@@ -23,12 +23,12 @@ namespace Quoter.Framework.Services
 			return lstQuotes;
 		}
 
-		private QuoteModel? TryGetQuoteFromLine(string line)
+		private QuoteModelToDelete? TryGetQuoteFromLine(string line)
 		{
 			string[] arrContent = line.Split(new char[] { '\r', '\n', '\t' });
 			if (arrContent.Length == 3) // Title, footer, body
 			{
-				return new QuoteModel()
+				return new QuoteModelToDelete()
 				{
 					Chapter = arrContent[0],
 					Subchapter = arrContent[1],
@@ -37,7 +37,7 @@ namespace Quoter.Framework.Services
 			}
 			else if (arrContent.Length == 2) // Title, body
 			{
-				return new QuoteModel()
+				return new QuoteModelToDelete()
 				{
 					Chapter = arrContent[0],
 					Body = arrContent[2]
@@ -45,7 +45,7 @@ namespace Quoter.Framework.Services
 			}
 			else if (arrContent.Length == 1) // body
 			{
-				return new QuoteModel()
+				return new QuoteModelToDelete()
 				{
 					Body = arrContent[0],
 				};

@@ -25,16 +25,7 @@ namespace Quoter.App.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\reminderFolder")]
-        public string ScannedFolder {
-            get {
-                return ((string)(this["ScannedFolder"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public int NotificationIntervalSeconds {
             get {
                 return ((int)(this["NotificationIntervalSeconds"]));
@@ -43,19 +34,10 @@ namespace Quoter.App.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
         public int AutoCloseNotificationSeconds {
             get {
                 return ((int)(this["AutoCloseNotificationSeconds"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int ScanFolderInterval {
-            get {
-                return ((int)(this["ScanFolderInterval"]));
             }
         }
         
@@ -65,15 +47,6 @@ namespace Quoter.App.Properties {
         public bool IsPaused {
             get {
                 return ((bool)(this["IsPaused"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string CollectionsDirectory {
-            get {
-                return ((string)(this["CollectionsDirectory"]));
             }
         }
         
@@ -92,6 +65,24 @@ namespace Quoter.App.Properties {
         public bool KeepNotificationOpenOnMouseOver {
             get {
                 return ((bool)(this["KeepNotificationOpenOnMouseOver"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsFirstStart {
+            get {
+                return ((bool)(this["IsFirstStart"]));
             }
         }
     }

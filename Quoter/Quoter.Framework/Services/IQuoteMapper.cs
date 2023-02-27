@@ -9,6 +9,6 @@ namespace Quoter.Framework.Services
 {
 	public interface IQuoteMapper
 	{
-		List<QuoteModel> GetQuotes(List<string> lstString, string title);
+		List<QuoteModelToDelete> GetQuotes(List<string> lstString, string title);
 	}
 }

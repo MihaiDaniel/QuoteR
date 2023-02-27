@@ -33,7 +33,9 @@
 			this.btnOk = new System.Windows.Forms.Button();
 			this.txtMessage = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnCancel = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pnlTitle
@@ -60,11 +62,11 @@
 			// 
 			// btnOk
 			// 
-			this.btnOk.Location = new System.Drawing.Point(214, 127);
+			this.btnOk.Location = new System.Drawing.Point(86, 92);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(114, 31);
 			this.btnOk.TabIndex = 3;
-			this.btnOk.Text = "button1";
+			this.btnOk.Text = "ok";
 			this.btnOk.UseVisualStyleBackColor = true;
 			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
 			// 
@@ -82,10 +84,22 @@
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.White;
+			this.panel1.Controls.Add(this.btnOk);
+			this.panel1.Controls.Add(this.btnCancel);
 			this.panel1.Location = new System.Drawing.Point(4, 35);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(331, 131);
 			this.panel1.TabIndex = 5;
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Location = new System.Drawing.Point(206, 92);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(114, 31);
+			this.btnCancel.TabIndex = 6;
+			this.btnCancel.Text = "cancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
 			// DialogMessageForm
 			// 
@@ -96,7 +110,6 @@
 			this.ControlBox = false;
 			this.Controls.Add(this.pnlTitle);
 			this.Controls.Add(this.txtMessage);
-			this.Controls.Add(this.btnOk);
 			this.Controls.Add(this.panel1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "DialogMessageForm";
@@ -104,6 +117,7 @@
 			this.Text = "DialogForm";
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
+			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -116,5 +130,6 @@
 		private Button btnOk;
 		private TextBox txtMessage;
 		private Panel panel1;
+		private Button btnCancel;
 	}
 }

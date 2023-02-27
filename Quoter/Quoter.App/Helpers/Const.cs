@@ -45,7 +45,11 @@ namespace Quoter.App.Helpers
 
 			public const string KeepNotificationOpenOnMouseOver = "KeepNotificationOpenOnMouseOver";
 
+			public const string IsFirstStart = "IsFirstStart";
+
 			public const string IsPaused = "IsPaused";
+
+			public const string ConnectionString = "ConnectionString";
 		}
 
 		public static class SettingDefault
@@ -54,6 +58,7 @@ namespace Quoter.App.Helpers
 			public const int AutoCloseNotificationSeconds = 30; // 30 seconds
 			public const bool ShowWelcomeNotification = true;
 			public const bool KeepNotificationOpenOnMouseOver = true;
+
 		}
 
 	}

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
@@ -5,6 +6,8 @@ using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
+using Quoter.Framework.Data;
+using Quoter.Framework.Entities;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services.DependencyInjection;
 using System.ComponentModel;
@@ -14,17 +17,20 @@ namespace Quoter.App
 {
     public partial class SettingsForm : Form
 	{
+		private readonly QuoterContext _context;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
 
-		public SettingsForm(IFormAnimationService formAnimationService,
+		public SettingsForm(QuoterContext context,
+							IFormAnimationService formAnimationService,
 							IFormPositioningService formPositioningService,
 							IStringResources stringResources,
 							IFormsManager formsManager)
 		{
 			InitializeComponent();
+			_context = context;
 			_formAnimationService = formAnimationService;
 			_positioningService = formPositioningService;
 			_stringResources = stringResources;
@@ -96,6 +102,19 @@ namespace Quoter.App
 		private void button2_Click(object sender, EventArgs e)
 		{
 			_formsManager.Show<WelcomeForm>();
+		}
+
+		private async void button3_Click(object sender, EventArgs e)
+		{
+			string text = textBox1.Text;
+
+			_context.Collections.Add(new Collection()
+			{
+				Name = text,
+			});
+			await _context.SaveChangesAsync();
+
+
 		}
 	}
 }

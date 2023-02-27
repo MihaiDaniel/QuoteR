@@ -1,11 +1,4 @@
-﻿using Quoter.App.Helpers.Extensions;
-using Quoter.Framework.Enums;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.Framework.Enums;
 
 namespace Quoter.App.Services.Forms
 {
@@ -57,16 +50,23 @@ namespace Quoter.App.Services.Forms
 
 		private void ElapsedTimerEventCloseDelayed(MonitoredForm monitoredForm)
 		{
-			if (monitoredForm.Form.CanClose())
+			EnumFormCloseState state = monitoredForm.Form.CanClose();
+			if (state == EnumFormCloseState.IsClosable)			// Can close
 			{
 				monitoredForm.Timer.Stop();
 				monitoredForm.Timer.Dispose();
 				_monitoredForms.Remove(monitoredForm);
 				monitoredForm.Form.Close();
 			}
-			else
+			else if (state == EnumFormCloseState.NotClosable)	// Retry close every 1 second
 			{
-				monitoredForm.Timer.Interval = 1000; // retry close every 1 second
+				monitoredForm.Timer.Interval = 1000; 
+			}
+			else												// Disposed
+			{
+				monitoredForm.Timer.Stop();
+				monitoredForm.Timer.Dispose();
+				_monitoredForms.Remove(monitoredForm);
 			}
 		}
 	}

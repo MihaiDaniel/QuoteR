@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Quoter.App.Forms
 {
-    public partial class DialogInputForm : Form, IDialogReturnable
+	public partial class DialogInputForm : Form, IDialogReturnable
 	{
 		private const int MaxLength = 38;
 		private readonly IFormsManager _formsManager;
@@ -29,23 +29,24 @@ namespace Quoter.App.Forms
 			_formsManager = formsManager;
 			_stringResources = stringResources;
 
+			// Allow characters valid for file names a-zA-Z0-9
+			_regexInput = new Regex(@"^[\w\-. ]+$");
+
 			pnlTitle.BackColor = dialogModel.TitleColor;
 			lblTitle.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
 			btnCancel.Text = _stringResources["Cancel"];
 			btnOk.Text = _stringResources["OK"];
-			txtInput.Text = string.Empty;
+			txtInput.Text = dialogModel.Value;
 			txtStatus.Text = string.Empty;
 
-			// Allow characters valid for file names a-zA-Z0-9
-			_regexInput = new Regex(@"^[\w\-. ]+$");
 			StringResult = string.Empty;
 			DialogResult = DialogResult.None;
 		}
 
 		private void btnOk_Click(object sender, EventArgs e)
 		{
-			if(string.IsNullOrWhiteSpace(txtInput.Text)) 
+			if (string.IsNullOrWhiteSpace(txtInput.Text))
 			{
 				SetStatus(_stringResources["ErrPleaseInputValue"], Color.Red);
 			}
@@ -75,7 +76,7 @@ namespace Quoter.App.Forms
 				txtInput.Text = txtInput.Text.Substring(0, txtInput.Text.Length - 1);
 				SetStatus(_stringResources["ErrTextInvalidChars"], Color.Red);
 				txtInput.SelectionStart = txtInput.Text.Length;
-				txtInput.SelectionLength = 0; 
+				txtInput.SelectionLength = 0;
 			}
 			else
 			{

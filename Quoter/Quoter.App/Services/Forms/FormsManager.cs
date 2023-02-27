@@ -63,11 +63,16 @@ namespace Quoter.App.Services.Forms
 			return result;
 		}
 
+		/// <inheritdoc/>
 		public void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
 		{
 			Form form = _diContainer.GetService<TForm>(arrParameters);
 			_lstOpenedForms.Add(new FormStateModel(typeof(TForm), form, true));
-			_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
+			
+			if(autoCloseSeconds > 0)
+			{
+				_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
+			}
 
 			form.ShowDialog();
 

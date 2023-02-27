@@ -180,7 +180,7 @@
   <data name="NewCollection" xml:space="preserve">
     <value>New collection</value>
   </data>
-  <data name="SetCollectionName" xml:space="preserve">
+  <data name="NewCollectionName" xml:space="preserve">
     <value>Set the name of the new collection</value>
   </data>
   <data name="CollectionAlreadyExists" xml:space="preserve">
@@ -194,5 +194,77 @@
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
+  </data>
+  <data name="EditCollection" xml:space="preserve">
+    <value>Edit collection name</value>
+  </data>
+  <data name="EditCollectionMsg" xml:space="preserve">
+    <value>Enter the new name of the collection</value>
+  </data>
+  <data name="DeleteCollection" xml:space="preserve">
+    <value>Delete colection</value>
+  </data>
+  <data name="DeleteCollectionMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the collection {0} ? All it's content will be lost.</value>
+  </data>
+  <data name="QuotesSaved" xml:space="preserve">
+    <value>Quotes saved succesfully</value>
+  </data>
+  <data name="NewBook" xml:space="preserve">
+    <value>New book</value>
+  </data>
+  <data name="NewBookName" xml:space="preserve">
+    <value>Set the name of the new book in collection {0}</value>
+  </data>
+  <data name="BookAlreadyExists" xml:space="preserve">
+    <value>A book with the same name already exists</value>
+  </data>
+  <data name="BookCreated" xml:space="preserve">
+    <value>Book {0} created in collection {1}</value>
+  </data>
+  <data name="EditBook" xml:space="preserve">
+    <value>Edit book name</value>
+  </data>
+  <data name="EditBookMsg" xml:space="preserve">
+    <value>Enter the new name of the book</value>
+  </data>
+  <data name="DeleteBook" xml:space="preserve">
+    <value>Delete book</value>
+  </data>
+  <data name="DeleteBookMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the book {0} ? All it's content will be lost.</value>
+  </data>
+  <data name="NewChapter" xml:space="preserve">
+    <value>New chapter</value>
+  </data>
+  <data name="NewChapterName" xml:space="preserve">
+    <value>Set the name of the new chapter of book {0}</value>
+  </data>
+  <data name="ChapterAlreadyExists" xml:space="preserve">
+    <value>A chapter with the same name already exists</value>
+  </data>
+  <data name="ChapterCreated" xml:space="preserve">
+    <value>Chapter {0} created in book {1}</value>
+  </data>
+  <data name="EditChapter" xml:space="preserve">
+    <value>Edit chapter name</value>
+  </data>
+  <data name="EditChapterMsg" xml:space="preserve">
+    <value>Enter the new name of the chapter</value>
+  </data>
+  <data name="DeleteChapter" xml:space="preserve">
+    <value>Delete chapter</value>
+  </data>
+  <data name="DeleteChapterMsg" xml:space="preserve">
+    <value>Are you sure you want to delete the chapter {0} ? All it's content will be lost.</value>
+  </data>
+  <data name="ModifyQuotes" xml:space="preserve">
+    <value>Modify your quotes collection</value>
+  </data>
+  <data name="ManageQuotes" xml:space="preserve">
+    <value>Manage your quots</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Quotes</value>
   </data>
 </root>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.Framework.Enums;
 
 namespace Quoter.App.Models
 {
@@ -13,5 +9,9 @@ namespace Quoter.App.Models
 		public string Title { get; set; }
 
 		public string Message { get; set; }
+
+		public string Value { get; set; }
+
+		public EnumDialogButtons MessageBoxButtons { get; set; } = EnumDialogButtons.Ok;
 	}
 }

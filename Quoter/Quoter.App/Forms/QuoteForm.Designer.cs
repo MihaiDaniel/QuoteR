@@ -1,6 +1,6 @@
 ﻿namespace Quoter.App.Views
 {
-	partial class MessageForm
+	partial class QuoteForm
 	{
 		/// <summary>
 		/// Required designer variable.
