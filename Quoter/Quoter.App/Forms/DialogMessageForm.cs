@@ -26,6 +26,7 @@ namespace Quoter.App.Forms
 			pnlTitle.BackColor = dialogModel.TitleColor;
 			lblTopBar.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
+			txtMessage.SelectionLength= 0; // Stop text from being selected
 			btnOk.Text = stringResources["OK"];
 			btnCancel.Text = stringResources["Cancel"];
 

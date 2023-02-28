@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quoter.Framework.Entities
+﻿namespace Quoter.Framework.Entities
 {
+	/// <summary>
+	/// Represents a chapter of a book
+	/// </summary>
 	public class Chapter
 	{
 		public int ChapterId { get; set; }
 
 		public string Name { get; set; }
+
+		public string? Description { get; set; }
+
+		/// <summary>
+		/// The chapter index number in the book
+		/// </summary>
+		public int ChapterIndex { get; set; }
 
 		#region FK
 

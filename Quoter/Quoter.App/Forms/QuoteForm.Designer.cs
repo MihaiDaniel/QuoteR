@@ -28,11 +28,14 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuoteForm));
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.txtBody = new System.Windows.Forms.TextBox();
 			this.txtFooter = new System.Windows.Forms.TextBox();
+			this.btnNextQuote = new System.Windows.Forms.Button();
+			this.btnPreviousQuote = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -68,7 +71,7 @@
 			// lblTitle
 			// 
 			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Calibri Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblTitle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.lblTitle.ForeColor = System.Drawing.Color.White;
 			this.lblTitle.Location = new System.Drawing.Point(11, 6);
 			this.lblTitle.Name = "lblTitle";
@@ -80,37 +83,68 @@
 			// 
 			this.txtBody.BackColor = System.Drawing.Color.White;
 			this.txtBody.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtBody.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+			this.txtBody.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
 			this.txtBody.Location = new System.Drawing.Point(11, 36);
 			this.txtBody.Multiline = true;
 			this.txtBody.Name = "txtBody";
 			this.txtBody.ReadOnly = true;
-			this.txtBody.Size = new System.Drawing.Size(357, 84);
+			this.txtBody.Size = new System.Drawing.Size(357, 94);
 			this.txtBody.TabIndex = 1;
-			this.txtBody.Text = "123456789012345678901234567890123456789012345678901234567890123456789012345678901" +
-    "23456789012345678901234567890";
+			this.txtBody.Text = resources.GetString("txtBody.Text");
 			this.txtBody.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// txtFooter
 			// 
 			this.txtFooter.BackColor = System.Drawing.Color.White;
 			this.txtFooter.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtFooter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.txtFooter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.txtFooter.Location = new System.Drawing.Point(12, 128);
 			this.txtFooter.Name = "txtFooter";
 			this.txtFooter.ReadOnly = true;
 			this.txtFooter.Size = new System.Drawing.Size(356, 20);
 			this.txtFooter.TabIndex = 2;
-			this.txtFooter.Text = "1234567890123456789012345678901234567890";
+			this.txtFooter.Text = "123456789012345678901234567890123456789012345678901234567890";
 			this.txtFooter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
-			// MessageForm
+			// btnNextQuote
+			// 
+			this.btnNextQuote.BackColor = System.Drawing.Color.Transparent;
+			this.btnNextQuote.FlatAppearance.BorderSize = 0;
+			this.btnNextQuote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnNextQuote.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnNextQuote.ForeColor = System.Drawing.Color.Silver;
+			this.btnNextQuote.Location = new System.Drawing.Point(364, 36);
+			this.btnNextQuote.Name = "btnNextQuote";
+			this.btnNextQuote.Size = new System.Drawing.Size(17, 94);
+			this.btnNextQuote.TabIndex = 3;
+			this.btnNextQuote.Text = "▶ ";
+			this.btnNextQuote.UseVisualStyleBackColor = false;
+			this.btnNextQuote.Click += new System.EventHandler(this.btnNextQuote_Click);
+			// 
+			// btnPreviousQuote
+			// 
+			this.btnPreviousQuote.BackColor = System.Drawing.Color.Transparent;
+			this.btnPreviousQuote.FlatAppearance.BorderSize = 0;
+			this.btnPreviousQuote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnPreviousQuote.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnPreviousQuote.ForeColor = System.Drawing.Color.Silver;
+			this.btnPreviousQuote.Location = new System.Drawing.Point(-2, 36);
+			this.btnPreviousQuote.Name = "btnPreviousQuote";
+			this.btnPreviousQuote.Size = new System.Drawing.Size(17, 94);
+			this.btnPreviousQuote.TabIndex = 4;
+			this.btnPreviousQuote.Text = "◀ ";
+			this.btnPreviousQuote.UseVisualStyleBackColor = false;
+			this.btnPreviousQuote.Click += new System.EventHandler(this.btnPreviousQuote_Click);
+			// 
+			// QuoteForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(380, 160);
 			this.ControlBox = false;
+			this.Controls.Add(this.btnPreviousQuote);
+			this.Controls.Add(this.btnNextQuote);
 			this.Controls.Add(this.txtFooter);
 			this.Controls.Add(this.txtBody);
 			this.Controls.Add(this.pnlTitle);
@@ -119,7 +153,7 @@
 			this.MaximizeBox = false;
 			this.MdiChildrenMinimizedAnchorBottom = false;
 			this.MinimizeBox = false;
-			this.Name = "MessageForm";
+			this.Name = "QuoteForm";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -139,5 +173,7 @@
 		private TextBox txtBody;
 		private TextBox txtFooter;
 		private Button btnClose;
+		private Button btnNextQuote;
+		private Button btnPreviousQuote;
 	}
 }

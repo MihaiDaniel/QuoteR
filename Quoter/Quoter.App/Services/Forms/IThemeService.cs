@@ -1,13 +1,14 @@
-﻿using Quoter.Framework.Entities;
+﻿using Quoter.App.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quoter.App.Forms
+namespace Quoter.App.Services.Forms
 {
-	public interface IEditQuotesForm : IForm
+	public interface IThemeService
 	{
+		Theme GetCurrentTheme();
 	}
 }

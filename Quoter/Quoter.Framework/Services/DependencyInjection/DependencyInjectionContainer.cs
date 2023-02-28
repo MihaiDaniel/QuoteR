@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace Quoter.Framework.Services.DependencyInjection
 {
+	/// <summary>
+	/// Custom implementation of a dependency injection container.
+	/// Does not handle more complicated stuff as check for circular dependencies
+	/// </summary>
 	public class DependencyInjectionContainer
 	{
 		private readonly Dictionary<Type, ServiceDescriptor> _registeredServices;
@@ -16,6 +15,14 @@ namespace Quoter.Framework.Services.DependencyInjection
 			_registeredServices = registeredServices;
 		}
 
+		/// <summary>
+		/// Resolve and return a service of type <typeparamref name="T"/> as it was registered.
+		/// You can specify any additional optional parameters in <paramref name="arrParameters"/> that
+		/// the object expects
+		/// </summary>
+		/// <typeparam name="T">Type of object to resolve</typeparam>
+		/// <param name="arrParameters">Optional parameters that the service might expect (such as poco's)</param>
+		/// <returns>The resolved service</returns>
 		public T GetService<T>(params object[] arrParameters)
 		{
 			return (T)GetService(typeof(T), arrParameters);
@@ -67,7 +74,12 @@ namespace Quoter.Framework.Services.DependencyInjection
 			// Order parameters in the order we expect for the constructor chosen
 			lstParametersResolved = OrderConstructorParameters(lstParametersResolved, parmetersTypes);
 
-			object instance = Activator.CreateInstance(instanceType, lstParametersResolved.ToArray());
+			object? instance = Activator.CreateInstance(instanceType, lstParametersResolved.ToArray());
+
+			if(instance == null)
+			{
+				throw new ArgumentException($"Could not create instance of {instanceType}");
+			}
 
 			if (serviceDescriptor.Lifetime == EnumServiceLifetime.Singleton)
 			{
@@ -97,7 +109,7 @@ namespace Quoter.Framework.Services.DependencyInjection
 			ConstructorInfo[] arrConstructorInfo = instanceType.GetConstructors();
 
 			// If not any particular parameters are specified just get 
-			// the first constructor that has the least parameters
+			// the first constructor that has the least parameters.
 			if (arrParameters is null || arrParameters.Length == 0)
 			{
 				return arrConstructorInfo

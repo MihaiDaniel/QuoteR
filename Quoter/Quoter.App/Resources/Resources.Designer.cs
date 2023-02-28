@@ -103,6 +103,36 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flag_france_64 {
+            get {
+                object obj = ResourceManager.GetObject("flag_france_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flag_romania_64 {
+            get {
+                object obj = ResourceManager.GetObject("flag_romania_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flag_uk_64 {
+            get {
+                object obj = ResourceManager.GetObject("flag_uk_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folder_96 {
             get {
                 object obj = ResourceManager.GetObject("folder_96", resourceCulture);
@@ -166,6 +196,16 @@ namespace Quoter.App.Resources {
         internal static System.Drawing.Bitmap plus_32 {
             get {
                 object obj = ResourceManager.GetObject("plus_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap quote_64 {
+            get {
+                object obj = ResourceManager.GetObject("quote_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

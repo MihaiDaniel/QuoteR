@@ -62,6 +62,9 @@
 			// 
 			// btnOk
 			// 
+			this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+			this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnOk.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.btnOk.Location = new System.Drawing.Point(86, 92);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(114, 31);
@@ -72,6 +75,7 @@
 			// 
 			// txtMessage
 			// 
+			this.txtMessage.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtMessage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.txtMessage.Location = new System.Drawing.Point(12, 46);
@@ -83,7 +87,7 @@
 			// 
 			// panel1
 			// 
-			this.panel1.BackColor = System.Drawing.Color.White;
+			this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.panel1.Controls.Add(this.btnOk);
 			this.panel1.Controls.Add(this.btnCancel);
 			this.panel1.Location = new System.Drawing.Point(4, 35);
@@ -93,6 +97,9 @@
 			// 
 			// btnCancel
 			// 
+			this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnCancel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.btnCancel.Location = new System.Drawing.Point(206, 92);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(114, 31);

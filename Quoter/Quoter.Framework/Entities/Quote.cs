@@ -6,11 +6,24 @@ using System.Threading.Tasks;
 
 namespace Quoter.Framework.Entities
 {
+	/// <summary>
+	/// Represents the quote content.
+	/// </summary>
 	public class Quote
 	{
+		/// <summary>
+		/// PK
+		/// </summary>
 		public long QuoteId { get; set; }
 
+		/// <summary>
+		/// The quote index number in the chapter / book or collection
+		/// </summary>
+		public int QuoteIndex { get; set; }
+
 		public string Content { get; set; }
+
+		public string? Description { get; set; }
 
 		#region FK
 
@@ -27,6 +40,6 @@ namespace Quoter.Framework.Entities
 
 		public Chapter? Chapter { get; set; }
 
-		#endregion FX
+		#endregion FK
 	}
 }

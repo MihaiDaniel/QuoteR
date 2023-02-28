@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Quoter.App.Helpers
 {
 	/// <summary>
-	/// Contains application constants
+	/// Contains application constants, descriptions
 	/// </summary>
 	public static class Const
 	{
@@ -15,6 +15,21 @@ namespace Quoter.App.Helpers
 		public static readonly Color ColorWarn = Color.DarkOrange;
 		public static readonly Color ColorOk = Color.Green;
 		public static readonly Color ColorDefault = Color.SlateGray;
+
+		public static class AppColor
+		{
+			public static readonly Color ColorWindow = Color.WhiteSmoke;
+		}
+
+		/// <summary>
+		/// Contains events used for the messaging service
+		/// </summary>
+		public static class Event
+		{
+			public const string LanguageChanged = "LanguageChanged";
+			public const string NotificationIntervalChanged = "NotificationIntervalChanged";
+			public const string ShowCollectionsBasedOnLanguageChanged = "ShowCollectionsBasedOnLanguage";
+		}
 
 		/// <summary>
 		/// Name of the directory where the collections of quotes will be stored
@@ -45,11 +60,19 @@ namespace Quoter.App.Helpers
 
 			public const string KeepNotificationOpenOnMouseOver = "KeepNotificationOpenOnMouseOver";
 
+			public const string Language = "Language";
+
+			public const string ShowCollectionsBasedOnLanguage = "ShowCollectionsBasedOnLanguage";
+
 			public const string IsFirstStart = "IsFirstStart";
 
 			public const string IsPaused = "IsPaused";
 
 			public const string ConnectionString = "ConnectionString";
+
+			public const string Theme = "Theme";
+
+			public const string Opacity = "Opacity";
 		}
 
 		public static class SettingDefault
@@ -58,6 +81,7 @@ namespace Quoter.App.Helpers
 			public const int AutoCloseNotificationSeconds = 30; // 30 seconds
 			public const bool ShowWelcomeNotification = true;
 			public const bool KeepNotificationOpenOnMouseOver = true;
+			public const bool ShowCollectionsBasedOnLanguage = false;
 
 		}
 

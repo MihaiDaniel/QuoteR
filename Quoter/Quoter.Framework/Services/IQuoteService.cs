@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services
 {
-	public interface IQuoteMapper
+	public interface IQuoteService
 	{
-		List<QuoteModelToDelete> GetQuotes(List<string> lstString, string title);
+		Task<QuoteModel?> GetRandomQuote();
+
+		Task<QuoteModel?> GetNextQuote(long quoteId);
+
+		Task<QuoteModel?> GetPreviousQuote(long quoteId);
 	}
 }

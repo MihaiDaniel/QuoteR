@@ -69,7 +69,6 @@ namespace Quoter.App
 		private void SettingsForm_Load(object sender, EventArgs e)
 		{
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
-			txtFolder.Text = Properties.Settings.Default["ScannedFolder"].ToString();
 		}
 
 		private void btnBrowse_Click(object sender, EventArgs e)

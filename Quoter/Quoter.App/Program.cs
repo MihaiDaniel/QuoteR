@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using Quoter.App.Forms;
 using Quoter.App.FormsControllers;
 using Quoter.App.Helpers;
@@ -7,10 +6,10 @@ using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
-using Quoter.Framework;
 using Quoter.Framework.Data;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.DependencyInjection;
+using Quoter.Framework.Services.Messaging;
 using System.Resources;
 
 namespace Quoter.App
@@ -28,8 +27,6 @@ namespace Quoter.App
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			ApplicationConfiguration.Initialize();
-
-			Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ro-RO");
 
 			DependencyInjectionContainer diContainer = SetupDependencyInjection();
 			
@@ -49,21 +46,24 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
 			serviceCollection.AddSingleton<QuoterApplicationContext>();
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
-			serviceCollection.AddSingleton<IMemoryCache, MemoryCache>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
 			serviceCollection.AddSingleton<ISettings, Settings>();
 			serviceCollection.AddSingleton<IFormLifecycleService, FormLifecycleService>();
-			serviceCollection.AddSingleton<IRepository, Repository>();
+			serviceCollection.AddSingleton<IMessagingService, MessagingService>();
+			serviceCollection.AddSingleton<IThemeService, ThemeService>();
 
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
-			serviceCollection.AddTransient<ManageQuotesForm>();
+			serviceCollection.AddTransient<ManageForm>();
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();
 
+			serviceCollection.AddTransient<IQuoteService, QuoteService>();
+
 			serviceCollection.AddTransient<IEditQuotesFormController, EditQuotesFormController>();
 			serviceCollection.AddTransient<ISettingsFormController, SettingsFormController>();
+			serviceCollection.AddTransient<IQuoteFormController, QuoteFormController>();
 
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();

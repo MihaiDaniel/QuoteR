@@ -267,4 +267,37 @@
   <data name="Quotes" xml:space="preserve">
     <value>Citate</value>
   </data>
+  <data name="Language" xml:space="preserve">
+    <value>Limbă</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Temă</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacitate</value>
+  </data>
+  <data name="ShowCollectionsByLanguage" xml:space="preserve">
+    <value>Arată colecțiile doar din limba selectată</value>
+  </data>
+  <data name="QuotesFrequency" xml:space="preserve">
+    <value>Arată citate la fiecare</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="NotificationIntervalMustBeBetweenValues" xml:space="preserve">
+    <value>Valoarea trebuie sa fie între {0} și {1}</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifică</value>
+  </data>
+  <data name="ShowAQuote" xml:space="preserve">
+    <value>Arată un citat</value>
+  </data>
 </root>

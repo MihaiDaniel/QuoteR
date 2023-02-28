@@ -73,6 +73,8 @@
 			// 
 			// btnCancel
 			// 
+			this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnCancel.Location = new System.Drawing.Point(238, 131);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(90, 30);
@@ -83,6 +85,8 @@
 			// 
 			// btnOk
 			// 
+			this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+			this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnOk.Location = new System.Drawing.Point(142, 131);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(90, 30);

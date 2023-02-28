@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quoter.Framework.Services
+namespace Quoter.App.Forms
 {
-	public interface IDirectoryReader
+	public interface IQuoteForm
 	{
-		Task<List<FileModel>> ScanDirectoryAsync(string dirPath);
+		void SetQuote(QuoteModel quoteModel);
 	}
 }

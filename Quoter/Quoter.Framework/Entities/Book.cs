@@ -12,6 +12,8 @@ namespace Quoter.Framework.Entities
 
 		public string Name { get; set; }
 
+		public string? Description { get; set; }
+
 		#region FK
 
 		public int CollectionId { get; set; }

@@ -1,5 +1,9 @@
 ﻿namespace Quoter.Framework.Services.DependencyInjection
 {
+	/// <summary>
+	/// Custom implementation of a Dependency injection service collection.
+	/// Allows to register classes to the dependency injection service.
+	/// </summary>
 	public class ServiceCollection
 	{
 		private readonly Dictionary<Type, ServiceDescriptor> _registeredServices;
@@ -38,6 +42,9 @@
 			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), EnumServiceLifetime.Transient));
 		}
 
+		/// <summary>
+		/// Returns the container used to get any registered services.
+		/// </summary>
 		public DependencyInjectionContainer GetContainer()
 		{
 			DependencyInjectionContainer diContainer = new(_registeredServices);

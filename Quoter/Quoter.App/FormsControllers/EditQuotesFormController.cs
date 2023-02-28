@@ -7,6 +7,7 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services.Messaging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,11 +20,13 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Quoter.App.FormsControllers
 {
-	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
+	public class EditQuotesFormController : IEditQuotesFormController, IMessageSubscriber, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
+		private readonly ISettings _settings;
+
 		private IEditQuotesForm _form;
 
 		#region Data binding
@@ -106,16 +109,32 @@ namespace Quoter.App.FormsControllers
 
 		public EditQuotesFormController(QuoterContext quoterContext,
 										IStringResources stringResources,
-										IFormsManager formManager)
+										IFormsManager formManager,
+										ISettings settings,
+										IMessagingService messagingService)
 		{
 			_context = quoterContext;
 			_stringResources = stringResources;
 			_formsManager = formManager;
+			_settings = settings;
+
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
+
+			messagingService.Subscribe(this);
 		}
 
+		public void OnMessageEvent(string message, object? argument)
+		{
+			if(message == Const.Event.ShowCollectionsBasedOnLanguageChanged)
+			{
+				LoadCollections();
+				LoadCollectionBooks();
+				LoadBookChapters();
+				// Quotes loaded by SelectedChapter property
+			}
+		}
 
 		public void RegisterForm(IEditQuotesForm editQuotesForm)
 		{
@@ -125,12 +144,26 @@ namespace Quoter.App.FormsControllers
 			LoadCollections();
 			LoadCollectionBooks();
 			LoadBookChapters();
+			// Quotes loaded by SelectedChapter property
 		}
 
 		private void LoadCollections()
 		{
 			Collections.Clear();
-			List<Collection> lstCollections = _context.Collections.ToList();
+
+			bool isShowCollectionsByLanguage = _settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage);
+
+			List<Collection> lstCollections;
+			if (isShowCollectionsByLanguage)
+			{
+				EnumLanguage language = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language));
+				lstCollections = _context.Collections.Where(c => c.Language == language || c.Language == default).ToList();
+			}
+			else
+			{
+				lstCollections = _context.Collections.ToList();
+			}
+
 			foreach (Collection collection in lstCollections)
 			{
 				Collections.Add(collection);
@@ -139,8 +172,14 @@ namespace Quoter.App.FormsControllers
 
 		private void LoadCollectionBooks()
 		{
-			Books.Clear();
-			Chapters.Clear();
+			if(Books.Count > 0)
+			{
+				Books.Clear();
+			}
+			if(Chapters.Count > 0)
+			{
+				Chapters.Clear();
+			}
 			if (SelectedCollection == null)
 			{
 				return;
@@ -158,7 +197,11 @@ namespace Quoter.App.FormsControllers
 
 		private void LoadBookChapters()
 		{
-			Chapters.Clear();
+			if(Chapters.Count> 0)
+			{
+				Chapters.Clear();
+			}
+			
 			if (SelectedBook == null)
 			{
 				return;
@@ -482,7 +525,7 @@ namespace Quoter.App.FormsControllers
 
 		#endregion  Add, Edit, Delete chapters
 
-		public void Save()
+		public void AddQuotes()
 		{
 			if (string.IsNullOrWhiteSpace(Quotes) || SelectedCollection == null)
 			{
@@ -495,6 +538,7 @@ namespace Quoter.App.FormsControllers
 			if (lstQuotes.Any())
 			{
 				// First remove existing quotes for chapter, book and collection
+				// Otherwise we might add again existing ones
 				IQueryable<Quote> queryQuotes = _context.Quotes.Where(q => q.CollectionId == SelectedCollection.CollectionId);
 				if (SelectedBook != null)
 				{
@@ -508,7 +552,7 @@ namespace Quoter.App.FormsControllers
 				List<Quote> quotesToDelete = queryQuotes.ToList();
 				_context.Quotes.RemoveRange(quotesToDelete);
 
-				// Then add the quotes in the ui
+				// Then add the quotes in the database
 				_context.Quotes.AddRange(lstQuotes);
 				_context.SaveChanges();
 				_form.SetStatus(_stringResources["QuotesSaved"], Const.ColorOk);
@@ -536,6 +580,7 @@ namespace Quoter.App.FormsControllers
 		private List<Quote> GetQuotesFromArrayOfStrings(string[] arrQuoteContent)
 		{
 			List<Quote> lstQuotes = new List<Quote>();
+			int quoteIndex = 1;
 			foreach (string quoteContent in arrQuoteContent)
 			{
 				string newQuoteContent = quoteContent.Trim();
@@ -547,11 +592,14 @@ namespace Quoter.App.FormsControllers
 						CollectionId = SelectedCollection.CollectionId,
 						BookId = SelectedBook?.BookId,
 						ChapterId = SelectedChapter?.ChapterId,
+						QuoteIndex = quoteIndex,
 					};
 					lstQuotes.Add(quote);
+					quoteIndex++;
 				}
 			}
 			return lstQuotes;
 		}
+
 	}
 }

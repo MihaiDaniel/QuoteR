@@ -2,43 +2,42 @@
 using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
-using Quoter.App.Services.BackgroundWorkers;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
+using Quoter.Framework.Services.Messaging;
+using System.Globalization;
 
 namespace Quoter.App
 {
-	public class QuoterApplicationContext : ApplicationContext
+	public class QuoterApplicationContext : ApplicationContext, IMessageSubscriber
 	{
 		private readonly NotifyIcon _trayIcon;
-		private readonly QuoterContext _context;
+		//private readonly QuoterContext _context;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
+		private readonly IMessagingService _messagingService;
+		private readonly IQuoteService _quoteService;
 
 		private System.Timers.Timer _timerShowNotifications;
 
-		public QuoterApplicationContext(QuoterContext quoterContext,
+		public QuoterApplicationContext(//QuoterContext quoterContext,
 										IFormsManager formsManager,
 										ISettings settings,
-										IStringResources stringResources)
+										IStringResources stringResources,
+										IMessagingService messagingService,
+										IQuoteService quoteService)
 		{
-			_context = quoterContext;
+			//_context = quoterContext;
 			_formsManager = formsManager;
 			_settings = settings;
 			_stringResources = stringResources;
+			_messagingService = messagingService;
+			_quoteService = quoteService;
 			_trayIcon = new NotifyIcon()
 			{
 				Icon = Resources.Resources.icon_book_black,
@@ -50,7 +49,7 @@ namespace Quoter.App
 			ShowWelcomeMessage();
 		}
 
-		private async void InitializeApplication()
+		private void InitializeApplication()
 		{
 			bool isFirstStart = _settings.Get<bool>(Const.Setting.IsFirstStart);
 			if(isFirstStart)
@@ -59,14 +58,28 @@ namespace Quoter.App
 				_settings.Set(Const.Setting.AutoCloseNotificationSeconds, Const.SettingDefault.AutoCloseNotificationSeconds);
 				_settings.Set(Const.Setting.ShowWelcomeNotification, Const.SettingDefault.ShowWelcomeNotification);
 				_settings.Set(Const.Setting.KeepNotificationOpenOnMouseOver, Const.SettingDefault.KeepNotificationOpenOnMouseOver);
+				_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, Const.SettingDefault.ShowCollectionsBasedOnLanguage);
+
+				CultureInfo ci = CultureInfo.CurrentUICulture;
+				switch(ci.Name)
+				{
+					case "ro-RO":
+						_settings.Set(Const.Setting.Language, "ro-RO");
+						Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
+						break;
+					default:
+						_settings.Set(Const.Setting.Language, "en-US");
+						Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+						break;
+				}
+				_settings.Set(Const.Setting.IsFirstStart, false);
 			}
 			else
 			{
+				// Unpause if notifications was paused
 				_settings.Set(Const.Setting.IsPaused, false);
-				_settings.Set(Const.Setting.IsFirstStart, false);
-
 			}
-			
+			_messagingService.Subscribe(this);
 		}
 
 		private void InitializeBackgroundTimers()
@@ -95,6 +108,22 @@ namespace Quoter.App
 			}
 		}
 
+		public void OnMessageEvent(string message, object? argument)
+		{
+			if(message == Const.Event.LanguageChanged)
+			{
+				// Reset the context strip with the new language
+				bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
+				_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
+			}
+			else if (message == Const.Event.NotificationIntervalChanged)
+			{
+				_timerShowNotifications.Stop();
+				_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
+				_timerShowNotifications.Start();
+			}
+		}
+
 		private async Task ElapsedTimerEventShowNotifications()
 		{
 			try
@@ -112,46 +141,7 @@ namespace Quoter.App
 					_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
 				}
 
-				// Show a random quote from the database
-				List<long> idQuotes = await _context.Quotes.Select(q => q.QuoteId).ToListAsync();
-				Random random = new Random();
-				long quoteIdToShow = random.NextInt64(idQuotes.Count);
-
-				Quote quote = await _context.Quotes
-											.Include(q => q.Book)
-											.Include(q => q.Chapter)
-											.Include(q => q.Collection)
-											.FirstAsync(q => q.QuoteId == quoteIdToShow);
-				string title = "";
-				string footer = "";
-
-				if (quote.Book != null && quote.Chapter != null)
-				{
-					title = quote.Book.Name;
-					footer = quote.Chapter.Name;
-				}
-				else if (quote.Book!= null)
-				{
-					title = quote.Book.Name;
-				}
-				else
-				{
-					title = quote.Collection.Name;
-				}
-				
-
-				QuoteModel quoteModel = new()
-				{
-					Title = quote.Book?.Name?? string.Empty,
-					Footer = footer,
-					Body= quote.Content,
-					OpenAnimation = Framework.Enums.EnumAnimation.FadeInFromBottomRight,
-					CloseAnimation = Framework.Enums.EnumAnimation.FadeOut
-				};
-				int autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
-
-				_formsManager.ShowDialog<QuoteForm>(autoCloseSec, quoteModel);
-
+				await ShowQuote();
 			}
 			catch(Exception ex)
 			{
@@ -159,12 +149,26 @@ namespace Quoter.App
 			}
 		}
 
+		private async Task ShowQuote()
+		{
+			// Show a random quote from the database
+			QuoteModel? quoteModel = await _quoteService.GetRandomQuote();
+			
+			if(quoteModel == null)
+			{
+				return;
+			}
+
+			int autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
+			_formsManager.ShowDialog<QuoteForm>(autoCloseSec, quoteModel);
+		}
+
 		private bool IsTimerOnPause()
 		{
 			return _settings.Get<bool>(Const.Setting.IsPaused);
 		}
 
-		void PauseOrResume(object? sender, EventArgs e)
+		void PauseOrResumeEventHandler(object? sender, EventArgs e)
 		{
 			bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
 			isPaused = !isPaused;
@@ -172,17 +176,30 @@ namespace Quoter.App
 			_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
 		}
 
-		void Manage(object? sender, EventArgs e)
+		void OpenManageEventHandler(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ManageQuotesForm>();
+			_formsManager.Show<ManageForm>();
 		}
 
-		void Settings(object? sender, EventArgs e)
+		void OpenSettingsEventHandler(object? sender, EventArgs e)
 		{
 			_formsManager.Show<SettingsForm>();
 		}
 
-		void Exit(object? sender, EventArgs e)
+		void ShowQuoteEventHandler(object? sender, EventArgs e)
+		{
+			try
+			{
+				Task.Run( async () => { await ShowQuote(); });
+			}
+			catch(Exception ex)
+			{
+				throw;
+			}
+			
+		}
+
+		void ExitEventHandler(object? sender, EventArgs e)
 		{
 			// Hide tray icon, otherwise it will remain shown until user mouses over it
 			_trayIcon.Visible = false;
@@ -198,14 +215,14 @@ namespace Quoter.App
 			{
 				Items =
 				{
-					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResume), "PauseOrResume"),
-					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(Settings), "Settings"),
-					new ToolStripMenuItem(_stringResources["Manage"], Resources.Resources.book_open_64, new EventHandler(Manage), "Settings"),
-					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_64, new EventHandler(Exit), "Exit")
+					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
+					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(OpenSettingsEventHandler), "Settings"),
+					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_64, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
+					new ToolStripMenuItem(_stringResources["Manage"], Resources.Resources.book_open_64, new EventHandler(OpenManageEventHandler), "Settings"),
+					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_64, new EventHandler(ExitEventHandler), "Exit")
 				}
 			};
 			return contextMenuStrip;
 		}
-
 	}
 }

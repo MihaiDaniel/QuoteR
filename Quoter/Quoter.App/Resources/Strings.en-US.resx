@@ -262,9 +262,42 @@
     <value>Modify your quotes collection</value>
   </data>
   <data name="ManageQuotes" xml:space="preserve">
-    <value>Manage your quots</value>
+    <value>Manage favourite quotes</value>
   </data>
   <data name="Quotes" xml:space="preserve">
     <value>Quotes</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="ShowCollectionsByLanguage" xml:space="preserve">
+    <value>Show collections based on language</value>
+  </data>
+  <data name="QuotesFrequency" xml:space="preserve">
+    <value>Show quotes every</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="NotificationIntervalMustBeBetweenValues" xml:space="preserve">
+    <value>Value must be between {0} and {1}</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ShowAQuote" xml:space="preserve">
+    <value>Show a quote</value>
   </data>
 </root>

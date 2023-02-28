@@ -17,6 +17,8 @@ namespace Quoter.App.FormsControllers
 		Chapter? SelectedChapter { get; set; }
 		BindingList<Chapter> Chapters { get; }
 
+		string Quotes { get; set; }
+
 		void AddCollection();
 		void EditCollection();
 		void DeleteCollection();
@@ -29,8 +31,6 @@ namespace Quoter.App.FormsControllers
 		void EditChapter();
 		void DeleteChapter();
 
-		string Quotes { get; set; }
-
-		void Save();
+		void AddQuotes();
 	}
 }

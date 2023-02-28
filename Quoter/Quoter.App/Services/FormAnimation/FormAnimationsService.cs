@@ -1,18 +1,11 @@
 ﻿using Quoter.App.Helpers.Extensions;
 using Quoter.Framework.Enums;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace Quoter.App.Services.FormAnimation
 {
 	public class FormAnimationsService : IFormAnimationService
 	{
-		private System.Timers.Timer _timerCloseDelay;
 
 		public async Task AnimateAsync(Form form, EnumAnimation enumAnimation)
 		{
@@ -30,41 +23,8 @@ namespace Quoter.App.Services.FormAnimation
 			}
 		}
 
-		//public async Task CloseDelayedAsync(Form form, int delay, EnumAnimation enumAnimation = EnumAnimation.FadeOut)
-		//{
-		//	Debug.WriteLine($"Start {nameof(CloseDelayedAsync)} Thread: {Thread.CurrentThread.ManagedThreadId}");
-		//	if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
-		//	{
-		//		_timerCloseDelay.Stop();
-		//		_timerCloseDelay.Dispose();
-		//	}
-		//	_timerCloseDelay = new(delay);
-		//	_timerCloseDelay.Elapsed += async (sender, e) => await ElapsedTimerEventCloseDelayed(form, enumAnimation);
-		//	_timerCloseDelay.Start();
-		//}
-
-		//private async Task ElapsedTimerEventCloseDelayed(Form form, EnumAnimation enumAnimation)
-		//{
-		//	Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)} Thread: {Thread.CurrentThread.ManagedThreadId}");
-		//	if (_timerCloseDelay is not null && _timerCloseDelay.Enabled)
-		//	{
-		//		_timerCloseDelay.Stop();
-		//		_timerCloseDelay.Dispose();
-		//	}
-		//	await AnimateAsync(form, enumAnimation);
-		//	if (!form.IsDisposed)
-		//	{
-		//		form.InvokeIfRequired(() =>
-		//		{
-		//			Debug.WriteLine($"Start {nameof(ElapsedTimerEventCloseDelayed)}.CloseForm Thread: {Thread.CurrentThread.ManagedThreadId}");
-		//			form.Close();
-		//		});
-		//	}
-		//}
-
 		private async Task FadeInFromBottomRight(Form form)
 		{
-			Debug.WriteLine($"Start {nameof(FadeInFromBottomRight)} Thread: {Thread.CurrentThread.ManagedThreadId}");
 			try
 			{
 				// Final expected location on scrren on the bottom right
@@ -73,9 +33,10 @@ namespace Quoter.App.Services.FormAnimation
 
 				// Start from off screen to the right
 				int currentPositionX = locationX + form.Width;
+				double maxOpacity = form.Opacity;
+
 				form.InvokeIfRequired(() =>
 				{
-					Debug.WriteLine($"Start {nameof(FadeInFromBottomRight)} Set init opacity Thread: {Thread.CurrentThread.ManagedThreadId}");
 					form.Opacity = 0.0;
 					form.Location = new Point(currentPositionX, locationY);
 				});
@@ -90,13 +51,21 @@ namespace Quoter.App.Services.FormAnimation
 					currentPositionX -= decrementPositionX;
 					form.InvokeIfRequired(() =>
 					{
-						form.Opacity += incrementOpacity;
+						if (maxOpacity >= form.Opacity + incrementOpacity)
+						{
+							form.Opacity += incrementOpacity;
+						}
 						form.Location = new Point(currentPositionX, locationY);
 						form.Update();
 					});
 					frame--;
-					Debug.WriteLine($"	while {nameof(FadeInFromBottomRight)} Thread: {Thread.CurrentThread.ManagedThreadId}");
 				}
+				// Set max opacity just in case
+				form.InvokeIfRequired(() =>
+				{
+					form.Opacity = maxOpacity;
+					form.Update();
+				});
 			}
 			catch(Exception ex)
 			{
@@ -126,6 +95,8 @@ namespace Quoter.App.Services.FormAnimation
 		{
 			// Decrease opacity frame by frame
 			int frame = 20;
+			double maxOpacity = form.Opacity;
+
 			form.InvokeIfRequired(() =>
 			{
 				form.Opacity = 0.0;
@@ -136,11 +107,20 @@ namespace Quoter.App.Services.FormAnimation
 				await Task.Delay(5);
 				form.InvokeIfRequired(() =>
 				{
-					form.Opacity += incrementOpacity;
+					if(maxOpacity >= form.Opacity + incrementOpacity)
+					{
+						form.Opacity += incrementOpacity;
+					}
 					form.Update();
 				});
 				frame--;
 			}
+			// Set max opacity just in case something iffy happens
+			form.InvokeIfRequired(() =>
+			{
+				form.Opacity = maxOpacity;
+				form.Update();
+			});
 		}
 
 	}

@@ -55,27 +55,38 @@
 			this.btnAddCollection = new System.Windows.Forms.Button();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.tabBasicSettings = new System.Windows.Forms.TabControl();
+			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.gbOtherSettings = new System.Windows.Forms.GroupBox();
+			this.btnShowWelcomeMsgNo = new System.Windows.Forms.Button();
+			this.btnShowWelcomeMsgYes = new System.Windows.Forms.Button();
+			this.lblShowWelcomeMsg = new System.Windows.Forms.Label();
+			this.gbThemeSettings = new System.Windows.Forms.GroupBox();
+			this.lblOpacityPercent = new System.Windows.Forms.Label();
+			this.lblOpacity = new System.Windows.Forms.Label();
+			this.tbOpacity = new System.Windows.Forms.TrackBar();
+			this.btnTheme1 = new System.Windows.Forms.Button();
+			this.btnTheme2 = new System.Windows.Forms.Button();
+			this.btnTheme3 = new System.Windows.Forms.Button();
+			this.btnTheme6 = new System.Windows.Forms.Button();
+			this.btnTheme5 = new System.Windows.Forms.Button();
+			this.btnTheme4 = new System.Windows.Forms.Button();
+			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
+			this.lblQuotesFrequencyTime = new System.Windows.Forms.Label();
+			this.lblQuotesFrequency = new System.Windows.Forms.Label();
+			this.txtQuotesInterval = new System.Windows.Forms.TextBox();
+			this.gbLanguageSettings = new System.Windows.Forms.GroupBox();
+			this.btnShowCollBasedOnLanguageNo = new System.Windows.Forms.Button();
+			this.btnLanguageRo = new System.Windows.Forms.Button();
+			this.btnShowCollBasedOnLanguageYes = new System.Windows.Forms.Button();
+			this.btnLanguageEn = new System.Windows.Forms.Button();
+			this.lblShowCollByLanguage = new System.Windows.Forms.Label();
 			this.txtStatus = new System.Windows.Forms.TextBox();
 			this.btnTabPage1 = new System.Windows.Forms.Button();
 			this.btnTabPage2 = new System.Windows.Forms.Button();
 			this.btnTabPage3 = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
-			this.lblLanguage = new System.Windows.Forms.Label();
-			this.cbLanguage = new System.Windows.Forms.ComboBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label3 = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.btnThemeGray = new System.Windows.Forms.Button();
-			this.btnThemeBlue = new System.Windows.Forms.Button();
-			this.btnThemeGreen = new System.Windows.Forms.Button();
-			this.btnThemeOrange = new System.Windows.Forms.Button();
-			this.btnThemeIndianRed = new System.Windows.Forms.Button();
-			this.btnThemeLightCoral = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -84,6 +95,13 @@
 			this.gbBooks.SuspendLayout();
 			this.gbCollections.SuspendLayout();
 			this.tabPage3.SuspendLayout();
+			this.tabBasicSettings.SuspendLayout();
+			this.tabPage4.SuspendLayout();
+			this.gbOtherSettings.SuspendLayout();
+			this.gbThemeSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).BeginInit();
+			this.gbQuotesSettings.SuspendLayout();
+			this.gbLanguageSettings.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// pnlTitle
@@ -455,27 +473,332 @@
 			// tabPage3
 			// 
 			this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage3.Controls.Add(this.btnThemeLightCoral);
-			this.tabPage3.Controls.Add(this.btnThemeIndianRed);
-			this.tabPage3.Controls.Add(this.btnThemeOrange);
-			this.tabPage3.Controls.Add(this.btnThemeGreen);
-			this.tabPage3.Controls.Add(this.btnThemeBlue);
-			this.tabPage3.Controls.Add(this.btnThemeGray);
-			this.tabPage3.Controls.Add(this.label5);
-			this.tabPage3.Controls.Add(this.label4);
-			this.tabPage3.Controls.Add(this.textBox2);
-			this.tabPage3.Controls.Add(this.label3);
-			this.tabPage3.Controls.Add(this.label2);
-			this.tabPage3.Controls.Add(this.label1);
-			this.tabPage3.Controls.Add(this.textBox1);
-			this.tabPage3.Controls.Add(this.cbLanguage);
-			this.tabPage3.Controls.Add(this.lblLanguage);
+			this.tabPage3.Controls.Add(this.tabBasicSettings);
 			this.tabPage3.Location = new System.Drawing.Point(4, 25);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage3.Size = new System.Drawing.Size(768, 393);
 			this.tabPage3.TabIndex = 4;
 			this.tabPage3.Text = "Settings";
+			// 
+			// tabBasicSettings
+			// 
+			this.tabBasicSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tabBasicSettings.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+			this.tabBasicSettings.Controls.Add(this.tabPage4);
+			this.tabBasicSettings.Location = new System.Drawing.Point(6, 6);
+			this.tabBasicSettings.Name = "tabBasicSettings";
+			this.tabBasicSettings.SelectedIndex = 0;
+			this.tabBasicSettings.Size = new System.Drawing.Size(756, 381);
+			this.tabBasicSettings.TabIndex = 15;
+			// 
+			// tabPage4
+			// 
+			this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.tabPage4.Controls.Add(this.gbOtherSettings);
+			this.tabPage4.Controls.Add(this.gbThemeSettings);
+			this.tabPage4.Controls.Add(this.gbQuotesSettings);
+			this.tabPage4.Controls.Add(this.gbLanguageSettings);
+			this.tabPage4.Location = new System.Drawing.Point(4, 25);
+			this.tabPage4.Name = "tabPage4";
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage4.Size = new System.Drawing.Size(748, 352);
+			this.tabPage4.TabIndex = 0;
+			this.tabPage4.Text = "Basic";
+			// 
+			// gbOtherSettings
+			// 
+			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgNo);
+			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgYes);
+			this.gbOtherSettings.Controls.Add(this.lblShowWelcomeMsg);
+			this.gbOtherSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbOtherSettings.Location = new System.Drawing.Point(374, 6);
+			this.gbOtherSettings.Name = "gbOtherSettings";
+			this.gbOtherSettings.Size = new System.Drawing.Size(368, 100);
+			this.gbOtherSettings.TabIndex = 21;
+			this.gbOtherSettings.TabStop = false;
+			this.gbOtherSettings.Text = "Other";
+			// 
+			// btnShowWelcomeMsgNo
+			// 
+			this.btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
+			this.btnShowWelcomeMsgNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnShowWelcomeMsgNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnShowWelcomeMsgNo.Location = new System.Drawing.Point(322, 16);
+			this.btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
+			this.btnShowWelcomeMsgNo.Size = new System.Drawing.Size(40, 30);
+			this.btnShowWelcomeMsgNo.TabIndex = 18;
+			this.btnShowWelcomeMsgNo.Text = "NO";
+			this.btnShowWelcomeMsgNo.UseVisualStyleBackColor = true;
+			this.btnShowWelcomeMsgNo.Click += new System.EventHandler(this.btnShowWelcomeMsgNo_Click);
+			// 
+			// btnShowWelcomeMsgYes
+			// 
+			this.btnShowWelcomeMsgYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnShowWelcomeMsgYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnShowWelcomeMsgYes.Location = new System.Drawing.Point(276, 16);
+			this.btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
+			this.btnShowWelcomeMsgYes.Size = new System.Drawing.Size(40, 30);
+			this.btnShowWelcomeMsgYes.TabIndex = 18;
+			this.btnShowWelcomeMsgYes.Text = "YES";
+			this.btnShowWelcomeMsgYes.UseVisualStyleBackColor = true;
+			this.btnShowWelcomeMsgYes.Click += new System.EventHandler(this.btnShowWelcomeMsgYes_Click);
+			// 
+			// lblShowWelcomeMsg
+			// 
+			this.lblShowWelcomeMsg.AutoSize = true;
+			this.lblShowWelcomeMsg.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblShowWelcomeMsg.Location = new System.Drawing.Point(6, 22);
+			this.lblShowWelcomeMsg.Name = "lblShowWelcomeMsg";
+			this.lblShowWelcomeMsg.Size = new System.Drawing.Size(159, 18);
+			this.lblShowWelcomeMsg.TabIndex = 18;
+			this.lblShowWelcomeMsg.Text = "Show welcome message";
+			// 
+			// gbThemeSettings
+			// 
+			this.gbThemeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.gbThemeSettings.Controls.Add(this.lblOpacityPercent);
+			this.gbThemeSettings.Controls.Add(this.lblOpacity);
+			this.gbThemeSettings.Controls.Add(this.tbOpacity);
+			this.gbThemeSettings.Controls.Add(this.btnTheme1);
+			this.gbThemeSettings.Controls.Add(this.btnTheme2);
+			this.gbThemeSettings.Controls.Add(this.btnTheme3);
+			this.gbThemeSettings.Controls.Add(this.btnTheme6);
+			this.gbThemeSettings.Controls.Add(this.btnTheme5);
+			this.gbThemeSettings.Controls.Add(this.btnTheme4);
+			this.gbThemeSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbThemeSettings.Location = new System.Drawing.Point(6, 178);
+			this.gbThemeSettings.Name = "gbThemeSettings";
+			this.gbThemeSettings.Size = new System.Drawing.Size(362, 168);
+			this.gbThemeSettings.TabIndex = 20;
+			this.gbThemeSettings.TabStop = false;
+			this.gbThemeSettings.Text = "Theme";
+			// 
+			// lblOpacityPercent
+			// 
+			this.lblOpacityPercent.AutoSize = true;
+			this.lblOpacityPercent.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblOpacityPercent.Location = new System.Drawing.Point(11, 93);
+			this.lblOpacityPercent.Name = "lblOpacityPercent";
+			this.lblOpacityPercent.Size = new System.Drawing.Size(33, 18);
+			this.lblOpacityPercent.TabIndex = 21;
+			this.lblOpacityPercent.Text = "90%";
+			// 
+			// lblOpacity
+			// 
+			this.lblOpacity.AutoSize = true;
+			this.lblOpacity.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblOpacity.Location = new System.Drawing.Point(6, 75);
+			this.lblOpacity.Name = "lblOpacity";
+			this.lblOpacity.Size = new System.Drawing.Size(55, 18);
+			this.lblOpacity.TabIndex = 20;
+			this.lblOpacity.Text = "Opacity";
+			// 
+			// tbOpacity
+			// 
+			this.tbOpacity.LargeChange = 1;
+			this.tbOpacity.Location = new System.Drawing.Point(67, 75);
+			this.tbOpacity.Minimum = 1;
+			this.tbOpacity.Name = "tbOpacity";
+			this.tbOpacity.Size = new System.Drawing.Size(289, 45);
+			this.tbOpacity.TabIndex = 15;
+			this.tbOpacity.Value = 2;
+			this.tbOpacity.Scroll += new System.EventHandler(this.tbOpacity_Scroll);
+			// 
+			// btnTheme1
+			// 
+			this.btnTheme1.BackColor = System.Drawing.Color.SlateGray;
+			this.btnTheme1.FlatAppearance.BorderSize = 0;
+			this.btnTheme1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme1.Location = new System.Drawing.Point(6, 22);
+			this.btnTheme1.Name = "btnTheme1";
+			this.btnTheme1.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme1.TabIndex = 9;
+			this.btnTheme1.UseVisualStyleBackColor = false;
+			this.btnTheme1.Click += new System.EventHandler(this.btnTheme1_Click);
+			// 
+			// btnTheme2
+			// 
+			this.btnTheme2.BackColor = System.Drawing.Color.SteelBlue;
+			this.btnTheme2.FlatAppearance.BorderSize = 0;
+			this.btnTheme2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme2.Location = new System.Drawing.Point(65, 22);
+			this.btnTheme2.Name = "btnTheme2";
+			this.btnTheme2.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme2.TabIndex = 10;
+			this.btnTheme2.UseVisualStyleBackColor = false;
+			this.btnTheme2.Click += new System.EventHandler(this.btnTheme2_Click);
+			// 
+			// btnTheme3
+			// 
+			this.btnTheme3.BackColor = System.Drawing.Color.Green;
+			this.btnTheme3.FlatAppearance.BorderSize = 0;
+			this.btnTheme3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme3.Location = new System.Drawing.Point(124, 22);
+			this.btnTheme3.Name = "btnTheme3";
+			this.btnTheme3.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme3.TabIndex = 11;
+			this.btnTheme3.UseVisualStyleBackColor = false;
+			this.btnTheme3.Click += new System.EventHandler(this.btnTheme3_Click);
+			// 
+			// btnTheme6
+			// 
+			this.btnTheme6.BackColor = System.Drawing.Color.IndianRed;
+			this.btnTheme6.FlatAppearance.BorderSize = 0;
+			this.btnTheme6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme6.Location = new System.Drawing.Point(299, 22);
+			this.btnTheme6.Name = "btnTheme6";
+			this.btnTheme6.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme6.TabIndex = 13;
+			this.btnTheme6.UseVisualStyleBackColor = false;
+			this.btnTheme6.Click += new System.EventHandler(this.btnTheme6_Click);
+			// 
+			// btnTheme5
+			// 
+			this.btnTheme5.BackColor = System.Drawing.Color.LightCoral;
+			this.btnTheme5.FlatAppearance.BorderSize = 0;
+			this.btnTheme5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme5.Location = new System.Drawing.Point(240, 22);
+			this.btnTheme5.Name = "btnTheme5";
+			this.btnTheme5.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme5.TabIndex = 14;
+			this.btnTheme5.UseVisualStyleBackColor = false;
+			this.btnTheme5.Click += new System.EventHandler(this.btnTheme5_Click);
+			// 
+			// btnTheme4
+			// 
+			this.btnTheme4.BackColor = System.Drawing.Color.DarkOrange;
+			this.btnTheme4.FlatAppearance.BorderSize = 0;
+			this.btnTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnTheme4.Location = new System.Drawing.Point(184, 22);
+			this.btnTheme4.Name = "btnTheme4";
+			this.btnTheme4.Size = new System.Drawing.Size(46, 44);
+			this.btnTheme4.TabIndex = 12;
+			this.btnTheme4.UseVisualStyleBackColor = false;
+			this.btnTheme4.Click += new System.EventHandler(this.btnTheme4_Click);
+			// 
+			// gbQuotesSettings
+			// 
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequencyTime);
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequency);
+			this.gbQuotesSettings.Controls.Add(this.txtQuotesInterval);
+			this.gbQuotesSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbQuotesSettings.Location = new System.Drawing.Point(6, 112);
+			this.gbQuotesSettings.Name = "gbQuotesSettings";
+			this.gbQuotesSettings.Size = new System.Drawing.Size(362, 60);
+			this.gbQuotesSettings.TabIndex = 16;
+			this.gbQuotesSettings.TabStop = false;
+			this.gbQuotesSettings.Text = "Quotes";
+			// 
+			// lblQuotesFrequencyTime
+			// 
+			this.lblQuotesFrequencyTime.AutoSize = true;
+			this.lblQuotesFrequencyTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(286, 19);
+			this.lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
+			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(59, 18);
+			this.lblQuotesFrequencyTime.TabIndex = 19;
+			this.lblQuotesFrequencyTime.Text = "minutes";
+			// 
+			// lblQuotesFrequency
+			// 
+			this.lblQuotesFrequency.AutoSize = true;
+			this.lblQuotesFrequency.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesFrequency.Location = new System.Drawing.Point(8, 19);
+			this.lblQuotesFrequency.Name = "lblQuotesFrequency";
+			this.lblQuotesFrequency.Size = new System.Drawing.Size(126, 18);
+			this.lblQuotesFrequency.TabIndex = 18;
+			this.lblQuotesFrequency.Text = "Show quotes every";
+			// 
+			// txtQuotesInterval
+			// 
+			this.txtQuotesInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.txtQuotesInterval.Location = new System.Drawing.Point(238, 16);
+			this.txtQuotesInterval.Name = "txtQuotesInterval";
+			this.txtQuotesInterval.Size = new System.Drawing.Size(42, 26);
+			this.txtQuotesInterval.TabIndex = 6;
+			this.txtQuotesInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesInterval_KeyPress);
+			// 
+			// gbLanguageSettings
+			// 
+			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageNo);
+			this.gbLanguageSettings.Controls.Add(this.btnLanguageRo);
+			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageYes);
+			this.gbLanguageSettings.Controls.Add(this.btnLanguageEn);
+			this.gbLanguageSettings.Controls.Add(this.lblShowCollByLanguage);
+			this.gbLanguageSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbLanguageSettings.Location = new System.Drawing.Point(6, 6);
+			this.gbLanguageSettings.Name = "gbLanguageSettings";
+			this.gbLanguageSettings.Size = new System.Drawing.Size(362, 100);
+			this.gbLanguageSettings.TabIndex = 15;
+			this.gbLanguageSettings.TabStop = false;
+			this.gbLanguageSettings.Text = "Language";
+			// 
+			// btnShowCollBasedOnLanguageNo
+			// 
+			this.btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
+			this.btnShowCollBasedOnLanguageNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnShowCollBasedOnLanguageNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnShowCollBasedOnLanguageNo.Location = new System.Drawing.Point(316, 64);
+			this.btnShowCollBasedOnLanguageNo.Name = "btnShowCollBasedOnLanguageNo";
+			this.btnShowCollBasedOnLanguageNo.Size = new System.Drawing.Size(40, 30);
+			this.btnShowCollBasedOnLanguageNo.TabIndex = 17;
+			this.btnShowCollBasedOnLanguageNo.Text = "NO";
+			this.btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = true;
+			this.btnShowCollBasedOnLanguageNo.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageNo_Click);
+			// 
+			// btnLanguageRo
+			// 
+			this.btnLanguageRo.BackgroundImage = global::Quoter.App.Resources.Resources.flag_romania_64;
+			this.btnLanguageRo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.btnLanguageRo.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
+			this.btnLanguageRo.FlatAppearance.BorderSize = 2;
+			this.btnLanguageRo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnLanguageRo.Location = new System.Drawing.Point(62, 22);
+			this.btnLanguageRo.Name = "btnLanguageRo";
+			this.btnLanguageRo.Size = new System.Drawing.Size(50, 35);
+			this.btnLanguageRo.TabIndex = 1;
+			this.btnLanguageRo.UseVisualStyleBackColor = true;
+			this.btnLanguageRo.Click += new System.EventHandler(this.btnLanguageRo_Click);
+			// 
+			// btnShowCollBasedOnLanguageYes
+			// 
+			this.btnShowCollBasedOnLanguageYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnShowCollBasedOnLanguageYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnShowCollBasedOnLanguageYes.Location = new System.Drawing.Point(270, 63);
+			this.btnShowCollBasedOnLanguageYes.Name = "btnShowCollBasedOnLanguageYes";
+			this.btnShowCollBasedOnLanguageYes.Size = new System.Drawing.Size(40, 30);
+			this.btnShowCollBasedOnLanguageYes.TabIndex = 16;
+			this.btnShowCollBasedOnLanguageYes.Text = "YES";
+			this.btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = true;
+			this.btnShowCollBasedOnLanguageYes.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageYes_Click);
+			// 
+			// btnLanguageEn
+			// 
+			this.btnLanguageEn.BackgroundImage = global::Quoter.App.Resources.Resources.flag_uk_64;
+			this.btnLanguageEn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.btnLanguageEn.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
+			this.btnLanguageEn.FlatAppearance.BorderSize = 2;
+			this.btnLanguageEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnLanguageEn.Location = new System.Drawing.Point(6, 22);
+			this.btnLanguageEn.Name = "btnLanguageEn";
+			this.btnLanguageEn.Size = new System.Drawing.Size(50, 35);
+			this.btnLanguageEn.TabIndex = 0;
+			this.btnLanguageEn.UseVisualStyleBackColor = true;
+			this.btnLanguageEn.Click += new System.EventHandler(this.btnLanguageEn_Click);
+			// 
+			// lblShowCollByLanguage
+			// 
+			this.lblShowCollByLanguage.AutoSize = true;
+			this.lblShowCollByLanguage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblShowCollByLanguage.Location = new System.Drawing.Point(8, 69);
+			this.lblShowCollByLanguage.Name = "lblShowCollByLanguage";
+			this.lblShowCollByLanguage.Size = new System.Drawing.Size(229, 18);
+			this.lblShowCollByLanguage.TabIndex = 7;
+			this.lblShowCollByLanguage.Text = "Show collections based on language";
 			// 
 			// txtStatus
 			// 
@@ -543,158 +866,7 @@
 			this.panel2.Size = new System.Drawing.Size(3, 30);
 			this.panel2.TabIndex = 7;
 			// 
-			// lblLanguage
-			// 
-			this.lblLanguage.AutoSize = true;
-			this.lblLanguage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblLanguage.Location = new System.Drawing.Point(15, 26);
-			this.lblLanguage.Name = "lblLanguage";
-			this.lblLanguage.Size = new System.Drawing.Size(66, 18);
-			this.lblLanguage.TabIndex = 0;
-			this.lblLanguage.Text = "Language";
-			// 
-			// cbLanguage
-			// 
-			this.cbLanguage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cbLanguage.FormattingEnabled = true;
-			this.cbLanguage.Location = new System.Drawing.Point(204, 23);
-			this.cbLanguage.Name = "cbLanguage";
-			this.cbLanguage.Size = new System.Drawing.Size(199, 26);
-			this.cbLanguage.TabIndex = 1;
-			// 
-			// textBox1
-			// 
-			this.textBox1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox1.Location = new System.Drawing.Point(253, 55);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(42, 26);
-			this.textBox1.TabIndex = 2;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label1.Location = new System.Drawing.Point(15, 58);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(157, 18);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "Arată notificări la fiecare";
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label2.Location = new System.Drawing.Point(301, 58);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(59, 18);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "minutes";
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label3.Location = new System.Drawing.Point(15, 90);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(232, 18);
-			this.label3.TabIndex = 5;
-			this.label3.Text = "Auto-close notification window after";
-			// 
-			// textBox2
-			// 
-			this.textBox2.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.textBox2.Location = new System.Drawing.Point(253, 87);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(42, 26);
-			this.textBox2.TabIndex = 6;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label4.Location = new System.Drawing.Point(301, 90);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(58, 18);
-			this.label4.TabIndex = 7;
-			this.label4.Text = "seconds";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.label5.Location = new System.Drawing.Point(15, 124);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(104, 18);
-			this.label5.TabIndex = 8;
-			this.label5.Text = "Window theme";
-			// 
-			// btnThemeGray
-			// 
-			this.btnThemeGray.BackColor = System.Drawing.Color.SlateGray;
-			this.btnThemeGray.FlatAppearance.BorderSize = 2;
-			this.btnThemeGray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeGray.Location = new System.Drawing.Point(253, 119);
-			this.btnThemeGray.Name = "btnThemeGray";
-			this.btnThemeGray.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeGray.TabIndex = 9;
-			this.btnThemeGray.UseVisualStyleBackColor = false;
-			// 
-			// btnThemeBlue
-			// 
-			this.btnThemeBlue.BackColor = System.Drawing.Color.SteelBlue;
-			this.btnThemeBlue.FlatAppearance.BorderSize = 0;
-			this.btnThemeBlue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeBlue.Location = new System.Drawing.Point(305, 119);
-			this.btnThemeBlue.Name = "btnThemeBlue";
-			this.btnThemeBlue.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeBlue.TabIndex = 10;
-			this.btnThemeBlue.UseVisualStyleBackColor = false;
-			// 
-			// btnThemeGreen
-			// 
-			this.btnThemeGreen.BackColor = System.Drawing.Color.Green;
-			this.btnThemeGreen.FlatAppearance.BorderSize = 0;
-			this.btnThemeGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeGreen.Location = new System.Drawing.Point(357, 119);
-			this.btnThemeGreen.Name = "btnThemeGreen";
-			this.btnThemeGreen.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeGreen.TabIndex = 11;
-			this.btnThemeGreen.UseVisualStyleBackColor = false;
-			// 
-			// btnThemeOrange
-			// 
-			this.btnThemeOrange.BackColor = System.Drawing.Color.DarkOrange;
-			this.btnThemeOrange.FlatAppearance.BorderSize = 0;
-			this.btnThemeOrange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeOrange.Location = new System.Drawing.Point(253, 169);
-			this.btnThemeOrange.Name = "btnThemeOrange";
-			this.btnThemeOrange.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeOrange.TabIndex = 12;
-			this.btnThemeOrange.UseVisualStyleBackColor = false;
-			// 
-			// btnThemeIndianRed
-			// 
-			this.btnThemeIndianRed.BackColor = System.Drawing.Color.IndianRed;
-			this.btnThemeIndianRed.FlatAppearance.BorderSize = 0;
-			this.btnThemeIndianRed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeIndianRed.Location = new System.Drawing.Point(357, 169);
-			this.btnThemeIndianRed.Name = "btnThemeIndianRed";
-			this.btnThemeIndianRed.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeIndianRed.TabIndex = 13;
-			this.btnThemeIndianRed.UseVisualStyleBackColor = false;
-			// 
-			// btnThemeLightCoral
-			// 
-			this.btnThemeLightCoral.BackColor = System.Drawing.Color.LightCoral;
-			this.btnThemeLightCoral.FlatAppearance.BorderSize = 0;
-			this.btnThemeLightCoral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnThemeLightCoral.Location = new System.Drawing.Point(305, 169);
-			this.btnThemeLightCoral.Name = "btnThemeLightCoral";
-			this.btnThemeLightCoral.Size = new System.Drawing.Size(46, 44);
-			this.btnThemeLightCoral.TabIndex = 14;
-			this.btnThemeLightCoral.UseVisualStyleBackColor = false;
-			// 
-			// ManageQuotesForm
+			// ManageForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -711,7 +883,7 @@
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "ManageQuotesForm";
+			this.Name = "ManageForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ManageQuotesForm";
 			this.Load += new System.EventHandler(this.ManageQuotesForm_Load);
@@ -724,7 +896,17 @@
 			this.gbBooks.ResumeLayout(false);
 			this.gbCollections.ResumeLayout(false);
 			this.tabPage3.ResumeLayout(false);
-			this.tabPage3.PerformLayout();
+			this.tabBasicSettings.ResumeLayout(false);
+			this.tabPage4.ResumeLayout(false);
+			this.gbOtherSettings.ResumeLayout(false);
+			this.gbOtherSettings.PerformLayout();
+			this.gbThemeSettings.ResumeLayout(false);
+			this.gbThemeSettings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).EndInit();
+			this.gbQuotesSettings.ResumeLayout(false);
+			this.gbQuotesSettings.PerformLayout();
+			this.gbLanguageSettings.ResumeLayout(false);
+			this.gbLanguageSettings.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -764,20 +946,31 @@
 		private TabPage tabPage2;
 		private TabPage tabPage3;
 		private LineNumbers.LineNumbers_For_RichTextBox lineNumbers_For_RichTextBox1;
-		private ComboBox cbLanguage;
-		private Label lblLanguage;
-		private Label label4;
-		private TextBox textBox2;
-		private Label label3;
-		private Label label2;
-		private Label label1;
-		private TextBox textBox1;
-		private Button btnThemeLightCoral;
-		private Button btnThemeIndianRed;
-		private Button btnThemeOrange;
-		private Button btnThemeGreen;
-		private Button btnThemeBlue;
-		private Button btnThemeGray;
-		private Label label5;
+		private Label lblShowCollByLanguage;
+		private TextBox txtQuotesInterval;
+		private Button btnTheme5;
+		private Button btnTheme6;
+		private Button btnTheme4;
+		private Button btnTheme3;
+		private Button btnTheme2;
+		private Button btnTheme1;
+		private TabControl tabBasicSettings;
+		private TabPage tabPage4;
+		private GroupBox gbThemeSettings;
+		private GroupBox gbQuotesSettings;
+		private Label lblQuotesFrequencyTime;
+		private Label lblQuotesFrequency;
+		private GroupBox gbLanguageSettings;
+		private Button btnShowCollBasedOnLanguageNo;
+		private Button btnLanguageRo;
+		private Button btnShowCollBasedOnLanguageYes;
+		private Button btnLanguageEn;
+		private Label lblOpacityPercent;
+		private Label lblOpacity;
+		private TrackBar tbOpacity;
+		private GroupBox gbOtherSettings;
+		private Button btnShowWelcomeMsgNo;
+		private Button btnShowWelcomeMsgYes;
+		private Label lblShowWelcomeMsg;
 	}
 }
