@@ -300,4 +300,25 @@
   <data name="ShowAQuote" xml:space="preserve">
     <value>Show a quote</value>
   </data>
+  <data name="QuotesAddedToBook" xml:space="preserve">
+    <value>Quotes added to new book</value>
+  </data>
+  <data name="QuotesAddedToBookMsg" xml:space="preserve">
+    <value>Your collection contained quotes that were not assigned to any book. So they have been added automatically to {0}</value>
+  </data>
+  <data name="QuotesAddedToChapter" xml:space="preserve">
+    <value>Quotes added to new chapter</value>
+  </data>
+  <data name="QuotesAddedToChapterMsg" xml:space="preserve">
+    <value>Your book {0} contained quotes that were not assigned to any chapter. So they have been added automatically to {1}</value>
+  </data>
+  <data name="NameAlreadyTaken" xml:space="preserve">
+    <value>Name already used</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Other settings</value>
+  </data>
+  <data name="ShowWelcomeMessage" xml:space="preserve">
+    <value>Show welcome message</value>
+  </data>
 </root>

@@ -49,6 +49,10 @@ namespace Quoter.App.Services.FormAnimation
 				{
 					await Task.Delay(5);
 					currentPositionX -= decrementPositionX;
+					if (form.IsDisposed)
+					{
+						break;
+					}
 					form.InvokeIfRequired(() =>
 					{
 						if (maxOpacity >= form.Opacity + incrementOpacity)
@@ -82,6 +86,10 @@ namespace Quoter.App.Services.FormAnimation
 			while (frame > 0)
 			{
 				await Task.Delay(5);
+				if (form.IsDisposed)
+				{
+					break;
+				}
 				form.InvokeIfRequired(() =>
 				{
 					form.Opacity -= decrementOpacity;
@@ -105,6 +113,10 @@ namespace Quoter.App.Services.FormAnimation
 			while (frame > 0)
 			{
 				await Task.Delay(5);
+				if (form.IsDisposed)
+				{
+					break;
+				}
 				form.InvokeIfRequired(() =>
 				{
 					if(maxOpacity >= form.Opacity + incrementOpacity)
@@ -116,6 +128,10 @@ namespace Quoter.App.Services.FormAnimation
 				frame--;
 			}
 			// Set max opacity just in case something iffy happens
+			if (form.IsDisposed)
+			{
+				return;
+			}
 			form.InvokeIfRequired(() =>
 			{
 				form.Opacity = maxOpacity;

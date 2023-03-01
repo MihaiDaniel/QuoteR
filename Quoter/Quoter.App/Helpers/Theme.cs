@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.Framework.Enums;
 
 namespace Quoter.App.Helpers
 {
@@ -13,5 +9,9 @@ namespace Quoter.App.Helpers
 		public Color BodyColor { get; set; }
 
 		public double Opacity { get; set; }
+
+		public EnumAnimation OpenNotificationAnimation { get; set; }
+
+		public EnumAnimation CloseNotificationAnimation { get; set; }
 	}
 }

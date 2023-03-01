@@ -15,10 +15,16 @@
 		/// <inheritdoc/>
 		public void SendMessage(string message, object? argument = null)
 		{
+			// lst of subscribers might be modified by OnMessageEvent, so create a list of
+			// actions instead and invoke them all
+			List<Action> lstAction = new();
+
 			foreach(IMessageSubscriber subscriber in _lstSubscribers)
 			{
-				subscriber.OnMessageEvent(message, argument);
+				lstAction.Add(() => { subscriber.OnMessageEvent(message, argument); });
+				//subscriber.OnMessageEvent(message, argument);
 			}
+			lstAction.ForEach(a => a.Invoke());
 		}
 
 		/// <inheritdoc/>
@@ -26,15 +32,25 @@
 		{
 			// Check for type to not have memory leaks. A better approach would be 
 			// to implement an ubsubscribe method
-			IMessageSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s.GetType() == subscriber.GetType());
+			// Todo remove commented code and above 
+			IMessageSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s == subscriber);
 			if(existingSubscriber == null)
 			{
 				_lstSubscribers.Add(subscriber);
 			}
 			else
 			{
-				_lstSubscribers.Remove(existingSubscriber);
-				_lstSubscribers.Add(subscriber);
+				//_lstSubscribers.Remove(existingSubscriber);
+				//_lstSubscribers.Add(subscriber);
+			}
+		}
+
+		/// <inheritdoc/>
+		public void Unsubscribe(IMessageSubscriber subscriber)
+		{
+			if(_lstSubscribers.Contains(subscriber))
+			{
+				_lstSubscribers.Remove(subscriber);
 			}
 		}
 	}

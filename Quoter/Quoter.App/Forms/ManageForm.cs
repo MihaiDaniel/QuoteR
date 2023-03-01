@@ -63,6 +63,8 @@ namespace Quoter.App.Forms
 
 		public void LocalizeControls()
 		{
+			this.Text = _stringResources["Quoter"];
+
 			// Navigation buttons for tabs
 			btnTabPage1.Text = _stringResources["ModifyQuotes"];
 			btnTabPage2.Text = _stringResources["ManageQuotes"];
@@ -99,7 +101,12 @@ namespace Quoter.App.Forms
 			lblQuotesFrequencyTime.Text = _stringResources["Minutes"];
 			gbThemeSettings.Text = _stringResources["Theme"];
 			lblOpacity.Text = _stringResources["Opacity"];
-			
+
+			gbOtherSettings.Text = _stringResources["OtherSettings"];
+			lblShowWelcomeMsg.Text = _stringResources["ShowWelcomeMessage"];
+			btnShowWelcomeMsgYes.Text = _stringResources["Yes"];
+			btnShowWelcomeMsgNo.Text = _stringResources["No"];
+
 		}
 
 		private void BindEditQuotesControls()
@@ -112,7 +119,7 @@ namespace Quoter.App.Forms
 			cbCollection.DataSource = bindingSourceCollections;
 			cbCollection.DisplayMember = nameof(Collection.Name);
 			cbCollection.ValueMember = nameof(Collection.Name);
-			cbCollection.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedCollection));
+			cbCollection.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedCollection), false, DataSourceUpdateMode.Never);
 
 			// Books
 			BindingSource bindingSourceBooks = new();
@@ -120,7 +127,7 @@ namespace Quoter.App.Forms
 			cbBooks.DataSource = bindingSourceBooks;
 			cbBooks.DisplayMember = nameof(Book.Name);
 			cbBooks.ValueMember = nameof(Book.Name);
-			cbBooks.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedBook));
+			cbBooks.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedBook), false, DataSourceUpdateMode.Never);
 
 			// Chapters
 			BindingSource bindingSourceChapters = new();
@@ -128,7 +135,7 @@ namespace Quoter.App.Forms
 			lbChapters.DataSource = bindingSourceChapters;
 			lbChapters.DisplayMember = nameof(Chapter.Name);
 			lbChapters.ValueMember = nameof(Chapter.Name);
-			lbChapters.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedChapter));
+			lbChapters.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedChapter), false, DataSourceUpdateMode.Never);
 
 			// Quotes
 			rtbQuotes.DataBindings.Add("Text", _editQuotesController, "Quotes");
@@ -153,7 +160,9 @@ namespace Quoter.App.Forms
 			SetStatus(message, color);
 		}
 
-		public void SetSelectedLanguage(EnumLanguage language)
+		#region ISettingsForm
+
+		void ISettingsForm.SetSelectedLanguage(EnumLanguage language)
 		{
 			if (language == EnumLanguage.English)
 			{
@@ -169,9 +178,9 @@ namespace Quoter.App.Forms
 			btnLanguageRo.Invalidate();
 		}
 
-		public void SetSelectedCollectionByLanguage(bool isShowByLanguage)
+		void ISettingsForm.SetSelectedCollectionByLanguage(bool isShowByLanguage)
 		{
-			if(isShowByLanguage)
+			if (isShowByLanguage)
 			{
 				btnShowCollBasedOnLanguageYes.FlatAppearance.BorderSize = 1;
 				btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
@@ -183,15 +192,101 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		public void SetOpacitySlider(double opacity)
+		void ISettingsForm.SetOpacitySlider(double opacity)
 		{
 			tbOpacity.Value = (int)(opacity * 10);
 		}
 
-		private void btnClose_Click(object sender, EventArgs e)
+		void ISettingsForm.SetShowWelcomeMessage(bool value)
 		{
-			_formsManager.Close(this);
+			if (value)
+			{
+				btnShowWelcomeMsgYes.FlatAppearance.BorderSize = 1;
+				btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
+			}
+			else
+			{
+				btnShowWelcomeMsgYes.FlatAppearance.BorderSize = 0;
+				btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 1;
+			}
 		}
+
+		void ISettingsForm.SetNotificationsType(EnumNotificationType type)
+		{
+			if (type == EnumNotificationType.AlwaysOn)
+			{
+				btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Black;
+				btnPopupNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
+			}
+			else
+			{
+				btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
+				btnPopupNotifications.FlatAppearance.BorderColor = Color.Black;
+			}
+		}
+
+		#endregion ISettingsForm
+
+		#region IEditQuotesForm
+
+		void IEditQuotesForm.SetBooksControlsState(EnumCrudStates state)
+		{
+			if (state == EnumCrudStates.Add)
+			{
+				btnAddFirstBook.Visible = true;
+				cbBooks.Visible = false;
+				btnDeleteBook.Visible = false;
+				btnEditBook.Visible = false;
+				btnAddBook.Visible = false;
+			}
+			else if (state == EnumCrudStates.ViewAddEditDelete)
+			{
+				btnAddFirstBook.Visible = false;
+				cbBooks.Visible = true;
+				btnDeleteBook.Visible = true;
+				btnEditBook.Visible = true;
+				btnAddBook.Visible = true;
+			}
+			else if (state == EnumCrudStates.None)
+			{
+				btnAddFirstBook.Visible = false;
+				cbBooks.Visible = false;
+				btnDeleteBook.Visible = false;
+				btnEditBook.Visible = false;
+				btnAddBook.Visible = false;
+			}
+		}
+
+		void IEditQuotesForm.SetChaptersControlsState(EnumCrudStates state)
+		{
+			if (state == EnumCrudStates.Add)
+			{
+				btnAddFirstChapter.Visible = true;
+				lbChapters.Visible = false;
+				btnDeleteChapter.Visible = false;
+				btnEditChapter.Visible = false;
+				btnAddChapter.Visible = false;
+
+			}
+			else if (state == EnumCrudStates.ViewAddEditDelete)
+			{
+				btnAddFirstChapter.Visible = false;
+				lbChapters.Visible = true;
+				btnDeleteChapter.Visible = true;
+				btnEditChapter.Visible = true;
+				btnAddChapter.Visible = true;
+			}
+			else if (state == EnumCrudStates.None)
+			{
+				btnAddFirstChapter.Visible = false;
+				lbChapters.Visible = false;
+				btnDeleteChapter.Visible = false;
+				btnEditChapter.Visible = false;
+				btnAddChapter.Visible = false;
+			}
+		}
+
+		#endregion IEditQuotesForm
 
 		private void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -291,6 +386,16 @@ namespace Quoter.App.Forms
 
 		#endregion  Button events Add, Edit, Delete Chapters
 
+		private void btnAddFirstBook_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.AddBook();
+		}
+
+		private void btnAddFirstChapter_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.AddChapter();
+		}
+
 		private void btnTabPage1_Click(object sender, EventArgs e)
 		{
 			tabControl.SelectTab(tabPage1);
@@ -315,11 +420,20 @@ namespace Quoter.App.Forms
 			btnTabPage3.FlatAppearance.BorderSize = 1;
 		}
 
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.OnClose();
+			_formsManager.Close(this);
+		}
+
+
 		private void SetStatus(string message, Color color)
 		{
 			txtStatus.Text = message;
 			txtStatus.ForeColor = color;
 		}
+
+		#region Settings tab
 
 		private void btnLanguageEn_Click(object sender, EventArgs e)
 		{
@@ -334,8 +448,8 @@ namespace Quoter.App.Forms
 
 		private void txtQuotesInterval_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsControl(e.KeyChar) 
-				&& !char.IsDigit(e.KeyChar) 
+			if (!char.IsControl(e.KeyChar)
+				&& !char.IsDigit(e.KeyChar)
 				&& (e.KeyChar != '.'))
 			{
 				e.Handled = true;
@@ -404,6 +518,22 @@ namespace Quoter.App.Forms
 		{
 			double opacity = ((double)tbOpacity.Value) / 10;
 			_settingsController.SetOpacity(opacity);
+		}
+
+		#endregion  Settings tab
+
+		private void btnPopupNotifications_Click(object sender, EventArgs e)
+		{
+			btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
+			btnPopupNotifications.FlatAppearance.BorderColor = Color.Black;
+			_settingsController.SetNotificationType(EnumNotificationType.Popup);
+		}
+
+		private void btnAlwaysOnNotifications_Click(object sender, EventArgs e)
+		{
+			btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Black;
+			btnPopupNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
+			_settingsController.SetNotificationType(EnumNotificationType.AlwaysOn);
 		}
 	}
 }

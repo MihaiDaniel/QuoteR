@@ -300,4 +300,25 @@
   <data name="ShowAQuote" xml:space="preserve">
     <value>Arată un citat</value>
   </data>
+  <data name="QuotesAddedToBook" xml:space="preserve">
+    <value>Citate adăugate la noua carte</value>
+  </data>
+  <data name="QuotesAddedToBookMsg" xml:space="preserve">
+    <value>Colecția conține deja citate. Acestea au fost adăugate automat la noua carte {0}</value>
+  </data>
+  <data name="QuotesAddedToChapter" xml:space="preserve">
+    <value>Citate adăugate la noul capitol</value>
+  </data>
+  <data name="QuotesAddedToChapterMsg" xml:space="preserve">
+    <value>Cartea {0} conține deja citate. Acestea au fost adăugate automat la noul capitol {1}</value>
+  </data>
+  <data name="NameAlreadyTaken" xml:space="preserve">
+    <value>Nume deja folosit</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Alte setări</value>
+  </data>
+  <data name="ShowWelcomeMessage" xml:space="preserve">
+    <value>Arată mesaj la pornire</value>
+  </data>
 </root>

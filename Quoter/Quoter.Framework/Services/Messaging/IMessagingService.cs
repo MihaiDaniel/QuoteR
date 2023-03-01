@@ -17,5 +17,11 @@
 		/// </summary>
 		/// <param name="subscriber">The subscriber</param>
 		void Subscribe(IMessageSubscriber subscriber);
+
+		/// <summary>
+		/// Unsubscribe from the messaging service. If subscriber is not subscribed this does nothing.
+		/// </summary>
+		/// <param name="subscriber">The subscriber</param>
+		void Unsubscribe(IMessageSubscriber subscriber);
 	}
 }

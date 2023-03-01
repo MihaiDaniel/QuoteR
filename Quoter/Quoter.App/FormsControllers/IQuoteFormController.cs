@@ -9,12 +9,9 @@ namespace Quoter.App.FormsControllers
 {
 	public interface IQuoteFormController
 	{
-		string Title { get; }
-		string Body { get; }
-		string Footer { get; } 
-
 		void RegisterForm(IQuoteForm quoteForm);
-		Task GetNextQuote(long currentQuoteId);
-		Task GetPreviousQuote(long currentQuoteId);
+		Task GetRandomQuote();
+		Task GetNextQuote();
+		Task GetPreviousQuote();
 	}
 }

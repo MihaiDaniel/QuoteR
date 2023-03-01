@@ -16,5 +16,9 @@ namespace Quoter.App.Forms
 		void SetSelectedCollectionByLanguage(bool isShowByLanguage);
 
 		void SetOpacitySlider(double opacity);
+
+		void SetShowWelcomeMessage(bool value);
+
+		void SetNotificationsType(EnumNotificationType type);
 	}
 }

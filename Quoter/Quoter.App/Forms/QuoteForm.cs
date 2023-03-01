@@ -7,11 +7,12 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services.Messaging;
 using System.Diagnostics;
 
 namespace Quoter.App.Views
 {
-	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
+	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm//, IMessageSubscriber
 	{
 		private const int TitleMaxChars = 35;
 		private const int BodyMaxChars = 310; // at 10 font size
@@ -23,10 +24,11 @@ namespace Quoter.App.Views
 		private readonly IFormPositioningService _positioningService;
 		private readonly IThemeService _themeService;
 		private readonly IQuoteFormController _formController;
+		//private readonly IMessagingService _messagingService;
 
 		private List<IFormMonitor> _lstFormMonitors;
 
-		private QuoteModel _quoteModel;
+		//private QuoteModel _quoteModel;
 
 		public QuoteForm(IFormsManager formsManager,
 							ISettings settings,
@@ -34,7 +36,8 @@ namespace Quoter.App.Views
 							IFormAnimationService animationService,
 							IThemeService themeService,
 							IQuoteFormController formController,
-							QuoteModel quoteModel)
+							IMessagingService messagingService
+							/*QuoteModel quoteModel*/)
 		{
 			InitializeComponent();
 			_formsManager = formsManager;
@@ -44,38 +47,53 @@ namespace Quoter.App.Views
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
 			_formController = formController;
+			//_messagingService = messagingService;
 
 			_lstFormMonitors = new List<IFormMonitor>();
 
-			_quoteModel = quoteModel;		
-			InitializeTheme();
-			BindControls();
+			//_quoteModel = quoteModel;
 
 			_formController.RegisterForm(this);
-			SetQuote(quoteModel);
+			//SetQuote(quoteModel);
+
+			//_messagingService.Subscribe(this);
 		}
 
-		private void BindControls()
-		{
-			// See if in the future use databindings for this
-			//lblTitle.DataBindings.Add("Text", _formController, nameof(IQuoteFormController.Title));
-			//txtBody.DataBindings.Add("Text", _formController, nameof(IQuoteFormController.Body));
-			//txtFooter.DataBindings.Add("Text", _formController, nameof(IQuoteFormController.Footer));
-		}
-
-		private void InitializeTheme()
+		private async void MessageForm_Load(object sender, EventArgs e)
 		{
 			Theme theme = _themeService.GetCurrentTheme();
-			this.Opacity= theme.Opacity;
-			this.BackColor = theme.BodyColor;
-			txtBody.BackColor = theme.BodyColor;
-			txtFooter.BackColor = theme.BodyColor;
-			pnlTitle.BackColor = theme.TitleColor;
+			//EnumAnimation openAnimation = _quoteModel.OpenAnimation ?? EnumAnimation.FadeInFromBottomRight;
+			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
+		}
+
+		public Form GetForm()
+		{
+			return this;
+		}
+
+		//public void Close()
+		//{
+		//	this.InvokeIfRequired(() ={
+		//		Close();
+		//	});
+		//}
+
+
+		public void SetTheme(Theme theme)
+		{
+			this.InvokeIfRequired(() =>
+			{
+				this.Opacity = theme.Opacity;
+				this.BackColor = theme.BodyColor;
+				txtBody.BackColor = theme.BodyColor;
+				txtFooter.BackColor = theme.BodyColor;
+				pnlTitle.BackColor = theme.TitleColor;
+			});
 		}
 
 		public void SetQuote(QuoteModel quoteModel)
 		{
-			_quoteModel = quoteModel;
+			//_quoteModel = quoteModel;
 			this.InvokeIfRequired(() =>
 			{
 				SetControlText(lblTitle, quoteModel.Title, TitleMaxChars);
@@ -119,7 +137,6 @@ namespace Quoter.App.Views
 			_lstFormMonitors.Add(formMonitor);
 		}
 
-
 		public EnumFormCloseState CanClose()
 		{
 			bool keepOpen = _settings.Get<bool>(Const.Setting.KeepNotificationOpenOnMouseOver);
@@ -152,6 +169,7 @@ namespace Quoter.App.Views
 				formMonitor.EventFormClosing(this);
 			}
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeOut);
+			//_messagingService.Unsubscribe(this);
 			_formsManager.Close(this);
 		}
 
@@ -187,25 +205,20 @@ namespace Quoter.App.Views
 			}
 		}
 
-		private async void MessageForm_Load(object sender, EventArgs e)
-		{
-			EnumAnimation openAnimation = _quoteModel.OpenAnimation ?? EnumAnimation.FadeInFromBottomRight;
-			await _formAnimationService.AnimateAsync(this, openAnimation);
-		}
 
-		private async void btnClose_Click(object sender, EventArgs e)
+		private void btnClose_Click(object sender, EventArgs e)
 		{
 			_formsManager.Close(this);
 		}
 
 		private async void btnPreviousQuote_Click(object sender, EventArgs e)
 		{
-			await _formController.GetPreviousQuote(_quoteModel.QuoteId);
+			await _formController.GetPreviousQuote();
 		}
 
 		private async void btnNextQuote_Click(object sender, EventArgs e)
 		{
-			await _formController.GetNextQuote(_quoteModel.QuoteId);
+			await _formController.GetNextQuote();
 		}
 
 	}

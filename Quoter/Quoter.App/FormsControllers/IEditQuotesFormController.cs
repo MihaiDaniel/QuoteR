@@ -6,7 +6,14 @@ namespace Quoter.App.FormsControllers
 {
 	public interface IEditQuotesFormController
 	{
+		/// <summary>
+		/// Mandatory step before using other methods.
+		/// Due to DI we would have a circular dependency between the 
+		/// controller and the form, so we use this method to avoid this.
+		/// </summary>
 		void RegisterForm(IEditQuotesForm editQuotesForm);
+
+		void OnClose();
 
 		Collection? SelectedCollection { get; set; }
 		BindingList<Collection> Collections { get; }

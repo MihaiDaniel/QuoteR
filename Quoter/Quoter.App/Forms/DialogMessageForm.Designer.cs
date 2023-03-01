@@ -83,6 +83,7 @@
 			this.txtMessage.Name = "txtMessage";
 			this.txtMessage.Size = new System.Drawing.Size(312, 75);
 			this.txtMessage.TabIndex = 4;
+			this.txtMessage.TabStop = false;
 			this.txtMessage.Text = "A aparut un mesaj de atentionare ca sa stii ca s-a intamplat ceva anume";
 			// 
 			// panel1

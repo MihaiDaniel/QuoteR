@@ -22,11 +22,16 @@ namespace Quoter.App.Services.Forms
 			EnumTheme theme = (EnumTheme)_settings.Get<int>(Const.Setting.Theme);
 			double opacity = _settings.Get<double>(Const.Setting.Opacity);
 
+			EnumAnimation animationOpen = (EnumAnimation)_settings.Get<int>(Const.Setting.NotificationOpenAnimation);
+			EnumAnimation animationClose = (EnumAnimation)_settings.Get<int>(Const.Setting.NotificationCloseAnimation);
+
 			return new Theme()
 			{
 				TitleColor = GetTitleColorFromTheme(theme),
 				BodyColor = Color.WhiteSmoke,
-				Opacity = opacity
+				Opacity = opacity,
+				OpenNotificationAnimation = animationOpen,
+				CloseNotificationAnimation = animationClose
 			};
 		}
 

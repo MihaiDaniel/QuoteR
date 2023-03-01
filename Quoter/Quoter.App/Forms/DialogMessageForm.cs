@@ -16,17 +16,19 @@ namespace Quoter.App.Forms
 		public DialogMessageForm(IFormsManager formsManager,
 							   IFormPositioningService formPositioningService,
 							   IStringResources stringResources,
+							   IThemeService themeService,
 							   DialogModel dialogModel)
 		{
 			InitializeComponent();
 			_formsManager = formsManager;
 
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
-
-			pnlTitle.BackColor = dialogModel.TitleColor;
+			
+			// if default color get color from theme instead, else show the color set in dialogModal
+			pnlTitle.BackColor = dialogModel.TitleColor != Const.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTopBar.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
-			txtMessage.SelectionLength= 0; // Stop text from being selected
+			txtMessage.TabStop = false; // Stop text from being selected
 			btnOk.Text = stringResources["OK"];
 			btnCancel.Text = stringResources["Cancel"];
 

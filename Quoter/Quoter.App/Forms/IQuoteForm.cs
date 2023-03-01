@@ -1,4 +1,5 @@
-﻿using Quoter.Framework.Models;
+﻿using Quoter.App.Helpers;
+using Quoter.Framework.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Quoter.App.Forms
 {
 	public interface IQuoteForm
 	{
+		void Close();
+		Form GetForm();
 		void SetQuote(QuoteModel quoteModel);
+		void SetTheme(Theme theme);
 	}
 }

@@ -1,10 +1,11 @@
-﻿using Quoter.Framework.Enums;
+﻿using Quoter.App.Helpers;
+using Quoter.Framework.Enums;
 
 namespace Quoter.App.Models
 {
 	public class DialogModel
 	{
-		public Color TitleColor { get; set; } = Color.SlateGray;
+		public Color TitleColor { get; set; } = Const.ColorDefault;
 
 		public string Title { get; set; }
 

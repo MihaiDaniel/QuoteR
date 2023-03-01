@@ -21,6 +21,7 @@ namespace Quoter.App.Forms
 		public DialogInputForm(IFormsManager formsManager,
 							   IFormPositioningService formPositioningService,
 							   IStringResources stringResources,
+							   IThemeService themeService,
 							   DialogModel dialogModel)
 		{
 			InitializeComponent();
@@ -32,7 +33,8 @@ namespace Quoter.App.Forms
 			// Allow characters valid for file names a-zA-Z0-9
 			_regexInput = new Regex(@"^[\w\-. ]+$");
 
-			pnlTitle.BackColor = dialogModel.TitleColor;
+			// if default color get color from theme instead, else show the color set in dialogModal
+			pnlTitle.BackColor = dialogModel.TitleColor != Const.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTitle.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
 			btnCancel.Text = _stringResources["Cancel"];

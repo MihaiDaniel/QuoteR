@@ -2,38 +2,47 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Quoter.App.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="NotificationIntervalSeconds" Type="System.Int32" Scope="Application">
+    <Setting Name="NotificationIntervalSeconds" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
-    <Setting Name="AutoCloseNotificationSeconds" Type="System.Int32" Scope="Application">
+    <Setting Name="AutoCloseNotificationSeconds" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8</Value>
     </Setting>
-    <Setting Name="IsPaused" Type="System.Boolean" Scope="Application">
+    <Setting Name="IsPaused" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ShowWelcomeNotification" Type="System.Boolean" Scope="Application">
+    <Setting Name="ShowWelcomeNotification" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="KeepNotificationOpenOnMouseOver" Type="System.Boolean" Scope="Application">
+    <Setting Name="KeepNotificationOpenOnMouseOver" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
+    <Setting Name="ConnectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="IsFirstStart" Type="System.Boolean" Scope="Application">
+    <Setting Name="IsFirstStart" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Language" Type="System.String" Scope="Application">
+    <Setting Name="Language" Type="System.String" Scope="User">
       <Value Profile="(Default)">en-US</Value>
     </Setting>
-    <Setting Name="ShowCollectionsBasedOnLanguage" Type="System.Boolean" Scope="Application">
+    <Setting Name="ShowCollectionsBasedOnLanguage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="Theme" Type="System.Int32" Scope="Application">
+    <Setting Name="Theme" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="Opacity" Type="System.Double" Scope="Application">
+    <Setting Name="Opacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="NotificationType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="NotificationOpenAnimation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="NotificationCloseAnimation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
     </Setting>
   </Settings>
 </SettingsFile>

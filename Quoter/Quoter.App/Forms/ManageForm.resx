@@ -58,13 +58,124 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="rtbQuotes.Text" xml:space="preserve">
-    <value>Public fields in public classes do not respect the encapsulation principle and has three main disadvantages:
+    <value>1
+2
+3
+3
+5
+6
+7
+8
+1
+2
+3
+3
+5
+6
+7
 
-    Additional behavior such as validation cannot be added.
-    The internal representation is exposed, and cannot be changed afterwards.
-    Member values are subject to change from anywhere in the code and may not meet the programmer’s assumptions.
+1
+2
+3
+3
+5
+6
+7
 
-By using private fields and public properties (set and get), unauthorized modifications are prevented. Properties also benefit from additional protection (security) features such as Link Demands.</value>
+1
+2
+3
+3
+5
+6
+7
+
+1
+2
+3
+3
+5
+6
+7
+
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+1
+2
+3
+3
+5
+6
+7
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

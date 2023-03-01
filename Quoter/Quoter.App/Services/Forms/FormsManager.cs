@@ -107,5 +107,11 @@ namespace Quoter.App.Services.Forms
 			}
 		}
 
+		/// <inheritdoc/>
+		public bool IsOpen<TForm>() where TForm : Form
+		{
+			return _lstOpenedForms.Any(f => f.Type == typeof(TForm));
+		}
+
 	}
 }

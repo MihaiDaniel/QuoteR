@@ -36,5 +36,10 @@ namespace Quoter.App.Services.Forms
 		/// <param name="form">Form to close</param>
 		void Close(Form form);
 
+		/// <summary>
+		/// Checks if an instance of the TForm type is open
+		/// </summary>
+		bool IsOpen<TForm>() where TForm : Form;
+
 	}
 }

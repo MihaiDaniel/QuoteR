@@ -6,17 +6,11 @@ using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Models;
 using Quoter.Framework.Services.Messaging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Quoter.App.FormsControllers
 {
@@ -26,6 +20,7 @@ namespace Quoter.App.FormsControllers
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
 		private readonly ISettings _settings;
+		private readonly IMessagingService _messagingService;
 
 		private IEditQuotesForm _form;
 
@@ -117,17 +112,18 @@ namespace Quoter.App.FormsControllers
 			_stringResources = stringResources;
 			_formsManager = formManager;
 			_settings = settings;
+			_messagingService = messagingService;
 
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
 
-			messagingService.Subscribe(this);
+			_messagingService.Subscribe(this);
 		}
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if(message == Const.Event.ShowCollectionsBasedOnLanguageChanged)
+			if (message == Const.Event.ShowCollectionsBasedOnLanguageChanged)
 			{
 				LoadCollections();
 				LoadCollectionBooks();
@@ -147,9 +143,14 @@ namespace Quoter.App.FormsControllers
 			// Quotes loaded by SelectedChapter property
 		}
 
+		public void OnClose()
+		{
+			_messagingService.Unsubscribe(this);
+		}
+
 		private void LoadCollections()
 		{
-			Collections.Clear();
+			UnloadDataFromForm(true, true, true);
 
 			bool isShowCollectionsByLanguage = _settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage);
 
@@ -157,7 +158,8 @@ namespace Quoter.App.FormsControllers
 			if (isShowCollectionsByLanguage)
 			{
 				EnumLanguage language = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language));
-				lstCollections = _context.Collections.Where(c => c.Language == language || c.Language == default).ToList();
+				lstCollections = _context.Collections
+					.Where(c => c.Language == language || c.Language == default).ToList();
 			}
 			else
 			{
@@ -168,19 +170,18 @@ namespace Quoter.App.FormsControllers
 			{
 				Collections.Add(collection);
 			}
+
+			if (!lstCollections.Any())
+			{
+				_form.SetBooksControlsState(EnumCrudStates.None);
+				_form.SetChaptersControlsState(EnumCrudStates.None);
+			}
 		}
 
 		private void LoadCollectionBooks()
 		{
-			if(Books.Count > 0)
-			{
-				Books.Clear();
-			}
-			if(Chapters.Count > 0)
-			{
-				Chapters.Clear();
-			}
-			if (SelectedCollection == null)
+			UnloadDataFromForm(false, true, true);
+			if (string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
 				return;
 			}
@@ -192,17 +193,19 @@ namespace Quoter.App.FormsControllers
 				{
 					Books.Add(book);
 				}
+				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
+			}
+			else
+			{
+				_form.SetBooksControlsState(EnumCrudStates.Add);
+				_form.SetChaptersControlsState(EnumCrudStates.None);
 			}
 		}
 
 		private void LoadBookChapters()
 		{
-			if(Chapters.Count> 0)
-			{
-				Chapters.Clear();
-			}
-			
-			if (SelectedBook == null)
+			UnloadDataFromForm(false, false, true);
+			if (string.IsNullOrEmpty(SelectedBook?.Name))
 			{
 				return;
 			}
@@ -214,12 +217,18 @@ namespace Quoter.App.FormsControllers
 				{
 					Chapters.Add(chapter);
 				}
+				_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
+			}
+			else
+			{
+				LoadQuotes(); // Load quotes that are in this book, but not assinged to a chapter
+				_form.SetChaptersControlsState(EnumCrudStates.Add);
 			}
 		}
 
 		private void LoadCollectionsData()
 		{
-			if (SelectedCollection == null)
+			if (string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
 				return;
 			}
@@ -229,7 +238,7 @@ namespace Quoter.App.FormsControllers
 
 		private void LoadQuotes()
 		{
-			if (SelectedCollection == null)
+			if (string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
 				return;
 			}
@@ -263,6 +272,25 @@ namespace Quoter.App.FormsControllers
 			}
 		}
 
+		private void UnloadDataFromForm(bool unloadCollection, bool unloadBooks, bool unloadChapters)
+		{
+			if (unloadCollection)
+			{
+				Collections.Clear();
+				SelectedCollection = null;
+			}
+			if (unloadBooks)
+			{
+				Books.Clear();
+				SelectedBook = null;
+			}
+			if (unloadChapters)
+			{
+				Chapters.Clear();
+				SelectedChapter = null;
+			}
+		}
+
 		#region Add, Edit, Delete collections
 
 		public void AddCollection()
@@ -280,7 +308,7 @@ namespace Quoter.App.FormsControllers
 				{
 					_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
 					{
-						Title = _stringResources["Quoter"],
+						Title = _stringResources["NameAlreadyTaken"],
 						Message = _stringResources["CollectionAlreadyExists"],
 						TitleColor = Helpers.Const.ColorWarn,
 					});
@@ -351,7 +379,7 @@ namespace Quoter.App.FormsControllers
 
 		public void AddBook()
 		{
-			if (SelectedCollection == null)
+			if (string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
 				return;
 			}
@@ -361,38 +389,75 @@ namespace Quoter.App.FormsControllers
 				Message = _stringResources["NewBookName", SelectedCollection.Name],
 			});
 
-			if (result.DialogResult == DialogResult.OK)
+			if (result.DialogResult != DialogResult.OK)
 			{
-				string newBookName = result.StringResult;
-				if (Books.Any(c => c.Name == newBookName))
+				return;
+			}
+			string newBookName = result.StringResult;
+			if (Books.Any(c => c.Name == newBookName))
+			{
+				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
 				{
-					_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
-					{
-						Title = _stringResources["Quoter"],
-						Message = _stringResources["BookAlreadyExists"],
-						TitleColor = Helpers.Const.ColorWarn,
-					});
-					AddBook();
-				}
-				else
+					Title = _stringResources["NameAlreadyTaken"],
+					Message = _stringResources["BookAlreadyExists"],
+					TitleColor = Helpers.Const.ColorWarn,
+				});
+				AddBook();
+			}
+			else
+			{
+				Book newBook = new()
 				{
-					Book newBook = new()
-					{
-						Name = result.StringResult,
-						CollectionId = SelectedCollection.CollectionId
-					};
-					_context.Books.Add(newBook);
-					_context.SaveChanges();
-					Books.Add(newBook);
-					_form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
-					SelectedBook = newBook;
+					Name = result.StringResult,
+					CollectionId = SelectedCollection.CollectionId
+				};
+				_context.Books.Add(newBook);
+				_context.SaveChanges();
+
+				// Check for 'loose' quotes and add them to the new book
+				// so after the ui is updated we load the quotes
+				CheckForQuotesInCollectionWithNoAssignedBookAndAssignThem(newBook);
+
+				Books.Add(newBook);
+				SelectedBook = newBook;
+
+				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
+				_form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
+
+				
+			}
+
+		}
+
+		private void CheckForQuotesInCollectionWithNoAssignedBookAndAssignThem(Book book)
+		{
+			if (SelectedCollection == null)
+			{
+				return;
+			}
+			List<Quote> lstQuotes = _context.Quotes.Where(q => q.CollectionId == SelectedCollection.CollectionId
+												&& q.BookId == null
+												&& q.ChapterId == null)
+												.ToList();
+			if (lstQuotes.Any())
+			{
+				foreach (Quote quote in lstQuotes)
+				{
+					quote.BookId = book.BookId;
 				}
+				_context.SaveChanges();
+				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+				{
+					Title = _stringResources["QuotesAddedToBook"],
+					Message = _stringResources["QuotesAddedToBookMsg", book.Name],
+					TitleColor = Const.ColorDefault,
+				});
 			}
 		}
 
 		public void EditBook()
 		{
-			if (SelectedBook == null)
+			if (string.IsNullOrEmpty(SelectedBook?.Name))
 			{
 				return;
 			}
@@ -414,7 +479,7 @@ namespace Quoter.App.FormsControllers
 
 		public void DeleteBook()
 		{
-			if (SelectedBook == null)
+			if (string.IsNullOrEmpty(SelectedBook?.Name))
 			{
 				return;
 			}
@@ -440,7 +505,7 @@ namespace Quoter.App.FormsControllers
 
 		public void AddChapter()
 		{
-			if (SelectedBook == null)
+			if (string.IsNullOrEmpty(SelectedBook?.Name))
 			{
 				return;
 			}
@@ -457,7 +522,7 @@ namespace Quoter.App.FormsControllers
 				{
 					_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
 					{
-						Title = _stringResources["Quoter"],
+						Title = _stringResources["NameAlreadyTaken"],
 						Message = _stringResources["ChapterAlreadyExists"],
 						TitleColor = Const.ColorWarn,
 					});
@@ -472,16 +537,47 @@ namespace Quoter.App.FormsControllers
 					};
 					_context.Chapters.Add(newChapter);
 					_context.SaveChanges();
+
+					CheckForQuotesInBookWithNoAssignedChapterAndAssignThem(newChapter);
+
 					Chapters.Add(newChapter);
-					_form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
 					SelectedChapter = newChapter;
+
+					_form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
+					_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
 				}
+			}
+		}
+
+		private void CheckForQuotesInBookWithNoAssignedChapterAndAssignThem(Chapter newChapter)
+		{
+			if (SelectedBook == null || SelectedCollection == null)
+			{
+				return;
+			}
+			List<Quote> lstQuotes = _context.Quotes.Where(q => q.CollectionId == SelectedCollection.CollectionId
+												&& q.BookId == SelectedBook.BookId
+												&& q.ChapterId == null)
+												.ToList();
+			if (lstQuotes.Any())
+			{
+				foreach (Quote quote in lstQuotes)
+				{
+					quote.ChapterId = newChapter.ChapterId;
+				}
+				_context.SaveChanges();
+				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+				{
+					Title = _stringResources["QuotesAddedToChapter"],
+					Message = _stringResources["QuotesAddedToChapterMsg", SelectedBook.Name, newChapter.Name],
+					TitleColor = Const.ColorDefault,
+				});
 			}
 		}
 
 		public void EditChapter()
 		{
-			if (SelectedChapter == null)
+			if (string.IsNullOrEmpty(SelectedChapter?.Name))
 			{
 				return;
 			}
@@ -498,12 +594,13 @@ namespace Quoter.App.FormsControllers
 				_context.SaveChanges();
 				LoadBookChapters();
 				SelectedChapter = Chapters.First(c => c.Name == SelectedChapter.Name);
+				_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
 			}
 		}
 
 		public void DeleteChapter()
 		{
-			if (SelectedChapter == null)
+			if (string.IsNullOrEmpty(SelectedChapter?.Name))
 			{
 				return;
 			}
@@ -527,7 +624,7 @@ namespace Quoter.App.FormsControllers
 
 		public void AddQuotes()
 		{
-			if (string.IsNullOrWhiteSpace(Quotes) || SelectedCollection == null)
+			if (string.IsNullOrWhiteSpace(Quotes) || string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
 				return;
 			}
@@ -550,7 +647,10 @@ namespace Quoter.App.FormsControllers
 				}
 
 				List<Quote> quotesToDelete = queryQuotes.ToList();
-				_context.Quotes.RemoveRange(quotesToDelete);
+				if (quotesToDelete.Any())
+				{
+					_context.Quotes.RemoveRange(quotesToDelete);
+				}
 
 				// Then add the quotes in the database
 				_context.Quotes.AddRange(lstQuotes);

@@ -1,12 +1,15 @@
 ﻿using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
+using Quoter.App.Services.Forms;
+using Quoter.App.Views;
 using Quoter.Framework.Enums;
+using Quoter.Framework.Models;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 
 namespace Quoter.App.FormsControllers
 {
@@ -15,16 +18,22 @@ namespace Quoter.App.FormsControllers
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
+		private readonly IFormsManager _formsManager;
+		private readonly IQuoteService _quoteService;
 
 		private ISettingsForm _form;
 
 		public SettingsFormController(ISettings settings, 
 										IMessagingService messagingService,
-										IStringResources stringResources)
+										IStringResources stringResources,
+										IFormsManager formsManager,
+										IQuoteService quoteService)
 		{
 			_settings = settings;
 			_messagingService = messagingService;
 			_stringResources = stringResources;
+			_formsManager = formsManager;
+			_quoteService = quoteService;
 		}
 
 		private string _notificationIntervalMinutes;
@@ -118,6 +127,10 @@ namespace Quoter.App.FormsControllers
 			double opacity = _settings.Get<double>(Const.Setting.Opacity);
 			_form.SetOpacitySlider(opacity);
 			OpacityValue = GetOpacityValuePercent(opacity);
+
+			_form.SetShowWelcomeMessage(_settings.Get<bool>(Const.Setting.ShowWelcomeNotification));
+
+			_form.SetNotificationsType((EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType));
 		}
 
 		public void SetLanguage(EnumLanguage language)
@@ -156,17 +169,44 @@ namespace Quoter.App.FormsControllers
 		{
 			_settings.Set<int>(Const.Setting.Theme, (int)theme);
 			_form.SetTheme();
+			_messagingService.SendMessage(Const.Event.ThemeChanged);
 		}
 
 		public void SetOpacity(double opacity)
 		{
 			_settings.Set<double>(Const.Setting.Opacity, opacity);
 			OpacityValue = GetOpacityValuePercent(opacity);
+			_messagingService.SendMessage(Const.Event.ThemeChanged);
 		}
 
 		private string GetOpacityValuePercent(double opacity)
 		{
 			return ((int)(opacity * 100)).ToString() + " %";
+		}
+
+		public void SetNotificationType(EnumNotificationType type)
+		{
+			EnumNotificationType currentType = (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
+			if(currentType != type)
+			{
+				_messagingService.SendMessage(Const.Event.NotificationTypeChanged, null);
+				_settings.Set<int>(Const.Setting.NotificationType, (int)type);
+
+				if (type == EnumNotificationType.AlwaysOn)
+				{
+
+					Task.Run(async () =>
+					{
+						//QuoteModel? quote = await _quoteService.GetRandomQuote();
+						//if (quote != null)
+						//{
+							_formsManager.ShowDialog<QuoteForm>(0/*, quote*/);
+						//}
+					});
+				}
+			}
+
+			
 		}
 	}
 }

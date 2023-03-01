@@ -29,6 +29,27 @@ namespace Quoter.App.Helpers
 			public const string LanguageChanged = "LanguageChanged";
 			public const string NotificationIntervalChanged = "NotificationIntervalChanged";
 			public const string ShowCollectionsBasedOnLanguageChanged = "ShowCollectionsBasedOnLanguage";
+			public const string NotificationTypeChanged = "ShowCollectionsBasedOnLanguage";
+			public const string ThemeChanged = "ThemeChanged";
+			/// <summary>
+			/// Event that signals that the show notification quote timer has elapsed.
+			/// For a popup type notification, it should show a popup notification.
+			/// For a alwaysOn type notification it should signal the opened quote form
+			/// to change the quote, or open it if it was closed
+			/// </summary>
+			public const string NotificationTimerElapsed = "NotificationTimerElapsed";
+			/// <summary>
+			/// Event that signals the user requested a quote, or a new quote window must be opened.
+			/// Any other quote window opened should close when such event occurs, to prevent having
+			/// more than 1 quote window open at a time
+			/// </summary>
+			public const string OpeningQuoteWindow = "OpeningQuoteWindow";
+			/// <summary>
+			/// Event that signals the user requested a quote. This should normally be send, when
+			/// there is already a quote window opened in alwaysOn notification type.
+			/// It would signal the opened quote window to change quotes.
+			/// </summary>
+			public const string ShowQuoteButtonEvent = "ShowQuoteButtonEvent";
 		}
 
 		/// <summary>
@@ -49,29 +70,57 @@ namespace Quoter.App.Helpers
 			/// Indicates how often notifications with quotes will be shown. In seconds.
 			/// </summary>
 			public const string NotificationIntervalSeconds = "NotificationIntervalSeconds";
+
+			public const string NotificationOpenAnimation = "NotificationOpenAnimation";
+
+			public const string NotificationCloseAnimation = "NotificationCloseAnimation";
 			/// <summary>
 			/// Indicates in how many seconds the notifications with quotes will closed automatically. 0 to never close
 			/// </summary>
 			public const string AutoCloseNotificationSeconds = "AutoCloseNotificationSeconds";
 			/// <summary>
+			/// Indicates notification type
+			/// </summary>
+			public const string NotificationType = "NotificationType";
+			/// <summary>
 			/// Indicates if a welcome notification should be shown
 			/// </summary>
 			public const string ShowWelcomeNotification = "ShowWelcomeNotification";
-
+			/// <summary>
+			/// Indicates if the notification should not be automatically closed while
+			/// the user has the mouse cursor over the window. Default is always on
+			/// </summary>
 			public const string KeepNotificationOpenOnMouseOver = "KeepNotificationOpenOnMouseOver";
-
+			/// <summary>
+			/// Supported languages in 2 language / country code ex: en-US
+			/// </summary>
 			public const string Language = "Language";
-
+			/// <summary>
+			/// If this is true, collections displayed in the UI and also quotes shown will be only of
+			/// the language that the collection was created in. When a colection is created by default
+			/// it's created with the current application language. If this is false, all collections are
+			/// shown, and quotes can be used from any collection regardless of app language
+			/// </summary>
 			public const string ShowCollectionsBasedOnLanguage = "ShowCollectionsBasedOnLanguage";
-
+			/// <summary>
+			/// Indicator if it's the first startup of the application.
+			/// </summary>
 			public const string IsFirstStart = "IsFirstStart";
-
+			/// <summary>
+			/// Indicates if the user paused the quotes notifications. If this is true no notifications will be shown.
+			/// </summary>
 			public const string IsPaused = "IsPaused";
-
+			/// <summary>
+			/// Connection string to the SQLite database. Set when the application first starts.
+			/// </summary>
 			public const string ConnectionString = "ConnectionString";
-
+			/// <summary>
+			/// Current UI theme of the application
+			/// </summary>
 			public const string Theme = "Theme";
-
+			/// <summary>
+			/// The opacity of the quotes notification window
+			/// </summary>
 			public const string Opacity = "Opacity";
 		}
 
@@ -82,7 +131,7 @@ namespace Quoter.App.Helpers
 			public const bool ShowWelcomeNotification = true;
 			public const bool KeepNotificationOpenOnMouseOver = true;
 			public const bool ShowCollectionsBasedOnLanguage = false;
-
+			public const int NotificationType = 1; // popup
 		}
 
 	}

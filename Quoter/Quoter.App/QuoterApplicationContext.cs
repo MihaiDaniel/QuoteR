@@ -6,6 +6,7 @@ using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
+using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
@@ -38,14 +39,16 @@ namespace Quoter.App
 			_stringResources = stringResources;
 			_messagingService = messagingService;
 			_quoteService = quoteService;
+			InitializeApplication();
+			InitializeBackgroundTimers();
+
 			_trayIcon = new NotifyIcon()
 			{
 				Icon = Resources.Resources.icon_book_black,
 				ContextMenuStrip = GetContextMenuStrip(),
 				Visible = true
 			};
-			InitializeApplication();
-			InitializeBackgroundTimers();
+
 			ShowWelcomeMessage();
 		}
 
@@ -59,6 +62,7 @@ namespace Quoter.App
 				_settings.Set(Const.Setting.ShowWelcomeNotification, Const.SettingDefault.ShowWelcomeNotification);
 				_settings.Set(Const.Setting.KeepNotificationOpenOnMouseOver, Const.SettingDefault.KeepNotificationOpenOnMouseOver);
 				_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, Const.SettingDefault.ShowCollectionsBasedOnLanguage);
+				_settings.Set(Const.Setting.NotificationType, Const.SettingDefault.NotificationType);
 
 				CultureInfo ci = CultureInfo.CurrentUICulture;
 				switch(ci.Name)
@@ -78,6 +82,12 @@ namespace Quoter.App
 			{
 				// Unpause if notifications was paused
 				_settings.Set(Const.Setting.IsPaused, false);
+
+				// Set language
+				string lang = _settings.Get<string>(Const.Setting.Language);
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+				Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+
 			}
 			_messagingService.Subscribe(this);
 		}
@@ -106,6 +116,10 @@ namespace Quoter.App
 				};
 				_formsManager.ShowDialog<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 			}
+			if(GetNotificationType() == EnumNotificationType.AlwaysOn)
+			{
+				await ShowQuoteNotification();
+			}
 		}
 
 		public void OnMessageEvent(string message, object? argument)
@@ -128,8 +142,8 @@ namespace Quoter.App
 		{
 			try
 			{
-				bool isPaused = IsTimerOnPause();
-				if(isPaused)
+				bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
+				if (isPaused)
 				{
 					// Lower the interval untill unpaused
 					_timerShowNotifications.Interval= 10000; // 10 sec
@@ -141,7 +155,14 @@ namespace Quoter.App
 					_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
 				}
 
-				await ShowQuote();
+				if(GetNotificationType() == EnumNotificationType.Popup)
+				{
+					await ShowQuoteNotification();
+				}
+				else
+				{
+					_messagingService.SendMessage(Const.Event.NotificationTimerElapsed);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -149,23 +170,39 @@ namespace Quoter.App
 			}
 		}
 
-		private async Task ShowQuote()
+		private async Task ShowQuoteNotification()
 		{
 			// Show a random quote from the database
-			QuoteModel? quoteModel = await _quoteService.GetRandomQuote();
+			//QuoteModel? quoteModel = await _quoteService.GetRandomQuote();
 			
-			if(quoteModel == null)
+			//if(quoteModel == null)
+			//{
+			//	return;
+			//}
+
+			EnumNotificationType notificationType = GetNotificationType();
+			if(notificationType == EnumNotificationType.Popup)
 			{
-				return;
+				_messagingService.SendMessage(Const.Event.OpeningQuoteWindow);
+
+				int autoCloseSec = 0;
+				if (GetNotificationType() == EnumNotificationType.Popup)
+				{
+					autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
+				}
+				_formsManager.ShowDialog<QuoteForm>(autoCloseSec/*, quoteModel*/);
 			}
-
-			int autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
-			_formsManager.ShowDialog<QuoteForm>(autoCloseSec, quoteModel);
-		}
-
-		private bool IsTimerOnPause()
-		{
-			return _settings.Get<bool>(Const.Setting.IsPaused);
+			else if (notificationType == EnumNotificationType.AlwaysOn)
+			{
+				if (_formsManager.IsOpen<QuoteForm>())
+				{
+					_messagingService.SendMessage(Const.Event.ShowQuoteButtonEvent);
+				}
+				else
+				{
+					_formsManager.ShowDialog<QuoteForm>(0/*, quoteModel*/);
+				}
+			}
 		}
 
 		void PauseOrResumeEventHandler(object? sender, EventArgs e)
@@ -190,7 +227,7 @@ namespace Quoter.App
 		{
 			try
 			{
-				Task.Run( async () => { await ShowQuote(); });
+				Task.Run( async () => { await ShowQuoteNotification(); });
 			}
 			catch(Exception ex)
 			{
@@ -206,7 +243,6 @@ namespace Quoter.App
 			Application.Exit();
 		}
 
-
 		private ContextMenuStrip GetContextMenuStrip(bool isPaused = false)
 		{
 			string pauseResumeText = isPaused ? _stringResources["Resume"] : _stringResources["Pause"];
@@ -215,14 +251,21 @@ namespace Quoter.App
 			{
 				Items =
 				{
+					new ToolStripLabel(_stringResources["Quoter"]),
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
-					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(OpenSettingsEventHandler), "Settings"),
+					//new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(OpenSettingsEventHandler), "Settings"),
 					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_64, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
 					new ToolStripMenuItem(_stringResources["Manage"], Resources.Resources.book_open_64, new EventHandler(OpenManageEventHandler), "Settings"),
+					new ToolStripSeparator(),
 					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_64, new EventHandler(ExitEventHandler), "Exit")
 				}
 			};
 			return contextMenuStrip;
+		}
+
+		private EnumNotificationType GetNotificationType()
+		{
+			return (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
 		}
 	}
 }

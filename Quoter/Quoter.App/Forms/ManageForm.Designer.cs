@@ -39,11 +39,13 @@
 			this.rtbQuotes = new System.Windows.Forms.RichTextBox();
 			this.btnSaveQuotes = new System.Windows.Forms.Button();
 			this.gbChapters = new System.Windows.Forms.GroupBox();
+			this.btnAddFirstChapter = new System.Windows.Forms.Button();
 			this.btnEditChapter = new System.Windows.Forms.Button();
 			this.btnDeleteChapter = new System.Windows.Forms.Button();
 			this.btnAddChapter = new System.Windows.Forms.Button();
 			this.lbChapters = new System.Windows.Forms.ListBox();
 			this.gbBooks = new System.Windows.Forms.GroupBox();
+			this.btnAddFirstBook = new System.Windows.Forms.Button();
 			this.btnEditBook = new System.Windows.Forms.Button();
 			this.btnDeleteBook = new System.Windows.Forms.Button();
 			this.cbBooks = new System.Windows.Forms.ComboBox();
@@ -57,6 +59,13 @@
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.tabBasicSettings = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
+			this.lblQuotesFrequencyTime = new System.Windows.Forms.Label();
+			this.btnAlwaysOnNotifications = new System.Windows.Forms.Button();
+			this.txtQuotesInterval = new System.Windows.Forms.TextBox();
+			this.lblQuotesFrequency = new System.Windows.Forms.Label();
+			this.btnPopupNotifications = new System.Windows.Forms.Button();
+			this.lblNotificationType = new System.Windows.Forms.Label();
 			this.gbOtherSettings = new System.Windows.Forms.GroupBox();
 			this.btnShowWelcomeMsgNo = new System.Windows.Forms.Button();
 			this.btnShowWelcomeMsgYes = new System.Windows.Forms.Button();
@@ -71,10 +80,6 @@
 			this.btnTheme6 = new System.Windows.Forms.Button();
 			this.btnTheme5 = new System.Windows.Forms.Button();
 			this.btnTheme4 = new System.Windows.Forms.Button();
-			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
-			this.lblQuotesFrequencyTime = new System.Windows.Forms.Label();
-			this.lblQuotesFrequency = new System.Windows.Forms.Label();
-			this.txtQuotesInterval = new System.Windows.Forms.TextBox();
 			this.gbLanguageSettings = new System.Windows.Forms.GroupBox();
 			this.btnShowCollBasedOnLanguageNo = new System.Windows.Forms.Button();
 			this.btnLanguageRo = new System.Windows.Forms.Button();
@@ -97,10 +102,10 @@
 			this.tabPage3.SuspendLayout();
 			this.tabBasicSettings.SuspendLayout();
 			this.tabPage4.SuspendLayout();
+			this.gbQuotesSettings.SuspendLayout();
 			this.gbOtherSettings.SuspendLayout();
 			this.gbThemeSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).BeginInit();
-			this.gbQuotesSettings.SuspendLayout();
 			this.gbLanguageSettings.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -208,7 +213,7 @@
 			this.lineNumbers_For_RichTextBox1.LineNrs_ClippedByItemRectangle = true;
 			this.lineNumbers_For_RichTextBox1.LineNrs_LeadingZeroes = true;
 			this.lineNumbers_For_RichTextBox1.LineNrs_Offset = new System.Drawing.Size(0, 0);
-			this.lineNumbers_For_RichTextBox1.Location = new System.Drawing.Point(5, 17);
+			this.lineNumbers_For_RichTextBox1.Location = new System.Drawing.Point(1, 17);
 			this.lineNumbers_For_RichTextBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.lineNumbers_For_RichTextBox1.MarginLines_Color = System.Drawing.Color.SlateGray;
 			this.lineNumbers_For_RichTextBox1.MarginLines_Side = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Right;
@@ -222,7 +227,7 @@
 			this.lineNumbers_For_RichTextBox1.Show_GridLines = true;
 			this.lineNumbers_For_RichTextBox1.Show_LineNrs = true;
 			this.lineNumbers_For_RichTextBox1.Show_MarginLines = false;
-			this.lineNumbers_For_RichTextBox1.Size = new System.Drawing.Size(18, 329);
+			this.lineNumbers_For_RichTextBox1.Size = new System.Drawing.Size(40, 329);
 			this.lineNumbers_For_RichTextBox1.TabIndex = 14;
 			// 
 			// rtbQuotes
@@ -232,14 +237,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.rtbQuotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.rtbQuotes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.rtbQuotes.Location = new System.Drawing.Point(24, 17);
+			this.rtbQuotes.Location = new System.Drawing.Point(42, 17);
 			this.rtbQuotes.Name = "rtbQuotes";
-			this.rtbQuotes.Size = new System.Drawing.Size(489, 329);
+			this.rtbQuotes.Size = new System.Drawing.Size(471, 329);
 			this.rtbQuotes.TabIndex = 13;
 			this.rtbQuotes.Text = resources.GetString("rtbQuotes.Text");
 			// 
 			// btnSaveQuotes
 			// 
+			this.btnSaveQuotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnSaveQuotes.BackColor = System.Drawing.Color.Honeydew;
 			this.btnSaveQuotes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btnSaveQuotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -255,6 +261,7 @@
 			// gbChapters
 			// 
 			this.gbChapters.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.gbChapters.Controls.Add(this.btnAddFirstChapter);
 			this.gbChapters.Controls.Add(this.btnEditChapter);
 			this.gbChapters.Controls.Add(this.btnDeleteChapter);
 			this.gbChapters.Controls.Add(this.btnAddChapter);
@@ -266,6 +273,20 @@
 			this.gbChapters.TabIndex = 16;
 			this.gbChapters.TabStop = false;
 			this.gbChapters.Text = "Capitole";
+			// 
+			// btnAddFirstChapter
+			// 
+			this.btnAddFirstChapter.BackColor = System.Drawing.Color.Honeydew;
+			this.btnAddFirstChapter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.btnAddFirstChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnAddFirstChapter.ForeColor = System.Drawing.Color.DarkGreen;
+			this.btnAddFirstChapter.Location = new System.Drawing.Point(81, 96);
+			this.btnAddFirstChapter.Name = "btnAddFirstChapter";
+			this.btnAddFirstChapter.Size = new System.Drawing.Size(68, 24);
+			this.btnAddFirstChapter.TabIndex = 11;
+			this.btnAddFirstChapter.Text = "Adaugă";
+			this.btnAddFirstChapter.UseVisualStyleBackColor = false;
+			this.btnAddFirstChapter.Click += new System.EventHandler(this.btnAddFirstChapter_Click);
 			// 
 			// btnEditChapter
 			// 
@@ -327,6 +348,7 @@
 			// gbBooks
 			// 
 			this.gbBooks.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.gbBooks.Controls.Add(this.btnAddFirstBook);
 			this.gbBooks.Controls.Add(this.btnEditBook);
 			this.gbBooks.Controls.Add(this.btnDeleteBook);
 			this.gbBooks.Controls.Add(this.cbBooks);
@@ -338,6 +360,20 @@
 			this.gbBooks.TabIndex = 15;
 			this.gbBooks.TabStop = false;
 			this.gbBooks.Text = "Book";
+			// 
+			// btnAddFirstBook
+			// 
+			this.btnAddFirstBook.BackColor = System.Drawing.Color.Honeydew;
+			this.btnAddFirstBook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.btnAddFirstBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnAddFirstBook.ForeColor = System.Drawing.Color.DarkGreen;
+			this.btnAddFirstBook.Location = new System.Drawing.Point(81, 26);
+			this.btnAddFirstBook.Name = "btnAddFirstBook";
+			this.btnAddFirstBook.Size = new System.Drawing.Size(68, 24);
+			this.btnAddFirstBook.TabIndex = 10;
+			this.btnAddFirstBook.Text = "Adaugă";
+			this.btnAddFirstBook.UseVisualStyleBackColor = false;
+			this.btnAddFirstBook.Click += new System.EventHandler(this.btnAddFirstBook_Click);
 			// 
 			// btnEditBook
 			// 
@@ -497,9 +533,9 @@
 			// tabPage4
 			// 
 			this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.tabPage4.Controls.Add(this.gbQuotesSettings);
 			this.tabPage4.Controls.Add(this.gbOtherSettings);
 			this.tabPage4.Controls.Add(this.gbThemeSettings);
-			this.tabPage4.Controls.Add(this.gbQuotesSettings);
 			this.tabPage4.Controls.Add(this.gbLanguageSettings);
 			this.tabPage4.Location = new System.Drawing.Point(4, 25);
 			this.tabPage4.Name = "tabPage4";
@@ -508,15 +544,99 @@
 			this.tabPage4.TabIndex = 0;
 			this.tabPage4.Text = "Basic";
 			// 
+			// gbQuotesSettings
+			// 
+			this.gbQuotesSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequencyTime);
+			this.gbQuotesSettings.Controls.Add(this.btnAlwaysOnNotifications);
+			this.gbQuotesSettings.Controls.Add(this.txtQuotesInterval);
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequency);
+			this.gbQuotesSettings.Controls.Add(this.btnPopupNotifications);
+			this.gbQuotesSettings.Controls.Add(this.lblNotificationType);
+			this.gbQuotesSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbQuotesSettings.Location = new System.Drawing.Point(374, 6);
+			this.gbQuotesSettings.Name = "gbQuotesSettings";
+			this.gbQuotesSettings.Size = new System.Drawing.Size(368, 340);
+			this.gbQuotesSettings.TabIndex = 22;
+			this.gbQuotesSettings.TabStop = false;
+			this.gbQuotesSettings.Text = "Quotes";
+			// 
+			// lblQuotesFrequencyTime
+			// 
+			this.lblQuotesFrequencyTime.AutoSize = true;
+			this.lblQuotesFrequencyTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(303, 111);
+			this.lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
+			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(59, 18);
+			this.lblQuotesFrequencyTime.TabIndex = 19;
+			this.lblQuotesFrequencyTime.Text = "minutes";
+			// 
+			// btnAlwaysOnNotifications
+			// 
+			this.btnAlwaysOnNotifications.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
+			this.btnAlwaysOnNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnAlwaysOnNotifications.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnAlwaysOnNotifications.Location = new System.Drawing.Point(192, 45);
+			this.btnAlwaysOnNotifications.Name = "btnAlwaysOnNotifications";
+			this.btnAlwaysOnNotifications.Size = new System.Drawing.Size(170, 54);
+			this.btnAlwaysOnNotifications.TabIndex = 20;
+			this.btnAlwaysOnNotifications.Text = "Show quotes in a window that is always on screen";
+			this.btnAlwaysOnNotifications.UseVisualStyleBackColor = true;
+			this.btnAlwaysOnNotifications.Click += new System.EventHandler(this.btnAlwaysOnNotifications_Click);
+			// 
+			// txtQuotesInterval
+			// 
+			this.txtQuotesInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.txtQuotesInterval.Location = new System.Drawing.Point(245, 108);
+			this.txtQuotesInterval.Name = "txtQuotesInterval";
+			this.txtQuotesInterval.Size = new System.Drawing.Size(42, 26);
+			this.txtQuotesInterval.TabIndex = 6;
+			this.txtQuotesInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesInterval_KeyPress);
+			// 
+			// lblQuotesFrequency
+			// 
+			this.lblQuotesFrequency.AutoSize = true;
+			this.lblQuotesFrequency.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesFrequency.Location = new System.Drawing.Point(6, 111);
+			this.lblQuotesFrequency.Name = "lblQuotesFrequency";
+			this.lblQuotesFrequency.Size = new System.Drawing.Size(126, 18);
+			this.lblQuotesFrequency.TabIndex = 18;
+			this.lblQuotesFrequency.Text = "Show quotes every";
+			// 
+			// btnPopupNotifications
+			// 
+			this.btnPopupNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnPopupNotifications.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnPopupNotifications.Location = new System.Drawing.Point(6, 45);
+			this.btnPopupNotifications.Name = "btnPopupNotifications";
+			this.btnPopupNotifications.Size = new System.Drawing.Size(170, 54);
+			this.btnPopupNotifications.TabIndex = 19;
+			this.btnPopupNotifications.Text = "Show quotes as a popup notification";
+			this.btnPopupNotifications.UseVisualStyleBackColor = true;
+			this.btnPopupNotifications.Click += new System.EventHandler(this.btnPopupNotifications_Click);
+			// 
+			// lblNotificationType
+			// 
+			this.lblNotificationType.AutoSize = true;
+			this.lblNotificationType.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblNotificationType.Location = new System.Drawing.Point(127, 19);
+			this.lblNotificationType.Name = "lblNotificationType";
+			this.lblNotificationType.Size = new System.Drawing.Size(110, 18);
+			this.lblNotificationType.TabIndex = 19;
+			this.lblNotificationType.Text = "Notification type";
+			// 
 			// gbOtherSettings
 			// 
+			this.gbOtherSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgNo);
 			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgYes);
 			this.gbOtherSettings.Controls.Add(this.lblShowWelcomeMsg);
 			this.gbOtherSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbOtherSettings.Location = new System.Drawing.Point(374, 6);
+			this.gbOtherSettings.Location = new System.Drawing.Point(6, 240);
 			this.gbOtherSettings.Name = "gbOtherSettings";
-			this.gbOtherSettings.Size = new System.Drawing.Size(368, 100);
+			this.gbOtherSettings.Size = new System.Drawing.Size(362, 106);
 			this.gbOtherSettings.TabIndex = 21;
 			this.gbOtherSettings.TabStop = false;
 			this.gbOtherSettings.Text = "Other";
@@ -526,7 +646,7 @@
 			this.btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
 			this.btnShowWelcomeMsgNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnShowWelcomeMsgNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowWelcomeMsgNo.Location = new System.Drawing.Point(322, 16);
+			this.btnShowWelcomeMsgNo.Location = new System.Drawing.Point(316, 16);
 			this.btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
 			this.btnShowWelcomeMsgNo.Size = new System.Drawing.Size(40, 30);
 			this.btnShowWelcomeMsgNo.TabIndex = 18;
@@ -538,7 +658,7 @@
 			// 
 			this.btnShowWelcomeMsgYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnShowWelcomeMsgYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowWelcomeMsgYes.Location = new System.Drawing.Point(276, 16);
+			this.btnShowWelcomeMsgYes.Location = new System.Drawing.Point(270, 16);
 			this.btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
 			this.btnShowWelcomeMsgYes.Size = new System.Drawing.Size(40, 30);
 			this.btnShowWelcomeMsgYes.TabIndex = 18;
@@ -570,9 +690,9 @@
 			this.gbThemeSettings.Controls.Add(this.btnTheme5);
 			this.gbThemeSettings.Controls.Add(this.btnTheme4);
 			this.gbThemeSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbThemeSettings.Location = new System.Drawing.Point(6, 178);
+			this.gbThemeSettings.Location = new System.Drawing.Point(6, 106);
 			this.gbThemeSettings.Name = "gbThemeSettings";
-			this.gbThemeSettings.Size = new System.Drawing.Size(362, 168);
+			this.gbThemeSettings.Size = new System.Drawing.Size(362, 128);
 			this.gbThemeSettings.TabIndex = 20;
 			this.gbThemeSettings.TabStop = false;
 			this.gbThemeSettings.Text = "Theme";
@@ -680,48 +800,6 @@
 			this.btnTheme4.UseVisualStyleBackColor = false;
 			this.btnTheme4.Click += new System.EventHandler(this.btnTheme4_Click);
 			// 
-			// gbQuotesSettings
-			// 
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequencyTime);
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequency);
-			this.gbQuotesSettings.Controls.Add(this.txtQuotesInterval);
-			this.gbQuotesSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbQuotesSettings.Location = new System.Drawing.Point(6, 112);
-			this.gbQuotesSettings.Name = "gbQuotesSettings";
-			this.gbQuotesSettings.Size = new System.Drawing.Size(362, 60);
-			this.gbQuotesSettings.TabIndex = 16;
-			this.gbQuotesSettings.TabStop = false;
-			this.gbQuotesSettings.Text = "Quotes";
-			// 
-			// lblQuotesFrequencyTime
-			// 
-			this.lblQuotesFrequencyTime.AutoSize = true;
-			this.lblQuotesFrequencyTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(286, 19);
-			this.lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
-			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(59, 18);
-			this.lblQuotesFrequencyTime.TabIndex = 19;
-			this.lblQuotesFrequencyTime.Text = "minutes";
-			// 
-			// lblQuotesFrequency
-			// 
-			this.lblQuotesFrequency.AutoSize = true;
-			this.lblQuotesFrequency.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesFrequency.Location = new System.Drawing.Point(8, 19);
-			this.lblQuotesFrequency.Name = "lblQuotesFrequency";
-			this.lblQuotesFrequency.Size = new System.Drawing.Size(126, 18);
-			this.lblQuotesFrequency.TabIndex = 18;
-			this.lblQuotesFrequency.Text = "Show quotes every";
-			// 
-			// txtQuotesInterval
-			// 
-			this.txtQuotesInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtQuotesInterval.Location = new System.Drawing.Point(238, 16);
-			this.txtQuotesInterval.Name = "txtQuotesInterval";
-			this.txtQuotesInterval.Size = new System.Drawing.Size(42, 26);
-			this.txtQuotesInterval.TabIndex = 6;
-			this.txtQuotesInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesInterval_KeyPress);
-			// 
 			// gbLanguageSettings
 			// 
 			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageNo);
@@ -739,6 +817,7 @@
 			// 
 			// btnShowCollBasedOnLanguageNo
 			// 
+			this.btnShowCollBasedOnLanguageNo.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
 			this.btnShowCollBasedOnLanguageNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnShowCollBasedOnLanguageNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -747,7 +826,7 @@
 			this.btnShowCollBasedOnLanguageNo.Size = new System.Drawing.Size(40, 30);
 			this.btnShowCollBasedOnLanguageNo.TabIndex = 17;
 			this.btnShowCollBasedOnLanguageNo.Text = "NO";
-			this.btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = true;
+			this.btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = false;
 			this.btnShowCollBasedOnLanguageNo.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageNo_Click);
 			// 
 			// btnLanguageRo
@@ -766,6 +845,7 @@
 			// 
 			// btnShowCollBasedOnLanguageYes
 			// 
+			this.btnShowCollBasedOnLanguageYes.BackColor = System.Drawing.Color.WhiteSmoke;
 			this.btnShowCollBasedOnLanguageYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnShowCollBasedOnLanguageYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.btnShowCollBasedOnLanguageYes.Location = new System.Drawing.Point(270, 63);
@@ -773,7 +853,7 @@
 			this.btnShowCollBasedOnLanguageYes.Size = new System.Drawing.Size(40, 30);
 			this.btnShowCollBasedOnLanguageYes.TabIndex = 16;
 			this.btnShowCollBasedOnLanguageYes.Text = "YES";
-			this.btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = true;
+			this.btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = false;
 			this.btnShowCollBasedOnLanguageYes.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageYes_Click);
 			// 
 			// btnLanguageEn
@@ -898,13 +978,13 @@
 			this.tabPage3.ResumeLayout(false);
 			this.tabBasicSettings.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
+			this.gbQuotesSettings.ResumeLayout(false);
+			this.gbQuotesSettings.PerformLayout();
 			this.gbOtherSettings.ResumeLayout(false);
 			this.gbOtherSettings.PerformLayout();
 			this.gbThemeSettings.ResumeLayout(false);
 			this.gbThemeSettings.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).EndInit();
-			this.gbQuotesSettings.ResumeLayout(false);
-			this.gbQuotesSettings.PerformLayout();
 			this.gbLanguageSettings.ResumeLayout(false);
 			this.gbLanguageSettings.PerformLayout();
 			this.ResumeLayout(false);
@@ -957,7 +1037,6 @@
 		private TabControl tabBasicSettings;
 		private TabPage tabPage4;
 		private GroupBox gbThemeSettings;
-		private GroupBox gbQuotesSettings;
 		private Label lblQuotesFrequencyTime;
 		private Label lblQuotesFrequency;
 		private GroupBox gbLanguageSettings;
@@ -972,5 +1051,11 @@
 		private Button btnShowWelcomeMsgNo;
 		private Button btnShowWelcomeMsgYes;
 		private Label lblShowWelcomeMsg;
+		private Button btnAddFirstChapter;
+		private Button btnAddFirstBook;
+		private GroupBox gbQuotesSettings;
+		private Button btnAlwaysOnNotifications;
+		private Button btnPopupNotifications;
+		private Label lblNotificationType;
 	}
 }
