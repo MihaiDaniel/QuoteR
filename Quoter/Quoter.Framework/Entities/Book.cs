@@ -14,6 +14,8 @@ namespace Quoter.Framework.Entities
 
 		public string? Description { get; set; }
 
+		public bool? IsFavourite { get; set; }
+
 		#region FK
 
 		public int CollectionId { get; set; }

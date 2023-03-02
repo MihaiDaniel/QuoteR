@@ -13,6 +13,8 @@ namespace Quoter.Framework.Entities
 
 		public string? Description { get; set; }
 
+		public bool? IsFavourite { get; set; }
+
 		/// <summary>
 		/// The language of the collection. Normally it would be the app language
 		/// under which the collection was added.

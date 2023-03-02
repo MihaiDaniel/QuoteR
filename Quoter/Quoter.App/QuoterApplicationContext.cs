@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Quoter.App.Forms;
+﻿using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
-using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
-using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.Globalization;
 
@@ -17,28 +13,22 @@ namespace Quoter.App
 	public class QuoterApplicationContext : ApplicationContext, IMessageSubscriber
 	{
 		private readonly NotifyIcon _trayIcon;
-		//private readonly QuoterContext _context;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
-		private readonly IQuoteService _quoteService;
 
 		private System.Timers.Timer _timerShowNotifications;
 
-		public QuoterApplicationContext(//QuoterContext quoterContext,
-										IFormsManager formsManager,
+		public QuoterApplicationContext(IFormsManager formsManager,
 										ISettings settings,
 										IStringResources stringResources,
-										IMessagingService messagingService,
-										IQuoteService quoteService)
+										IMessagingService messagingService)
 		{
-			//_context = quoterContext;
 			_formsManager = formsManager;
 			_settings = settings;
 			_stringResources = stringResources;
 			_messagingService = messagingService;
-			_quoteService = quoteService;
 			InitializeApplication();
 			InitializeBackgroundTimers();
 
@@ -172,14 +162,6 @@ namespace Quoter.App
 
 		private async Task ShowQuoteNotification()
 		{
-			// Show a random quote from the database
-			//QuoteModel? quoteModel = await _quoteService.GetRandomQuote();
-			
-			//if(quoteModel == null)
-			//{
-			//	return;
-			//}
-
 			EnumNotificationType notificationType = GetNotificationType();
 			if(notificationType == EnumNotificationType.Popup)
 			{

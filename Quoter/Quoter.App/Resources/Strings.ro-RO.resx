@@ -321,4 +321,46 @@
   <data name="ShowWelcomeMessage" xml:space="preserve">
     <value>Arată mesaj la pornire</value>
   </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Alegeți cum se afișează citatele</value>
+  </data>
+  <data name="PopupNotifications" xml:space="preserve">
+    <value>Arată într-o notificare popup</value>
+  </data>
+  <data name="AlwaysOnNotifications" xml:space="preserve">
+    <value>Arată într-o fereastră permanentă pe ecran</value>
+  </data>
+  <data name="QuotesAutoclose" xml:space="preserve">
+    <value>Închide automat notificările popup după</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>secunde</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Toate</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Colecții</value>
+  </data>
+  <data name="Books" xml:space="preserve">
+    <value>Cărți</value>
+  </data>
+  <data name="FavoritesText" xml:space="preserve">
+    <value>Aici poți alege colecțiile tale favorite din care se vor afișa citatele</value>
+  </data>
+  <data name="OptionTrimRow" xml:space="preserve">
+    <value>Șterge textul până la primul spațiu din rând</value>
+  </data>
+  <data name="OptionExcludeChars" xml:space="preserve">
+    <value>Litere sau simboluri ignorate ( introduceți fără spații libere )</value>
+  </data>
+  <data name="OptionAppendTextStart" xml:space="preserve">
+    <value>Text adăugat la începutul fiecărui citat</value>
+  </data>
+  <data name="OptionAppendTextEnd" xml:space="preserve">
+    <value>Text adăugat la finalul fiecărui citat</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opțiuni</value>
+  </data>
 </root>

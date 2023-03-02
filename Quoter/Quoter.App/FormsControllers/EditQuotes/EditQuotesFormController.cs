@@ -11,8 +11,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Xml.Linq;
 
-namespace Quoter.App.FormsControllers
+namespace Quoter.App.FormsControllers.EditQuotes
 {
 	public class EditQuotesFormController : IEditQuotesFormController, IMessageSubscriber, INotifyPropertyChanged
 	{
@@ -38,7 +39,7 @@ namespace Quoter.App.FormsControllers
 					OnPropertyChanged();
 					LoadCollectionsData();
 				}
-				Debug.WriteLine($"SelectedCollection:{SelectedCollection?.CollectionId} {SelectedCollection?.Name}");
+				//Debug.WriteLine($"SelectedCollection:{SelectedCollection?.CollectionId} {SelectedCollection?.Name}");
 			}
 		}
 
@@ -56,7 +57,7 @@ namespace Quoter.App.FormsControllers
 					OnPropertyChanged();
 					LoadBookChapters();
 				}
-				Debug.WriteLine($"SelectedBook:{SelectedBook?.BookId} {SelectedBook?.Name}");
+				//Debug.WriteLine($"SelectedBook:{SelectedBook?.BookId} {SelectedBook?.Name}");
 			}
 		}
 
@@ -123,7 +124,7 @@ namespace Quoter.App.FormsControllers
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if (message == Const.Event.ShowCollectionsBasedOnLanguageChanged)
+			if (message == Const.Event.ShowCollectionsBasedOnLanguageChanged || message == Const.Event.LanguageChanged)
 			{
 				LoadCollections();
 				LoadCollectionBooks();
@@ -310,7 +311,7 @@ namespace Quoter.App.FormsControllers
 					{
 						Title = _stringResources["NameAlreadyTaken"],
 						Message = _stringResources["CollectionAlreadyExists"],
-						TitleColor = Helpers.Const.ColorWarn,
+						TitleColor = Const.ColorWarn,
 					});
 					AddCollection();
 				}
@@ -318,7 +319,8 @@ namespace Quoter.App.FormsControllers
 				{
 					Collection newCollection = new()
 					{
-						Name = result.StringResult
+						Name = result.StringResult,
+						Language = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language)),
 					};
 					_context.Collections.Add(newCollection);
 					_context.SaveChanges();
@@ -400,7 +402,7 @@ namespace Quoter.App.FormsControllers
 				{
 					Title = _stringResources["NameAlreadyTaken"],
 					Message = _stringResources["BookAlreadyExists"],
-					TitleColor = Helpers.Const.ColorWarn,
+					TitleColor = Const.ColorWarn,
 				});
 				AddBook();
 			}
@@ -423,10 +425,7 @@ namespace Quoter.App.FormsControllers
 
 				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
 				_form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
-
-				
 			}
-
 		}
 
 		private void CheckForQuotesInCollectionWithNoAssignedBookAndAssignThem(Book book)
@@ -622,7 +621,7 @@ namespace Quoter.App.FormsControllers
 
 		#endregion  Add, Edit, Delete chapters
 
-		public void AddQuotes()
+		public void AddQuotes(QuoteSaveOptions saveOptions)
 		{
 			if (string.IsNullOrWhiteSpace(Quotes) || string.IsNullOrEmpty(SelectedCollection?.Name))
 			{
@@ -630,7 +629,7 @@ namespace Quoter.App.FormsControllers
 			}
 
 			string[]? arrQuoteContent = SplitStringByNewLine(Quotes);
-			List<Quote> lstQuotes = GetQuotesFromArrayOfStrings(arrQuoteContent);
+			List<Quote> lstQuotes = GetQuotesFromArrayOfStrings(arrQuoteContent, saveOptions);
 
 			if (lstQuotes.Any())
 			{
@@ -656,6 +655,7 @@ namespace Quoter.App.FormsControllers
 				_context.Quotes.AddRange(lstQuotes);
 				_context.SaveChanges();
 				_form.SetStatus(_stringResources["QuotesSaved"], Const.ColorOk);
+				LoadQuotes();
 			}
 		}
 
@@ -677,13 +677,44 @@ namespace Quoter.App.FormsControllers
 			return arrQuoteContent;
 		}
 
-		private List<Quote> GetQuotesFromArrayOfStrings(string[] arrQuoteContent)
+		private List<Quote> GetQuotesFromArrayOfStrings(string[] arrQuoteContent, QuoteSaveOptions saveOptions)
 		{
 			List<Quote> lstQuotes = new List<Quote>();
 			int quoteIndex = 1;
 			foreach (string quoteContent in arrQuoteContent)
 			{
-				string newQuoteContent = quoteContent.Trim();
+				string newQuoteContent = quoteContent;
+
+				if (saveOptions.TrimUntillFirstWhiteSpace)
+				{
+					newQuoteContent = newQuoteContent.Trim();
+					int firstSpaceIndex = newQuoteContent.IndexOf(" ");
+					if (firstSpaceIndex >= 0 && newQuoteContent.Length > firstSpaceIndex + 1)
+					{
+						newQuoteContent = newQuoteContent.Substring(firstSpaceIndex, newQuoteContent.Length - firstSpaceIndex);
+					}
+					newQuoteContent = newQuoteContent.TrimStart();
+				}
+				if (!string.IsNullOrEmpty(saveOptions.ExcludeChars))
+				{
+					char[] excludedChars = saveOptions.ExcludeChars.ToCharArray();
+					foreach (char c in excludedChars)
+					{
+						newQuoteContent = newQuoteContent.Replace(c.ToString(), "");
+					}
+				}
+
+				if (!string.IsNullOrEmpty(saveOptions.AppendTextToBegining))
+				{
+					newQuoteContent = saveOptions.AppendTextToBegining + newQuoteContent;
+				}
+				if (!string.IsNullOrEmpty(saveOptions.AppendTextToEnd))
+				{
+					newQuoteContent = newQuoteContent + saveOptions.AppendTextToEnd;
+				}
+
+				newQuoteContent = newQuoteContent.Trim();
+
 				if (!string.IsNullOrEmpty(newQuoteContent))
 				{
 					Quote quote = new()

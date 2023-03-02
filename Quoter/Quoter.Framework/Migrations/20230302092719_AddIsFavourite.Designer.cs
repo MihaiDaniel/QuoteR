@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quoter.Framework.Data;
 
@@ -10,9 +11,11 @@ using Quoter.Framework.Data;
 namespace Quoter.Framework.Migrations
 {
     [DbContext(typeof(QuoterContext))]
-    partial class QuoterContextModelSnapshot : ModelSnapshot
+    [Migration("20230302092719_AddIsFavourite")]
+    partial class AddIsFavourite
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");

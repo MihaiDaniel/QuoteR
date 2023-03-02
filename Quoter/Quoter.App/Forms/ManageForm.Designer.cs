@@ -35,6 +35,15 @@
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.gbQuotes = new System.Windows.Forms.GroupBox();
+			this.btnQuotesOptions = new System.Windows.Forms.Button();
+			this.pnlQuotesOptions = new System.Windows.Forms.Panel();
+			this.lblQuotesAppendEnd = new System.Windows.Forms.Label();
+			this.txtQuotesAppendTextToEnd = new System.Windows.Forms.TextBox();
+			this.lblQuotesAppendStart = new System.Windows.Forms.Label();
+			this.txtQuotesAppendedTextToBeginning = new System.Windows.Forms.TextBox();
+			this.txtQuotesExcludedChars = new System.Windows.Forms.TextBox();
+			this.lblQuotesExcludeChars = new System.Windows.Forms.Label();
+			this.chkQuotesTrimRow = new System.Windows.Forms.CheckBox();
 			this.lineNumbers_For_RichTextBox1 = new LineNumbers.LineNumbers_For_RichTextBox();
 			this.rtbQuotes = new System.Windows.Forms.RichTextBox();
 			this.btnSaveQuotes = new System.Windows.Forms.Button();
@@ -56,10 +65,32 @@
 			this.cbCollection = new System.Windows.Forms.ComboBox();
 			this.btnAddCollection = new System.Windows.Forms.Button();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.button2 = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.button1 = new System.Windows.Forms.Button();
+			this.lblFavoritesText = new System.Windows.Forms.Label();
+			this.lblFavouriteChapters = new System.Windows.Forms.Label();
+			this.lblFavouriteBooks = new System.Windows.Forms.Label();
+			this.lblFavouriteCollections = new System.Windows.Forms.Label();
+			this.clbChapters = new System.Windows.Forms.CheckedListBox();
+			this.clbBooks = new System.Windows.Forms.CheckedListBox();
+			this.clbCollections = new System.Windows.Forms.CheckedListBox();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.tabBasicSettings = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
+			this.lblQuotesAutocloseTime = new System.Windows.Forms.Label();
+			this.txtQuotesAutoCloseInterval = new System.Windows.Forms.TextBox();
+			this.lblQuotesAutocloseInterval = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.panel3 = new System.Windows.Forms.Panel();
+			this.radioButton4 = new System.Windows.Forms.RadioButton();
+			this.radioButton3 = new System.Windows.Forms.RadioButton();
+			this.radioButton2 = new System.Windows.Forms.RadioButton();
+			this.radioButton1 = new System.Windows.Forms.RadioButton();
 			this.lblQuotesFrequencyTime = new System.Windows.Forms.Label();
 			this.btnAlwaysOnNotifications = new System.Windows.Forms.Button();
 			this.txtQuotesInterval = new System.Windows.Forms.TextBox();
@@ -96,13 +127,18 @@
 			this.tabControl.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.gbQuotes.SuspendLayout();
+			this.pnlQuotesOptions.SuspendLayout();
 			this.gbChapters.SuspendLayout();
 			this.gbBooks.SuspendLayout();
 			this.gbCollections.SuspendLayout();
+			this.tabPage2.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabBasicSettings.SuspendLayout();
 			this.tabPage4.SuspendLayout();
 			this.gbQuotesSettings.SuspendLayout();
+			this.panel3.SuspendLayout();
 			this.gbOtherSettings.SuspendLayout();
 			this.gbThemeSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).BeginInit();
@@ -181,6 +217,8 @@
 			// gbQuotes
 			// 
 			this.gbQuotes.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.gbQuotes.Controls.Add(this.btnQuotesOptions);
+			this.gbQuotes.Controls.Add(this.pnlQuotesOptions);
 			this.gbQuotes.Controls.Add(this.lineNumbers_For_RichTextBox1);
 			this.gbQuotes.Controls.Add(this.btnSaveQuotes);
 			this.gbQuotes.Controls.Add(this.rtbQuotes);
@@ -191,6 +229,88 @@
 			this.gbQuotes.TabIndex = 17;
 			this.gbQuotes.TabStop = false;
 			this.gbQuotes.Text = "Quotes";
+			// 
+			// btnQuotesOptions
+			// 
+			this.btnQuotesOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnQuotesOptions.Location = new System.Drawing.Point(42, 352);
+			this.btnQuotesOptions.Name = "btnQuotesOptions";
+			this.btnQuotesOptions.Size = new System.Drawing.Size(68, 24);
+			this.btnQuotesOptions.TabIndex = 16;
+			this.btnQuotesOptions.Text = "Options";
+			this.btnQuotesOptions.UseVisualStyleBackColor = true;
+			this.btnQuotesOptions.Click += new System.EventHandler(this.btnQuotesOptions_Click);
+			// 
+			// pnlQuotesOptions
+			// 
+			this.pnlQuotesOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendEnd);
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendTextToEnd);
+			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendStart);
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendedTextToBeginning);
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludedChars);
+			this.pnlQuotesOptions.Controls.Add(this.lblQuotesExcludeChars);
+			this.pnlQuotesOptions.Controls.Add(this.chkQuotesTrimRow);
+			this.pnlQuotesOptions.Location = new System.Drawing.Point(42, 183);
+			this.pnlQuotesOptions.Name = "pnlQuotesOptions";
+			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 170);
+			this.pnlQuotesOptions.TabIndex = 15;
+			// 
+			// lblQuotesAppendEnd
+			// 
+			this.lblQuotesAppendEnd.Location = new System.Drawing.Point(77, 106);
+			this.lblQuotesAppendEnd.Name = "lblQuotesAppendEnd";
+			this.lblQuotesAppendEnd.Size = new System.Drawing.Size(192, 30);
+			this.lblQuotesAppendEnd.TabIndex = 6;
+			this.lblQuotesAppendEnd.Text = "Append text to end of quote";
+			// 
+			// txtQuotesAppendTextToEnd
+			// 
+			this.txtQuotesAppendTextToEnd.Location = new System.Drawing.Point(9, 109);
+			this.txtQuotesAppendTextToEnd.Name = "txtQuotesAppendTextToEnd";
+			this.txtQuotesAppendTextToEnd.Size = new System.Drawing.Size(62, 23);
+			this.txtQuotesAppendTextToEnd.TabIndex = 5;
+			// 
+			// lblQuotesAppendStart
+			// 
+			this.lblQuotesAppendStart.Location = new System.Drawing.Point(77, 75);
+			this.lblQuotesAppendStart.Name = "lblQuotesAppendStart";
+			this.lblQuotesAppendStart.Size = new System.Drawing.Size(192, 30);
+			this.lblQuotesAppendStart.TabIndex = 4;
+			this.lblQuotesAppendStart.Text = "Append text to the beginning of quote";
+			// 
+			// txtQuotesAppendedTextToBeginning
+			// 
+			this.txtQuotesAppendedTextToBeginning.Location = new System.Drawing.Point(9, 80);
+			this.txtQuotesAppendedTextToBeginning.Name = "txtQuotesAppendedTextToBeginning";
+			this.txtQuotesAppendedTextToBeginning.Size = new System.Drawing.Size(62, 23);
+			this.txtQuotesAppendedTextToBeginning.TabIndex = 3;
+			// 
+			// txtQuotesExcludedChars
+			// 
+			this.txtQuotesExcludedChars.Location = new System.Drawing.Point(9, 37);
+			this.txtQuotesExcludedChars.Multiline = true;
+			this.txtQuotesExcludedChars.Name = "txtQuotesExcludedChars";
+			this.txtQuotesExcludedChars.Size = new System.Drawing.Size(62, 37);
+			this.txtQuotesExcludedChars.TabIndex = 2;
+			// 
+			// lblQuotesExcludeChars
+			// 
+			this.lblQuotesExcludeChars.Location = new System.Drawing.Point(77, 36);
+			this.lblQuotesExcludeChars.Name = "lblQuotesExcludeChars";
+			this.lblQuotesExcludeChars.Size = new System.Drawing.Size(180, 48);
+			this.lblQuotesExcludeChars.TabIndex = 1;
+			this.lblQuotesExcludeChars.Text = "Exclude characters ( input characters with no spaces)";
+			// 
+			// chkQuotesTrimRow
+			// 
+			this.chkQuotesTrimRow.AutoSize = true;
+			this.chkQuotesTrimRow.Location = new System.Drawing.Point(9, 12);
+			this.chkQuotesTrimRow.Name = "chkQuotesTrimRow";
+			this.chkQuotesTrimRow.Size = new System.Drawing.Size(222, 19);
+			this.chkQuotesTrimRow.TabIndex = 0;
+			this.chkQuotesTrimRow.Text = "Trim row untill first space character";
+			this.chkQuotesTrimRow.UseVisualStyleBackColor = true;
 			// 
 			// lineNumbers_For_RichTextBox1
 			// 
@@ -213,7 +333,7 @@
 			this.lineNumbers_For_RichTextBox1.LineNrs_ClippedByItemRectangle = true;
 			this.lineNumbers_For_RichTextBox1.LineNrs_LeadingZeroes = true;
 			this.lineNumbers_For_RichTextBox1.LineNrs_Offset = new System.Drawing.Size(0, 0);
-			this.lineNumbers_For_RichTextBox1.Location = new System.Drawing.Point(1, 17);
+			this.lineNumbers_For_RichTextBox1.Location = new System.Drawing.Point(12, 17);
 			this.lineNumbers_For_RichTextBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.lineNumbers_For_RichTextBox1.MarginLines_Color = System.Drawing.Color.SlateGray;
 			this.lineNumbers_For_RichTextBox1.MarginLines_Side = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Right;
@@ -227,7 +347,7 @@
 			this.lineNumbers_For_RichTextBox1.Show_GridLines = true;
 			this.lineNumbers_For_RichTextBox1.Show_LineNrs = true;
 			this.lineNumbers_For_RichTextBox1.Show_MarginLines = false;
-			this.lineNumbers_For_RichTextBox1.Size = new System.Drawing.Size(40, 329);
+			this.lineNumbers_For_RichTextBox1.Size = new System.Drawing.Size(29, 329);
 			this.lineNumbers_For_RichTextBox1.TabIndex = 14;
 			// 
 			// rtbQuotes
@@ -241,7 +361,7 @@
 			this.rtbQuotes.Name = "rtbQuotes";
 			this.rtbQuotes.Size = new System.Drawing.Size(471, 329);
 			this.rtbQuotes.TabIndex = 13;
-			this.rtbQuotes.Text = resources.GetString("rtbQuotes.Text");
+			this.rtbQuotes.Text = "1\n2\n3\n3\n5\n6\n7\n8\n1\n";
 			// 
 			// btnSaveQuotes
 			// 
@@ -499,12 +619,192 @@
 			// tabPage2
 			// 
 			this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.tabPage2.Controls.Add(this.groupBox2);
+			this.tabPage2.Controls.Add(this.groupBox1);
+			this.tabPage2.Controls.Add(this.lblFavoritesText);
+			this.tabPage2.Controls.Add(this.lblFavouriteChapters);
+			this.tabPage2.Controls.Add(this.lblFavouriteBooks);
+			this.tabPage2.Controls.Add(this.lblFavouriteCollections);
+			this.tabPage2.Controls.Add(this.clbChapters);
+			this.tabPage2.Controls.Add(this.clbBooks);
+			this.tabPage2.Controls.Add(this.clbCollections);
 			this.tabPage2.Location = new System.Drawing.Point(4, 25);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage2.Size = new System.Drawing.Size(768, 393);
 			this.tabPage2.TabIndex = 3;
 			this.tabPage2.Text = "Quotes collection";
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.checkBox2);
+			this.groupBox2.Controls.Add(this.button2);
+			this.groupBox2.Location = new System.Drawing.Point(388, 309);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(374, 81);
+			this.groupBox2.TabIndex = 15;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Import quotes";
+			// 
+			// checkBox2
+			// 
+			this.checkBox2.AutoSize = true;
+			this.checkBox2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.checkBox2.Location = new System.Drawing.Point(6, 17);
+			this.checkBox2.Name = "checkBox2";
+			this.checkBox2.Size = new System.Drawing.Size(228, 19);
+			this.checkBox2.TabIndex = 14;
+			this.checkBox2.Text = "Ignore collection language on import";
+			this.checkBox2.UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.button2.Location = new System.Drawing.Point(261, 43);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(107, 32);
+			this.button2.TabIndex = 8;
+			this.button2.Text = "Import";
+			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.checkBox1);
+			this.groupBox1.Controls.Add(this.button1);
+			this.groupBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.groupBox1.Location = new System.Drawing.Point(6, 309);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(376, 78);
+			this.groupBox1.TabIndex = 14;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Export quotes";
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.checkBox1.Location = new System.Drawing.Point(6, 20);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(181, 19);
+			this.checkBox1.TabIndex = 13;
+			this.checkBox1.Text = "Export only favourite quotes";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.button1.Location = new System.Drawing.Point(259, 40);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(111, 32);
+			this.button1.TabIndex = 7;
+			this.button1.Text = "Export";
+			this.button1.UseVisualStyleBackColor = true;
+			// 
+			// lblFavoritesText
+			// 
+			this.lblFavoritesText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblFavoritesText.Location = new System.Drawing.Point(127, 6);
+			this.lblFavoritesText.Name = "lblFavoritesText";
+			this.lblFavoritesText.Size = new System.Drawing.Size(525, 40);
+			this.lblFavoritesText.TabIndex = 12;
+			this.lblFavoritesText.Text = "Here you can set your favourite collections, books or chapters. Quotes that are d" +
+    "isplayed will be selected from this list.";
+			this.lblFavoritesText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// lblFavouriteChapters
+			// 
+			this.lblFavouriteChapters.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblFavouriteChapters.Location = new System.Drawing.Point(523, 48);
+			this.lblFavouriteChapters.Name = "lblFavouriteChapters";
+			this.lblFavouriteChapters.Size = new System.Drawing.Size(239, 27);
+			this.lblFavouriteChapters.TabIndex = 11;
+			this.lblFavouriteChapters.Text = "label2";
+			this.lblFavouriteChapters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// lblFavouriteBooks
+			// 
+			this.lblFavouriteBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblFavouriteBooks.Location = new System.Drawing.Point(265, 48);
+			this.lblFavouriteBooks.Name = "lblFavouriteBooks";
+			this.lblFavouriteBooks.Size = new System.Drawing.Size(239, 27);
+			this.lblFavouriteBooks.TabIndex = 10;
+			this.lblFavouriteBooks.Text = "label2";
+			this.lblFavouriteBooks.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// lblFavouriteCollections
+			// 
+			this.lblFavouriteCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblFavouriteCollections.Location = new System.Drawing.Point(6, 48);
+			this.lblFavouriteCollections.Name = "lblFavouriteCollections";
+			this.lblFavouriteCollections.Size = new System.Drawing.Size(239, 27);
+			this.lblFavouriteCollections.TabIndex = 9;
+			this.lblFavouriteCollections.Text = "label2";
+			this.lblFavouriteCollections.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// clbChapters
+			// 
+			this.clbChapters.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbChapters.ColumnWidth = 50;
+			this.clbChapters.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.clbChapters.FormattingEnabled = true;
+			this.clbChapters.HorizontalScrollbar = true;
+			this.clbChapters.Items.AddRange(new object[] {
+            "This is one of the collections (Description)",
+            "col2",
+            "col3",
+            "col4",
+            "col5",
+            "col6"});
+			this.clbChapters.Location = new System.Drawing.Point(523, 78);
+			this.clbChapters.Name = "clbChapters";
+			this.clbChapters.Size = new System.Drawing.Size(239, 220);
+			this.clbChapters.TabIndex = 2;
+			this.clbChapters.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbChapters_ItemCheck);
+			this.clbChapters.SelectedValueChanged += new System.EventHandler(this.clbChapters_SelectedValueChanged);
+			// 
+			// clbBooks
+			// 
+			this.clbBooks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbBooks.ColumnWidth = 50;
+			this.clbBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.clbBooks.FormattingEnabled = true;
+			this.clbBooks.HorizontalScrollbar = true;
+			this.clbBooks.Items.AddRange(new object[] {
+            "This is one of the collections (Description)",
+            "col2",
+            "col3",
+            "col4",
+            "col5",
+            "col6"});
+			this.clbBooks.Location = new System.Drawing.Point(265, 78);
+			this.clbBooks.Name = "clbBooks";
+			this.clbBooks.Size = new System.Drawing.Size(239, 220);
+			this.clbBooks.TabIndex = 1;
+			this.clbBooks.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbBooks_ItemCheck);
+			this.clbBooks.SelectedValueChanged += new System.EventHandler(this.clbBooks_SelectedValueChanged);
+			// 
+			// clbCollections
+			// 
+			this.clbCollections.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbCollections.ColumnWidth = 50;
+			this.clbCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.clbCollections.FormattingEnabled = true;
+			this.clbCollections.HorizontalScrollbar = true;
+			this.clbCollections.Items.AddRange(new object[] {
+            "This is one of the collections (Description)",
+            "col2",
+            "col3",
+            "col4",
+            "col5",
+            "col6"});
+			this.clbCollections.Location = new System.Drawing.Point(6, 78);
+			this.clbCollections.Name = "clbCollections";
+			this.clbCollections.Size = new System.Drawing.Size(239, 220);
+			this.clbCollections.TabIndex = 0;
+			this.clbCollections.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbCollections_ItemCheck);
+			this.clbCollections.SelectedValueChanged += new System.EventHandler(this.clbCollections_SelectedValueChanged);
 			// 
 			// tabPage3
 			// 
@@ -548,6 +848,11 @@
 			// 
 			this.gbQuotesSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesAutocloseTime);
+			this.gbQuotesSettings.Controls.Add(this.txtQuotesAutoCloseInterval);
+			this.gbQuotesSettings.Controls.Add(this.lblQuotesAutocloseInterval);
+			this.gbQuotesSettings.Controls.Add(this.label1);
+			this.gbQuotesSettings.Controls.Add(this.panel3);
 			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequencyTime);
 			this.gbQuotesSettings.Controls.Add(this.btnAlwaysOnNotifications);
 			this.gbQuotesSettings.Controls.Add(this.txtQuotesInterval);
@@ -562,13 +867,102 @@
 			this.gbQuotesSettings.TabStop = false;
 			this.gbQuotesSettings.Text = "Quotes";
 			// 
+			// lblQuotesAutocloseTime
+			// 
+			this.lblQuotesAutocloseTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesAutocloseTime.Location = new System.Drawing.Point(293, 143);
+			this.lblQuotesAutocloseTime.Name = "lblQuotesAutocloseTime";
+			this.lblQuotesAutocloseTime.Size = new System.Drawing.Size(69, 18);
+			this.lblQuotesAutocloseTime.TabIndex = 25;
+			this.lblQuotesAutocloseTime.Text = "seconds";
+			// 
+			// txtQuotesAutoCloseInterval
+			// 
+			this.txtQuotesAutoCloseInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.txtQuotesAutoCloseInterval.Location = new System.Drawing.Point(245, 140);
+			this.txtQuotesAutoCloseInterval.Name = "txtQuotesAutoCloseInterval";
+			this.txtQuotesAutoCloseInterval.Size = new System.Drawing.Size(42, 26);
+			this.txtQuotesAutoCloseInterval.TabIndex = 24;
+			this.txtQuotesAutoCloseInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.txtQuotesAutoCloseInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesAutoCloseInterval_KeyPress);
+			// 
+			// lblQuotesAutocloseInterval
+			// 
+			this.lblQuotesAutocloseInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblQuotesAutocloseInterval.Location = new System.Drawing.Point(6, 135);
+			this.lblQuotesAutocloseInterval.Name = "lblQuotesAutocloseInterval";
+			this.lblQuotesAutocloseInterval.Size = new System.Drawing.Size(228, 39);
+			this.lblQuotesAutocloseInterval.TabIndex = 23;
+			this.lblQuotesAutocloseInterval.Text = "Auto-close popup notifications after some time";
+			this.lblQuotesAutocloseInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label1
+			// 
+			this.label1.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.label1.Location = new System.Drawing.Point(60, 175);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(250, 18);
+			this.label1.TabIndex = 22;
+			this.label1.Text = "Notification location on screen";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// panel3
+			// 
+			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel3.Controls.Add(this.radioButton4);
+			this.panel3.Controls.Add(this.radioButton3);
+			this.panel3.Controls.Add(this.radioButton2);
+			this.panel3.Controls.Add(this.radioButton1);
+			this.panel3.Location = new System.Drawing.Point(119, 199);
+			this.panel3.Name = "panel3";
+			this.panel3.Size = new System.Drawing.Size(131, 72);
+			this.panel3.TabIndex = 21;
+			// 
+			// radioButton4
+			// 
+			this.radioButton4.AutoSize = true;
+			this.radioButton4.Location = new System.Drawing.Point(111, 4);
+			this.radioButton4.Name = "radioButton4";
+			this.radioButton4.Size = new System.Drawing.Size(14, 13);
+			this.radioButton4.TabIndex = 3;
+			this.radioButton4.UseVisualStyleBackColor = true;
+			// 
+			// radioButton3
+			// 
+			this.radioButton3.AutoSize = true;
+			this.radioButton3.Checked = true;
+			this.radioButton3.Location = new System.Drawing.Point(110, 53);
+			this.radioButton3.Name = "radioButton3";
+			this.radioButton3.Size = new System.Drawing.Size(14, 13);
+			this.radioButton3.TabIndex = 2;
+			this.radioButton3.TabStop = true;
+			this.radioButton3.UseVisualStyleBackColor = true;
+			// 
+			// radioButton2
+			// 
+			this.radioButton2.AutoSize = true;
+			this.radioButton2.Location = new System.Drawing.Point(4, 53);
+			this.radioButton2.Name = "radioButton2";
+			this.radioButton2.Size = new System.Drawing.Size(14, 13);
+			this.radioButton2.TabIndex = 1;
+			this.radioButton2.UseVisualStyleBackColor = true;
+			// 
+			// radioButton1
+			// 
+			this.radioButton1.AutoSize = true;
+			this.radioButton1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.radioButton1.Location = new System.Drawing.Point(4, 4);
+			this.radioButton1.Name = "radioButton1";
+			this.radioButton1.Size = new System.Drawing.Size(14, 13);
+			this.radioButton1.TabIndex = 0;
+			this.radioButton1.UseVisualStyleBackColor = true;
+			// 
 			// lblQuotesFrequencyTime
 			// 
-			this.lblQuotesFrequencyTime.AutoSize = true;
 			this.lblQuotesFrequencyTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(303, 111);
+			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(293, 111);
 			this.lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
-			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(59, 18);
+			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(69, 18);
 			this.lblQuotesFrequencyTime.TabIndex = 19;
 			this.lblQuotesFrequencyTime.Text = "minutes";
 			// 
@@ -592,6 +986,7 @@
 			this.txtQuotesInterval.Name = "txtQuotesInterval";
 			this.txtQuotesInterval.Size = new System.Drawing.Size(42, 26);
 			this.txtQuotesInterval.TabIndex = 6;
+			this.txtQuotesInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.txtQuotesInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesInterval_KeyPress);
 			// 
 			// lblQuotesFrequency
@@ -618,13 +1013,13 @@
 			// 
 			// lblNotificationType
 			// 
-			this.lblNotificationType.AutoSize = true;
 			this.lblNotificationType.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblNotificationType.Location = new System.Drawing.Point(127, 19);
+			this.lblNotificationType.Location = new System.Drawing.Point(73, 19);
 			this.lblNotificationType.Name = "lblNotificationType";
-			this.lblNotificationType.Size = new System.Drawing.Size(110, 18);
+			this.lblNotificationType.Size = new System.Drawing.Size(237, 18);
 			this.lblNotificationType.TabIndex = 19;
 			this.lblNotificationType.Text = "Notification type";
+			this.lblNotificationType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// gbOtherSettings
 			// 
@@ -972,14 +1367,23 @@
 			this.tabControl.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
 			this.gbQuotes.ResumeLayout(false);
+			this.pnlQuotesOptions.ResumeLayout(false);
+			this.pnlQuotesOptions.PerformLayout();
 			this.gbChapters.ResumeLayout(false);
 			this.gbBooks.ResumeLayout(false);
 			this.gbCollections.ResumeLayout(false);
+			this.tabPage2.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabBasicSettings.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
 			this.gbQuotesSettings.ResumeLayout(false);
 			this.gbQuotesSettings.PerformLayout();
+			this.panel3.ResumeLayout(false);
+			this.panel3.PerformLayout();
 			this.gbOtherSettings.ResumeLayout(false);
 			this.gbOtherSettings.PerformLayout();
 			this.gbThemeSettings.ResumeLayout(false);
@@ -1057,5 +1461,36 @@
 		private Button btnAlwaysOnNotifications;
 		private Button btnPopupNotifications;
 		private Label lblNotificationType;
+		private CheckedListBox clbCollections;
+		private CheckedListBox clbChapters;
+		private CheckedListBox clbBooks;
+		private Label label1;
+		private Panel panel3;
+		private RadioButton radioButton4;
+		private RadioButton radioButton3;
+		private RadioButton radioButton2;
+		private RadioButton radioButton1;
+		private Label lblQuotesAutocloseTime;
+		private TextBox txtQuotesAutoCloseInterval;
+		private Label lblQuotesAutocloseInterval;
+		private Button button2;
+		private Button button1;
+		private GroupBox groupBox2;
+		private CheckBox checkBox2;
+		private GroupBox groupBox1;
+		private CheckBox checkBox1;
+		private Label lblFavoritesText;
+		private Label lblFavouriteChapters;
+		private Label lblFavouriteBooks;
+		private Label lblFavouriteCollections;
+		private Button btnQuotesOptions;
+		private Panel pnlQuotesOptions;
+		private Label lblQuotesAppendEnd;
+		private TextBox txtQuotesAppendTextToEnd;
+		private Label lblQuotesAppendStart;
+		private TextBox txtQuotesAppendedTextToBeginning;
+		private TextBox txtQuotesExcludedChars;
+		private Label lblQuotesExcludeChars;
+		private CheckBox chkQuotesTrimRow;
 	}
 }

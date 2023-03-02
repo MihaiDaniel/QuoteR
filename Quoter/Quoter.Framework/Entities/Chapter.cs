@@ -11,6 +11,8 @@
 
 		public string? Description { get; set; }
 
+		public bool? IsFavourite { get; set; }
+
 		/// <summary>
 		/// The chapter index number in the book
 		/// </summary>

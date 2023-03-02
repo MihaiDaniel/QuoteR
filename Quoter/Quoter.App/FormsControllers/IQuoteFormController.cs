@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers
 {
-	public interface IQuoteFormController
+	public interface IQuoteFormController : IFormController<IQuoteForm>
 	{
-		void RegisterForm(IQuoteForm quoteForm);
 		Task GetRandomQuote();
 		Task GetNextQuote();
 		Task GetPreviousQuote();

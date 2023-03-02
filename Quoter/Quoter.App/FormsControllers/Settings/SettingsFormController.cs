@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-namespace Quoter.App.FormsControllers
+namespace Quoter.App.FormsControllers.Settings
 {
 	public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
 	{
@@ -23,7 +23,7 @@ namespace Quoter.App.FormsControllers
 
 		private ISettingsForm _form;
 
-		public SettingsFormController(ISettings settings, 
+		public SettingsFormController(ISettings settings,
 										IMessagingService messagingService,
 										IStringResources stringResources,
 										IFormsManager formsManager,
@@ -37,21 +37,21 @@ namespace Quoter.App.FormsControllers
 		}
 
 		private string _notificationIntervalMinutes;
-		public string NotificationsIntervalMinutes 
+		public string NotificationsIntervalMinutes
 		{
 			get => _notificationIntervalMinutes;
 			set
 			{
-				if(_notificationIntervalMinutes != value)
+				if (_notificationIntervalMinutes != value)
 				{
 					_notificationIntervalMinutes = value;
 					OnPropertyChanged();
 
-					(bool isValidInput, int intValue) = ValidateNotificationsIntervalMinutes(value);
-					if(isValidInput && intValue > 0)
+					(bool isValidInput, int intValue) = ValidateValidNumber(value);
+					if (isValidInput && intValue > 0)
 					{
-						_settings.Set<int>(Const.Setting.NotificationIntervalSeconds, intValue * 60);
-						_form.SetStatus("", Color.Black);
+						_settings.Set(Const.Setting.NotificationIntervalSeconds, intValue * 60);
+						_form.SetStatus("", Const.ColorDefault);
 
 						_messagingService.SendMessage(Const.Event.NotificationIntervalChanged);
 					}
@@ -63,12 +63,34 @@ namespace Quoter.App.FormsControllers
 			}
 		}
 
-		private Tuple<bool, int> ValidateNotificationsIntervalMinutes(string value)
+		private string _notificationsAutoCloseSeconds;
+		public string NotificationsAutoCloseSeconds
+		{
+			get => _notificationsAutoCloseSeconds;
+			set
+			{
+				_notificationsAutoCloseSeconds= value;
+				OnPropertyChanged();
+
+				(bool isValidInput, int intValue) = ValidateValidNumber(value);
+				if (isValidInput && intValue > 0)
+				{
+					_settings.Set(Const.Setting.AutoCloseNotificationSeconds, intValue);
+					_form.SetStatus("", Const.ColorDefault);
+				}
+				else
+				{
+					_form.SetStatus(_stringResources["NotificationIntervalMustBeBetweenValues", "1", "999"], Color.Red);
+				}
+			}
+		}
+
+		private Tuple<bool, int> ValidateValidNumber(string value)
 		{
 			bool isNumber = int.TryParse(value, out int intValue);
-			if(isNumber)
+			if (isNumber)
 			{
-				if(intValue > 0 || intValue < 999)
+				if (intValue > 0 || intValue < 999)
 				{
 					return new(true, intValue);
 				}
@@ -76,7 +98,7 @@ namespace Quoter.App.FormsControllers
 				{
 					return new(false, intValue);
 				}
-				
+
 			}
 			else if (string.IsNullOrWhiteSpace(value))
 			{
@@ -91,7 +113,7 @@ namespace Quoter.App.FormsControllers
 			get => _opacityValue;
 			set
 			{
-				if(_opacityValue != value)
+				if (_opacityValue != value)
 				{
 					_opacityValue = value;
 					OnPropertyChanged();
@@ -123,6 +145,7 @@ namespace Quoter.App.FormsControllers
 
 			// Set other settings
 			NotificationsIntervalMinutes = (_settings.Get<int>(Const.Setting.NotificationIntervalSeconds) / 60).ToString();
+			NotificationsAutoCloseSeconds = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds).ToString();
 
 			double opacity = _settings.Get<double>(Const.Setting.Opacity);
 			_form.SetOpacitySlider(opacity);
@@ -140,13 +163,13 @@ namespace Quoter.App.FormsControllers
 				case EnumLanguage.English:
 					CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-					_settings.Set<string>(Const.Setting.Language, "en-US");
+					_settings.Set(Const.Setting.Language, "en-US");
 					_form.SetSelectedLanguage(language);
 					break;
 				case EnumLanguage.Romanian:
 					CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ro-RO");
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
-					_settings.Set<string>(Const.Setting.Language, "ro-RO");
+					_settings.Set(Const.Setting.Language, "ro-RO");
 					_form.SetSelectedLanguage(language);
 					break;
 			}
@@ -156,25 +179,25 @@ namespace Quoter.App.FormsControllers
 
 		public void SetShowCollectionsBasedOnLanguage(bool value)
 		{
-			_settings.Set<bool>(Const.Setting.ShowCollectionsBasedOnLanguage, value);
+			_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, value);
 			_messagingService.SendMessage(Const.Event.ShowCollectionsBasedOnLanguageChanged);
 		}
 
 		public void SetShowWelcomeMessage(bool value)
 		{
-			_settings.Set<bool>(Const.Setting.ShowWelcomeNotification, value);
+			_settings.Set(Const.Setting.ShowWelcomeNotification, value);
 		}
 
 		public void SetTheme(EnumTheme theme)
 		{
-			_settings.Set<int>(Const.Setting.Theme, (int)theme);
+			_settings.Set(Const.Setting.Theme, (int)theme);
 			_form.SetTheme();
 			_messagingService.SendMessage(Const.Event.ThemeChanged);
 		}
 
 		public void SetOpacity(double opacity)
 		{
-			_settings.Set<double>(Const.Setting.Opacity, opacity);
+			_settings.Set(Const.Setting.Opacity, opacity);
 			OpacityValue = GetOpacityValuePercent(opacity);
 			_messagingService.SendMessage(Const.Event.ThemeChanged);
 		}
@@ -187,10 +210,10 @@ namespace Quoter.App.FormsControllers
 		public void SetNotificationType(EnumNotificationType type)
 		{
 			EnumNotificationType currentType = (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
-			if(currentType != type)
+			if (currentType != type)
 			{
 				_messagingService.SendMessage(Const.Event.NotificationTypeChanged, null);
-				_settings.Set<int>(Const.Setting.NotificationType, (int)type);
+				_settings.Set(Const.Setting.NotificationType, (int)type);
 
 				if (type == EnumNotificationType.AlwaysOn)
 				{
@@ -200,13 +223,13 @@ namespace Quoter.App.FormsControllers
 						//QuoteModel? quote = await _quoteService.GetRandomQuote();
 						//if (quote != null)
 						//{
-							_formsManager.ShowDialog<QuoteForm>(0/*, quote*/);
+						_formsManager.ShowDialog<QuoteForm>(0/*, quote*/);
 						//}
 					});
 				}
 			}
 
-			
+
 		}
 	}
 }

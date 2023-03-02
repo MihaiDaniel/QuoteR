@@ -28,10 +28,19 @@ namespace Quoter.Framework.Services
 			{
 				return null;
 			}
-			IQueryable<Quote> query = GetQuoteQueryable(currentQuote.CollectionId, currentQuote.BookId, currentQuote.ChapterId);
-			Quote? nextQuote = await query.FirstOrDefaultAsync(q => q.QuoteIndex == (currentQuote.QuoteIndex + 1));
+			IQueryable<Quote> query = GetQuoteQueryableByBookAndChapter(currentQuote);
+			Quote? nextQuote = await query.FirstOrDefaultAsync(q => q.QuoteIndex > (currentQuote.QuoteIndex));
 
-			if (nextQuote != null)
+			if (nextQuote == null)
+			{
+				query = GetQuoteQueryableByBookNext(currentQuote);
+				nextQuote = await query.FirstOrDefaultAsync();
+				if (nextQuote != null)
+				{
+					return GetQuoteModel(nextQuote);
+				}
+			}
+			else
 			{
 				return GetQuoteModel(nextQuote);
 			}
@@ -46,10 +55,19 @@ namespace Quoter.Framework.Services
 			{
 				return null;
 			}
-			IQueryable<Quote> query = GetQuoteQueryable(currentQuote.CollectionId, currentQuote.BookId, currentQuote.ChapterId);
-			Quote? previousQuote = await query.FirstOrDefaultAsync(q => q.QuoteIndex == (currentQuote.QuoteIndex - 1));
+			IQueryable<Quote> query = GetQuoteQueryableByBookAndChapter(currentQuote);
+			Quote? previousQuote = await query.OrderBy(q => q.QuoteId).LastOrDefaultAsync(q => q.QuoteIndex < (currentQuote.QuoteIndex));
 
-			if (previousQuote != null)
+			if (previousQuote == null)
+			{
+				query = GetQuoteQueryableByBookPrevious(currentQuote);
+				previousQuote = await query.OrderBy(q => q.QuoteId).LastOrDefaultAsync();
+				if (previousQuote != null)
+				{
+					return GetQuoteModel(previousQuote);
+				}
+			}
+			else
 			{
 				return GetQuoteModel(previousQuote);
 			}
@@ -59,7 +77,12 @@ namespace Quoter.Framework.Services
 
 		public async Task<QuoteModel?> GetRandomQuote()
 		{
-			List<long> idQuotes = await _context.Quotes.Select(q => q.QuoteId).ToListAsync();
+			List<long> idQuotes = await _context.Quotes
+				.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true))
+				.Select(q => q.QuoteId).ToListAsync();
+
 			if (idQuotes is null || idQuotes.Count == 0)
 			{
 				return null;
@@ -76,17 +99,52 @@ namespace Quoter.Framework.Services
 			return GetQuoteModel(quote);
 		}
 
-		private IQueryable<Quote> GetQuoteQueryable(int collectionId, int? bookId, int? chapterId)
+		private IQueryable<Quote> GetQuoteQueryableByBookAndChapter(Quote currentQuote)
 		{
-			IQueryable<Quote> quotes = _context.Quotes.Where(q => q.CollectionId == collectionId);
-			if (bookId.HasValue)
+			IQueryable<Quote> quotes = _context.Quotes.Where(q => q.CollectionId == currentQuote.CollectionId);
+			if (currentQuote.BookId.HasValue)
 			{
-				quotes = quotes.Where(q => q.BookId == bookId);
+				quotes = quotes.Where(q => q.BookId == currentQuote.BookId);
 			}
-			if (chapterId.HasValue)
+			if (currentQuote.ChapterId.HasValue)
 			{
-				quotes = quotes.Where(q => q.ChapterId == chapterId);
+				quotes = quotes.Where(q => q.ChapterId == currentQuote.ChapterId);
 			}
+			quotes = quotes.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
+			return quotes;
+		}
+
+		private IQueryable<Quote> GetQuoteQueryableByBookPrevious(Quote currentQuote)
+		{
+			IQueryable<Quote> quotes = _context.Quotes
+				.Include(q => q.Chapter)
+				.Include(q => q.Book)
+				.Where(q => q.CollectionId == currentQuote.CollectionId);
+			if (currentQuote.BookId.HasValue)
+			{
+				quotes = quotes.Where(q => q.BookId == currentQuote.BookId);
+			}
+			quotes = quotes.Where(q => (q.ChapterId != null && q.ChapterId < currentQuote.ChapterId && q.Chapter.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
+			return quotes;
+		}
+
+		private IQueryable<Quote> GetQuoteQueryableByBookNext(Quote currentQuote)
+		{
+			IQueryable<Quote> quotes = _context.Quotes
+				.Include(q => q.Chapter)
+				.Include(q => q.Book)
+				.Where(q => q.CollectionId == currentQuote.CollectionId);
+			if (currentQuote.BookId.HasValue)
+			{
+				quotes = quotes.Where(q => q.BookId == currentQuote.BookId);
+			}
+			quotes = quotes.Where(q => (q.ChapterId != null && q.ChapterId > currentQuote.ChapterId && q.Chapter.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
 			return quotes;
 		}
 

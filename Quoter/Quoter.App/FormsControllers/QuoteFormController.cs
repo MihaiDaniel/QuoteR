@@ -71,9 +71,10 @@ namespace Quoter.App.FormsControllers
 		{
 			if(_quoteModel != null)
 			{
-				_quoteModel = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
-				if (_quoteModel != null)
+				QuoteModel? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
+				if (nextQuote != null)
 				{
+					_quoteModel= nextQuote;
 					_form.SetQuote(_quoteModel);
 				}
 			}
@@ -84,14 +85,13 @@ namespace Quoter.App.FormsControllers
 		{
 			if (_quoteModel != null)
 			{
-				_quoteModel = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
-				if (_quoteModel != null)
+				QuoteModel? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
+				if (previousQuote != null)
 				{
+					_quoteModel = previousQuote;
 					_form.SetQuote(_quoteModel);
 				}
 			}
-			
-			
 		}
 
 	}

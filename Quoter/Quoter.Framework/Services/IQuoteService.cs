@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services
 {
+	/// <summary>
+	/// Interface for a service responsible for getting quotes to be shown to the user
+	/// </summary>
 	public interface IQuoteService
 	{
 		Task<QuoteModel?> GetRandomQuote();

@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
 using Quoter.App.FormsControllers;
+using Quoter.App.FormsControllers.EditQuotes;
+using Quoter.App.FormsControllers.FavouriteQuotes;
+using Quoter.App.FormsControllers.Settings;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
@@ -14,7 +17,7 @@ using System.Resources;
 
 namespace Quoter.App
 {
-	internal static class Program
+    internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -64,6 +67,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IEditQuotesFormController, EditQuotesFormController>();
 			serviceCollection.AddTransient<ISettingsFormController, SettingsFormController>();
 			serviceCollection.AddTransient<IQuoteFormController, QuoteFormController>();
+			serviceCollection.AddTransient<IFavouriteQuotesFormController, FavouriteQuotesFormController>();
 
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();

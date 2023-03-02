@@ -321,4 +321,46 @@
   <data name="ShowWelcomeMessage" xml:space="preserve">
     <value>Show welcome message</value>
   </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Choose how quotes are displayed</value>
+  </data>
+  <data name="PopupNotifications" xml:space="preserve">
+    <value>Show as a popup notification</value>
+  </data>
+  <data name="AlwaysOnNotifications" xml:space="preserve">
+    <value>Show in notification that is always on screen</value>
+  </data>
+  <data name="QuotesAutoclose" xml:space="preserve">
+    <value>Auto-close popup notifications after</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="Books" xml:space="preserve">
+    <value>Books</value>
+  </data>
+  <data name="FavoritesText" xml:space="preserve">
+    <value>Here you can choose your favourites collections from which to display quotes.</value>
+  </data>
+  <data name="OptionTrimRow" xml:space="preserve">
+    <value>Trim row untill the first empty space character</value>
+  </data>
+  <data name="OptionExcludeChars" xml:space="preserve">
+    <value>Excluded characters ( input characters with no spaces )</value>
+  </data>
+  <data name="OptionAppendTextStart" xml:space="preserve">
+    <value>Append text to the beginning of each quote</value>
+  </data>
+  <data name="OptionAppendTextEnd" xml:space="preserve">
+    <value>Append text to the end of each quote</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
 </root>
