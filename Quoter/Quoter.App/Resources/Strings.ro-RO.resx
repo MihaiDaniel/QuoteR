@@ -363,4 +363,82 @@
   <data name="Options" xml:space="preserve">
     <value>Opțiuni</value>
   </data>
+  <data name="ExportCollections" xml:space="preserve">
+    <value>Exportă colecții</value>
+  </data>
+  <data name="ExportOnlyFavourites" xml:space="preserve">
+    <value>Exportă doar colecțiile marcate ca favorite</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportă</value>
+  </data>
+  <data name="ChooseExportFilename" xml:space="preserve">
+    <value>Alegeți un nume de fișier și locația pentru export</value>
+  </data>
+  <data name="ErrCantExport" xml:space="preserve">
+    <value>Nu se poate exporta</value>
+  </data>
+  <data name="ErrCantExportMsg" xml:space="preserve">
+    <value>Ați bifat să exportați doar colecțiile favorite, dar nu aveți nici o colecție marcată ca favorită</value>
+  </data>
+  <data name="ErrCantExportMsgBadFileName" xml:space="preserve">
+    <value>Directorul sau nume fișierului alese nu sunt valide. Alegeți alt nume de fișier sau director</value>
+  </data>
+  <data name="Exporting" xml:space="preserve">
+    <value>Exportul a început</value>
+  </data>
+  <data name="ExportingInBackground" xml:space="preserve">
+    <value>Exportul se va realiza în fundal. Când se termină veți primi o notificare</value>
+  </data>
+  <data name="QuotesCollection" xml:space="preserve">
+    <value>ColectieCitate</value>
+  </data>
+  <data name="ExportSuccessfull" xml:space="preserve">
+    <value>Export realizat</value>
+  </data>
+  <data name="ExportSuccesfullMsg" xml:space="preserve">
+    <value>Colecțiile au fost exportate în: {0}</value>
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value>Export eșuat</value>
+  </data>
+  <data name="ExportFailedMsg" xml:space="preserve">
+    <value>Exportul a eșuat. Mai încercați. Motiv : {0}</value>
+  </data>
+  <data name="ImportSuccessfull" xml:space="preserve">
+    <value>Import realizat</value>
+  </data>
+  <data name="ImportSuccessfullMsg" xml:space="preserve">
+    <value>Colecții importate: {0}</value>
+  </data>
+  <data name="ImportFailed" xml:space="preserve">
+    <value>Import eșuat</value>
+  </data>
+  <data name="ImportFailedMsg" xml:space="preserve">
+    <value>Importul a eșuat. Mai încercați. Motiv: {0}</value>
+  </data>
+  <data name="ErrCantImport" xml:space="preserve">
+    <value>Nu se poate importa</value>
+  </data>
+  <data name="ErrCantImportMsgBadFileName" xml:space="preserve">
+    <value>Unul din fișierele selectate nu este valid.</value>
+  </data>
+  <data name="Importing" xml:space="preserve">
+    <value>Importul a început</value>
+  </data>
+  <data name="ImportingInBackground" xml:space="preserve">
+    <value>Importul se va realiza în fundal. Veți primi o notificare când s-a terminat.</value>
+  </data>
+  <data name="ChooseImportFilename" xml:space="preserve">
+    <value>Alegeți fișierele pentru import</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importă</value>
+  </data>
+  <data name="MergeCollections" xml:space="preserve">
+    <value>Unește colecțiile cu același nume cu cele existente</value>
+  </data>
+  <data name="IgnoreLanguage" xml:space="preserve">
+    <value>Importă în limba curentă indiferent de limba colecțiilor</value>
+  </data>
 </root>

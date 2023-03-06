@@ -7,12 +7,10 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
-using Quoter.Framework.Services.Messaging;
-using System.Diagnostics;
 
 namespace Quoter.App.Views
 {
-	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm//, IMessageSubscriber
+	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
 		private const int BodyMaxChars = 310; // at 10 font size
@@ -24,20 +22,15 @@ namespace Quoter.App.Views
 		private readonly IFormPositioningService _positioningService;
 		private readonly IThemeService _themeService;
 		private readonly IQuoteFormController _formController;
-		//private readonly IMessagingService _messagingService;
 
 		private List<IFormMonitor> _lstFormMonitors;
-
-		//private QuoteModel _quoteModel;
 
 		public QuoteForm(IFormsManager formsManager,
 							ISettings settings,
 							IFormPositioningService positioningService,
 							IFormAnimationService animationService,
 							IThemeService themeService,
-							IQuoteFormController formController,
-							IMessagingService messagingService
-							/*QuoteModel quoteModel*/)
+							IQuoteFormController formController)
 		{
 			InitializeComponent();
 			_formsManager = formsManager;
@@ -47,22 +40,37 @@ namespace Quoter.App.Views
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
 			_formController = formController;
-			//_messagingService = messagingService;
 
 			_lstFormMonitors = new List<IFormMonitor>();
 
-			//_quoteModel = quoteModel;
-
 			_formController.RegisterForm(this);
-			//SetQuote(quoteModel);
+		}
 
-			//_messagingService.Subscribe(this);
+		public QuoteForm(IFormsManager formsManager,
+							ISettings settings,
+							IFormPositioningService positioningService,
+							IFormAnimationService animationService,
+							IThemeService themeService,
+							IQuoteFormController formController,
+							QuoteFormOptions quoteModel)
+		{
+			InitializeComponent();
+			_formsManager = formsManager;
+			_settings = settings;
+			_formAnimationService = animationService;
+			_positioningService = positioningService;
+			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
+			_themeService = themeService;
+			_formController = formController;
+
+			_lstFormMonitors = new List<IFormMonitor>();
+
+			_formController.RegisterForm(this, quoteModel);
 		}
 
 		private async void MessageForm_Load(object sender, EventArgs e)
 		{
 			Theme theme = _themeService.GetCurrentTheme();
-			//EnumAnimation openAnimation = _quoteModel.OpenAnimation ?? EnumAnimation.FadeInFromBottomRight;
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
 		}
 
@@ -71,18 +79,14 @@ namespace Quoter.App.Views
 			return this;
 		}
 
-		//public void Close()
-		//{
-		//	this.InvokeIfRequired(() ={
-		//		Close();
-		//	});
-		//}
-
-
 		public void SetTheme(Theme theme)
 		{
 			this.InvokeIfRequired(() =>
 			{
+				if (this.Disposing || this.IsDisposed)
+				{
+					return;
+				}
 				this.Opacity = theme.Opacity;
 				this.BackColor = theme.BodyColor;
 				txtBody.BackColor = theme.BodyColor;
@@ -91,9 +95,8 @@ namespace Quoter.App.Views
 			});
 		}
 
-		public void SetQuote(QuoteModel quoteModel)
+		public void SetQuote(QuoteFormOptions quoteModel)
 		{
-			//_quoteModel = quoteModel;
 			this.InvokeIfRequired(() =>
 			{
 				SetControlText(lblTitle, quoteModel.Title, TitleMaxChars);
@@ -101,15 +104,15 @@ namespace Quoter.App.Views
 				SetControlText(txtFooter, quoteModel.Footer, FooterMaxChars);
 
 				// Adjust the font size a little bit depending on the amount of text
-				if (txtBody.Text.Length < 126)
+				if (txtBody.Text.Length < 135)
 				{
 					txtBody.Font = new Font("Calibri", 14, FontStyle.Italic);
 				}
-				else if (txtBody.Text.Length < 216)
+				else if (txtBody.Text.Length < 217)
 				{
 					txtBody.Font = new Font("Calibri", 12, FontStyle.Italic);
 				}
-				else if (txtBody.Text.Length < 246)
+				else if (txtBody.Text.Length < 248)
 				{
 					txtBody.Font = new Font("Calibri", 11, FontStyle.Italic);
 				}
@@ -120,8 +123,8 @@ namespace Quoter.App.Views
 
 				if (quoteModel.AllowNavigation)
 				{
-					btnNextQuote.Visible= true;
-					btnPreviousQuote.Visible= true;
+					btnNextQuote.Visible = true;
+					btnPreviousQuote.Visible = true;
 				}
 				else
 				{
@@ -142,12 +145,12 @@ namespace Quoter.App.Views
 			bool keepOpen = _settings.Get<bool>(Const.Setting.KeepNotificationOpenOnMouseOver);
 
 			// Keep open while mouse is over the form
-			if(this.IsDisposed)
+			if (this.IsDisposed)
 			{
 				return EnumFormCloseState.Disposed;
 			}
 
-			if(keepOpen)
+			if (keepOpen)
 			{
 				return this.InvokeIfRequiredReturn<EnumFormCloseState>(() =>
 				{
@@ -159,17 +162,16 @@ namespace Quoter.App.Views
 				});
 			}
 			return EnumFormCloseState.IsClosable;
-			
+
 		}
 
 		public async new void Close()
 		{
-			foreach(IFormMonitor formMonitor in _lstFormMonitors)
+			foreach (IFormMonitor formMonitor in _lstFormMonitors)
 			{
 				formMonitor.EventFormClosing(this);
 			}
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeOut);
-			//_messagingService.Unsubscribe(this);
 			_formsManager.Close(this);
 		}
 
@@ -193,7 +195,7 @@ namespace Quoter.App.Views
 
 		#endregion ShowWithoutStealingFocus
 
-		private void SetControlText(Control control, string text, int maxChars) 
+		private void SetControlText(Control control, string text, int maxChars)
 		{
 			if (text.Length > maxChars)
 			{

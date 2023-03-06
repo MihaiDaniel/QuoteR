@@ -122,6 +122,15 @@ namespace Quoter.App.Forms
 			lblFavouriteBooks.Text = _stringResources["Books"];
 			lblFavouriteChapters.Text = _stringResources["Chapters"];
 
+			gbExport.Text = _stringResources["ExportCollections"];
+			chkExportFavCollections.Text = _stringResources["ExportOnlyFavourites"];
+			btnExportCollection.Text = _stringResources["Export"];
+
+			gbImport.Text = _stringResources["Import"];
+			chkImportMerge.Text = _stringResources["MergeCollections"];
+			chkImportIgnoreLanguage.Text = _stringResources["IgnoreLanguage"];
+			btnImport.Text = _stringResources["Import"];
+
 			// Settings tab
 			gbLanguageSettings.Text = _stringResources["Language"];
 			lblShowCollByLanguage.Text = _stringResources["ShowCollectionsByLanguage"];
@@ -796,5 +805,14 @@ namespace Quoter.App.Forms
 			
 		}
 
+		private void btnExportCollection_Click(object sender, EventArgs e)
+		{
+			_favouriteQuotesController.Export(chkExportFavCollections.Checked);
+		}
+
+		private void btnImport_Click(object sender, EventArgs e)
+		{
+			_favouriteQuotesController.Import(chkImportMerge.Checked, chkImportIgnoreLanguage.Checked);
+		}
 	}
 }

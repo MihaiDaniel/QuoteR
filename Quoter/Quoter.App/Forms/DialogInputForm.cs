@@ -3,15 +3,13 @@ using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
-using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace Quoter.App.Forms
 {
 	public partial class DialogInputForm : Form, IDialogReturnable
 	{
-		private const int MaxLength = 38;
+		private const int MaxLength = 50;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
 		private readonly Regex _regexInput;
@@ -41,7 +39,7 @@ namespace Quoter.App.Forms
 			btnOk.Text = _stringResources["OK"];
 			txtInput.Text = dialogModel.Value;
 			txtStatus.Text = string.Empty;
-
+			this.Text = _stringResources["Quoter"];
 			StringResult = string.Empty;
 			DialogResult = DialogResult.None;
 		}
@@ -90,6 +88,18 @@ namespace Quoter.App.Forms
 		{
 			txtStatus.Text = message;
 			txtStatus.ForeColor = color;
+		}
+
+		private void txtInput_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				btnOk_Click(sender, e);
+			}
+			else if (e.KeyCode == Keys.Escape)
+			{
+				btnCancel_Click(sender, e);
+			}
 		}
 	}
 }

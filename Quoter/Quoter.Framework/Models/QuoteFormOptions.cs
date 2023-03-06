@@ -1,13 +1,8 @@
 ﻿using Quoter.Framework.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Models
 {
-	public class QuoteModel
+	public class QuoteFormOptions
 	{
 		public long QuoteId { get; set; }
 
@@ -26,7 +21,7 @@ namespace Quoter.Framework.Models
 		/// </summary>
 		public bool AllowNavigation { get; set; } = false;
 
-		public QuoteModel()
+		public QuoteFormOptions()
 		{
 			Title = string.Empty;
 			Body = string.Empty;

@@ -15,7 +15,7 @@ namespace Quoter.App.FormsControllers
 		private readonly IThemeService _themeService;
 		private IQuoteForm _form;
 
-		private QuoteModel? _quoteModel;
+		private QuoteFormOptions? _quoteModel;
 
 		public QuoteFormController(IQuoteService quoteService, 
 									IMessagingService messagingService,
@@ -34,11 +34,19 @@ namespace Quoter.App.FormsControllers
 			GetRandomQuote();
 		}
 
+		public void RegisterForm(IQuoteForm quoteForm, QuoteFormOptions quoteModel)
+		{
+			_form = quoteForm;
+			_form.SetTheme(_themeService.GetCurrentTheme());
+			_messagingService.Subscribe(this);
+			_form.SetQuote(quoteModel);
+		}
+
 		public async void OnMessageEvent(string message, object? argument)
 		{
 			// This might be displayed or it might not when the setting changes,
 			// just as a precaution to not open more than one window close
-			if (message == Const.Event.NotificationTypeChanged || message == Const.Event.OpeningQuoteWindow)
+			if (message == Event.NotificationTypeChanged || message == Event.OpeningQuoteWindow)
 			{
 				if (_form.GetForm().IsDisposed)
 				{
@@ -47,11 +55,11 @@ namespace Quoter.App.FormsControllers
 				_form.Close();
 				_messagingService.Unsubscribe(this);
 			}
-			if (message == Const.Event.NotificationTimerElapsed || message == Const.Event.ShowQuoteButtonEvent)
+			if (message == Event.NotificationTimerElapsed || message == Event.ShowQuoteButtonEvent)
 			{
 				await GetRandomQuote();
 			}
-			if (message == Const.Event.ThemeChanged)
+			if (message == Event.ThemeChanged)
 			{
 				Theme theme = _themeService.GetCurrentTheme();
 				_form.SetTheme(theme);
@@ -71,7 +79,7 @@ namespace Quoter.App.FormsControllers
 		{
 			if(_quoteModel != null)
 			{
-				QuoteModel? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
+				QuoteFormOptions? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
 				if (nextQuote != null)
 				{
 					_quoteModel= nextQuote;
@@ -85,7 +93,7 @@ namespace Quoter.App.FormsControllers
 		{
 			if (_quoteModel != null)
 			{
-				QuoteModel? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
+				QuoteFormOptions? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
 				if (previousQuote != null)
 				{
 					_quoteModel = previousQuote;

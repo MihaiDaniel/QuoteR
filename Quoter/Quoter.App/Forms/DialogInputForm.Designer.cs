@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogInputForm));
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.lblTitle = new System.Windows.Forms.Label();
 			this.txtInput = new System.Windows.Forms.TextBox();
@@ -67,9 +68,10 @@
 			this.txtInput.Location = new System.Drawing.Point(12, 84);
 			this.txtInput.Name = "txtInput";
 			this.txtInput.Size = new System.Drawing.Size(316, 27);
-			this.txtInput.TabIndex = 4;
+			this.txtInput.TabIndex = 1;
 			this.txtInput.Text = "123456789012345678901234567890123456789\r\n";
 			this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
+			this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
 			// 
 			// btnCancel
 			// 
@@ -78,7 +80,7 @@
 			this.btnCancel.Location = new System.Drawing.Point(238, 131);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(90, 30);
-			this.btnCancel.TabIndex = 6;
+			this.btnCancel.TabIndex = 3;
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -90,7 +92,7 @@
 			this.btnOk.Location = new System.Drawing.Point(142, 131);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(90, 30);
-			this.btnOk.TabIndex = 7;
+			this.btnOk.TabIndex = 2;
 			this.btnOk.Text = "Ok";
 			this.btnOk.UseVisualStyleBackColor = true;
 			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -139,6 +141,7 @@
 			this.Controls.Add(this.panel1);
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "DialogInputForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "DialogInputForm";

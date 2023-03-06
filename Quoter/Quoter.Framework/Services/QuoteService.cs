@@ -21,7 +21,7 @@ namespace Quoter.Framework.Services
 			_random = new Random();
 		}
 
-		public async Task<QuoteModel?> GetNextQuote(long quoteId)
+		public async Task<QuoteFormOptions?> GetNextQuote(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -48,7 +48,7 @@ namespace Quoter.Framework.Services
 			return null;
 		}
 
-		public async Task<QuoteModel?> GetPreviousQuote(long quoteId)
+		public async Task<QuoteFormOptions?> GetPreviousQuote(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -75,7 +75,7 @@ namespace Quoter.Framework.Services
 			return null;
 		}
 
-		public async Task<QuoteModel?> GetRandomQuote()
+		public async Task<QuoteFormOptions?> GetRandomQuote()
 		{
 			List<long> idQuotes = await _context.Quotes
 				.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
@@ -148,7 +148,7 @@ namespace Quoter.Framework.Services
 			return quotes;
 		}
 
-		private QuoteModel GetQuoteModel(Quote quote)
+		private QuoteFormOptions GetQuoteModel(Quote quote)
 		{
 			string title = "";
 			string footer = "";
@@ -167,7 +167,7 @@ namespace Quoter.Framework.Services
 				title = quote.Collection.Name;
 			}
 
-			return new QuoteModel()
+			return new QuoteFormOptions()
 			{
 				QuoteId = quote.QuoteId,
 				Title = title,

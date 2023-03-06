@@ -346,7 +346,7 @@
     <value>Books</value>
   </data>
   <data name="FavoritesText" xml:space="preserve">
-    <value>Here you can choose your favourites collections from which to display quotes.</value>
+    <value>Here you can choose your favourites collections from which to display quotes</value>
   </data>
   <data name="OptionTrimRow" xml:space="preserve">
     <value>Trim row untill the first empty space character</value>
@@ -362,5 +362,83 @@
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="ExportCollections" xml:space="preserve">
+    <value>Export collections</value>
+  </data>
+  <data name="ExportOnlyFavourites" xml:space="preserve">
+    <value>Export only favourite collections</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ChooseExportFilename" xml:space="preserve">
+    <value>Choose a filename and location for your export</value>
+  </data>
+  <data name="ErrCantExport" xml:space="preserve">
+    <value>Cannot export</value>
+  </data>
+  <data name="ErrCantExportMsg" xml:space="preserve">
+    <value>You have checked to export only favourite collections. But none are marked as favourite</value>
+  </data>
+  <data name="ErrCantExportMsgBadFileName" xml:space="preserve">
+    <value>The chosen directory or filename is not valid. Please choose a valid filename</value>
+  </data>
+  <data name="Exporting" xml:space="preserve">
+    <value>Exporting started</value>
+  </data>
+  <data name="ExportingInBackground" xml:space="preserve">
+    <value>Exporting your collections will be done in background. When it's finished you'll receive a notification</value>
+  </data>
+  <data name="QuotesCollection" xml:space="preserve">
+    <value>QuotesCollection</value>
+  </data>
+  <data name="ExportSuccessfull" xml:space="preserve">
+    <value>Export successfull</value>
+  </data>
+  <data name="ExportSuccesfullMsg" xml:space="preserve">
+    <value>Collections exported to: {0}</value>
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value>Export failed</value>
+  </data>
+  <data name="ExportFailedMsg" xml:space="preserve">
+    <value>Export has failed. Please try again. Reason: {0}</value>
+  </data>
+  <data name="ImportSuccessfull" xml:space="preserve">
+    <value>Import succesfull</value>
+  </data>
+  <data name="ImportSuccessfullMsg" xml:space="preserve">
+    <value>Collections imported: {0} </value>
+  </data>
+  <data name="ImportFailed" xml:space="preserve">
+    <value>Import failed</value>
+  </data>
+  <data name="ImportFailedMsg" xml:space="preserve">
+    <value>Import has failed. Please try again. Reason {0}</value>
+  </data>
+  <data name="ErrCantImport" xml:space="preserve">
+    <value>Cannot import</value>
+  </data>
+  <data name="ErrCantImportMsgBadFileName" xml:space="preserve">
+    <value>One of the chosen files appears to be invalid.</value>
+  </data>
+  <data name="Importing" xml:space="preserve">
+    <value>Import started</value>
+  </data>
+  <data name="ImportingInBackground" xml:space="preserve">
+    <value>Importing will be done in background. You will receive a notification when it's finished</value>
+  </data>
+  <data name="ChooseImportFilename" xml:space="preserve">
+    <value>Choose files to import</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="MergeCollections" xml:space="preserve">
+    <value>Merge collections with the same name into existing ones</value>
+  </data>
+  <data name="IgnoreLanguage" xml:space="preserve">
+    <value>Import in the current language regardless of collection language</value>
   </data>
 </root>

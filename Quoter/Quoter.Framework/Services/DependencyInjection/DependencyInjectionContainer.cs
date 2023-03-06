@@ -127,9 +127,16 @@ namespace Quoter.Framework.Services.DependencyInjection
 				}
 
 			}
-
+			string strParameters = "";
+			if(arrParameters != null && arrParameters.Length > 0)
+			{
+				foreach(var param in arrParameters)
+				{
+					strParameters += param.GetType() + " ";
+				}
+			}
 			// Throw if none found
-			throw new ArgumentException($"No constructor for type :{instanceType} found with specified expected parameters types.");
+			throw new ArgumentException($"No constructor for type :{instanceType} found with specified expected parameters types {strParameters}.");
 		}
 	}
 }

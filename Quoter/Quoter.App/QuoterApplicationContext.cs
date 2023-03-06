@@ -1,5 +1,6 @@
 ﻿using Quoter.App.Forms;
 using Quoter.App.Helpers;
+using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
@@ -36,6 +37,7 @@ namespace Quoter.App
 			{
 				Icon = Resources.Resources.icon_book_black,
 				ContextMenuStrip = GetContextMenuStrip(),
+				Text = _stringResources["Quoter"],
 				Visible = true
 			};
 
@@ -98,11 +100,10 @@ namespace Quoter.App
 			{
 				await Task.Delay(1000);
 				int autoHideWelcomeMessageSeconds = 7;
-				QuoteModel messageModel = new()
+				QuoteFormOptions messageModel = new()
 				{
 					Title = _stringResources["Welcome"],
-					Body = _stringResources["WelcomeStartupMessage"],
-					CloseAnimation = Framework.Enums.EnumAnimation.FadeOut
+					Body = _stringResources["WelcomeStartupMessage"]
 				};
 				_formsManager.ShowDialog<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 			}
@@ -114,17 +115,59 @@ namespace Quoter.App
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if(message == Const.Event.LanguageChanged)
+			if(message == Event.LanguageChanged)
 			{
 				// Reset the context strip with the new language
 				bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
 				_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
 			}
-			else if (message == Const.Event.NotificationIntervalChanged)
+			if (message == Event.NotificationIntervalChanged)
 			{
 				_timerShowNotifications.Stop();
 				_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
 				_timerShowNotifications.Start();
+			}
+			if(message == Event.ExportSucessfull)
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["ExportSuccessfull"],
+					Message = _stringResources["ExportSuccesfullMsg", argument?.ToString()],
+					MessageBoxButtons = EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			}
+			if(message == Event.ExportFailed)
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["ExportFailed"],
+					TitleColor= Color.Red,
+					Message = _stringResources["ExportFailedMsg", argument?.ToString()],
+					MessageBoxButtons = EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			}
+			if (message == Event.ImportSuccesfull)
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["ImportSuccessfull"],
+					Message = _stringResources["ImportSuccessfullMsg", argument?.ToString()],
+					MessageBoxButtons = EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			}
+			if (message == Event.ImportFailed)
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["ImportFailed"],
+					TitleColor = Color.Red,
+					Message = _stringResources["ImportFailedMsg", argument?.ToString()],
+					MessageBoxButtons = EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 			}
 		}
 
@@ -151,7 +194,7 @@ namespace Quoter.App
 				}
 				else
 				{
-					_messagingService.SendMessage(Const.Event.NotificationTimerElapsed);
+					_messagingService.SendMessage(Event.NotificationTimerElapsed);
 				}
 			}
 			catch(Exception ex)
@@ -165,24 +208,24 @@ namespace Quoter.App
 			EnumNotificationType notificationType = GetNotificationType();
 			if(notificationType == EnumNotificationType.Popup)
 			{
-				_messagingService.SendMessage(Const.Event.OpeningQuoteWindow);
+				_messagingService.SendMessage(Event.OpeningQuoteWindow);
 
 				int autoCloseSec = 0;
 				if (GetNotificationType() == EnumNotificationType.Popup)
 				{
 					autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
 				}
-				_formsManager.ShowDialog<QuoteForm>(autoCloseSec/*, quoteModel*/);
+				_formsManager.ShowDialog<QuoteForm>(autoCloseSec);
 			}
 			else if (notificationType == EnumNotificationType.AlwaysOn)
 			{
 				if (_formsManager.IsOpen<QuoteForm>())
 				{
-					_messagingService.SendMessage(Const.Event.ShowQuoteButtonEvent);
+					_messagingService.SendMessage(Event.ShowQuoteButtonEvent);
 				}
 				else
 				{
-					_formsManager.ShowDialog<QuoteForm>(0/*, quoteModel*/);
+					_formsManager.ShowDialog<QuoteForm>(0);
 				}
 			}
 		}

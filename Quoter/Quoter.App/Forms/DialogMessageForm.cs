@@ -31,6 +31,7 @@ namespace Quoter.App.Forms
 			txtMessage.TabStop = false; // Stop text from being selected
 			btnOk.Text = stringResources["OK"];
 			btnCancel.Text = stringResources["Cancel"];
+			this.Text = stringResources["Quoter"];
 
 			if (dialogModel.MessageBoxButtons == EnumDialogButtons.Ok)
 			{
@@ -52,6 +53,26 @@ namespace Quoter.App.Forms
 		{
 			DialogResult = DialogResult.Cancel;
 			_formsManager.Close(this);
+		}
+
+		private void btnOk_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				btnOk_Click(sender, e);
+			}
+			else if (e.KeyCode == Keys.Escape)
+			{
+				btnCancel_Click(sender, e);
+			}
+		}
+
+		private void btnCancel_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+			{
+				btnCancel_Click(sender, e);
+			}
 		}
 	}
 }

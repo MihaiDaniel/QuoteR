@@ -65,12 +65,13 @@
 			this.cbCollection = new System.Windows.Forms.ComboBox();
 			this.btnAddCollection = new System.Windows.Forms.Button();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.button2 = new System.Windows.Forms.Button();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.gbImport = new System.Windows.Forms.GroupBox();
+			this.chkImportMerge = new System.Windows.Forms.CheckBox();
+			this.chkImportIgnoreLanguage = new System.Windows.Forms.CheckBox();
+			this.btnImport = new System.Windows.Forms.Button();
+			this.gbExport = new System.Windows.Forms.GroupBox();
+			this.chkExportFavCollections = new System.Windows.Forms.CheckBox();
+			this.btnExportCollection = new System.Windows.Forms.Button();
 			this.lblFavoritesText = new System.Windows.Forms.Label();
 			this.lblFavouriteChapters = new System.Windows.Forms.Label();
 			this.lblFavouriteBooks = new System.Windows.Forms.Label();
@@ -132,8 +133,8 @@
 			this.gbBooks.SuspendLayout();
 			this.gbCollections.SuspendLayout();
 			this.tabPage2.SuspendLayout();
-			this.groupBox2.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.gbImport.SuspendLayout();
+			this.gbExport.SuspendLayout();
 			this.tabPage3.SuspendLayout();
 			this.tabBasicSettings.SuspendLayout();
 			this.tabPage4.SuspendLayout();
@@ -619,8 +620,8 @@
 			// tabPage2
 			// 
 			this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage2.Controls.Add(this.groupBox2);
-			this.tabPage2.Controls.Add(this.groupBox1);
+			this.tabPage2.Controls.Add(this.gbImport);
+			this.tabPage2.Controls.Add(this.gbExport);
 			this.tabPage2.Controls.Add(this.lblFavoritesText);
 			this.tabPage2.Controls.Add(this.lblFavouriteChapters);
 			this.tabPage2.Controls.Add(this.lblFavouriteBooks);
@@ -635,72 +636,84 @@
 			this.tabPage2.TabIndex = 3;
 			this.tabPage2.Text = "Quotes collection";
 			// 
-			// groupBox2
+			// gbImport
 			// 
-			this.groupBox2.Controls.Add(this.checkBox2);
-			this.groupBox2.Controls.Add(this.button2);
-			this.groupBox2.Location = new System.Drawing.Point(388, 309);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(374, 81);
-			this.groupBox2.TabIndex = 15;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Import quotes";
+			this.gbImport.Controls.Add(this.chkImportMerge);
+			this.gbImport.Controls.Add(this.chkImportIgnoreLanguage);
+			this.gbImport.Controls.Add(this.btnImport);
+			this.gbImport.Location = new System.Drawing.Point(388, 309);
+			this.gbImport.Name = "gbImport";
+			this.gbImport.Size = new System.Drawing.Size(374, 81);
+			this.gbImport.TabIndex = 15;
+			this.gbImport.TabStop = false;
+			this.gbImport.Text = "Import quotes";
 			// 
-			// checkBox2
+			// chkImportMerge
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.checkBox2.Location = new System.Drawing.Point(6, 17);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(228, 19);
-			this.checkBox2.TabIndex = 14;
-			this.checkBox2.Text = "Ignore collection language on import";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this.chkImportMerge.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.chkImportMerge.Location = new System.Drawing.Point(6, 20);
+			this.chkImportMerge.Name = "chkImportMerge";
+			this.chkImportMerge.Size = new System.Drawing.Size(362, 19);
+			this.chkImportMerge.TabIndex = 15;
+			this.chkImportMerge.Text = "Merge collections with the same name into existing ones";
+			this.chkImportMerge.UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// chkImportIgnoreLanguage
 			// 
-			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button2.Location = new System.Drawing.Point(261, 43);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(107, 32);
-			this.button2.TabIndex = 8;
-			this.button2.Text = "Import";
-			this.button2.UseVisualStyleBackColor = true;
+			this.chkImportIgnoreLanguage.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.chkImportIgnoreLanguage.Location = new System.Drawing.Point(6, 40);
+			this.chkImportIgnoreLanguage.Name = "chkImportIgnoreLanguage";
+			this.chkImportIgnoreLanguage.Size = new System.Drawing.Size(228, 38);
+			this.chkImportIgnoreLanguage.TabIndex = 14;
+			this.chkImportIgnoreLanguage.Text = "Ignore collection language on import";
+			this.chkImportIgnoreLanguage.UseVisualStyleBackColor = true;
 			// 
-			// groupBox1
+			// btnImport
 			// 
-			this.groupBox1.Controls.Add(this.checkBox1);
-			this.groupBox1.Controls.Add(this.button1);
-			this.groupBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.groupBox1.Location = new System.Drawing.Point(6, 309);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(376, 78);
-			this.groupBox1.TabIndex = 14;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Export quotes";
+			this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnImport.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnImport.Location = new System.Drawing.Point(261, 43);
+			this.btnImport.Name = "btnImport";
+			this.btnImport.Size = new System.Drawing.Size(107, 32);
+			this.btnImport.TabIndex = 8;
+			this.btnImport.Text = "Import";
+			this.btnImport.UseVisualStyleBackColor = true;
+			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 			// 
-			// checkBox1
+			// gbExport
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.checkBox1.Location = new System.Drawing.Point(6, 20);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(181, 19);
-			this.checkBox1.TabIndex = 13;
-			this.checkBox1.Text = "Export only favourite quotes";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.gbExport.Controls.Add(this.chkExportFavCollections);
+			this.gbExport.Controls.Add(this.btnExportCollection);
+			this.gbExport.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.gbExport.Location = new System.Drawing.Point(6, 309);
+			this.gbExport.Name = "gbExport";
+			this.gbExport.Size = new System.Drawing.Size(376, 78);
+			this.gbExport.TabIndex = 14;
+			this.gbExport.TabStop = false;
+			this.gbExport.Text = "Export quotes";
 			// 
-			// button1
+			// chkExportFavCollections
 			// 
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.button1.Location = new System.Drawing.Point(259, 40);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(111, 32);
-			this.button1.TabIndex = 7;
-			this.button1.Text = "Export";
-			this.button1.UseVisualStyleBackColor = true;
+			this.chkExportFavCollections.AutoSize = true;
+			this.chkExportFavCollections.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.chkExportFavCollections.Location = new System.Drawing.Point(6, 20);
+			this.chkExportFavCollections.Name = "chkExportFavCollections";
+			this.chkExportFavCollections.Size = new System.Drawing.Size(181, 19);
+			this.chkExportFavCollections.TabIndex = 13;
+			this.chkExportFavCollections.Text = "Export only favourite quotes";
+			this.chkExportFavCollections.UseVisualStyleBackColor = true;
+			// 
+			// btnExportCollection
+			// 
+			this.btnExportCollection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnExportCollection.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnExportCollection.Location = new System.Drawing.Point(259, 40);
+			this.btnExportCollection.Name = "btnExportCollection";
+			this.btnExportCollection.Size = new System.Drawing.Size(111, 32);
+			this.btnExportCollection.TabIndex = 7;
+			this.btnExportCollection.Text = "Export";
+			this.btnExportCollection.UseVisualStyleBackColor = true;
+			this.btnExportCollection.Click += new System.EventHandler(this.btnExportCollection_Click);
 			// 
 			// lblFavoritesText
 			// 
@@ -745,7 +758,7 @@
 			// 
 			// clbChapters
 			// 
-			this.clbChapters.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbChapters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.clbChapters.ColumnWidth = 50;
 			this.clbChapters.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.clbChapters.FormattingEnabled = true;
@@ -759,14 +772,14 @@
             "col6"});
 			this.clbChapters.Location = new System.Drawing.Point(523, 78);
 			this.clbChapters.Name = "clbChapters";
-			this.clbChapters.Size = new System.Drawing.Size(239, 220);
+			this.clbChapters.Size = new System.Drawing.Size(239, 222);
 			this.clbChapters.TabIndex = 2;
 			this.clbChapters.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbChapters_ItemCheck);
 			this.clbChapters.SelectedValueChanged += new System.EventHandler(this.clbChapters_SelectedValueChanged);
 			// 
 			// clbBooks
 			// 
-			this.clbBooks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbBooks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.clbBooks.ColumnWidth = 50;
 			this.clbBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.clbBooks.FormattingEnabled = true;
@@ -780,14 +793,14 @@
             "col6"});
 			this.clbBooks.Location = new System.Drawing.Point(265, 78);
 			this.clbBooks.Name = "clbBooks";
-			this.clbBooks.Size = new System.Drawing.Size(239, 220);
+			this.clbBooks.Size = new System.Drawing.Size(239, 222);
 			this.clbBooks.TabIndex = 1;
 			this.clbBooks.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbBooks_ItemCheck);
 			this.clbBooks.SelectedValueChanged += new System.EventHandler(this.clbBooks_SelectedValueChanged);
 			// 
 			// clbCollections
 			// 
-			this.clbCollections.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.clbCollections.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.clbCollections.ColumnWidth = 50;
 			this.clbCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.clbCollections.FormattingEnabled = true;
@@ -801,7 +814,7 @@
             "col6"});
 			this.clbCollections.Location = new System.Drawing.Point(6, 78);
 			this.clbCollections.Name = "clbCollections";
-			this.clbCollections.Size = new System.Drawing.Size(239, 220);
+			this.clbCollections.Size = new System.Drawing.Size(239, 222);
 			this.clbCollections.TabIndex = 0;
 			this.clbCollections.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbCollections_ItemCheck);
 			this.clbCollections.SelectedValueChanged += new System.EventHandler(this.clbCollections_SelectedValueChanged);
@@ -1373,10 +1386,9 @@
 			this.gbBooks.ResumeLayout(false);
 			this.gbCollections.ResumeLayout(false);
 			this.tabPage2.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
+			this.gbImport.ResumeLayout(false);
+			this.gbExport.ResumeLayout(false);
+			this.gbExport.PerformLayout();
 			this.tabPage3.ResumeLayout(false);
 			this.tabBasicSettings.ResumeLayout(false);
 			this.tabPage4.ResumeLayout(false);
@@ -1473,12 +1485,12 @@
 		private Label lblQuotesAutocloseTime;
 		private TextBox txtQuotesAutoCloseInterval;
 		private Label lblQuotesAutocloseInterval;
-		private Button button2;
-		private Button button1;
-		private GroupBox groupBox2;
-		private CheckBox checkBox2;
-		private GroupBox groupBox1;
-		private CheckBox checkBox1;
+		private Button btnImport;
+		private Button btnExportCollection;
+		private GroupBox gbImport;
+		private CheckBox chkImportIgnoreLanguage;
+		private GroupBox gbExport;
+		private CheckBox chkExportFavCollections;
 		private Label lblFavoritesText;
 		private Label lblFavouriteChapters;
 		private Label lblFavouriteBooks;
@@ -1492,5 +1504,6 @@
 		private TextBox txtQuotesExcludedChars;
 		private Label lblQuotesExcludeChars;
 		private CheckBox chkQuotesTrimRow;
+		private CheckBox chkImportMerge;
 	}
 }

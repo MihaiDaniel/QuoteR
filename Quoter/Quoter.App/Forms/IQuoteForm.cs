@@ -12,7 +12,7 @@ namespace Quoter.App.Forms
 	{
 		void Close();
 		Form GetForm();
-		void SetQuote(QuoteModel quoteModel);
+		void SetQuote(QuoteFormOptions quoteModel);
 		void SetTheme(Theme theme);
 	}
 }

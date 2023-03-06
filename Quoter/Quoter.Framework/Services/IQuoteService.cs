@@ -12,10 +12,10 @@ namespace Quoter.Framework.Services
 	/// </summary>
 	public interface IQuoteService
 	{
-		Task<QuoteModel?> GetRandomQuote();
+		Task<QuoteFormOptions?> GetRandomQuote();
 
-		Task<QuoteModel?> GetNextQuote(long quoteId);
+		Task<QuoteFormOptions?> GetNextQuote(long quoteId);
 
-		Task<QuoteModel?> GetPreviousQuote(long quoteId);
+		Task<QuoteFormOptions?> GetPreviousQuote(long quoteId);
 	}
 }

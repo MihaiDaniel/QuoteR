@@ -53,7 +53,7 @@ namespace Quoter.App.FormsControllers.Settings
 						_settings.Set(Const.Setting.NotificationIntervalSeconds, intValue * 60);
 						_form.SetStatus("", Const.ColorDefault);
 
-						_messagingService.SendMessage(Const.Event.NotificationIntervalChanged);
+						_messagingService.SendMessage(Event.NotificationIntervalChanged);
 					}
 					else
 					{
@@ -174,13 +174,13 @@ namespace Quoter.App.FormsControllers.Settings
 					break;
 			}
 			_form.LocalizeControls();
-			_messagingService.SendMessage(Const.Event.LanguageChanged);
+			_messagingService.SendMessage(Event.LanguageChanged);
 		}
 
 		public void SetShowCollectionsBasedOnLanguage(bool value)
 		{
 			_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, value);
-			_messagingService.SendMessage(Const.Event.ShowCollectionsBasedOnLanguageChanged);
+			_messagingService.SendMessage(Event.ShowCollectionsBasedOnLanguageChanged);
 		}
 
 		public void SetShowWelcomeMessage(bool value)
@@ -192,14 +192,14 @@ namespace Quoter.App.FormsControllers.Settings
 		{
 			_settings.Set(Const.Setting.Theme, (int)theme);
 			_form.SetTheme();
-			_messagingService.SendMessage(Const.Event.ThemeChanged);
+			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
 		public void SetOpacity(double opacity)
 		{
 			_settings.Set(Const.Setting.Opacity, opacity);
 			OpacityValue = GetOpacityValuePercent(opacity);
-			_messagingService.SendMessage(Const.Event.ThemeChanged);
+			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
 		private string GetOpacityValuePercent(double opacity)
@@ -212,7 +212,7 @@ namespace Quoter.App.FormsControllers.Settings
 			EnumNotificationType currentType = (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
 			if (currentType != type)
 			{
-				_messagingService.SendMessage(Const.Event.NotificationTypeChanged, null);
+				_messagingService.SendMessage(Event.NotificationTypeChanged, null);
 				_settings.Set(Const.Setting.NotificationType, (int)type);
 
 				if (type == EnumNotificationType.AlwaysOn)

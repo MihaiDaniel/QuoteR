@@ -83,7 +83,7 @@
 			// 
 			this.txtBody.BackColor = System.Drawing.Color.White;
 			this.txtBody.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtBody.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+			this.txtBody.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
 			this.txtBody.Location = new System.Drawing.Point(11, 36);
 			this.txtBody.Multiline = true;
 			this.txtBody.Name = "txtBody";

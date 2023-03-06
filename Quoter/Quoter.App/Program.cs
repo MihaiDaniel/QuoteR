@@ -12,6 +12,7 @@ using Quoter.App.Views;
 using Quoter.Framework.Data;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.DependencyInjection;
+using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using System.Resources;
 
@@ -54,6 +55,8 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IFormLifecycleService, FormLifecycleService>();
 			serviceCollection.AddSingleton<IMessagingService, MessagingService>();
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
+			serviceCollection.AddSingleton<IExportService, ExportService>();
+			serviceCollection.AddSingleton<IImportService, ImportService>();
 
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<QuoteForm>();

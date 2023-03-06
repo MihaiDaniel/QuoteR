@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogMessageForm));
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.lblTopBar = new System.Windows.Forms.Label();
 			this.btnOk = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@
 			this.lblTopBar.Location = new System.Drawing.Point(12, 7);
 			this.lblTopBar.Name = "lblTopBar";
 			this.lblTopBar.Size = new System.Drawing.Size(144, 26);
-			this.lblTopBar.TabIndex = 2;
+			this.lblTopBar.TabIndex = 5;
 			this.lblTopBar.Text = "Manage quotes";
 			// 
 			// btnOk
@@ -68,10 +69,11 @@
 			this.btnOk.Location = new System.Drawing.Point(86, 92);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(114, 31);
-			this.btnOk.TabIndex = 3;
+			this.btnOk.TabIndex = 1;
 			this.btnOk.Text = "ok";
 			this.btnOk.UseVisualStyleBackColor = true;
 			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+			this.btnOk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnOk_KeyDown);
 			// 
 			// txtMessage
 			// 
@@ -104,10 +106,11 @@
 			this.btnCancel.Location = new System.Drawing.Point(206, 92);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(114, 31);
-			this.btnCancel.TabIndex = 6;
+			this.btnCancel.TabIndex = 2;
 			this.btnCancel.Text = "cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.btnCancel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCancel_KeyDown);
 			// 
 			// DialogMessageForm
 			// 
@@ -120,9 +123,12 @@
 			this.Controls.Add(this.txtMessage);
 			this.Controls.Add(this.panel1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "DialogMessageForm";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "DialogForm";
+			this.TopMost = true;
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
 			this.panel1.ResumeLayout(false);

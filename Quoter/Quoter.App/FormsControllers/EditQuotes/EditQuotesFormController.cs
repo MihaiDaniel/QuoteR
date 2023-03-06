@@ -124,7 +124,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if (message == Const.Event.ShowCollectionsBasedOnLanguageChanged || message == Const.Event.LanguageChanged)
+			if (message == Event.ShowCollectionsBasedOnLanguageChanged || message == Event.LanguageChanged)
 			{
 				LoadCollections();
 				LoadCollectionBooks();

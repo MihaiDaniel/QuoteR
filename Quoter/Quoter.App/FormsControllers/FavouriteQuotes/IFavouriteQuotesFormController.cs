@@ -27,5 +27,9 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		void ChapterSelected(Chapter chapter);
 
 		void LoadCollections();
+
+		void Export(bool isExportOnlyFavourites);
+
+		void Import(bool isImportMerge, bool isImportIgnoreLang);
 	}
 }

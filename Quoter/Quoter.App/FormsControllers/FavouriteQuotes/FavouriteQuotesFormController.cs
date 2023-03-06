@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
+using Quoter.App.Helpers;
+using Quoter.App.Models;
 using Quoter.App.Services;
+using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using System;
-using System.Collections.Generic;
+using Quoter.Framework.Enums;
+using Quoter.Framework.Models;
+using Quoter.Framework.Services.ImportExport;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
+using System.Windows.Forms;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
@@ -19,6 +21,10 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;
+		private readonly IFormsManager _formsManager;
+		private readonly IExportService _exportService;
+		private readonly IImportService _importService;
+		private readonly ISettings _settings;
 		private IFavouriteQuotesForm _form;
 
 		public BindingList<Collection> Collections { get; private set; }
@@ -27,10 +33,20 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		public BindingList<Chapter> Chapters { get; private set; }
 
-		public FavouriteQuotesFormController(QuoterContext context, IStringResources stringResources)
+		public FavouriteQuotesFormController(
+			QuoterContext context,
+			IStringResources stringResources,
+			IFormsManager formsManager,
+			ISettings settings,
+			IExportService exportService,
+			IImportService importService)
 		{
 			_context = context;
 			_stringResources = stringResources;
+			_formsManager = formsManager;
+			_settings = settings;
+			_exportService = exportService;
+			_importService = importService;
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
@@ -44,10 +60,22 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		public void LoadCollections()
 		{
-			List<Collection> lstCollections = _context.Collections
+			EnumLanguage? languageFilter = null;
+			if (_settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage))
+			{
+				languageFilter = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language));
+			}
+
+			IQueryable<Collection> queryCollections = _context.Collections
 				.Include(c => c.LstBooks)
 				.ThenInclude(b => b.LstChapters)
-				.ToList();
+				.AsQueryable();
+
+			if (languageFilter != null)
+			{
+				queryCollections = queryCollections.Where(c => c.Language == languageFilter);
+			}
+			List<Collection> lstCollections = queryCollections.ToList();
 
 			Collections.Clear();
 			Books.Clear();
@@ -106,7 +134,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				foreach (Collection c in Collections)
 				{
-					if(c.CollectionId == IdSelectAllItems)
+					if (c.CollectionId == IdSelectAllItems)
 					{
 						continue;
 					}
@@ -234,7 +262,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		{
 			foreach (Book book in books)
 			{
-				if(book.BookId == IdSelectAllItems)
+				if (book.BookId == IdSelectAllItems)
 				{
 					continue;
 				}
@@ -250,12 +278,115 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		{
 			foreach (Chapter chapter in chapters)
 			{
-				if(chapter.ChapterId == IdSelectAllItems)
+				if (chapter.ChapterId == IdSelectAllItems)
 				{
 					continue;
 				}
 				chapter.IsFavourite = isFavourite;
 			}
+		}
+
+		public void Export(bool isExportOnlyFavourites)
+		{
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "Quoter file|.qter";
+			saveFileDialog.Title = _stringResources["ChooseExportFilename"];
+			saveFileDialog.AddExtension = true;
+			saveFileDialog.DefaultExt = ".qter";
+			saveFileDialog.FileName = _stringResources["QuotesCollection"] + "-" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
+
+			if (isExportOnlyFavourites)
+			{
+				if (!Collections.Any(c => c.IsFavourite == true))
+				{
+					DialogModel dialogModel = new DialogModel()
+					{
+						Title = _stringResources["ErrCantExport"],
+						TitleColor = Color.Red,
+						Message = _stringResources["ErrCantExportMsg"],
+						MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
+					};
+					_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					return;
+				}
+			}
+
+			DialogResult result = saveFileDialog.ShowDialog();
+			if (result != DialogResult.OK)
+			{
+				return;
+			}
+			string fileName = saveFileDialog.FileName;
+			string dirPath = Path.GetDirectoryName(fileName);
+			if (!Directory.Exists(dirPath) || string.IsNullOrWhiteSpace(Path.GetFileName(fileName)))
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["ErrCantExport"],
+					TitleColor = Color.Red,
+					Message = _stringResources["ErrCantExportMsgBadFileName"],
+					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			}
+			else
+			{
+				DialogModel dialogModel = new DialogModel()
+				{
+					Title = _stringResources["Exporting"],
+					Message = _stringResources["ExportingInBackground"],
+					MessageBoxButtons = EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+				_exportService.QueueExportJob(isExportOnlyFavourites, fileName);
+			}
+
+		}
+
+		public void Import(bool isImportMerge, bool isImportIgnoreLang)
+		{
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Quoter file (.qter) |*.qter";
+			openFileDialog.Multiselect = true;
+			openFileDialog.Title = _stringResources["ChooseImportFilename"];
+			DialogResult result = openFileDialog.ShowDialog();
+			if (result != DialogResult.OK)
+			{
+				return;
+			}
+			string[] fileNames = openFileDialog.FileNames;
+			foreach (string fileName in fileNames)
+			{
+				if (string.IsNullOrWhiteSpace(fileName) || Path.GetExtension(fileName) != ".qter")
+				{
+					DialogModel dialogError = new DialogModel()
+					{
+						Title = _stringResources["ErrCantImport"],
+						TitleColor = Color.Red,
+						Message = _stringResources["ErrCantImportMsgBadFileName"],
+						MessageBoxButtons = EnumDialogButtons.Ok
+					};
+					_formsManager.ShowDialog<DialogMessageForm>(dialogError);
+					return;
+				}
+			}
+			DialogModel dialogModel = new DialogModel()
+			{
+				Title = _stringResources["Importing"],
+				Message =  _stringResources["ImportingInBackground"],
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+
+			string language = _settings.Get<string>(Const.Setting.Language);
+			ImportParameters importParameters = new ImportParameters()
+			{
+				Files = fileNames,
+				IsIgnoreLanguage = isImportIgnoreLang,
+				IsMergeCollections = isImportMerge,
+				Language = LanguageHelper.GetEnumLanguageFromString(language)
+			};
+			_importService.QueueImportJob(importParameters);
 		}
 
 	}
