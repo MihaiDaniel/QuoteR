@@ -5,34 +5,39 @@ using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-    public interface IEditQuotesFormController : IFormController<IEditQuotesForm>
-    {
+	public interface IEditQuotesFormController : IFormController<IEditQuotesForm>
+	{
+		void OnClose();
 
-        void OnClose();
+		Collection? SelectedCollection { get; set; }
+		BindingList<Collection> Collections { get; }
 
-        Collection? SelectedCollection { get; set; }
-        BindingList<Collection> Collections { get; }
+		Book? SelectedBook { get; set; }
+		BindingList<Book> Books { get; }
 
-        Book? SelectedBook { get; set; }
-        BindingList<Book> Books { get; }
+		Chapter? SelectedChapter { get; set; }
+		BindingList<Chapter> Chapters { get; }
 
-        Chapter? SelectedChapter { get; set; }
-        BindingList<Chapter> Chapters { get; }
+		string Quotes { get; set; }
 
-        string Quotes { get; set; }
+		Task LoadCollections();
+		Task LoadCollectionBooksOrQuotes();
+		Task LoadBookChaptersOrQuotes();
+		Task LoadQuotes();
 
-        void AddCollection();
-        void EditCollection();
-        void DeleteCollection();
 
-        void AddBook();
-        void EditBook();
-        void DeleteBook();
+		Task AddCollection();
+		Task EditCollection();
+		Task DeleteCollection();
 
-        void AddChapter();
-        void EditChapter();
-        void DeleteChapter();
+		Task AddBook();
+		Task EditBook();
+		Task DeleteBook();
 
-        void AddQuotes(QuoteSaveOptions saveOptions);
-    }
+		Task AddChapter();
+		Task EditChapter();
+		Task DeleteChapter();
+
+		Task AddQuotes(QuoteSaveOptions saveOptions);
+	}
 }

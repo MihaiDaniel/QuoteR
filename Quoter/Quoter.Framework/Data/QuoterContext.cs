@@ -1,18 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Data
 {
 	public class QuoterContext : DbContext
 	{
 		private readonly string _connectionString;
-
-		//public DbSet<MigrationHistory> __EFMigrationsHistory { get; set; }
 
 		public DbSet<Collection> Collections { get; set; }
 
@@ -22,7 +15,7 @@ namespace Quoter.Framework.Data
 
 		public DbSet<Quote> Quotes { get; set; }
 
-		//public DbSet<TestEntity> TestEntitys { get; set; }
+		public DbSet<Log> Logs { get; set; }
 
 		/// <summary>
 		/// Default constructor needed for ef tools migrations to intialize the context
@@ -44,7 +37,7 @@ namespace Quoter.Framework.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			//modelBuilder.Entity<MigrationHistory>().HasKey(mh => mh.MigrationId);
+			
 		}
 
 	

@@ -71,7 +71,9 @@ namespace Quoter.App.Views
 		private async void MessageForm_Load(object sender, EventArgs e)
 		{
 			Theme theme = _themeService.GetCurrentTheme();
+			await _formController.EventFormLoaded();
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
+
 		}
 
 		public Form GetForm()
@@ -104,22 +106,24 @@ namespace Quoter.App.Views
 				SetControlText(txtFooter, quoteModel.Footer, FooterMaxChars);
 
 				// Adjust the font size a little bit depending on the amount of text
-				if (txtBody.Text.Length < 135)
+				if (txtBody.Text.Length < 135) // 14
 				{
-					txtBody.Font = new Font("Calibri", 14, FontStyle.Italic);
+					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
 				}
-				else if (txtBody.Text.Length < 217)
+				else if (txtBody.Text.Length < 217) // 12
 				{
-					txtBody.Font = new Font("Calibri", 12, FontStyle.Italic);
+					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
 				}
-				else if (txtBody.Text.Length < 248)
+				else if (txtBody.Text.Length < 248) // 11
 				{
-					txtBody.Font = new Font("Calibri", 11, FontStyle.Italic);
+					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
 				}
-				else
+				else // 10
 				{
-					txtBody.Font = new Font("Calibri", 10, FontStyle.Italic);
+					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
 				}
+
+				
 
 				if (quoteModel.AllowNavigation)
 				{
@@ -131,7 +135,6 @@ namespace Quoter.App.Views
 					btnNextQuote.Visible = false;
 					btnPreviousQuote.Visible = false;
 				}
-
 			});
 		}
 
@@ -223,5 +226,29 @@ namespace Quoter.App.Views
 			await _formController.GetNextQuote();
 		}
 
+		private void txtBody_TextChanged(object sender, EventArgs e)
+		{
+			//txtBody.UpdateLayout();
+
+			//Rectangle clientRectangle = txtBody.ClientRectangle;
+			//Size size = txtBody.Size;
+			//bool isScrollbarVisible = (size.Width - clientRectangle.Width) >= SystemInformation.VerticalScrollBarWidth;
+
+			//if (isScrollbarVisible)
+			//{
+			//	float newSize = txtBody.Font.Size - 1;
+			//	txtBody.Font = new Font(txtBody.Font.Name, newSize, txtBody.Font.Style);
+			//	//Visibility VerticalScrollbarVisibility = sv.ComputedVerticalScrollBarVisibility;
+			//	//if (VerticalScrollbarVisibility == Visibility.Visible)
+			//	//{
+			//	//	while (VerticalScrollbarVisibility == Visibility.Visible)
+			//	//	{
+			//	//		textbox.FontSize = textbox.FontSize - 1;
+			//	//		textbox.UpdateLayout();
+			//	//		VerticalScrollbarVisibility = sv.ComputedVerticalScrollBarVisibility;
+			//	//	}
+			//	//}
+			//}
+		}
 	}
 }

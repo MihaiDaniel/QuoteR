@@ -441,4 +441,7 @@
   <data name="IgnoreLanguage" xml:space="preserve">
     <value>Import in the current language regardless of collection language</value>
   </data>
+  <data name="NotificationLocation" xml:space="preserve">
+    <value>Notification location</value>
+  </data>
 </root>

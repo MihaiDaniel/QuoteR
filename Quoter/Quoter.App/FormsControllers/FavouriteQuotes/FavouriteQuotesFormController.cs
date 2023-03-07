@@ -55,10 +55,14 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		public void RegisterForm(IFavouriteQuotesForm form)
 		{
 			_form = form;
-			LoadCollections();
 		}
 
-		public void LoadCollections()
+		public async Task EventFormLoaded()
+		{
+			await LoadCollections();
+		}
+
+		public async Task LoadCollections()
 		{
 			EnumLanguage? languageFilter = null;
 			if (_settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage))
@@ -75,7 +79,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				queryCollections = queryCollections.Where(c => c.Language == languageFilter);
 			}
-			List<Collection> lstCollections = queryCollections.ToList();
+			List<Collection> lstCollections = await queryCollections.ToListAsync();
 
 			Collections.Clear();
 			Books.Clear();

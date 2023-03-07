@@ -12,6 +12,7 @@ namespace Quoter.Framework.Services.ImportExport
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;
 		private readonly IMessagingService _messagingService;
+		private readonly ILogger _logger;
 
 		private bool _isImportInProgress;
 		private bool IsImportInProgress
@@ -32,10 +33,11 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 		}
 
-		public ImportService(QuoterContext context, IMessagingService messagingService)
+		public ImportService(QuoterContext context, IMessagingService messagingService, ILogger logger)
 		{
 			_context = context;
 			_messagingService = messagingService;
+			_logger = logger;
 		}
 
 		public void QueueImportJob(ImportParameters importParameters)
@@ -59,12 +61,12 @@ namespace Quoter.Framework.Services.ImportExport
 				foreach (string file in importParameters.Files)
 				{
 					importedCollections += await ImportFile(file, importParameters);
-					importedCollections += " ; ";
 				}
 				_messagingService.SendMessage(Event.ImportSuccesfull, importedCollections);
 			}
 			catch (Exception ex)
 			{
+				_logger.Error(ex);
 				_messagingService.SendMessage(Event.ImportFailed, ex.Message);
 			}
 			finally
@@ -75,79 +77,158 @@ namespace Quoter.Framework.Services.ImportExport
 
 		private async Task<string> ImportFile(string file, ImportParameters importParameters)
 		{
-			try
+			string fileContent = await File.ReadAllTextAsync(file);
+			if (string.IsNullOrEmpty(fileContent))
 			{
-				string fileContent = await File.ReadAllTextAsync(file);
-				if (string.IsNullOrEmpty(fileContent))
-				{
-					return string.Empty;
-				}
-				ExportModel importModel = JsonSerializer.Deserialize<ExportModel>(fileContent);
-				string importedCollections = string.Empty;
+				return string.Empty;
+			}
+			ExportModel importModel = JsonSerializer.Deserialize<ExportModel>(fileContent);
+			string importedCollections = string.Empty;
 
-				foreach (CollectionExportModel collectionModel in importModel.Collections)
-				{
-					await ImportCollection(collectionModel, importModel, importParameters);
-					importedCollections += collectionModel.Name + " ; ";
-				}
-				foreach(BookExportModel bookExportModel in importModel.Books)
-				{
-					await ImportBook(bookExportModel, importModel, importParameters);
-				}
-				foreach(ChapterExportModel chapterModel in importModel.Chapters)
-				{
-					await ImportChapter(chapterModel, importModel, importParameters);
-				}
-				foreach(QuoteExportModel quoteModel in importModel.Quotes)
-				{
-					await ImportQuote(quoteModel, importParameters);
-				}
-				await _context.SaveChangesAsync(); // For quotes save once at the end
-				return importedCollections;
-			}
-			catch
+			foreach (CollectionExportModel collectionModel in importModel.Collections)
 			{
-				throw;
+				await ImportCollection(collectionModel, importModel, importParameters);
+				importedCollections += collectionModel.Name + "; ";
 			}
+			foreach (BookExportModel bookExportModel in importModel.Books)
+			{
+				await ImportBook(bookExportModel, importModel, importParameters);
+			}
+			foreach (ChapterExportModel chapterModel in importModel.Chapters)
+			{
+				await ImportChapter(chapterModel, importModel, importParameters);
+			}
+			foreach (QuoteExportModel quoteModel in importModel.Quotes)
+			{
+				await ImportQuote(quoteModel, importParameters);
+			}
+			await _context.SaveChangesAsync(); // For quotes, just save once at the end
+			return importedCollections;
 		}
 
-		private async Task ImportQuote(QuoteExportModel quoteModel, ImportParameters importParameters)
+		private async Task ImportCollection(CollectionExportModel collectionModel, ExportModel importModel, ImportParameters importParameters)
 		{
-			int quoteIndex = 0;
-			if(importParameters.IsMergeCollections)
+			if (importParameters.IsIgnoreLanguage)
 			{
-				int lastIndex = await _context.Quotes
-				.Where(q => q.CollectionId == quoteModel.CollectionId
-						&& q.BookId == quoteModel.BookId
-						&& q.ChapterId == quoteModel.BookId)
-				.Select(q => q.QuoteIndex)
-				.MaxAsync();
-				quoteIndex = lastIndex + 1;
+				collectionModel.Language = importParameters.Language;
+			}
+			if (importParameters.IsMergeCollections)
+			{
+				Collection? existingCol = await _context.Collections.FirstOrDefaultAsync(c => c.Name == collectionModel.Name);
+				if (existingCol == null)
+				{
+					Collection addedCollection = await AddCollection(collectionModel);
+					UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, addedCollection.CollectionId);
+				}
+				else
+				{
+					UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, existingCol.CollectionId);
+				}
 			}
 			else
 			{
-				quoteIndex = quoteModel.QuoteIndex;
+				await CheckForCollectionNamingConflicts(collectionModel, 0);
+
+				Collection addedCollection = await AddCollection(collectionModel);
+				UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, addedCollection.CollectionId);
 			}
-			
-			Quote quote = new Quote()
+		}
+
+		/// <summary>
+		/// In case we import without merging collections with similar names, we might end up with collections with the same name.
+		/// So we check for any existing collections with the same name as the imported one and if exists we append a number to
+		/// the collection name
+		/// </summary>
+		private async Task CheckForCollectionNamingConflicts(CollectionExportModel collectionModel, int iteration)
+		{
+			bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == collectionModel.Name);
+			if (isNameConflict)
 			{
-				BookId= quoteModel.BookId,
-				CollectionId = quoteModel.CollectionId,
-				ChapterId = quoteModel.ChapterId,
-				QuoteIndex = quoteIndex,
-				Description= quoteModel.Description,
-				Content = quoteModel.Content,
+				iteration++;
+				await CheckForCollectionNamingConflicts(collectionModel, iteration);
+			}
+			else if(iteration > 0) 
+			{
+				collectionModel.Name += $" ({iteration})";
+			}
+		}
+
+		private async Task<Collection> AddCollection(CollectionExportModel model)
+		{
+			Collection addedCollection = new Collection()
+			{
+				Description = model.Description,
+				Name = model.Name,
+				Language = model.Language,
+				IsFavourite = false,
 			};
-			_context.Quotes.Add(quote);
+			_context.Collections.Add(addedCollection);
+			await _context.SaveChangesAsync();
+			return addedCollection;
+		}
+
+		private void UpdateImportDataReferencesToCollection(ExportModel importModel, int currentCollectionId, int newCollectionId)
+		{
+			importModel.Books.Where(b => b.CollectionId == currentCollectionId).ToList()
+				.ForEach(book => { book.CollectionId = newCollectionId; });
+
+			importModel.Quotes.Where(q => q.CollectionId == currentCollectionId).ToList()
+				.ForEach(q => { q.CollectionId = newCollectionId; });
+		}
+
+		private async Task ImportBook(BookExportModel bookModel, ExportModel importModel, ImportParameters importParameters)
+		{
+			if (importParameters.IsMergeCollections)
+			{
+				Book? existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Name == bookModel.Name
+																				&& b.CollectionId == bookModel.CollectionId);
+				if (existingBook == null)
+				{
+					Book addedBook = await AddBook(bookModel);
+					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, addedBook.BookId);
+				}
+				else
+				{
+					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, existingBook.BookId);
+				}
+			}
+			else
+			{
+				Book addedBook = await AddBook(bookModel);
+				UpdateImportDataReferencesToBook(importModel, bookModel.BookId, addedBook.BookId);
+			}
+		}
+
+		private async Task<Book> AddBook(BookExportModel bookModel)
+		{
+			Book addedBook = new Book()
+			{
+				Name = bookModel.Name,
+				Description = bookModel.Description,
+				CollectionId = bookModel.CollectionId,
+				IsFavourite = false,
+			};
+			_context.Books.Add(addedBook);
+			await _context.SaveChangesAsync();
+			return addedBook;
+		}
+
+		private void UpdateImportDataReferencesToBook(ExportModel importModel, int currentBookId, int newBookId)
+		{
+			importModel.Chapters.Where(c => c.BookId == currentBookId).ToList()
+				.ForEach(c => { c.BookId = newBookId; });
+
+			importModel.Quotes.Where(q => q.BookId == currentBookId).ToList()
+				.ForEach(q => { q.BookId = newBookId; });
 		}
 
 		private async Task ImportChapter(ChapterExportModel chapterModel, ExportModel importModel, ImportParameters importParameters)
 		{
 			if (importParameters.IsMergeCollections)
 			{
-				Chapter? existingChapter = await _context.Chapters.FirstOrDefaultAsync(c=> c.Name == chapterModel.Name
-																					    && c.BookId == chapterModel.BookId);
-				if(existingChapter == null)
+				Chapter? existingChapter = await _context.Chapters.FirstOrDefaultAsync(c => c.Name == chapterModel.Name
+																						&& c.BookId == chapterModel.BookId);
+				if (existingChapter == null)
 				{
 					Chapter addedChapter = await AddChapter(chapterModel);
 					UpdateImportDataReferencesToChapter(importModel, chapterModel.ChapterId, addedChapter.ChapterId);
@@ -184,99 +265,34 @@ namespace Quoter.Framework.Services.ImportExport
 				.ForEach(q => { q.ChapterId = newChapterId; });
 		}
 
-		private async Task ImportBook(BookExportModel bookModel, ExportModel importModel, ImportParameters importParameters)
+		private async Task ImportQuote(QuoteExportModel quoteModel, ImportParameters importParameters)
 		{
+			int quoteIndex = 0;
 			if (importParameters.IsMergeCollections)
 			{
-				Book? existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Name== bookModel.Name
-																			    && b.CollectionId == bookModel.CollectionId);
-				if(existingBook == null)
-				{
-					Book addedBook = await AddBook(bookModel);
-					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, addedBook.BookId);
-				}
-				else
-				{
-					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, existingBook.BookId);
-				}
+				int lastIndex = await _context.Quotes
+				.Where(q => q.CollectionId == quoteModel.CollectionId
+						&& q.BookId == quoteModel.BookId
+						&& q.ChapterId == quoteModel.BookId)
+				.Select(q => q.QuoteIndex)
+				.MaxAsync();
+				quoteIndex = lastIndex + 1;
 			}
 			else
 			{
-				Book addedBook = await AddBook(bookModel);
-				UpdateImportDataReferencesToBook(importModel, bookModel.BookId, addedBook.BookId);
+				quoteIndex = quoteModel.QuoteIndex;
 			}
-		}
 
-		private async Task<Book> AddBook(BookExportModel bookModel)
-		{
-			Book addedBook = new Book()
+			Quote quote = new Quote()
 			{
-				Name = bookModel.Name,
-				Description	= bookModel.Description,
-				CollectionId = bookModel.CollectionId,
-				IsFavourite = false,
+				BookId = quoteModel.BookId,
+				CollectionId = quoteModel.CollectionId,
+				ChapterId = quoteModel.ChapterId,
+				QuoteIndex = quoteIndex,
+				Description = quoteModel.Description,
+				Content = quoteModel.Content,
 			};
-			_context.Books.Add(addedBook);
-			await _context.SaveChangesAsync();
-			return addedBook;
-		}
-
-		private void UpdateImportDataReferencesToBook(ExportModel importModel, int currentBookId, int newBookId)
-		{
-			importModel.Chapters.Where(c => c.BookId == currentBookId).ToList()
-				.ForEach(c => { c.BookId = newBookId; });
-
-			importModel.Quotes.Where(q => q.BookId == currentBookId).ToList()
-				.ForEach(q => { q.BookId = newBookId; });
-		}
-
-		private async Task ImportCollection(CollectionExportModel collectionModel, ExportModel importModel, ImportParameters importParameters)
-		{
-			if (importParameters.IsIgnoreLanguage)
-			{
-				collectionModel.Language = importParameters.Language;
-			}
-			if (importParameters.IsMergeCollections)
-			{
-				Collection? existingCol = await _context.Collections.FirstOrDefaultAsync(c => c.Name == collectionModel.Name);
-				if (existingCol == null)
-				{
-					Collection addedCollection = await AddCollection(collectionModel);
-					UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, addedCollection.CollectionId);
-				}
-				else
-				{
-					UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, existingCol.CollectionId);
-				}
-			}
-			else
-			{
-				Collection addedCollection = await AddCollection(collectionModel);
-				UpdateImportDataReferencesToCollection(importModel, collectionModel.CollectionId, addedCollection.CollectionId);
-			}
-		}
-
-		private async Task<Collection> AddCollection(CollectionExportModel model)
-		{
-			Collection addedCollection = new Collection()
-			{
-				Description = model.Description,
-				Name = model.Name,
-				Language = model.Language,
-				IsFavourite = false,
-			};
-			_context.Collections.Add(addedCollection);
-			await _context.SaveChangesAsync();
-			return addedCollection;
-		}
-
-		private void UpdateImportDataReferencesToCollection(ExportModel importModel, int currentCollectionId, int newCollectionId)
-		{
-			importModel.Books.Where(b => b.CollectionId == currentCollectionId).ToList()
-				.ForEach(book => { book.CollectionId = newCollectionId; });
-
-			importModel.Quotes.Where(q => q.CollectionId == currentCollectionId).ToList()
-				.ForEach(q => { q.CollectionId = newCollectionId; });
+			_context.Quotes.Add(quote);
 		}
 	}
 }

@@ -8,7 +8,7 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
-using System.Windows.Forms;
+using Quoter.Framework.Services;
 
 namespace Quoter.App.Forms
 {
@@ -21,7 +21,7 @@ namespace Quoter.App.Forms
 		private readonly ISettingsFormController _settingsController;
 		private readonly IThemeService _themeService;
 		private readonly IFavouriteQuotesFormController _favouriteQuotesController;
-
+		ILogger _logger;
 		/// <summary>
 		/// Boolean to stop events from propaganding from form to controller,
 		/// to eliminate a circular call and stack overflow
@@ -35,7 +35,8 @@ namespace Quoter.App.Forms
 							IEditQuotesFormController editQuotesController,
 							ISettingsFormController settingsController,
 							IFavouriteQuotesFormController favouriteQuotesController,
-							IThemeService themeService)
+							IThemeService themeService,
+							ILogger logger)
 		{
 			InitializeComponent();
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
@@ -47,13 +48,17 @@ namespace Quoter.App.Forms
 			_settingsController = settingsController;
 			_favouriteQuotesController = favouriteQuotesController;
 			_themeService = themeService;
-
+			_logger = logger;
 			LocalizeControls();
 
 			//Bind ui to controllers and register controllers
 			BindEditQuotesControls();
 			BindFavouriteQuotesControls();
 			BindSettingsControls();
+
+			_editQuotesController.RegisterForm(this);
+			_favouriteQuotesController.RegisterForm(this);
+			_settingsController.RegisterForm(this);
 
 			// Hide main navigation tabs
 			tabControl.Appearance = TabAppearance.FlatButtons;
@@ -78,6 +83,7 @@ namespace Quoter.App.Forms
 			Theme theme = _themeService.GetCurrentTheme();
 			this.BackColor = theme.BodyColor;
 			pnlTitle.BackColor = theme.TitleColor;
+			pnlSelectedTab.BackColor = theme.TitleColor;
 		}
 
 		public void LocalizeControls()
@@ -155,19 +161,18 @@ namespace Quoter.App.Forms
 			btnShowWelcomeMsgYes.Text = _stringResources["Yes"];
 			btnShowWelcomeMsgNo.Text = _stringResources["No"];
 
+			lblNotificationLocation.Text = _stringResources["NotificationLocation"];
 
 		}
 
 		private void BindEditQuotesControls()
-		{
-			_editQuotesController.RegisterForm(this);
-
+		{ 
 			// Collections
 			BindingSource bindingSourceCollections = new();
 			bindingSourceCollections.DataSource = _editQuotesController.Collections;
 			cbCollection.DataSource = bindingSourceCollections;
 			cbCollection.DisplayMember = nameof(Collection.Name);
-			cbCollection.ValueMember = nameof(Collection.Name);
+			cbCollection.ValueMember = nameof(Collection.CollectionId);
 			cbCollection.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedCollection), false, DataSourceUpdateMode.Never);
 
 			// Books
@@ -175,7 +180,7 @@ namespace Quoter.App.Forms
 			bindingSourceBooks.DataSource = _editQuotesController.Books;
 			cbBooks.DataSource = bindingSourceBooks;
 			cbBooks.DisplayMember = nameof(Book.Name);
-			cbBooks.ValueMember = nameof(Book.Name);
+			cbBooks.ValueMember = nameof(Book.BookId);
 			cbBooks.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedBook), false, DataSourceUpdateMode.Never);
 
 			// Chapters
@@ -183,7 +188,7 @@ namespace Quoter.App.Forms
 			bindingSourceChapters.DataSource = _editQuotesController.Chapters;
 			lbChapters.DataSource = bindingSourceChapters;
 			lbChapters.DisplayMember = nameof(Chapter.Name);
-			lbChapters.ValueMember = nameof(Chapter.Name);
+			lbChapters.ValueMember = nameof(Chapter.BookId);
 			lbChapters.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedChapter), false, DataSourceUpdateMode.Never);
 
 			// Quotes
@@ -192,8 +197,6 @@ namespace Quoter.App.Forms
 
 		private void BindSettingsControls()
 		{
-			_settingsController.RegisterForm(this);
-
 			txtQuotesInterval.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.NotificationsIntervalMinutes));
 			txtQuotesAutoCloseInterval.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.NotificationsAutoCloseSeconds));
 			lblOpacityPercent.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.OpacityValue));
@@ -201,8 +204,6 @@ namespace Quoter.App.Forms
 
 		private void BindFavouriteQuotesControls()
 		{
-			
-
 			BindingSource bindingSourceCollections = new();
 			bindingSourceCollections.DataSource = _favouriteQuotesController.Collections;
 			clbCollections.DataSource = bindingSourceCollections;
@@ -222,13 +223,16 @@ namespace Quoter.App.Forms
 			clbChapters.ValueMember = nameof(Chapter.Name);
 
 			// Register at the end, because we need the bindings to check the checkboxes
-			_favouriteQuotesController.RegisterForm(this);
-			//clbCollections.DataBindings.Add("SelectedItem", _favouriteQuotesController, nameof(IFavouriteQuotesFormController.SelectedCollection), false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
 		private async void ManageQuotesForm_Load(object sender, EventArgs e)
 		{
+			SetSelectedTabHighlight(btnTabPage1);
+
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeIn);
+			await _editQuotesController.EventFormLoaded();
+			await _favouriteQuotesController.EventFormLoaded();
+			await _settingsController.EventFormLoaded();
 		}
 
 		void IForm.SetStatus(string message, Color color)
@@ -301,7 +305,29 @@ namespace Quoter.App.Forms
 			}
 		}
 
+		void ISettingsForm.SetNotificationsLocation(EnumAnimation notificationOpenAnimation)
+		{
+			switch(notificationOpenAnimation)
+			{
+				case EnumAnimation.FadeInFromBottomLeft:
+					rbAnimTopLeft.Checked= true;
+					break;
+				case EnumAnimation.FadeInFromBottomRight:
+					rbAnimBottomRight.Checked= true;
+					break;
+				case EnumAnimation.FadeInFromTopRight:
+					rbAnimTopRight.Checked= true;
+					break;
+				case EnumAnimation.FadeInFromTopLeft:
+					rbAnimTopLeft.Checked= true;
+					break;
+			}
+		}
 
+		void ISettingsForm.SetNotificationFont(string fontName, string fontStyle, float fontSize)
+		{
+			txtSelectedFont.Font = new Font(fontName, fontSize, FontHelper.GetFontStyle(fontStyle));
+		}
 
 		#endregion ISettingsForm
 
@@ -401,6 +427,7 @@ namespace Quoter.App.Forms
 		{
 			if (state == EnumCrudStates.Add)
 			{
+				gbBooks.Visible = true;
 				btnAddFirstBook.Visible = true;
 				cbBooks.Visible = false;
 				btnDeleteBook.Visible = false;
@@ -409,6 +436,7 @@ namespace Quoter.App.Forms
 			}
 			else if (state == EnumCrudStates.ViewAddEditDelete)
 			{
+				gbBooks.Visible = true;
 				btnAddFirstBook.Visible = false;
 				cbBooks.Visible = true;
 				btnDeleteBook.Visible = true;
@@ -417,6 +445,7 @@ namespace Quoter.App.Forms
 			}
 			else if (state == EnumCrudStates.None)
 			{
+				gbBooks.Visible = false;
 				btnAddFirstBook.Visible = false;
 				cbBooks.Visible = false;
 				btnDeleteBook.Visible = false;
@@ -429,6 +458,7 @@ namespace Quoter.App.Forms
 		{
 			if (state == EnumCrudStates.Add)
 			{
+				gbChapters.Visible = true;
 				btnAddFirstChapter.Visible = true;
 				lbChapters.Visible = false;
 				btnDeleteChapter.Visible = false;
@@ -438,6 +468,7 @@ namespace Quoter.App.Forms
 			}
 			else if (state == EnumCrudStates.ViewAddEditDelete)
 			{
+				gbChapters.Visible = true;
 				btnAddFirstChapter.Visible = false;
 				lbChapters.Visible = true;
 				btnDeleteChapter.Visible = true;
@@ -446,6 +477,7 @@ namespace Quoter.App.Forms
 			}
 			else if (state == EnumCrudStates.None)
 			{
+				gbChapters.Visible = false;
 				btnAddFirstChapter.Visible = false;
 				lbChapters.Visible = false;
 				btnDeleteChapter.Visible = false;
@@ -456,36 +488,48 @@ namespace Quoter.App.Forms
 
 		#endregion IEditQuotesForm
 
-		private void cbCollection_SelectedValueChanged(object sender, EventArgs e)
+		#region Edit quotes tab
+
+		private async void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cbCollection.SelectedItem != null
-				&& cbCollection.SelectedItem as Collection != _editQuotesController.SelectedCollection)
+			_logger.Debug($"cbCollection_SelectedValueChanged {cbCollection.SelectedIndex} {((Collection)cbCollection.SelectedItem)?.Name}");
+
+			if (cbCollection.SelectedItem != null && cbCollection.SelectedItem as Collection != _editQuotesController.SelectedCollection)
 			{
 				_editQuotesController.SelectedCollection = cbCollection.SelectedItem as Collection;
-				// Scroll to the top
+				await _editQuotesController.LoadCollectionBooksOrQuotes();
+
+				//Scroll to the top
 				rtbQuotes.SelectionStart = 0;
 				rtbQuotes.ScrollToCaret();
 			}
 		}
 
-		private void cbBooks_SelectedValueChanged(object sender, EventArgs e)
+		private async void cbBooks_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cbBooks.SelectedItem != null
-				&& cbBooks.SelectedItem as Book != _editQuotesController.SelectedBook)
+			if (cbBooks.SelectedItem != null && cbBooks.SelectedItem as Book != _editQuotesController.SelectedBook)
 			{
+				_logger.Debug($"cbBooks_SelectedValueChanged {cbBooks.SelectedIndex} {((Book)cbBooks.SelectedItem)?.Name}");
+
 				_editQuotesController.SelectedBook = cbBooks.SelectedItem as Book;
+				await _editQuotesController.LoadBookChaptersOrQuotes();
+
 				// Scroll to the top
 				rtbQuotes.SelectionStart = 0;
 				rtbQuotes.ScrollToCaret();
 			}
 		}
 
-		private void lbChapters_SelectedValueChanged(object sender, EventArgs e)
+		private async void lbChapters_SelectedValueChanged(object sender, EventArgs e)
 		{
+			
 			if (lbChapters.SelectedItem != null
 				&& lbChapters.SelectedItem as Chapter != _editQuotesController.SelectedChapter)
 			{
+				_logger.Debug($"lbChapters_SelectedValueChanged {lbChapters.SelectedIndex} {((Chapter)lbChapters.SelectedItem)?.Name}");
+
 				_editQuotesController.SelectedChapter = lbChapters.SelectedItem as Chapter;
+				await _editQuotesController.LoadQuotes();
 				// Scroll to the top
 				rtbQuotes.SelectionStart = 0;
 				rtbQuotes.ScrollToCaret();
@@ -494,60 +538,60 @@ namespace Quoter.App.Forms
 
 		#region Button events Add, Edit, Delete Collections
 
-		private void btnAddCollection_Click(object sender, EventArgs e)
+		private async void btnAddCollection_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.AddCollection();
+			await _editQuotesController.AddCollection();
 		}
 
-		private void buttonEditCollection_Click(object sender, EventArgs e)
+		private async void buttonEditCollection_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.EditCollection();
+			await _editQuotesController.EditCollection();
 		}
 
-		private void btnDeleteCollection_Click(object sender, EventArgs e)
+		private async void btnDeleteCollection_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.DeleteCollection();
+			await _editQuotesController.DeleteCollection();
 		}
 
 		#endregion Button events Add, Edit, Delete Collections
 
 		#region Button events Add, Edit, Delete Books
 
-		private void btnAddBook_Click(object sender, EventArgs e)
+		private async void btnAddBook_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.AddBook();
+			await _editQuotesController.AddBook();
 		}
 
-		private void btnEditBook_Click(object sender, EventArgs e)
+		private async void btnEditBook_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.EditBook();
+			await _editQuotesController.EditBook();
 		}
 
-		private void btnDeleteBook_Click(object sender, EventArgs e)
+		private async void btnDeleteBook_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.DeleteBook();
+			await _editQuotesController.DeleteBook();
 		}
 
 		#endregion Button events Add, Edit, Delete Books
 
 		#region Button events Add, Edit, Delete Chapters
 
-		private void btnAddChapter_Click(object sender, EventArgs e)
+		private async void btnAddChapter_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.AddChapter();
+			await _editQuotesController.AddChapter();
 		}
 
-		private void btnEditChapter_Click(object sender, EventArgs e)
+		private async void btnEditChapter_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.EditChapter();
+			await _editQuotesController.EditChapter();
 		}
 
-		private void btnDeleteChapter_Click(object sender, EventArgs e)
+		private async void btnDeleteChapter_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.DeleteChapter();
+			await _editQuotesController.DeleteChapter();
 		}
 
-		private void btnSaveQuotes_Click(object sender, EventArgs e)
+		private async void btnSaveQuotes_Click(object sender, EventArgs e)
 		{
 			QuoteSaveOptions saveOptions = new()
 			{
@@ -556,63 +600,35 @@ namespace Quoter.App.Forms
 				AppendTextToBegining = txtQuotesAppendedTextToBeginning.Text,
 				AppendTextToEnd = txtQuotesAppendTextToEnd.Text,
 			};
-			_editQuotesController.AddQuotes(saveOptions);
+			await _editQuotesController.AddQuotes(saveOptions);
 		}
 
 		#endregion  Button events Add, Edit, Delete Chapters
 
-		private void btnAddFirstBook_Click(object sender, EventArgs e)
+		private async void btnAddFirstBook_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.AddBook();
+			await _editQuotesController.AddBook();
 		}
 
-		private void btnAddFirstChapter_Click(object sender, EventArgs e)
+		private async void btnAddFirstChapter_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.AddChapter();
+			await _editQuotesController.AddChapter();
 		}
 
-		private void btnTabPage1_Click(object sender, EventArgs e)
+		private void btnQuotesOptions_Click(object sender, EventArgs e)
 		{
-			tabControl.SelectTab(tabPage1);
-			btnTabPage1.FlatAppearance.BorderSize = 1;
-			btnTabPage2.FlatAppearance.BorderSize = 0;
-			btnTabPage3.FlatAppearance.BorderSize = 0;
-			SetStatus("", Const.ColorDefault);
+			if (pnlQuotesOptions.Visible)
+			{
+				pnlQuotesOptions.Visible = false;
+			}
+			else
+			{
+				pnlQuotesOptions.Visible = true;
+			}
+
 		}
 
-		private void btnTabPage2_Click(object sender, EventArgs e)
-		{
-			tabControl.SelectTab(tabPage2);
-			btnTabPage1.FlatAppearance.BorderSize = 0;
-			btnTabPage2.FlatAppearance.BorderSize = 1;
-			btnTabPage3.FlatAppearance.BorderSize = 0;
-
-			// Reload collections in case we added some new ones in tab 1
-			_favouriteQuotesController.LoadCollections();
-			SetStatus("", Const.ColorDefault);
-		}
-
-		private void btnTabPage3_Click(object sender, EventArgs e)
-		{
-			tabControl.SelectTab(tabPage3);
-			btnTabPage1.FlatAppearance.BorderSize = 0;
-			btnTabPage2.FlatAppearance.BorderSize = 0;
-			btnTabPage3.FlatAppearance.BorderSize = 1;
-			SetStatus("", Const.ColorDefault);
-		}
-
-		private void btnClose_Click(object sender, EventArgs e)
-		{
-			_editQuotesController.OnClose();
-			_formsManager.Close(this);
-		}
-
-
-		private void SetStatus(string message, Color color)
-		{
-			txtStatus.Text = message;
-			txtStatus.ForeColor = color;
-		}
+		#endregion  Edit quotes tab
 
 		#region Settings tab
 
@@ -711,8 +727,6 @@ namespace Quoter.App.Forms
 			_settingsController.SetOpacity(opacity);
 		}
 
-		#endregion  Settings tab
-
 		private void btnPopupNotifications_Click(object sender, EventArgs e)
 		{
 			btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
@@ -726,6 +740,10 @@ namespace Quoter.App.Forms
 			btnPopupNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
 			_settingsController.SetNotificationType(EnumNotificationType.AlwaysOn);
 		}
+
+		#endregion  Settings tab
+
+		#region Favourites tab
 
 		private void clbCollections_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -792,18 +810,6 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		private void btnQuotesOptions_Click(object sender, EventArgs e)
-		{
-			if (pnlQuotesOptions.Visible)
-			{
-				pnlQuotesOptions.Visible = false;
-			}
-			else
-			{
-				pnlQuotesOptions.Visible = true;
-			}
-			
-		}
 
 		private void btnExportCollection_Click(object sender, EventArgs e)
 		{
@@ -813,6 +819,91 @@ namespace Quoter.App.Forms
 		private void btnImport_Click(object sender, EventArgs e)
 		{
 			_favouriteQuotesController.Import(chkImportMerge.Checked, chkImportIgnoreLanguage.Checked);
+		}
+
+		#endregion  Favourites tab
+
+		private async void btnTabPage1_Click(object sender, EventArgs e)
+		{
+			if(tabControl.SelectedTab != tabPage1)
+			{
+				tabControl.SelectTab(tabPage1);
+
+				SetSelectedTabHighlight(btnTabPage1);
+
+				await _editQuotesController.LoadCollections();
+				SetStatus("", Const.ColorDefault);
+			}
+		}
+
+		private void btnTabPage2_Click(object sender, EventArgs e)
+		{
+			if (tabControl.SelectedTab != tabPage2)
+			{
+				tabControl.SelectTab(tabPage2);
+
+				SetSelectedTabHighlight(btnTabPage2);
+
+				// Reload collections in case we added some new ones in tab 1
+				_favouriteQuotesController.LoadCollections();
+				SetStatus("", Const.ColorDefault);
+			}
+		}
+
+		private void btnTabPage3_Click(object sender, EventArgs e)
+		{
+			if (tabControl.SelectedTab != tabPage3)
+			{
+				tabControl.SelectTab(tabPage3);
+
+				SetSelectedTabHighlight(btnTabPage3);
+
+				SetStatus("", Const.ColorDefault);
+			}
+		}
+
+		private void SetSelectedTabHighlight(Button button)
+		{
+			pnlSelectedTab.Location = new Point(button.Location.X, button.Location.Y + button.Size.Height);
+			pnlSelectedTab.Size = new Size(button.Size.Width, 2);
+		}
+
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.OnClose();
+			_formsManager.Close(this);
+		}
+
+
+		private void SetStatus(string message, Color color)
+		{
+			txtStatus.Text = message;
+			txtStatus.ForeColor = color;
+		}
+
+		private void rbAnimTopLeft_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopLeft);
+		}
+
+		private void rbAnimTopRight_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopRight);
+		}
+
+		private void rbAnimBottomLeft_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomLeft);
+		}
+
+		private void rbAnimBottomRight_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomRight);
+		}
+
+		private void btnNotificationFont_Click(object sender, EventArgs e)
+		{
+			_settingsController.SelectNotificationFont();
 		}
 	}
 }

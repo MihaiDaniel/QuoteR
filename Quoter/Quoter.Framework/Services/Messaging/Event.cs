@@ -8,7 +8,7 @@
 		public const string LanguageChanged = "LanguageChanged";
 		public const string NotificationIntervalChanged = "NotificationIntervalChanged";
 		public const string ShowCollectionsBasedOnLanguageChanged = "ShowCollectionsBasedOnLanguage";
-		public const string NotificationTypeChanged = "ShowCollectionsBasedOnLanguage";
+		public const string NotificationTypeChanged = "NotificationTypeChanged";
 		public const string ThemeChanged = "ThemeChanged";
 		/// <summary>
 		/// Event that signals that the show notification quote timer has elapsed.

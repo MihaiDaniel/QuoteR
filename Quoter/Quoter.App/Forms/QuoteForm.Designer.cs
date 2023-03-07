@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuoteForm));
 			this.pnlTitle = new System.Windows.Forms.Panel();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.lblTitle = new System.Windows.Forms.Label();
@@ -83,15 +82,17 @@
 			// 
 			this.txtBody.BackColor = System.Drawing.Color.White;
 			this.txtBody.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtBody.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+			this.txtBody.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.txtBody.Location = new System.Drawing.Point(11, 36);
 			this.txtBody.Multiline = true;
 			this.txtBody.Name = "txtBody";
 			this.txtBody.ReadOnly = true;
 			this.txtBody.Size = new System.Drawing.Size(357, 94);
 			this.txtBody.TabIndex = 1;
-			this.txtBody.Text = resources.GetString("txtBody.Text");
+			this.txtBody.Text = "012345678900123456789001234567890012345678900123456789001234567890012345678900123" +
+    "4567890";
 			this.txtBody.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
 			// 
 			// txtFooter
 			// 

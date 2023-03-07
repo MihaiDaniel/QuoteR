@@ -48,7 +48,7 @@ namespace Quoter.App
 
 			ResourceManager resourceManager = new("Quoter.App.Resources.Strings", typeof(Program).Assembly);
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
-			serviceCollection.AddSingleton<QuoterApplicationContext>();
+			
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
 			serviceCollection.AddSingleton<ISettings, Settings>();
@@ -57,7 +57,9 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
+			serviceCollection.AddSingleton<ILogger, Logger>();
 
+			serviceCollection.AddTransient<QuoterApplicationContext>();
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();

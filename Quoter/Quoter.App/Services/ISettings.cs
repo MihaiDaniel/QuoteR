@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quoter.Framework.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,12 @@ namespace Quoter.App.Services
 {
 	public interface ISettings
 	{
+		string FontName { get; set; }
+		string FontStyle { get; set; }
+		float FontSize { get; set; }
+		EnumAnimation NotificationOpenAnimation { get; set; }
+
+
 		/// <summary>
 		/// Gets the value of a setting thread-safe based on the <paramref name="key"/>
 		/// </summary>

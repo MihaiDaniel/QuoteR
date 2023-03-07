@@ -14,5 +14,7 @@ namespace Quoter.App.FormsControllers
 		/// controller and the form, so we use this method to avoid this.
 		/// </summary>
 		void RegisterForm(IForm form);
+
+		Task EventFormLoaded();
 	}
 }

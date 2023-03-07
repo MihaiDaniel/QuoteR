@@ -133,7 +133,10 @@ namespace Quoter.App.FormsControllers.Settings
 		public void RegisterForm(ISettingsForm form)
 		{
 			_form = form;
+		}
 
+		public async Task EventFormLoaded()
+		{
 			// Set selected language buttons
 			string appLanguage = _settings.Get<string>(Const.Setting.Language);
 			EnumLanguage selectedLanguage = LanguageHelper.GetEnumLanguageFromString(appLanguage);
@@ -154,6 +157,8 @@ namespace Quoter.App.FormsControllers.Settings
 			_form.SetShowWelcomeMessage(_settings.Get<bool>(Const.Setting.ShowWelcomeNotification));
 
 			_form.SetNotificationsType((EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType));
+			_form.SetNotificationsLocation(_settings.NotificationOpenAnimation);
+			_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
 		}
 
 		public void SetLanguage(EnumLanguage language)
@@ -218,18 +223,35 @@ namespace Quoter.App.FormsControllers.Settings
 				if (type == EnumNotificationType.AlwaysOn)
 				{
 
-					Task.Run(async () =>
+					Task.Run(() =>
 					{
-						//QuoteModel? quote = await _quoteService.GetRandomQuote();
-						//if (quote != null)
-						//{
-						_formsManager.ShowDialog<QuoteForm>(0/*, quote*/);
-						//}
+						_formsManager.ShowDialog<QuoteForm>(0);
 					});
 				}
 			}
+		}
 
+		public void SetNotificationAnimation(EnumAnimation animation)
+		{
+			_settings.NotificationOpenAnimation = animation;
+		}
 
+		public void SelectNotificationFont()
+		{
+			FontDialog fontDialog = new FontDialog();
+			fontDialog.FontMustExist = true;
+			fontDialog.ShowApply = false;
+			fontDialog.ShowEffects = false;
+			fontDialog.MinSize = 8;
+			fontDialog.MaxSize = 20;
+			DialogResult result = fontDialog.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				_settings.FontName = fontDialog.Font.Name;
+				_settings.FontStyle = fontDialog.Font.Style.ToString();
+				_settings.FontSize = fontDialog.Font.Size;
+				_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
+			}
 		}
 	}
 }

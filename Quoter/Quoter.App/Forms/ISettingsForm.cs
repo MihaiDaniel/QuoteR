@@ -20,5 +20,9 @@ namespace Quoter.App.Forms
 		void SetShowWelcomeMessage(bool value);
 
 		void SetNotificationsType(EnumNotificationType type);
+
+		void SetNotificationsLocation(EnumAnimation notificationOpenAnimation);
+
+		void SetNotificationFont(string fontName, string fontStyle, float fontSize);
 	}
 }

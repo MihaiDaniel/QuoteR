@@ -441,4 +441,7 @@
   <data name="IgnoreLanguage" xml:space="preserve">
     <value>Importă în limba curentă indiferent de limba colecțiilor</value>
   </data>
+  <data name="NotificationLocation" xml:space="preserve">
+    <value>Locație notificări</value>
+  </data>
 </root>

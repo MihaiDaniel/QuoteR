@@ -26,7 +26,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		void BookSelected(Book book);
 		void ChapterSelected(Chapter chapter);
 
-		void LoadCollections();
+		Task LoadCollections();
 
 		void Export(bool isExportOnlyFavourites);
 

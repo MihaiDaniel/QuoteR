@@ -39,6 +39,7 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.pnlTitle.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -154,12 +155,22 @@
 			this.textBox1.Size = new System.Drawing.Size(100, 23);
 			this.textBox1.TabIndex = 7;
 			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(227, 125);
+			this.textBox2.Multiline = true;
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.textBox2.Size = new System.Drawing.Size(100, 23);
+			this.textBox2.TabIndex = 8;
+			// 
 			// SettingsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(400, 200);
+			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.button3);
 			this.Controls.Add(this.button2);
@@ -195,5 +206,6 @@
 		private Button button2;
 		private Button button3;
 		private TextBox textBox1;
+		private TextBox textBox2;
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using Quoter.App.Forms;
 using Quoter.App.Helpers;
-using Quoter.App.Helpers.Extensions;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
@@ -31,15 +30,23 @@ namespace Quoter.App.FormsControllers
 			_form = quoteForm;
 			_form.SetTheme(_themeService.GetCurrentTheme());
 			_messagingService.Subscribe(this);
-			GetRandomQuote();
 		}
 
-		public void RegisterForm(IQuoteForm quoteForm, QuoteFormOptions quoteModel)
+		public void RegisterForm(IQuoteForm form, QuoteFormOptions quoteModel)
 		{
-			_form = quoteForm;
+			_form = form;
+			_quoteModel = quoteModel;
 			_form.SetTheme(_themeService.GetCurrentTheme());
 			_messagingService.Subscribe(this);
 			_form.SetQuote(quoteModel);
+		}
+
+		public async Task EventFormLoaded()
+		{
+			if(_quoteModel == null)
+			{
+				await GetRandomQuote();
+			}
 		}
 
 		public async void OnMessageEvent(string message, object? argument)
@@ -101,6 +108,5 @@ namespace Quoter.App.FormsControllers
 				}
 			}
 		}
-
 	}
 }
