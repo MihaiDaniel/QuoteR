@@ -1,4 +1,6 @@
-﻿using Quoter.Framework.Models;
+﻿using Quoter.Framework.Entities;
+using Quoter.Framework.Enums;
+using Quoter.Framework.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,22 @@ namespace Quoter.Framework.Services
 	/// </summary>
 	public interface IQuoteService
 	{
-		Task<QuoteFormOptions?> GetRandomQuote();
+		/// <summary>
+		/// Returns a random quote from any of the collections marked as favourites. If <paramref name="language"/> is specified (any other than None)
+		/// it will also filter for quotes where the parent collection has the specified language
+		/// </summary>
+		/// <param name="language"></param>
+		/// <returns></returns>
+		Task<Quote?> GetRandomQuote(EnumLanguage language);
 
-		Task<QuoteFormOptions?> GetNextQuote(long quoteId);
+		/// <summary>
+		/// Returns the next quote after the one with the QuoteId = <paramref name="quoteId"/>
+		/// </summary>
+		Task<Quote?> GetNextQuote(long quoteId);
 
-		Task<QuoteFormOptions?> GetPreviousQuote(long quoteId);
+		/// <summary>
+		/// Returns the previous quote before the one with the QuoteId = <paramref name="quoteId"/>
+		/// </summary>
+		Task<Quote?> GetPreviousQuote(long quoteId);
 	}
 }

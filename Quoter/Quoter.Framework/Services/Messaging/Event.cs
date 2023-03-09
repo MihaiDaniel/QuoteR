@@ -5,6 +5,9 @@
 	/// </summary>
 	public static class Event
 	{
+		/// <summary>
+		/// Event that signals that the application language has changed
+		/// </summary>
 		public const string LanguageChanged = "LanguageChanged";
 		public const string NotificationIntervalChanged = "NotificationIntervalChanged";
 		public const string ShowCollectionsBasedOnLanguageChanged = "ShowCollectionsBasedOnLanguage";
@@ -37,5 +40,9 @@
 		public const string ImportSuccesfull = "ImportSuccesfull";
 
 		public const string ImportFailed = "ImportFailed";
+		/// <summary>
+		/// Event that signals when a form is opening
+		/// </summary>
+		public const string OpeningForm = "OpeningForm";
 	}
 }

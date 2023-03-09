@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Interface implemented by subscribers to the <see cref="IMessagingService"/>
 	/// </summary>
-	public interface IMessageSubscriber
+	public interface IMessagingSubscriber
 	{
 		/// <summary>
 		/// Method called by <see cref="IMessagingService"/> when an event was sent by any component.

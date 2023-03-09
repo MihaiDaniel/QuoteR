@@ -52,6 +52,23 @@ namespace Quoter.Framework.Services.DependencyInjection
 		{
 			Type instanceType = serviceDescriptor.ImplementationType;
 
+			// If we have a special Argument for some class, add it at the beginning of arrParameters
+			// For example for the dbContext where we specify a string parameter (connection string)
+			// that won't change through the lifetime of the application
+			if (serviceDescriptor.Argument != null)
+			{
+				if (arrParameters != null && arrParameters.Length > 0)
+				{
+					object[] newParams = new object[arrParameters.Length + 1];
+					newParams[0] = serviceDescriptor.Argument;
+					for (int i = 0; i < newParams.Length; i++)
+					{
+						newParams[i + 1] = arrParameters[i];
+					}
+				}
+				arrParameters = new object[1] { serviceDescriptor.Argument };
+			}
+
 			// We get the most probable constructor
 			ConstructorInfo constructorInfo = ResolveConstructorForParameters(instanceType, arrParameters);
 
@@ -76,7 +93,7 @@ namespace Quoter.Framework.Services.DependencyInjection
 
 			object? instance = Activator.CreateInstance(instanceType, lstParametersResolved.ToArray());
 
-			if(instance == null)
+			if (instance == null)
 			{
 				throw new ArgumentException($"Could not create instance of {instanceType}");
 			}
@@ -128,9 +145,9 @@ namespace Quoter.Framework.Services.DependencyInjection
 
 			}
 			string strParameters = "";
-			if(arrParameters != null && arrParameters.Length > 0)
+			if (arrParameters != null && arrParameters.Length > 0)
 			{
-				foreach(var param in arrParameters)
+				foreach (var param in arrParameters)
 				{
 					strParameters += param.GetType() + " ";
 				}

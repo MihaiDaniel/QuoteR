@@ -6,7 +6,7 @@
 	public interface IMessagingService
 	{
 		/// <summary>
-		/// Send a message to notify any subscribes of an event
+		/// Send a message to notify any subscribes of an event. Can have optional object argument
 		/// </summary>
 		/// <param name="message">Message / Name of the event</param>
 		/// <param name="argument">Optional argument</param>
@@ -16,12 +16,12 @@
 		/// Subscribe to the messaging service to receive notifications when any event occurs
 		/// </summary>
 		/// <param name="subscriber">The subscriber</param>
-		void Subscribe(IMessageSubscriber subscriber);
+		void Subscribe(IMessagingSubscriber subscriber);
 
 		/// <summary>
 		/// Unsubscribe from the messaging service. If subscriber is not subscribed this does nothing.
 		/// </summary>
 		/// <param name="subscriber">The subscriber</param>
-		void Unsubscribe(IMessageSubscriber subscriber);
+		void Unsubscribe(IMessagingSubscriber subscriber);
 	}
 }

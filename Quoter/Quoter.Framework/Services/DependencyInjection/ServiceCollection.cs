@@ -42,6 +42,11 @@
 			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), EnumServiceLifetime.Transient));
 		}
 
+		public void AddTransient<TImplementation>(object argument)
+		{
+			_registeredServices.Add(typeof(TImplementation), new ServiceDescriptor(typeof(TImplementation), EnumServiceLifetime.Transient, argument));
+		}
+
 		/// <summary>
 		/// Returns the container used to get any registered services.
 		/// </summary>

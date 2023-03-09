@@ -4,8 +4,6 @@ using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Models;
-using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.ComponentModel;
 using System.Globalization;
@@ -19,21 +17,18 @@ namespace Quoter.App.FormsControllers.Settings
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
-		private readonly IQuoteService _quoteService;
 
 		private ISettingsForm _form;
 
 		public SettingsFormController(ISettings settings,
 										IMessagingService messagingService,
 										IStringResources stringResources,
-										IFormsManager formsManager,
-										IQuoteService quoteService)
+										IFormsManager formsManager)
 		{
 			_settings = settings;
 			_messagingService = messagingService;
 			_stringResources = stringResources;
 			_formsManager = formsManager;
-			_quoteService = quoteService;
 		}
 
 		private string _notificationIntervalMinutes;
@@ -50,7 +45,7 @@ namespace Quoter.App.FormsControllers.Settings
 					(bool isValidInput, int intValue) = ValidateValidNumber(value);
 					if (isValidInput && intValue > 0)
 					{
-						_settings.Set(Const.Setting.NotificationIntervalSeconds, intValue * 60);
+						_settings.NotificationIntervalSeconds = intValue * 60;
 						_form.SetStatus("", Const.ColorDefault);
 
 						_messagingService.SendMessage(Event.NotificationIntervalChanged);
@@ -75,7 +70,7 @@ namespace Quoter.App.FormsControllers.Settings
 				(bool isValidInput, int intValue) = ValidateValidNumber(value);
 				if (isValidInput && intValue > 0)
 				{
-					_settings.Set(Const.Setting.AutoCloseNotificationSeconds, intValue);
+					_settings.AutoCloseNotificationSeconds = intValue;
 					_form.SetStatus("", Const.ColorDefault);
 				}
 				else
@@ -83,28 +78,6 @@ namespace Quoter.App.FormsControllers.Settings
 					_form.SetStatus(_stringResources["NotificationIntervalMustBeBetweenValues", "1", "999"], Color.Red);
 				}
 			}
-		}
-
-		private Tuple<bool, int> ValidateValidNumber(string value)
-		{
-			bool isNumber = int.TryParse(value, out int intValue);
-			if (isNumber)
-			{
-				if (intValue > 0 || intValue < 999)
-				{
-					return new(true, intValue);
-				}
-				else
-				{
-					return new(false, intValue);
-				}
-
-			}
-			else if (string.IsNullOrWhiteSpace(value))
-			{
-				return new(true, 0);
-			}
-			return new(false, 0);
 		}
 
 		private string _opacityValue;
@@ -135,30 +108,35 @@ namespace Quoter.App.FormsControllers.Settings
 			_form = form;
 		}
 
-		public async Task EventFormLoaded()
+		public Task EventFormLoaded()
 		{
 			// Set selected language buttons
-			string appLanguage = _settings.Get<string>(Const.Setting.Language);
-			EnumLanguage selectedLanguage = LanguageHelper.GetEnumLanguageFromString(appLanguage);
+			EnumLanguage selectedLanguage = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
 			_form.SetSelectedLanguage(selectedLanguage);
 
 			// Set if the collections are shown by language or not
-			bool isShowByLanguage = _settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage);
-			_form.SetSelectedCollectionByLanguage(isShowByLanguage);
+			_form.SetSelectedCollectionByLanguage(_settings.ShowCollectionsBasedOnLanguage);
 
 			// Set other settings
-			NotificationsIntervalMinutes = (_settings.Get<int>(Const.Setting.NotificationIntervalSeconds) / 60).ToString();
-			NotificationsAutoCloseSeconds = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds).ToString();
+			NotificationsIntervalMinutes = (_settings.NotificationIntervalSeconds / 60).ToString();
+			NotificationsAutoCloseSeconds = _settings.AutoCloseNotificationSeconds.ToString();
 
-			double opacity = _settings.Get<double>(Const.Setting.Opacity);
-			_form.SetOpacitySlider(opacity);
-			OpacityValue = GetOpacityValuePercent(opacity);
+			_form.SetOpacitySlider(_settings.Opacity);
+			OpacityValue = GetOpacityValuePercent(_settings.Opacity);
 
-			_form.SetShowWelcomeMessage(_settings.Get<bool>(Const.Setting.ShowWelcomeNotification));
+			_form.SetShowWelcomeMessage(_settings.ShowWelcomeNotification);
 
-			_form.SetNotificationsType((EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType));
+			_form.SetNotificationsType(_settings.NotificationType);
 			_form.SetNotificationsLocation(_settings.NotificationOpenAnimation);
 			_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
+
+			return Task.CompletedTask;
+		}
+
+		public Task EventFormClosing()
+		{
+			// Nothing to do
+			return Task.CompletedTask;
 		}
 
 		public void SetLanguage(EnumLanguage language)
@@ -168,13 +146,19 @@ namespace Quoter.App.FormsControllers.Settings
 				case EnumLanguage.English:
 					CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-					_settings.Set(Const.Setting.Language, "en-US");
+					_settings.Language = "en-US";
 					_form.SetSelectedLanguage(language);
 					break;
 				case EnumLanguage.Romanian:
 					CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ro-RO");
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
-					_settings.Set(Const.Setting.Language, "ro-RO");
+					_settings.Language = "ro-RO";
+					_form.SetSelectedLanguage(language);
+					break;
+				case EnumLanguage.French:
+					CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("fr-FR");
+					Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+					_settings.Language = "fr-FR";
 					_form.SetSelectedLanguage(language);
 					break;
 			}
@@ -184,45 +168,38 @@ namespace Quoter.App.FormsControllers.Settings
 
 		public void SetShowCollectionsBasedOnLanguage(bool value)
 		{
-			_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, value);
+			_settings.ShowCollectionsBasedOnLanguage = value;
 			_messagingService.SendMessage(Event.ShowCollectionsBasedOnLanguageChanged);
 		}
 
 		public void SetShowWelcomeMessage(bool value)
 		{
-			_settings.Set(Const.Setting.ShowWelcomeNotification, value);
+			_settings.ShowWelcomeNotification = value;
 		}
 
 		public void SetTheme(EnumTheme theme)
 		{
-			_settings.Set(Const.Setting.Theme, (int)theme);
+			_settings.Theme = theme;
 			_form.SetTheme();
 			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
 		public void SetOpacity(double opacity)
 		{
-			_settings.Set(Const.Setting.Opacity, opacity);
+			_settings.Opacity = opacity;
 			OpacityValue = GetOpacityValuePercent(opacity);
 			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
-		private string GetOpacityValuePercent(double opacity)
-		{
-			return ((int)(opacity * 100)).ToString() + " %";
-		}
-
 		public void SetNotificationType(EnumNotificationType type)
 		{
-			EnumNotificationType currentType = (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
-			if (currentType != type)
+			if (_settings.NotificationType != type)
 			{
 				_messagingService.SendMessage(Event.NotificationTypeChanged, null);
-				_settings.Set(Const.Setting.NotificationType, (int)type);
+				_settings.NotificationType = type;
 
 				if (type == EnumNotificationType.AlwaysOn)
 				{
-
 					Task.Run(() =>
 					{
 						_formsManager.ShowDialog<QuoteForm>(0);
@@ -252,6 +229,33 @@ namespace Quoter.App.FormsControllers.Settings
 				_settings.FontSize = fontDialog.Font.Size;
 				_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
 			}
+		}
+
+		private string GetOpacityValuePercent(double opacity)
+		{
+			return ((int)(opacity * 100)).ToString() + " %";
+		}
+
+		private Tuple<bool, int> ValidateValidNumber(string value)
+		{
+			bool isNumber = int.TryParse(value, out int intValue);
+			if (isNumber)
+			{
+				if (intValue > 0 || intValue < 999)
+				{
+					return new(true, intValue);
+				}
+				else
+				{
+					return new(false, intValue);
+				}
+
+			}
+			else if (string.IsNullOrWhiteSpace(value))
+			{
+				return new(true, 0);
+			}
+			return new(false, 0);
 		}
 	}
 }

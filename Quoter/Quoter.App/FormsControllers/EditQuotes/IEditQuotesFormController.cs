@@ -7,8 +7,6 @@ namespace Quoter.App.FormsControllers.EditQuotes
 {
 	public interface IEditQuotesFormController : IFormController<IEditQuotesForm>
 	{
-		void OnClose();
-
 		Collection? SelectedCollection { get; set; }
 		BindingList<Collection> Collections { get; }
 

@@ -1,10 +1,5 @@
 ﻿using Quoter.App.Helpers;
 using Quoter.Framework.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.App.Services.Forms
 {
@@ -19,11 +14,11 @@ namespace Quoter.App.Services.Forms
 
 		public Theme GetCurrentTheme()
 		{
-			EnumTheme theme = (EnumTheme)_settings.Get<int>(Const.Setting.Theme);
-			double opacity = _settings.Get<double>(Const.Setting.Opacity);
+			EnumTheme theme = _settings.Theme;
+			double opacity = _settings.Opacity;
 
-			EnumAnimation animationOpen = (EnumAnimation)_settings.Get<int>(Const.Setting.NotificationOpenAnimation);
-			EnumAnimation animationClose = (EnumAnimation)_settings.Get<int>(Const.Setting.NotificationCloseAnimation);
+			EnumAnimation animationOpen = _settings.NotificationOpenAnimation;
+			EnumAnimation animationClose = _settings.NotificationCloseAnimation;
 
 			return new Theme()
 			{

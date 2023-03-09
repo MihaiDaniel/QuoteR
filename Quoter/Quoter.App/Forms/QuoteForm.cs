@@ -13,7 +13,7 @@ namespace Quoter.App.Views
 	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
-		private const int BodyMaxChars = 310; // at 10 font size
+		//private const int BodyMaxChars = 310; // at 10 font size
 		private const int FooterMaxChars = 40;
 
 		private readonly IFormsManager _formsManager;
@@ -102,28 +102,12 @@ namespace Quoter.App.Views
 			this.InvokeIfRequired(() =>
 			{
 				SetControlText(lblTitle, quoteModel.Title, TitleMaxChars);
-				SetControlText(txtBody, quoteModel.Body, BodyMaxChars);
 				SetControlText(txtFooter, quoteModel.Footer, FooterMaxChars);
 
 				// Adjust the font size a little bit depending on the amount of text
-				if (txtBody.Text.Length < 135) // 14
-				{
-					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
-				}
-				else if (txtBody.Text.Length < 217) // 12
-				{
-					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
-				}
-				else if (txtBody.Text.Length < 248) // 11
-				{
-					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
-				}
-				else // 10
-				{
-					txtBody.Font = new Font(_settings.FontName, _settings.FontSize, FontHelper.GetFontStyle(_settings.FontStyle));
-				}
-
-				
+				txtBody.Text = quoteModel.Body;
+				float fontSize = GetOptimalFontSize(_settings.FontName, _settings.FontSize);
+				txtBody.Font = new Font(_settings.FontName, fontSize, FontHelper.GetFontStyle(_settings.FontStyle));
 
 				if (quoteModel.AllowNavigation)
 				{
@@ -138,21 +122,42 @@ namespace Quoter.App.Views
 			});
 		}
 
+		private float GetOptimalFontSize(string fontName, float fontSize)
+		{
+			SizeF size = TextRenderer.MeasureText(txtBody.Text, new Font(fontName, fontSize));
+
+			int controllerWidth = txtBody.Width;
+			int controllerHeight = txtBody.Height;
+			int lines = (int)Math.Round(size.Width / controllerWidth, 0, MidpointRounding.ToPositiveInfinity);
+			int textHeightUsed = (int)(lines * size.Height);
+			if (textHeightUsed > controllerHeight)
+			{
+				if (fontSize <= 8f)
+				{
+					return 8;
+				}
+				else
+				{
+					fontSize -= 1;
+					return GetOptimalFontSize(fontName, fontSize);
+				}
+			}
+			return fontSize;
+		}
+
 		public void RegisterFormMonitor(IFormMonitor formMonitor)
 		{
 			_lstFormMonitors.Add(formMonitor);
 		}
 
-		public EnumFormCloseState CanClose()
+		public EnumFormCloseState IsClosable()
 		{
-			bool keepOpen = _settings.Get<bool>(Const.Setting.KeepNotificationOpenOnMouseOver);
-
-			// Keep open while mouse is over the form
+			bool keepOpen = _settings.KeepNotificationOpenOnMouseOver;
 			if (this.IsDisposed)
 			{
 				return EnumFormCloseState.Disposed;
 			}
-
+			// Keep open while mouse is over the form
 			if (keepOpen)
 			{
 				return this.InvokeIfRequiredReturn<EnumFormCloseState>(() =>
@@ -210,7 +215,6 @@ namespace Quoter.App.Views
 			}
 		}
 
-
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			_formsManager.Close(this);
@@ -226,29 +230,5 @@ namespace Quoter.App.Views
 			await _formController.GetNextQuote();
 		}
 
-		private void txtBody_TextChanged(object sender, EventArgs e)
-		{
-			//txtBody.UpdateLayout();
-
-			//Rectangle clientRectangle = txtBody.ClientRectangle;
-			//Size size = txtBody.Size;
-			//bool isScrollbarVisible = (size.Width - clientRectangle.Width) >= SystemInformation.VerticalScrollBarWidth;
-
-			//if (isScrollbarVisible)
-			//{
-			//	float newSize = txtBody.Font.Size - 1;
-			//	txtBody.Font = new Font(txtBody.Font.Name, newSize, txtBody.Font.Style);
-			//	//Visibility VerticalScrollbarVisibility = sv.ComputedVerticalScrollBarVisibility;
-			//	//if (VerticalScrollbarVisibility == Visibility.Visible)
-			//	//{
-			//	//	while (VerticalScrollbarVisibility == Visibility.Visible)
-			//	//	{
-			//	//		textbox.FontSize = textbox.FontSize - 1;
-			//	//		textbox.UpdateLayout();
-			//	//		VerticalScrollbarVisibility = sv.ComputedVerticalScrollBarVisibility;
-			//	//	}
-			//	//}
-			//}
-		}
 	}
 }

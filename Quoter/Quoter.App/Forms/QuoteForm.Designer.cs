@@ -92,7 +92,6 @@
 			this.txtBody.Text = "012345678900123456789001234567890012345678900123456789001234567890012345678900123" +
     "4567890";
 			this.txtBody.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
 			// 
 			// txtFooter
 			// 

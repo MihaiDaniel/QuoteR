@@ -14,6 +14,8 @@ namespace Quoter.Framework.Services.DependencyInjection
 
 		public object? Implementation { get; internal set; }
 
+		public object? Argument { get; internal set; }
+
 		public EnumServiceLifetime Lifetime { get; private set; }
 
 		public ServiceDescriptor(Type type, Type implementationType, EnumServiceLifetime serviceLifetime)
@@ -35,6 +37,14 @@ namespace Quoter.Framework.Services.DependencyInjection
 			Type = type;
 			ImplementationType = type;
 			Implementation = implementation;
+			Lifetime = serviceLifetime;
+		}
+
+		public ServiceDescriptor(Type type, EnumServiceLifetime serviceLifetime, object argument)
+		{
+			Type = type;
+			ImplementationType = type;
+			Argument = argument;
 			Lifetime = serviceLifetime;
 		}
 	}

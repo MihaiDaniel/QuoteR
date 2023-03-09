@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Toute</value>
+  </data>
+  <data name="AlwaysOnNotifications" xml:space="preserve">
+    <value>Afficher dans la notification qui est toujours à l'écran</value>
+  </data>
+  <data name="Book" xml:space="preserve">
+    <value>Livre</value>
+  </data>
+  <data name="BookAlreadyExists" xml:space="preserve">
+    <value>Un livre du même nom existe déjà</value>
+  </data>
+  <data name="BookCreated" xml:space="preserve">
+    <value>Livre {0} créé dans la collection {1}</value>
+  </data>
+  <data name="Books" xml:space="preserve">
+    <value>Livres</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ChapterAlreadyExists" xml:space="preserve">
+    <value>Un chapitre du même nom existe déjà</value>
+  </data>
+  <data name="ChapterCreated" xml:space="preserve">
+    <value>Chapitre {0} créé dans le livre {1}</value>
+  </data>
+  <data name="Chapters" xml:space="preserve">
+    <value>Chapitres</value>
+  </data>
+  <data name="ChooseExportFilename" xml:space="preserve">
+    <value>Choisissez un nom de fichier et un emplacement pour votre exportation</value>
+  </data>
+  <data name="ChooseImportFilename" xml:space="preserve">
+    <value>Choisissez les fichiers à importer</value>
+  </data>
+  <data name="Collection" xml:space="preserve">
+    <value>Collection</value>
+  </data>
+  <data name="CollectionAlreadyExists" xml:space="preserve">
+    <value>Une collection du même nom existe déjà</value>
+  </data>
+  <data name="CollectionCreated" xml:space="preserve">
+    <value>La collection {0} a été créée</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="CreateEditQuotes" xml:space="preserve">
+    <value>Créer et modifier des citation</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="DeleteBook" xml:space="preserve">
+    <value>Supprimer le livre</value>
+  </data>
+  <data name="DeleteBookMsg" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer le livre {0} ? Tout son contenu sera perdu.</value>
+  </data>
+  <data name="DeleteChapter" xml:space="preserve">
+    <value>Supprimer le chapitre</value>
+  </data>
+  <data name="DeleteChapterMsg" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer le chapitre {0} ? Tout son contenu sera perdu.</value>
+  </data>
+  <data name="DeleteCollection" xml:space="preserve">
+    <value>Supprimer la collection</value>
+  </data>
+  <data name="DeleteCollectionMsg" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer la collection {0} ? Tout son contenu sera perdu.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="EditBook" xml:space="preserve">
+    <value>Modifier le nom du livre</value>
+  </data>
+  <data name="EditBookMsg" xml:space="preserve">
+    <value>Entrez le nouveau nom du livre</value>
+  </data>
+  <data name="EditChapter" xml:space="preserve">
+    <value>Modifier le nom du chapitre</value>
+  </data>
+  <data name="EditChapterMsg" xml:space="preserve">
+    <value>Entrez le nouveau nom du chapitre</value>
+  </data>
+  <data name="EditCollection" xml:space="preserve">
+    <value>Modifier le nom de la collection</value>
+  </data>
+  <data name="EditCollectionMsg" xml:space="preserve">
+    <value>Entrez le nouveau nom de la collection</value>
+  </data>
+  <data name="ErrCantExport" xml:space="preserve">
+    <value>Impossible d'exporter</value>
+  </data>
+  <data name="ErrCantExportMsg" xml:space="preserve">
+    <value>Vous avez coché pour exporter uniquement les collections favorites. Mais aucun n'est marqué comme favori</value>
+  </data>
+  <data name="ErrCantExportMsgBadFileName" xml:space="preserve">
+    <value>Le dossier ou le nom de fichier choisi n'est pas valide. Veuillez choisir un nom de fichier valide</value>
+  </data>
+  <data name="ErrCantImport" xml:space="preserve">
+    <value>Impossible d'importer</value>
+  </data>
+  <data name="ErrCantImportMsgBadFileName" xml:space="preserve">
+    <value>L'un des fichiers choisis semble invalide.</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="ErrPleaseInputValue" xml:space="preserve">
+    <value>Veuillez entrer une valeur</value>
+  </data>
+  <data name="ErrTextInvalidChars" xml:space="preserve">
+    <value>Caractères invalides détectés</value>
+  </data>
+  <data name="ErrTextTooLong" xml:space="preserve">
+    <value>La valeur est trop longue</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Sortie</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exporter</value>
+  </data>
+  <data name="ExportCollections" xml:space="preserve">
+    <value>Exporter des collections</value>
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value>Échec de l'exportation</value>
+  </data>
+  <data name="ExportFailedMsg" xml:space="preserve">
+    <value>L'exportation a échoué. Veuillez réessayer. Raison : {0}</value>
+  </data>
+  <data name="Exporting" xml:space="preserve">
+    <value>L'exportation a commencé</value>
+  </data>
+  <data name="ExportingInBackground" xml:space="preserve">
+    <value>L'exportation de vos collections se fera en arrière-plan. Une fois terminé, vous recevrez une notification</value>
+  </data>
+  <data name="ExportOnlyFavourites" xml:space="preserve">
+    <value>Exporter uniquement les collections favorites</value>
+  </data>
+  <data name="ExportSuccesfullMsg" xml:space="preserve">
+    <value>Collections exportées vers : {0}</value>
+  </data>
+  <data name="ExportSuccessfull" xml:space="preserve">
+    <value>Exportation réussie</value>
+  </data>
+  <data name="FavoritesText" xml:space="preserve">
+    <value>Ici, vous pouvez choisir vos collections préférées à partir desquelles afficher les citations</value>
+  </data>
+  <data name="folderNotExists" xml:space="preserve">
+    <value>Le dossier sélectionné ne semble pas exister. Veuillez sélectionner un dossier valide.</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="IgnoreLanguage" xml:space="preserve">
+    <value>Importer dans la langue actuelle quelle que soit la langue de la collection</value>
+  </data>
+  <data name="ImportFailed" xml:space="preserve">
+    <value>Échec de l'importation</value>
+  </data>
+  <data name="ImportFailedMsg" xml:space="preserve">
+    <value>L'importation a échoué. Veuillez réessayer. Raison {0}</value>
+  </data>
+  <data name="Importing" xml:space="preserve">
+    <value>L'importation a commencé</value>
+  </data>
+  <data name="ImportingInBackground" xml:space="preserve">
+    <value>L'importation se fera en arrière-plan. Vous recevrez une notification lorsqu'il sera terminé</value>
+  </data>
+  <data name="ImportSuccessfull" xml:space="preserve">
+    <value>Importation réussie</value>
+  </data>
+  <data name="ImportSuccessfullMsg" xml:space="preserve">
+    <value>Collections importées : {0}</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Administrer</value>
+  </data>
+  <data name="ManageQuotes" xml:space="preserve">
+    <value>Gérer les citations préférées</value>
+  </data>
+  <data name="MergeCollections" xml:space="preserve">
+    <value>Fusionner des collections portant le même nom dans celles existantes</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="ModifyQuotes" xml:space="preserve">
+    <value>Modifier votre collection de citations</value>
+  </data>
+  <data name="NameAlreadyTaken" xml:space="preserve">
+    <value>Nom déjà utilisé</value>
+  </data>
+  <data name="NewBook" xml:space="preserve">
+    <value>Nouveau livre</value>
+  </data>
+  <data name="NewBookName" xml:space="preserve">
+    <value>Définir le nom du nouveau livre dans la collection {0}</value>
+  </data>
+  <data name="NewChapter" xml:space="preserve">
+    <value>Nouveau chapitre</value>
+  </data>
+  <data name="NewChapterName" xml:space="preserve">
+    <value>Définir le nom du nouveau chapitre du livre {0}</value>
+  </data>
+  <data name="NewCollection" xml:space="preserve">
+    <value>Nouvelle collection</value>
+  </data>
+  <data name="NewCollectionName" xml:space="preserve">
+    <value>Définir le nom de la nouvelle collection</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="NotificationIntervalMustBeBetweenValues" xml:space="preserve">
+    <value>La valeur doit être comprise entre {0} et {1}</value>
+  </data>
+  <data name="NotificationLocation" xml:space="preserve">
+    <value>Emplacement des notifications</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Choisissez comment les citations sont affichés</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacité</value>
+  </data>
+  <data name="OptionAppendTextEnd" xml:space="preserve">
+    <value>Ajouter du texte à la fin de chaque citation</value>
+  </data>
+  <data name="OptionAppendTextStart" xml:space="preserve">
+    <value>Ajouter du texte au début de chaque citation</value>
+  </data>
+  <data name="OptionExcludeChars" xml:space="preserve">
+    <value>Caractères exclus (caractères saisis sans espaces)</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OptionTrimRow" xml:space="preserve">
+    <value>Couper la ligne jusqu'au premier caractère d'espace vide</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Autres réglages</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="PopupNotifications" xml:space="preserve">
+    <value>Afficher sous forme de notification contextuelle</value>
+  </data>
+  <data name="Quoter" xml:space="preserve">
+    <value>Quoter</value>
+  </data>
+  <data name="Quotes" xml:space="preserve">
+    <value>Citations</value>
+  </data>
+  <data name="QuotesAddedToBook" xml:space="preserve">
+    <value>Citations ajoutées au nouveau livre</value>
+  </data>
+  <data name="QuotesAddedToBookMsg" xml:space="preserve">
+    <value>Votre collection contenait des citations qui n'étaient attribuées à aucun livre. Ils ont donc été ajoutés automatiquement à {0}</value>
+  </data>
+  <data name="QuotesAddedToChapter" xml:space="preserve">
+    <value>Citations ajoutées au nouveau chapitre</value>
+  </data>
+  <data name="QuotesAddedToChapterMsg" xml:space="preserve">
+    <value>Votre livre {0} contenait des citations qui n'étaient attribuées à aucun chapitre. Ils ont donc été ajoutés automatiquement à {1}</value>
+  </data>
+  <data name="QuotesAutoclose" xml:space="preserve">
+    <value>Notifications contextuelles de fermeture automatique après</value>
+  </data>
+  <data name="QuotesCollection" xml:space="preserve">
+    <value>CitationsCollection</value>
+  </data>
+  <data name="QuotesFrequency" xml:space="preserve">
+    <value>Afficher les devis tous les</value>
+  </data>
+  <data name="QuotesSaved" xml:space="preserve">
+    <value>Citations enregistrés avec succès</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Reprendre</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sauve</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>secondes</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="ShowAQuote" xml:space="preserve">
+    <value>Afficher un citation</value>
+  </data>
+  <data name="ShowCollectionsByLanguage" xml:space="preserve">
+    <value>Afficher les collections en fonction de la langue</value>
+  </data>
+  <data name="ShowWelcomeMessage" xml:space="preserve">
+    <value>Afficher le message de bienvenue</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Thème</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenu</value>
+  </data>
+  <data name="WelcomeStartupMessage" xml:space="preserve">
+    <value>L'application a commencé. Il vous montrera régulièrement des citations.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="NotificationFont" xml:space="preserve">
+    <value>Police des notifications</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Changer</value>
+  </data>
+  <data name="NoQuotes" xml:space="preserve">
+    <value>Il n'y a pas de citations à afficher. Ajoutez des citations ou marquez n'importe quelle collection existante comme favorite.</value>
+  </data>
+  <data name="EditCollections" xml:space="preserve">
+    <value>Modifier les collections</value>
+  </data>
+  <data name="Favourites" xml:space="preserve">
+    <value>Collections préférées</value>
+  </data>
+</root>

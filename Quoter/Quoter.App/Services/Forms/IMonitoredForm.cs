@@ -11,7 +11,7 @@ namespace Quoter.App.Services.Forms
 	{
 		void RegisterFormMonitor(IFormMonitor formMonitor);
 
-		EnumFormCloseState CanClose();
+		EnumFormCloseState IsClosable();
 
 		void Close();
 	}

@@ -11,7 +11,7 @@ namespace Quoter.App.Services.Forms
 		/// Shows a form non modally. Closes any other opened non-modal form.
 		/// </summary>
 		/// <typeparam name="TForm">Type of form to show</typeparam>
-		void Show<TForm>() where TForm : Form;
+		void Show<TForm>(params object[] arrParameters) where TForm : Form;
 
 		/// <summary>
 		/// Shows a form modally as a dialog. Allows for opening of multiple forms of same type.

@@ -42,6 +42,20 @@ namespace Quoter.App.Forms
 			StringResult = string.Empty;
 		}
 
+		#region Show on top
+
+		private const int WS_EX_TOPMOST = 0x00000008;
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				CreateParams createParams = base.CreateParams;
+				createParams.ExStyle |= WS_EX_TOPMOST;
+				return createParams;
+			}
+		}
+
+		#endregion Show on top
 
 		private void btnOk_Click(object sender, EventArgs e)
 		{

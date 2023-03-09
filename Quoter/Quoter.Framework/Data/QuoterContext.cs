@@ -6,6 +6,7 @@ namespace Quoter.Framework.Data
 	public class QuoterContext : DbContext
 	{
 		private readonly string _connectionString;
+		public Guid InstanceID { get; private set; }
 
 		public DbSet<Collection> Collections { get; set; }
 
@@ -22,12 +23,13 @@ namespace Quoter.Framework.Data
 		/// </summary>
 		public QuoterContext()
 		{
-
+			InstanceID = Guid.NewGuid();
 		}
 
 		public QuoterContext(string connectionString)
 		{
 			_connectionString = connectionString;
+			InstanceID = Guid.NewGuid();
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

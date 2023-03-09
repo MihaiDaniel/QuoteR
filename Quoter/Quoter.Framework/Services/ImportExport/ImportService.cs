@@ -141,15 +141,32 @@ namespace Quoter.Framework.Services.ImportExport
 		/// </summary>
 		private async Task CheckForCollectionNamingConflicts(CollectionExportModel collectionModel, int iteration)
 		{
-			bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == collectionModel.Name);
-			if (isNameConflict)
+			if (iteration > 99)		// Odd situation but, just to be safe
 			{
-				iteration++;
-				await CheckForCollectionNamingConflicts(collectionModel, iteration);
+				collectionModel.Name = collectionModel.Name + " - " + Guid.NewGuid().ToString();
 			}
-			else if(iteration > 0) 
+			else if (iteration > 0)	// For subsequent iteration we add an incremented number to the name
 			{
-				collectionModel.Name += $" ({iteration})";
+				string nameToCheck = $"{collectionModel.Name} ({iteration})";
+				bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == nameToCheck);
+				if (isNameConflict)
+				{
+					iteration++;
+					await CheckForCollectionNamingConflicts(collectionModel, iteration);
+				}
+				else
+				{
+					collectionModel.Name = $"{collectionModel.Name} ({iteration})";
+				}
+			}
+			else					// For first iteration we just check the name as it is
+			{
+				bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == collectionModel.Name);
+				if (isNameConflict)
+				{
+					iteration++;
+					await CheckForCollectionNamingConflicts(collectionModel, iteration);
+				}
 			}
 		}
 

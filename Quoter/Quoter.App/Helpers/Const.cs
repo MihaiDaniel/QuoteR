@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quoter.Framework.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -101,7 +102,7 @@ namespace Quoter.App.Helpers
 			public const bool ShowWelcomeNotification = true;
 			public const bool KeepNotificationOpenOnMouseOver = true;
 			public const bool ShowCollectionsBasedOnLanguage = false;
-			public const int NotificationType = 1; // popup
+			public const EnumNotificationType NotificationType = EnumNotificationType.Popup; // popup
 		}
 
 	}

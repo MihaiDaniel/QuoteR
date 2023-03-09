@@ -145,6 +145,7 @@
 			this.Name = "DialogInputForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "DialogInputForm";
+			this.TopMost = true;
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
 			this.ResumeLayout(false);

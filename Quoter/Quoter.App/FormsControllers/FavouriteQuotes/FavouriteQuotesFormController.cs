@@ -62,12 +62,18 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			await LoadCollections();
 		}
 
+		public Task EventFormClosing()
+		{
+			// Nothing to do
+			return Task.CompletedTask;
+		}
+
 		public async Task LoadCollections()
 		{
 			EnumLanguage? languageFilter = null;
-			if (_settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage))
+			if (_settings.ShowCollectionsBasedOnLanguage)
 			{
-				languageFilter = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language));
+				languageFilter = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
 			}
 
 			IQueryable<Collection> queryCollections = _context.Collections
@@ -382,13 +388,12 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			};
 			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 
-			string language = _settings.Get<string>(Const.Setting.Language);
 			ImportParameters importParameters = new ImportParameters()
 			{
 				Files = fileNames,
 				IsIgnoreLanguage = isImportIgnoreLang,
 				IsMergeCollections = isImportMerge,
-				Language = LanguageHelper.GetEnumLanguageFromString(language)
+				Language = LanguageHelper.GetEnumLanguageFromString(_settings.Language)
 			};
 			_importService.QueueImportJob(importParameters);
 		}

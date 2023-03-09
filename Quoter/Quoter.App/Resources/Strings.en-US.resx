@@ -394,7 +394,7 @@
     <value>QuotesCollection</value>
   </data>
   <data name="ExportSuccessfull" xml:space="preserve">
-    <value>Export successfull</value>
+    <value>Export successful</value>
   </data>
   <data name="ExportSuccesfullMsg" xml:space="preserve">
     <value>Collections exported to: {0}</value>
@@ -406,10 +406,10 @@
     <value>Export has failed. Please try again. Reason: {0}</value>
   </data>
   <data name="ImportSuccessfull" xml:space="preserve">
-    <value>Import succesfull</value>
+    <value>Import succesful</value>
   </data>
   <data name="ImportSuccessfullMsg" xml:space="preserve">
-    <value>Collections imported: {0} </value>
+    <value>Collections imported: {0}</value>
   </data>
   <data name="ImportFailed" xml:space="preserve">
     <value>Import failed</value>
@@ -443,5 +443,20 @@
   </data>
   <data name="NotificationLocation" xml:space="preserve">
     <value>Notification location</value>
+  </data>
+  <data name="NotificationFont" xml:space="preserve">
+    <value>Notification font</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="NoQuotes" xml:space="preserve">
+    <value>There are no quotes to display. Add some quotes or mark any existing collection as favourite.</value>
+  </data>
+  <data name="EditCollections" xml:space="preserve">
+    <value>Edit collections</value>
+  </data>
+  <data name="Favourites" xml:space="preserve">
+    <value>Favourite collections</value>
   </data>
 </root>

@@ -12,6 +12,8 @@ namespace Quoter.App.Helpers
 					return "en-US";
 				case EnumLanguage.Romanian:
 					return "ro-RO";
+				case EnumLanguage.French:
+					return "fr-FR";
 				default:
 					throw new NotImplementedException();
 			}
@@ -23,6 +25,7 @@ namespace Quoter.App.Helpers
 			{
 				case "en-US": return EnumLanguage.English;
 				case "ro-RO": return EnumLanguage.Romanian;
+				case "fr-FR": return EnumLanguage.French;
 				default: throw new NotImplementedException();
 			}
 		}

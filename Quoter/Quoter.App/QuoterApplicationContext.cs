@@ -6,30 +6,34 @@ using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.Globalization;
 
 namespace Quoter.App
 {
-	public class QuoterApplicationContext : ApplicationContext, IMessageSubscriber
+	public class QuoterApplicationContext : ApplicationContext, IMessagingSubscriber
 	{
 		private readonly NotifyIcon _trayIcon;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
+		private readonly ILogger _logger;
 
 		private System.Timers.Timer _timerShowNotifications;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
 										ISettings settings,
 										IStringResources stringResources,
-										IMessagingService messagingService)
+										IMessagingService messagingService,
+										ILogger logger)
 		{
 			_formsManager = formsManager;
 			_settings = settings;
 			_stringResources = stringResources;
 			_messagingService = messagingService;
+			_logger = logger;
 			InitializeApplication();
 			InitializeBackgroundTimers();
 
@@ -46,88 +50,98 @@ namespace Quoter.App
 
 		private void InitializeApplication()
 		{
-			bool isFirstStart = _settings.Get<bool>(Const.Setting.IsFirstStart);
-			if(isFirstStart)
+			if (_settings.IsFirstStart)
 			{
-				_settings.Set(Const.Setting.NotificationIntervalSeconds, Const.SettingDefault.NotificationIntervalSeconds);
-				_settings.Set(Const.Setting.AutoCloseNotificationSeconds, Const.SettingDefault.AutoCloseNotificationSeconds);
-				_settings.Set(Const.Setting.ShowWelcomeNotification, Const.SettingDefault.ShowWelcomeNotification);
-				_settings.Set(Const.Setting.KeepNotificationOpenOnMouseOver, Const.SettingDefault.KeepNotificationOpenOnMouseOver);
-				_settings.Set(Const.Setting.ShowCollectionsBasedOnLanguage, Const.SettingDefault.ShowCollectionsBasedOnLanguage);
-				_settings.Set(Const.Setting.NotificationType, Const.SettingDefault.NotificationType);
+				_settings.NotificationIntervalSeconds = Const.SettingDefault.NotificationIntervalSeconds;
+				_settings.AutoCloseNotificationSeconds = Const.SettingDefault.AutoCloseNotificationSeconds;
+				_settings.ShowWelcomeNotification = Const.SettingDefault.ShowWelcomeNotification;
+				_settings.KeepNotificationOpenOnMouseOver = Const.SettingDefault.KeepNotificationOpenOnMouseOver;
+				_settings.ShowCollectionsBasedOnLanguage = Const.SettingDefault.ShowCollectionsBasedOnLanguage;
+				_settings.NotificationType = Const.SettingDefault.NotificationType;
 
 				CultureInfo ci = CultureInfo.CurrentUICulture;
-				switch(ci.Name)
+				switch (ci.Name)
 				{
 					case "ro-RO":
-						_settings.Set(Const.Setting.Language, "ro-RO");
+						_settings.Language = "ro-RO";
 						Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
 						break;
+					case "fr-FR":
+						_settings.Language = "fr-FR";
+						Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+						break;
 					default:
-						_settings.Set(Const.Setting.Language, "en-US");
+						_settings.Language = "en-US";
 						Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 						break;
 				}
-				_settings.Set(Const.Setting.IsFirstStart, false);
+				_settings.IsFirstStart = false;
 			}
 			else
 			{
 				// Unpause if notifications was paused
-				_settings.Set(Const.Setting.IsPaused, false);
+				_settings.IsPaused = false;
 
 				// Set language
-				string lang = _settings.Get<string>(Const.Setting.Language);
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
-				Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
-
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo(_settings.Language);
+				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
 			}
 			_messagingService.Subscribe(this);
 		}
 
 		private void InitializeBackgroundTimers()
 		{
-			int notificationIntervalSec = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds);
-
-			_timerShowNotifications = new(notificationIntervalSec * 1000);
+			int miliseconds = _settings.NotificationIntervalSeconds * 1000;
+			_timerShowNotifications = new(miliseconds);
 			_timerShowNotifications.Elapsed += async (sender, e) => await ElapsedTimerEventShowNotifications();
 			_timerShowNotifications.Start();
-
 		}
 
-		private async void ShowWelcomeMessage()
+		private void ShowWelcomeMessage()
 		{
-			if(_settings.Get<bool>(Const.Setting.ShowWelcomeNotification))
+			try
 			{
-				await Task.Delay(1000);
-				int autoHideWelcomeMessageSeconds = 7;
-				QuoteFormOptions messageModel = new()
+				Task.Run(async () =>
 				{
-					Title = _stringResources["Welcome"],
-					Body = _stringResources["WelcomeStartupMessage"]
-				};
-				_formsManager.ShowDialog<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
+					if (_settings.ShowWelcomeNotification)
+					{
+						await Task.Delay(1000);
+						int autoHideWelcomeMessageSeconds = 7;
+						QuoteFormOptions messageModel = new()
+						{
+							Title = _stringResources["Welcome"],
+							Body = _stringResources["WelcomeStartupMessage"]
+						};
+						_formsManager.ShowDialog<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
+					}
+					if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
+					{
+						await ShowQuoteNotification();
+					}
+				}).ConfigureAwait(false);
 			}
-			if(GetNotificationType() == EnumNotificationType.AlwaysOn)
+			catch (Exception ex)
 			{
-				await ShowQuoteNotification();
+				_logger.Error(ex);
 			}
 		}
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if(message == Event.LanguageChanged)
+			if (message == Event.LanguageChanged)
 			{
 				// Reset the context strip with the new language
-				bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
-				_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
+				_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
 			}
 			if (message == Event.NotificationIntervalChanged)
 			{
+				// Stop the timer and set the new notification interval
 				_timerShowNotifications.Stop();
-				_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
+				double miliseconds = _settings.NotificationIntervalSeconds * 1000;
+				_timerShowNotifications.Interval = miliseconds;
 				_timerShowNotifications.Start();
 			}
-			if(message == Event.ExportSucessfull)
+			if (message == Event.ExportSucessfull)
 			{
 				DialogModel dialogModel = new DialogModel()
 				{
@@ -137,12 +151,12 @@ namespace Quoter.App
 				};
 				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 			}
-			if(message == Event.ExportFailed)
+			if (message == Event.ExportFailed)
 			{
 				DialogModel dialogModel = new DialogModel()
 				{
 					Title = _stringResources["ExportFailed"],
-					TitleColor= Color.Red,
+					TitleColor = Color.Red,
 					Message = _stringResources["ExportFailedMsg", argument?.ToString()],
 					MessageBoxButtons = EnumDialogButtons.Ok
 				};
@@ -175,20 +189,21 @@ namespace Quoter.App
 		{
 			try
 			{
-				bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
+				bool isPaused = _settings.IsPaused;
 				if (isPaused)
 				{
 					// Lower the interval untill unpaused
-					_timerShowNotifications.Interval= 10000; // 10 sec
+					_timerShowNotifications.Interval = 10000; // 10 sec
 					return;
 				}
 				else
 				{
 					// Reset the interval if it was on pause
-					_timerShowNotifications.Interval = _settings.Get<int>(Const.Setting.NotificationIntervalSeconds) * 1000;
+					double miliseconds = _settings.NotificationIntervalSeconds * 1000;
+					_timerShowNotifications.Interval = miliseconds;
 				}
 
-				if(GetNotificationType() == EnumNotificationType.Popup)
+				if (_settings.NotificationType == EnumNotificationType.Popup)
 				{
 					await ShowQuoteNotification();
 				}
@@ -197,27 +212,26 @@ namespace Quoter.App
 					_messagingService.SendMessage(Event.NotificationTimerElapsed);
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				throw ex;
+				_logger.Error(ex);
 			}
 		}
 
 		private async Task ShowQuoteNotification()
 		{
-			EnumNotificationType notificationType = GetNotificationType();
-			if(notificationType == EnumNotificationType.Popup)
+			if (_settings.NotificationType == EnumNotificationType.Popup)
 			{
 				_messagingService.SendMessage(Event.OpeningQuoteWindow);
 
 				int autoCloseSec = 0;
-				if (GetNotificationType() == EnumNotificationType.Popup)
+				if (_settings.NotificationType == EnumNotificationType.Popup)
 				{
-					autoCloseSec = _settings.Get<int>(Const.Setting.AutoCloseNotificationSeconds);
+					autoCloseSec = _settings.AutoCloseNotificationSeconds;
 				}
 				_formsManager.ShowDialog<QuoteForm>(autoCloseSec);
 			}
-			else if (notificationType == EnumNotificationType.AlwaysOn)
+			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 			{
 				if (_formsManager.IsOpen<QuoteForm>())
 				{
@@ -232,33 +246,35 @@ namespace Quoter.App
 
 		void PauseOrResumeEventHandler(object? sender, EventArgs e)
 		{
-			bool isPaused = _settings.Get<bool>(Const.Setting.IsPaused);
-			isPaused = !isPaused;
-			_settings.Set(Const.Setting.IsPaused, isPaused);
-			_trayIcon.ContextMenuStrip = GetContextMenuStrip(isPaused);
+			_settings.IsPaused = !_settings.IsPaused;
+			_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
 		}
 
-		void OpenManageEventHandler(object? sender, EventArgs e)
+		void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ManageForm>();
+			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.EditQuotes });
+		}
+		void EventHandlerOpenFavourties(object? sender, EventArgs e)
+		{
+			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.FavouriteQuotes });
 		}
 
-		void OpenSettingsEventHandler(object? sender, EventArgs e)
+		void EventHandlerOpenSettings(object? sender, EventArgs e)
 		{
-			_formsManager.Show<SettingsForm>();
+			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
 		}
 
 		void ShowQuoteEventHandler(object? sender, EventArgs e)
 		{
 			try
 			{
-				Task.Run( async () => { await ShowQuoteNotification(); });
+				Task.Run(async () => { await ShowQuoteNotification(); });
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				throw;
+				_logger.Error(ex);
 			}
-			
+
 		}
 
 		void ExitEventHandler(object? sender, EventArgs e)
@@ -271,26 +287,24 @@ namespace Quoter.App
 		private ContextMenuStrip GetContextMenuStrip(bool isPaused = false)
 		{
 			string pauseResumeText = isPaused ? _stringResources["Resume"] : _stringResources["Pause"];
-			Bitmap pauseResumeImage = isPaused ? Resources.Resources.play_64 : Resources.Resources.pause_64;
+			Bitmap pauseResumeImage = isPaused ? Resources.Resources.play_32 : Resources.Resources.pause_32;
 			ContextMenuStrip contextMenuStrip = new ContextMenuStrip()
 			{
 				Items =
 				{
 					new ToolStripLabel(_stringResources["Quoter"]),
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
-					//new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_64, new EventHandler(OpenSettingsEventHandler), "Settings"),
-					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_64, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
-					new ToolStripMenuItem(_stringResources["Manage"], Resources.Resources.book_open_64, new EventHandler(OpenManageEventHandler), "Settings"),
+					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_32, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
 					new ToolStripSeparator(),
-					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_64, new EventHandler(ExitEventHandler), "Exit")
+					new ToolStripMenuItem(_stringResources["Edit"], Resources.Resources.edit_32, new EventHandler(EventHandlerOpenEditQuotes), "Edit"),
+					new ToolStripMenuItem(_stringResources["Favourites"], Resources.Resources.star_32, new EventHandler(EventHandlerOpenFavourties), "Favourites"),
+					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_32, new EventHandler(EventHandlerOpenSettings), "Settings"),
+					new ToolStripSeparator(),
+					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(ExitEventHandler), "Exit")
 				}
 			};
 			return contextMenuStrip;
 		}
 
-		private EnumNotificationType GetNotificationType()
-		{
-			return (EnumNotificationType)_settings.Get<int>(Const.Setting.NotificationType);
-		}
 	}
 }

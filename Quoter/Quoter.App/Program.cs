@@ -3,6 +3,7 @@ using Quoter.App.Forms;
 using Quoter.App.FormsControllers;
 using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
+using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
@@ -57,9 +58,8 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
-			serviceCollection.AddSingleton<ILogger, Logger>();
+			serviceCollection.AddSingleton<QuoterApplicationContext>();
 
-			serviceCollection.AddTransient<QuoterApplicationContext>();
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
@@ -68,7 +68,9 @@ namespace Quoter.App
 			serviceCollection.AddTransient<DialogMessageForm>();
 
 			serviceCollection.AddTransient<IQuoteService, QuoteService>();
+			serviceCollection.AddTransient<ILogger, Logger>();
 
+			serviceCollection.AddTransient<IManageFormController, ManageFormController>();
 			serviceCollection.AddTransient<IEditQuotesFormController, EditQuotesFormController>();
 			serviceCollection.AddTransient<ISettingsFormController, SettingsFormController>();
 			serviceCollection.AddTransient<IQuoteFormController, QuoteFormController>();
@@ -77,8 +79,8 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();
 
-			QuoterContext context = new(GetContextConnectionString());
-			serviceCollection.AddSingleton<QuoterContext>(context);
+			//QuoterContext context = new(GetContextConnectionString());
+			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());
 
 			return serviceCollection.GetContainer();
 		}

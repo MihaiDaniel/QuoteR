@@ -427,7 +427,7 @@
     <value>Importul a început</value>
   </data>
   <data name="ImportingInBackground" xml:space="preserve">
-    <value>Importul se va realiza în fundal. Veți primi o notificare când s-a terminat.</value>
+    <value>Importul se va realiza în fundal. Veți primi o notificare când s-a terminat</value>
   </data>
   <data name="ChooseImportFilename" xml:space="preserve">
     <value>Alegeți fișierele pentru import</value>
@@ -443,5 +443,20 @@
   </data>
   <data name="NotificationLocation" xml:space="preserve">
     <value>Locație notificări</value>
+  </data>
+  <data name="NotificationFont" xml:space="preserve">
+    <value>Fontul citatelor</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Schimbă</value>
+  </data>
+  <data name="NoQuotes" xml:space="preserve">
+    <value>Nu sunt citate de afișat. Adăugați citate sau marcați o colecție existentă ca favorită.</value>
+  </data>
+  <data name="EditCollections" xml:space="preserve">
+    <value>Modifică colecțiile</value>
+  </data>
+  <data name="Favourites" xml:space="preserve">
+    <value>Colecții favorite</value>
   </data>
 </root>

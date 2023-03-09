@@ -37,6 +37,7 @@
 			this.gbQuotes = new System.Windows.Forms.GroupBox();
 			this.btnQuotesOptions = new System.Windows.Forms.Button();
 			this.pnlQuotesOptions = new System.Windows.Forms.Panel();
+			this.chkWordWrap = new System.Windows.Forms.CheckBox();
 			this.lblQuotesAppendEnd = new System.Windows.Forms.Label();
 			this.txtQuotesAppendTextToEnd = new System.Windows.Forms.TextBox();
 			this.lblQuotesAppendStart = new System.Windows.Forms.Label();
@@ -116,6 +117,7 @@
 			this.btnTheme5 = new System.Windows.Forms.Button();
 			this.btnTheme4 = new System.Windows.Forms.Button();
 			this.gbLanguageSettings = new System.Windows.Forms.GroupBox();
+			this.btnLanguageFr = new System.Windows.Forms.Button();
 			this.btnShowCollBasedOnLanguageNo = new System.Windows.Forms.Button();
 			this.btnLanguageRo = new System.Windows.Forms.Button();
 			this.btnShowCollBasedOnLanguageYes = new System.Windows.Forms.Button();
@@ -247,6 +249,7 @@
 			// pnlQuotesOptions
 			// 
 			this.pnlQuotesOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlQuotesOptions.Controls.Add(this.chkWordWrap);
 			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendEnd);
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendTextToEnd);
 			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendStart);
@@ -258,6 +261,19 @@
 			this.pnlQuotesOptions.Name = "pnlQuotesOptions";
 			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 170);
 			this.pnlQuotesOptions.TabIndex = 15;
+			// 
+			// chkWordWrap
+			// 
+			this.chkWordWrap.AutoSize = true;
+			this.chkWordWrap.Checked = true;
+			this.chkWordWrap.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.chkWordWrap.Location = new System.Drawing.Point(9, 139);
+			this.chkWordWrap.Name = "chkWordWrap";
+			this.chkWordWrap.Size = new System.Drawing.Size(87, 19);
+			this.chkWordWrap.TabIndex = 7;
+			this.chkWordWrap.Text = "Word wrap";
+			this.chkWordWrap.UseVisualStyleBackColor = true;
+			this.chkWordWrap.CheckedChanged += new System.EventHandler(this.chkWordWrap_CheckedChanged);
 			// 
 			// lblQuotesAppendEnd
 			// 
@@ -1258,6 +1274,7 @@
 			// 
 			// gbLanguageSettings
 			// 
+			this.gbLanguageSettings.Controls.Add(this.btnLanguageFr);
 			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageNo);
 			this.gbLanguageSettings.Controls.Add(this.btnLanguageRo);
 			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageYes);
@@ -1270,6 +1287,20 @@
 			this.gbLanguageSettings.TabIndex = 15;
 			this.gbLanguageSettings.TabStop = false;
 			this.gbLanguageSettings.Text = "Language";
+			// 
+			// btnLanguageFr
+			// 
+			this.btnLanguageFr.BackgroundImage = global::Quoter.App.Resources.Resources.flag_france_64;
+			this.btnLanguageFr.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.btnLanguageFr.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
+			this.btnLanguageFr.FlatAppearance.BorderSize = 2;
+			this.btnLanguageFr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnLanguageFr.Location = new System.Drawing.Point(118, 22);
+			this.btnLanguageFr.Name = "btnLanguageFr";
+			this.btnLanguageFr.Size = new System.Drawing.Size(50, 35);
+			this.btnLanguageFr.TabIndex = 18;
+			this.btnLanguageFr.UseVisualStyleBackColor = true;
+			this.btnLanguageFr.Click += new System.EventHandler(this.btnLanguageFr_Click);
 			// 
 			// btnShowCollBasedOnLanguageNo
 			// 
@@ -1328,13 +1359,13 @@
 			// 
 			// lblShowCollByLanguage
 			// 
-			this.lblShowCollByLanguage.AutoSize = true;
 			this.lblShowCollByLanguage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblShowCollByLanguage.Location = new System.Drawing.Point(8, 69);
+			this.lblShowCollByLanguage.Location = new System.Drawing.Point(8, 58);
 			this.lblShowCollByLanguage.Name = "lblShowCollByLanguage";
-			this.lblShowCollByLanguage.Size = new System.Drawing.Size(229, 18);
+			this.lblShowCollByLanguage.Size = new System.Drawing.Size(256, 40);
 			this.lblShowCollByLanguage.TabIndex = 7;
 			this.lblShowCollByLanguage.Text = "Show collections based on language";
+			this.lblShowCollByLanguage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// txtStatus
 			// 
@@ -1409,12 +1440,14 @@
 			this.Controls.Add(this.btnTabPage1);
 			this.Controls.Add(this.tabControl);
 			this.Controls.Add(this.pnlTitle);
+			this.DoubleBuffered = true;
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ManageForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ManageQuotesForm";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageForm_FormClosing);
 			this.Load += new System.EventHandler(this.ManageQuotesForm_Load);
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
@@ -1443,7 +1476,6 @@
 			this.gbThemeSettings.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).EndInit();
 			this.gbLanguageSettings.ResumeLayout(false);
-			this.gbLanguageSettings.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1549,5 +1581,7 @@
 		private Label lblNotificationFont;
 		private TextBox textBox1;
 		private TextBox txtSelectedFont;
+		private Button btnLanguageFr;
+		private CheckBox chkWordWrap;
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
+using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
@@ -8,19 +9,22 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
+using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 
 namespace Quoter.App.Forms
 {
-	public partial class ManageForm : Form, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
+	public partial class ManageForm : Form, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IStringResources _stringResources;
+		private readonly IManageFormController _manageFormController;
 		private readonly IEditQuotesFormController _editQuotesController;
 		private readonly ISettingsFormController _settingsController;
 		private readonly IThemeService _themeService;
 		private readonly IFavouriteQuotesFormController _favouriteQuotesController;
+		private readonly ManageFormOptions _options;
 		ILogger _logger;
 		/// <summary>
 		/// Boolean to stop events from propaganding from form to controller,
@@ -32,11 +36,13 @@ namespace Quoter.App.Forms
 							IFormPositioningService formPositioningService,
 							IFormAnimationService formAnimationService,
 							IStringResources stringResources,
+							IManageFormController manageFormController,
 							IEditQuotesFormController editQuotesController,
 							ISettingsFormController settingsController,
 							IFavouriteQuotesFormController favouriteQuotesController,
 							IThemeService themeService,
-							ILogger logger)
+							ILogger logger,
+							ManageFormOptions options)
 		{
 			InitializeComponent();
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
@@ -44,11 +50,13 @@ namespace Quoter.App.Forms
 			_formsManager = formsManager;
 			_formAnimationService = formAnimationService;
 			_stringResources = stringResources;
+			_manageFormController = manageFormController;
 			_editQuotesController = editQuotesController;
 			_settingsController = settingsController;
 			_favouriteQuotesController = favouriteQuotesController;
 			_themeService = themeService;
 			_logger = logger;
+			_options = options;
 			LocalizeControls();
 
 			//Bind ui to controllers and register controllers
@@ -56,11 +64,12 @@ namespace Quoter.App.Forms
 			BindFavouriteQuotesControls();
 			BindSettingsControls();
 
+			_manageFormController.RegisterForm(this);
 			_editQuotesController.RegisterForm(this);
 			_favouriteQuotesController.RegisterForm(this);
 			_settingsController.RegisterForm(this);
 
-			// Hide main navigation tabs
+			// Hide main navigation tabs (because we will use some buttons instead)
 			tabControl.Appearance = TabAppearance.FlatButtons;
 			tabControl.SizeMode = TabSizeMode.Fixed;
 			tabControl.ItemSize = new Size(0, 1);
@@ -76,6 +85,7 @@ namespace Quoter.App.Forms
 			SetStatus(string.Empty, Color.Black);
 
 			pnlQuotesOptions.Visible = false;
+
 		}
 
 		public void SetTheme()
@@ -162,11 +172,13 @@ namespace Quoter.App.Forms
 			btnShowWelcomeMsgNo.Text = _stringResources["No"];
 
 			lblNotificationLocation.Text = _stringResources["NotificationLocation"];
+			lblNotificationFont.Text = _stringResources["NotificationFont"];
+			btnNotificationFont.Text = _stringResources["Change"];
 
 		}
 
 		private void BindEditQuotesControls()
-		{ 
+		{
 			// Collections
 			BindingSource bindingSourceCollections = new();
 			bindingSourceCollections.DataSource = _editQuotesController.Collections;
@@ -227,18 +239,37 @@ namespace Quoter.App.Forms
 
 		private async void ManageQuotesForm_Load(object sender, EventArgs e)
 		{
-			SetSelectedTabHighlight(btnTabPage1);
+			await SetSelectedTab(_options.Tab);
 
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeIn);
+
+			await _manageFormController.EventFormLoaded();
 			await _editQuotesController.EventFormLoaded();
 			await _favouriteQuotesController.EventFormLoaded();
 			await _settingsController.EventFormLoaded();
+		}
+
+		private async void ManageForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			await _manageFormController.EventFormClosing();
+			await _editQuotesController.EventFormClosing();
+			await _favouriteQuotesController.EventFormClosing();
+			await _settingsController.EventFormClosing();
 		}
 
 		void IForm.SetStatus(string message, Color color)
 		{
 			SetStatus(message, color);
 		}
+
+		#region IManageForm
+
+		async Task IManageForm.SetSelectedTab(EnumTab tab)
+		{
+			await this.SetSelectedTab(tab);
+		}
+
+		#endregion IManageForm
 
 		#region ISettingsForm
 
@@ -248,14 +279,23 @@ namespace Quoter.App.Forms
 			{
 				btnLanguageEn.FlatAppearance.BorderColor = Color.Black;
 				btnLanguageRo.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageFr.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
 			}
 			else if (language == EnumLanguage.Romanian)
 			{
 				btnLanguageEn.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
 				btnLanguageRo.FlatAppearance.BorderColor = Color.Black;
+				btnLanguageFr.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+			}
+			else if (language == EnumLanguage.French)
+			{
+				btnLanguageEn.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageRo.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageFr.FlatAppearance.BorderColor = Color.Black;
 			}
 			btnLanguageEn.Invalidate();
 			btnLanguageRo.Invalidate();
+			btnLanguageFr.Invalidate();
 		}
 
 		void ISettingsForm.SetSelectedCollectionByLanguage(bool isShowByLanguage)
@@ -307,19 +347,19 @@ namespace Quoter.App.Forms
 
 		void ISettingsForm.SetNotificationsLocation(EnumAnimation notificationOpenAnimation)
 		{
-			switch(notificationOpenAnimation)
+			switch (notificationOpenAnimation)
 			{
 				case EnumAnimation.FadeInFromBottomLeft:
-					rbAnimTopLeft.Checked= true;
+					rbAnimTopLeft.Checked = true;
 					break;
 				case EnumAnimation.FadeInFromBottomRight:
-					rbAnimBottomRight.Checked= true;
+					rbAnimBottomRight.Checked = true;
 					break;
 				case EnumAnimation.FadeInFromTopRight:
-					rbAnimTopRight.Checked= true;
+					rbAnimTopRight.Checked = true;
 					break;
 				case EnumAnimation.FadeInFromTopLeft:
-					rbAnimTopLeft.Checked= true;
+					rbAnimTopLeft.Checked = true;
 					break;
 			}
 		}
@@ -346,7 +386,7 @@ namespace Quoter.App.Forms
 					clbCollections.SetItemChecked(index, IsFavourite(collection.IsFavourite));
 				}
 			}
-			if(_favouriteQuotesController.Collections.Any())
+			if (_favouriteQuotesController.Collections.Any())
 				clbCollections.SetItemChecked(0, IsAllCollectionsFavourites());
 
 			// Books
@@ -360,7 +400,7 @@ namespace Quoter.App.Forms
 				}
 
 			}
-			if(_favouriteQuotesController.Books.Any())
+			if (_favouriteQuotesController.Books.Any())
 				clbBooks.SetItemChecked(0, IsAllBooksFavourites());
 
 			// Chapters
@@ -374,7 +414,7 @@ namespace Quoter.App.Forms
 				}
 
 			}
-			if(_favouriteQuotesController.Chapters.Any())
+			if (_favouriteQuotesController.Chapters.Any())
 				clbChapters.SetItemChecked(0, IsAllChaptersFavourites());
 
 			_allowFavouritesIsCheckedEventHandlers = true;
@@ -488,7 +528,7 @@ namespace Quoter.App.Forms
 
 		#endregion IEditQuotesForm
 
-		#region Edit quotes tab
+		#region Events Edit quotes tab
 
 		private async void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -522,7 +562,7 @@ namespace Quoter.App.Forms
 
 		private async void lbChapters_SelectedValueChanged(object sender, EventArgs e)
 		{
-			
+
 			if (lbChapters.SelectedItem != null
 				&& lbChapters.SelectedItem as Chapter != _editQuotesController.SelectedChapter)
 			{
@@ -628,9 +668,9 @@ namespace Quoter.App.Forms
 
 		}
 
-		#endregion  Edit quotes tab
+		#endregion  Events Edit quotes tab
 
-		#region Settings tab
+		#region Events Settings tab
 
 		private void btnLanguageEn_Click(object sender, EventArgs e)
 		{
@@ -642,6 +682,10 @@ namespace Quoter.App.Forms
 			_settingsController.SetLanguage(EnumLanguage.Romanian);
 		}
 
+		private void btnLanguageFr_Click(object sender, EventArgs e)
+		{
+			_settingsController.SetLanguage(EnumLanguage.French);
+		}
 
 		private void txtQuotesInterval_KeyPress(object sender, KeyPressEventArgs e)
 		{
@@ -741,9 +785,9 @@ namespace Quoter.App.Forms
 			_settingsController.SetNotificationType(EnumNotificationType.AlwaysOn);
 		}
 
-		#endregion  Settings tab
+		#endregion Events  Settings tab
 
-		#region Favourites tab
+		#region Events  Favourites tab
 
 		private void clbCollections_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -821,45 +865,53 @@ namespace Quoter.App.Forms
 			_favouriteQuotesController.Import(chkImportMerge.Checked, chkImportIgnoreLanguage.Checked);
 		}
 
-		#endregion  Favourites tab
+		#endregion Events Favourites tab
 
 		private async void btnTabPage1_Click(object sender, EventArgs e)
 		{
-			if(tabControl.SelectedTab != tabPage1)
+			if (tabControl.SelectedTab != tabPage1)
 			{
-				tabControl.SelectTab(tabPage1);
-
-				SetSelectedTabHighlight(btnTabPage1);
-
-				await _editQuotesController.LoadCollections();
-				SetStatus("", Const.ColorDefault);
+				await SetSelectedTab(EnumTab.EditQuotes);
 			}
 		}
 
-		private void btnTabPage2_Click(object sender, EventArgs e)
+		private async void btnTabPage2_Click(object sender, EventArgs e)
 		{
 			if (tabControl.SelectedTab != tabPage2)
 			{
-				tabControl.SelectTab(tabPage2);
-
-				SetSelectedTabHighlight(btnTabPage2);
-
-				// Reload collections in case we added some new ones in tab 1
-				_favouriteQuotesController.LoadCollections();
-				SetStatus("", Const.ColorDefault);
+				await SetSelectedTab(EnumTab.FavouriteQuotes);
 			}
 		}
 
-		private void btnTabPage3_Click(object sender, EventArgs e)
+		private async void btnTabPage3_Click(object sender, EventArgs e)
 		{
 			if (tabControl.SelectedTab != tabPage3)
 			{
-				tabControl.SelectTab(tabPage3);
-
-				SetSelectedTabHighlight(btnTabPage3);
-
-				SetStatus("", Const.ColorDefault);
+				await SetSelectedTab(EnumTab.Settings);
 			}
+		}
+
+		private async Task SetSelectedTab(EnumTab tab)
+		{
+			switch (tab)
+			{
+				case EnumTab.EditQuotes:
+					SetSelectedTabHighlight(btnTabPage1);
+					await _editQuotesController.LoadCollections();
+					// Change tab after loading data to reduce flickering
+					tabControl.SelectTab(tabPage1);
+					break;
+				case EnumTab.FavouriteQuotes:
+					tabControl.SelectTab(tabPage2);
+					SetSelectedTabHighlight(btnTabPage2);
+					await _favouriteQuotesController.LoadCollections();
+					break;
+				case EnumTab.Settings:
+					tabControl.SelectTab(tabPage3);
+					SetSelectedTabHighlight(btnTabPage3);
+					break;
+			}
+			SetStatus("", Const.ColorDefault);
 		}
 
 		private void SetSelectedTabHighlight(Button button)
@@ -870,7 +922,6 @@ namespace Quoter.App.Forms
 
 		private void btnClose_Click(object sender, EventArgs e)
 		{
-			_editQuotesController.OnClose();
 			_formsManager.Close(this);
 		}
 
@@ -904,6 +955,18 @@ namespace Quoter.App.Forms
 		private void btnNotificationFont_Click(object sender, EventArgs e)
 		{
 			_settingsController.SelectNotificationFont();
+		}
+
+		private void chkWordWrap_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chkWordWrap.Checked)
+			{
+				rtbQuotes.WordWrap = true;
+			}
+			else
+			{
+				rtbQuotes.WordWrap = false;
+			}
 		}
 	}
 }

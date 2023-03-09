@@ -119,6 +119,8 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
+
+			System.Diagnostics.Debug.WriteLine($"EditQuotesFormController Context: {_context.InstanceID}");
 		}
 
 		public void RegisterForm(IEditQuotesForm editQuotesForm)
@@ -133,9 +135,10 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			await LoadCollections();
 		}
 
-		public void OnClose()
+		public Task EventFormClosing()
 		{
-
+			// Nothing to do
+			return Task.CompletedTask;
 		}
 
 		public async Task LoadCollections()
@@ -153,12 +156,10 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 			Quotes = string.Empty;
 
-			bool isShowCollectionsByLanguage = _settings.Get<bool>(Const.Setting.ShowCollectionsBasedOnLanguage);
-
 			List<Collection> lstCollections;
-			if (isShowCollectionsByLanguage)
+			if (_settings.ShowCollectionsBasedOnLanguage)
 			{
-				EnumLanguage language = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language));
+				EnumLanguage language = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
 				lstCollections = await _context.Collections
 					.Where(c => c.Language == language || c.Language == default).ToListAsync();
 			}
@@ -307,7 +308,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					Collection newCollection = new()
 					{
 						Name = result.StringResult,
-						Language = LanguageHelper.GetEnumLanguageFromString(_settings.Get<string>(Const.Setting.Language)),
+						Language = LanguageHelper.GetEnumLanguageFromString(_settings.Language),
 					};
 					_context.Collections.Add(newCollection);
 					await _context.SaveChangesAsync();

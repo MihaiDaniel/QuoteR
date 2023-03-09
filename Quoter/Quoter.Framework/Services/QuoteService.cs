@@ -1,19 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
+using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services
 {
 	public class QuoteService : IQuoteService
 	{
 		private readonly QuoterContext _context;
-		private Random _random;
+		private readonly Random _random;
 
 		public QuoteService(QuoterContext context)
 		{
@@ -21,7 +17,8 @@ namespace Quoter.Framework.Services
 			_random = new Random();
 		}
 
-		public async Task<QuoteFormOptions?> GetNextQuote(long quoteId)
+		/// <inheritdoc/>
+		public async Task<Quote?> GetNextQuote(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -37,18 +34,19 @@ namespace Quoter.Framework.Services
 				nextQuote = await query.FirstOrDefaultAsync();
 				if (nextQuote != null)
 				{
-					return GetQuoteModel(nextQuote);
+					return nextQuote;
 				}
 			}
 			else
 			{
-				return GetQuoteModel(nextQuote);
+				return nextQuote;
 			}
 			// Try to see if another chapter/book exists after the one of the current quote and get from there
 			return null;
 		}
 
-		public async Task<QuoteFormOptions?> GetPreviousQuote(long quoteId)
+		/// <inheritdoc/>
+		public async Task<Quote?> GetPreviousQuote(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -64,24 +62,30 @@ namespace Quoter.Framework.Services
 				previousQuote = await query.OrderBy(q => q.QuoteId).LastOrDefaultAsync();
 				if (previousQuote != null)
 				{
-					return GetQuoteModel(previousQuote);
+					return previousQuote;
 				}
 			}
 			else
 			{
-				return GetQuoteModel(previousQuote);
+				return previousQuote;
 			}
-			// Try to see if another chapter/book exists before the one of the current quote and get from there
 			return null;
 		}
 
-		public async Task<QuoteFormOptions?> GetRandomQuote()
+		/// <inheritdoc/>
+		public async Task<Quote?> GetRandomQuote(EnumLanguage language)
 		{
-			List<long> idQuotes = await _context.Quotes
+			IQueryable<Quote> queryableQuoteIds = _context.Quotes
 				.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
 							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
-							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true))
-				.Select(q => q.QuoteId).ToListAsync();
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
+
+			if(language != EnumLanguage.None)
+			{
+				queryableQuoteIds = queryableQuoteIds.Where(q => q.Collection.Language == language);
+			}
+
+			List<long> idQuotes = await queryableQuoteIds.Select(q => q.QuoteId).ToListAsync();
 
 			if (idQuotes is null || idQuotes.Count == 0)
 			{
@@ -91,12 +95,12 @@ namespace Quoter.Framework.Services
 			int quoteIndexToShow = _random.Next(idQuotes.Count);
 			long quoteIdToShow = idQuotes[quoteIndexToShow];
 
-			Quote quote = await _context.Quotes
+			Quote? quote = await _context.Quotes
 										.Include(q => q.Book)
 										.Include(q => q.Chapter)
 										.Include(q => q.Collection)
-										.FirstAsync(q => q.QuoteId == quoteIdToShow);
-			return GetQuoteModel(quote);
+										.FirstOrDefaultAsync(q => q.QuoteId == quoteIdToShow);
+			return quote;
 		}
 
 		private IQueryable<Quote> GetQuoteQueryableByBookAndChapter(Quote currentQuote)
@@ -148,35 +152,5 @@ namespace Quoter.Framework.Services
 			return quotes;
 		}
 
-		private QuoteFormOptions GetQuoteModel(Quote quote)
-		{
-			string title = "";
-			string footer = "";
-
-			if (quote.Book != null && quote.Chapter != null)
-			{
-				title = quote.Book.Name;
-				footer = quote.Chapter.Name + ":" + quote.QuoteIndex;
-			}
-			else if (quote.Book != null)
-			{
-				title = quote.Book.Name;
-			}
-			else
-			{
-				title = quote.Collection.Name;
-			}
-
-			return new QuoteFormOptions()
-			{
-				QuoteId = quote.QuoteId,
-				Title = title,
-				Footer = footer,
-				Body = quote.Content,
-				OpenAnimation = Framework.Enums.EnumAnimation.FadeInFromBottomRight,
-				CloseAnimation = Framework.Enums.EnumAnimation.FadeOut,
-				AllowNavigation = true
-			};
-		}
 	}
 }

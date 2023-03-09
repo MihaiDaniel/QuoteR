@@ -5,21 +5,21 @@
 	/// </summary>
 	public class MessagingService : IMessagingService
 	{
-		private readonly List<IMessageSubscriber> _lstSubscribers;
+		private readonly List<IMessagingSubscriber> _lstSubscribers;
 
 		public MessagingService()
 		{
-			_lstSubscribers = new List<IMessageSubscriber>();
+			_lstSubscribers = new List<IMessagingSubscriber>();
 		}
 
 		/// <inheritdoc/>
-		public void SendMessage(string message, object? argument = null)
+		public void SendMessage(string message, object? argument)
 		{
 			// lst of subscribers might be modified by OnMessageEvent, so create a list of
 			// actions instead and invoke them all
 			List<Action> lstAction = new();
 
-			foreach(IMessageSubscriber subscriber in _lstSubscribers)
+			foreach(IMessagingSubscriber subscriber in _lstSubscribers)
 			{
 				lstAction.Add(() => { subscriber.OnMessageEvent(message, argument); });
 				//subscriber.OnMessageEvent(message, argument);
@@ -28,12 +28,12 @@
 		}
 
 		/// <inheritdoc/>
-		public void Subscribe(IMessageSubscriber subscriber)
+		public void Subscribe(IMessagingSubscriber subscriber)
 		{
 			// Check for type to not have memory leaks. A better approach would be 
 			// to implement an ubsubscribe method
 			// Todo remove commented code and above 
-			IMessageSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s == subscriber);
+			IMessagingSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s == subscriber);
 			if(existingSubscriber == null)
 			{
 				_lstSubscribers.Add(subscriber);
@@ -46,7 +46,7 @@
 		}
 
 		/// <inheritdoc/>
-		public void Unsubscribe(IMessageSubscriber subscriber)
+		public void Unsubscribe(IMessagingSubscriber subscriber)
 		{
 			if(_lstSubscribers.Contains(subscriber))
 			{

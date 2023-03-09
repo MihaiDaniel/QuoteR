@@ -1,28 +1,37 @@
 ﻿using Quoter.App.Forms;
 using Quoter.App.Helpers;
+using Quoter.App.Services;
 using Quoter.App.Services.Forms;
+using Quoter.Framework.Entities;
+using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 
 namespace Quoter.App.FormsControllers
 {
-	public class QuoteFormController : IQuoteFormController, IMessageSubscriber
+	public class QuoteFormController : IQuoteFormController, IMessagingSubscriber
 	{
 		private readonly IQuoteService _quoteService;
 		private readonly IMessagingService _messagingService;
 		private readonly IThemeService _themeService;
+		private readonly ISettings _settings;
+		private readonly IStringResources _stringResources;
 		private IQuoteForm _form;
 
 		private QuoteFormOptions? _quoteModel;
 
 		public QuoteFormController(IQuoteService quoteService, 
 									IMessagingService messagingService,
-									IThemeService themeService)
+									IThemeService themeService,
+									ISettings settings,
+									IStringResources stringResources)
 		{
 			_quoteService = quoteService;
 			_messagingService = messagingService;
 			_themeService = themeService;
+			_settings = settings;
+			_stringResources = stringResources;
 		}
 
 		public void RegisterForm(IQuoteForm quoteForm)
@@ -47,6 +56,12 @@ namespace Quoter.App.FormsControllers
 			{
 				await GetRandomQuote();
 			}
+		}
+
+		public Task EventFormClosing()
+		{
+			// Nothing to do
+			return Task.CompletedTask;
 		}
 
 		public async void OnMessageEvent(string message, object? argument)
@@ -75,9 +90,25 @@ namespace Quoter.App.FormsControllers
 
 		public async Task GetRandomQuote()
 		{
-			_quoteModel = await _quoteService.GetRandomQuote();
-			if (_quoteModel != null)
+			EnumLanguage language = EnumLanguage.None;
+			if (_settings.ShowCollectionsBasedOnLanguage)
 			{
+				language = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
+			}
+			Quote? quote = await _quoteService.GetRandomQuote(language);
+			if (quote != null)
+			{
+				_quoteModel = GetQuoteModel(quote);
+				_form.SetQuote(_quoteModel);
+			}
+			else
+			{
+				_quoteModel = new QuoteFormOptions()
+				{
+					Title = "",
+					Body = _stringResources["NoQuotes"],
+					Footer = ""
+				};
 				_form.SetQuote(_quoteModel);
 			}
 		}
@@ -86,10 +117,10 @@ namespace Quoter.App.FormsControllers
 		{
 			if(_quoteModel != null)
 			{
-				QuoteFormOptions? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
+				Quote? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
 				if (nextQuote != null)
 				{
-					_quoteModel= nextQuote;
+					_quoteModel = GetQuoteModel(nextQuote);
 					_form.SetQuote(_quoteModel);
 				}
 			}
@@ -100,13 +131,44 @@ namespace Quoter.App.FormsControllers
 		{
 			if (_quoteModel != null)
 			{
-				QuoteFormOptions? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
+				Quote? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
 				if (previousQuote != null)
 				{
-					_quoteModel = previousQuote;
+					_quoteModel = GetQuoteModel(previousQuote);
 					_form.SetQuote(_quoteModel);
 				}
 			}
+		}
+
+		private QuoteFormOptions GetQuoteModel(Quote quote)
+		{
+			string title;
+			string footer = "";
+
+			if (quote.Book != null && quote.Chapter != null)
+			{
+				title = quote.Book.Name;
+				footer = quote.Chapter.Name + ":" + quote.QuoteIndex;
+			}
+			else if (quote.Book != null)
+			{
+				title = quote.Book.Name;
+			}
+			else
+			{
+				title = quote.Collection.Name;
+			}
+
+			return new QuoteFormOptions()
+			{
+				QuoteId = quote.QuoteId,
+				Title = title,
+				Footer = footer,
+				Body = quote.Content,
+				OpenAnimation = Framework.Enums.EnumAnimation.FadeInFromBottomRight,
+				CloseAnimation = Framework.Enums.EnumAnimation.FadeOut,
+				AllowNavigation = true
+			};
 		}
 	}
 }

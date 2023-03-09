@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quoter.App.FormsControllers
+﻿namespace Quoter.App.FormsControllers
 {
 	public interface IFormController<in IForm>
 	{
@@ -15,6 +9,14 @@ namespace Quoter.App.FormsControllers
 		/// </summary>
 		void RegisterForm(IForm form);
 
+		/// <summary>
+		/// Event that should fire when the form is loaded
+		/// </summary>
 		Task EventFormLoaded();
+
+		/// <summary>
+		/// Event that should fire when the form's Close() method is called
+		/// </summary>
+		Task EventFormClosing();
 	}
 }

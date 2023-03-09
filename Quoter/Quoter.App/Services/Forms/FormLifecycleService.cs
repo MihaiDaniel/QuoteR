@@ -50,7 +50,7 @@ namespace Quoter.App.Services.Forms
 
 		private void ElapsedTimerEventCloseDelayed(MonitoredForm monitoredForm)
 		{
-			EnumFormCloseState state = monitoredForm.Form.CanClose();
+			EnumFormCloseState state = monitoredForm.Form.IsClosable();
 			if (state == EnumFormCloseState.IsClosable)			// Can close
 			{
 				monitoredForm.Timer.Stop();

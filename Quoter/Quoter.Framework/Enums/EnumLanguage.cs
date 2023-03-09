@@ -8,7 +8,9 @@ namespace Quoter.Framework.Enums
 {
 	public enum EnumLanguage
 	{
+		None = 0,
 		English = 1,
-		Romanian = 2
+		Romanian = 2,
+		French = 3
 	}
 }
