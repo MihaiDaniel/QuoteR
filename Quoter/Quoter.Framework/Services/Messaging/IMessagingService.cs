@@ -23,5 +23,31 @@
 		/// </summary>
 		/// <param name="subscriber">The subscriber</param>
 		void Unsubscribe(IMessagingSubscriber subscriber);
+
+		/// <summary>
+		/// Post an announcement. This will send a message to all subscribers and also maintain the message so
+		/// that any other service can access it. Returns an object that allows the sender to remove the posted 
+		/// message.
+		/// </summary>
+		/// <typeparam name="T">Type of value of the message</typeparam>
+		/// <param name="message">Message posted</param>
+		/// <param name="value">Value of the message</param>
+		/// <returns>PostedAnnouncement object allowing the sender to remove the posted announcement</returns>
+		PostedAnnouncement PostAnnouncement<T>(string message, T value);
+
+		/// <summary>
+		/// Tries to find a particular announcement posted by another service using the <paramref name="message"/>.
+		/// Returns null if not found.
+		/// </summary>
+		/// <typeparam name="T">Type of the Value of the annoucement</typeparam>
+		/// <param name="message">Message by which to identify the announcement</param>
+		/// <returns>Null if no annoncement found, or an Announcement containing a value</returns>
+		Announcement<T>? FindAnnouncement<T>(string message);
+
+		/// <summary>
+		/// Tries to find a particular announcement posted by another service using the <paramref name="message"/>.
+		/// Returns True if such announcement exist, False otherwise.
+		/// </summary>
+		bool ExistsAnnouncement(string message);
 	}
 }

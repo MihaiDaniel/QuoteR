@@ -44,5 +44,9 @@
 		/// Event that signals when a form is opening
 		/// </summary>
 		public const string OpeningForm = "OpeningForm";
+
+		public const string ImportInProgress = "ImportStarted";
+
+		public const string ExportInProgress = "ExportInProgress";
 	}
 }

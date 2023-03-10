@@ -1,5 +1,5 @@
 ﻿using Quoter.App.Forms;
-using Quoter.App.FormsControllers;
+using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
 using Quoter.App.Services;
@@ -10,7 +10,7 @@ using Quoter.Framework.Models;
 
 namespace Quoter.App.Views
 {
-	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
+    public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
 		//private const int BodyMaxChars = 310; // at 10 font size
@@ -104,7 +104,7 @@ namespace Quoter.App.Views
 				SetControlText(lblTitle, quoteModel.Title, TitleMaxChars);
 				SetControlText(txtFooter, quoteModel.Footer, FooterMaxChars);
 
-				// Adjust the font size a little bit depending on the amount of text
+				// Adjust the font size a little bit depending on the amount of text/
 				txtBody.Text = quoteModel.Body;
 				float fontSize = GetOptimalFontSize(_settings.FontName, _settings.FontSize);
 				txtBody.Font = new Font(_settings.FontName, fontSize, FontHelper.GetFontStyle(_settings.FontStyle));
@@ -121,20 +121,25 @@ namespace Quoter.App.Views
 				}
 			});
 		}
-
+		
+		/// <summary>
+		/// Adjusts the fontSize for a particular font so that the text can be fully displayed in the txtBody.
+		/// The minimum fontSize returned is 10.
+		/// </summary>
 		private float GetOptimalFontSize(string fontName, float fontSize)
 		{
-			SizeF size = TextRenderer.MeasureText(txtBody.Text, new Font(fontName, fontSize));
-
 			int controllerWidth = txtBody.Width;
 			int controllerHeight = txtBody.Height;
+			SizeF size = TextRenderer.MeasureText(txtBody.Text, new Font(fontName, fontSize), new Size(controllerWidth, controllerHeight), TextFormatFlags.WordBreak);
+
 			int lines = (int)Math.Round(size.Width / controllerWidth, 0, MidpointRounding.ToPositiveInfinity);
 			int textHeightUsed = (int)(lines * size.Height);
 			if (textHeightUsed > controllerHeight)
 			{
-				if (fontSize <= 8f)
+				if (fontSize <= 10f)
 				{
-					return 8;
+					txtBody.ScrollBars = ScrollBars.Vertical; // Enable scrollbars
+					return 10; // Aprox 320 chars depending on font and word size
 				}
 				else
 				{

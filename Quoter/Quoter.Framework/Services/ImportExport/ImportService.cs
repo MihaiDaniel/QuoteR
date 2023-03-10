@@ -2,12 +2,13 @@
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models;
+using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
 {
-	public class ImportService : IImportService
+    public class ImportService : IImportService
 	{
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;
@@ -15,7 +16,7 @@ namespace Quoter.Framework.Services.ImportExport
 		private readonly ILogger _logger;
 
 		private bool _isImportInProgress;
-		private bool IsImportInProgress
+		public bool IsImportInProgress
 		{
 			get
 			{
@@ -24,7 +25,7 @@ namespace Quoter.Framework.Services.ImportExport
 					return _isImportInProgress;
 				}
 			}
-			set
+			private set
 			{
 				lock (_lock)
 				{
@@ -40,20 +41,41 @@ namespace Quoter.Framework.Services.ImportExport
 			_logger = logger;
 		}
 
+		/// <inheritdoc/>
 		public void QueueImportJob(ImportParameters importParameters)
 		{
 			Task.Run(async () =>
 			{
-				while (IsImportInProgress)
+				bool canStart = await WaitForCurrentJobToFinish();
+				if (canStart)
 				{
-					await Task.Delay(1000);
+					await BeginImport(importParameters);
 				}
-				await BeginImport(importParameters);
 			}).ConfigureAwait(false);
+		}
+
+		private async Task<bool> WaitForCurrentJobToFinish()
+		{
+			// We want to have a single import job at any one time
+			// so we wait before starting another one
+			DateTime startTime = DateTime.Now;
+			while (IsImportInProgress)
+			{
+				if (DateTime.Now > startTime.AddHours(1))
+				{
+					// Something might be off, so reset the bool
+					// and reject the pending job
+					IsImportInProgress= false;
+					return false;
+				}
+				await Task.Delay(3000);
+			}
+			return true;
 		}
 
 		private async Task BeginImport(ImportParameters importParameters)
 		{
+			PostedAnnouncement announcement = _messagingService.PostAnnouncement(Event.ImportInProgress, "");
 			try
 			{
 				IsImportInProgress = true;
@@ -62,11 +84,13 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					importedCollections += await ImportFile(file, importParameters);
 				}
+				announcement.Remove();
 				_messagingService.SendMessage(Event.ImportSuccesfull, importedCollections);
 			}
 			catch (Exception ex)
 			{
 				_logger.Error(ex);
+				announcement.Remove();
 				_messagingService.SendMessage(Event.ImportFailed, ex.Message);
 			}
 			finally
@@ -88,7 +112,7 @@ namespace Quoter.Framework.Services.ImportExport
 			foreach (CollectionExportModel collectionModel in importModel.Collections)
 			{
 				await ImportCollection(collectionModel, importModel, importParameters);
-				importedCollections += collectionModel.Name + "; ";
+				importedCollections += collectionModel.Name + "; " + Environment.NewLine;
 			}
 			foreach (BookExportModel bookExportModel in importModel.Books)
 			{
@@ -135,17 +159,21 @@ namespace Quoter.Framework.Services.ImportExport
 		}
 
 		/// <summary>
-		/// In case we import without merging collections with similar names, we might end up with collections with the same name.
+		/// In case we import (without merging) collections with similar names, we might end up with collections with the same name.
 		/// So we check for any existing collections with the same name as the imported one and if exists we append a number to
-		/// the collection name
+		/// the collection name to rename it
 		/// </summary>
+		/// <remarks>
+		/// Books or chapters with similar names don't bother us since they will be in separate collections, or if
+		/// they are merged and have similar names they will be just disregarded
+		/// </remarks>
 		private async Task CheckForCollectionNamingConflicts(CollectionExportModel collectionModel, int iteration)
 		{
-			if (iteration > 99)		// Odd situation but, just to be safe
+			if (iteration > 99)     // Odd situation, but just to be safe append a guid instead
 			{
 				collectionModel.Name = collectionModel.Name + " - " + Guid.NewGuid().ToString();
 			}
-			else if (iteration > 0)	// For subsequent iteration we add an incremented number to the name
+			else if (iteration > 0) // For subsequent iteration we add an incremented number to the name
 			{
 				string nameToCheck = $"{collectionModel.Name} ({iteration})";
 				bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == nameToCheck);
@@ -159,7 +187,7 @@ namespace Quoter.Framework.Services.ImportExport
 					collectionModel.Name = $"{collectionModel.Name} ({iteration})";
 				}
 			}
-			else					// For first iteration we just check the name as it is
+			else                    // For first iteration we just check the name as it is
 			{
 				bool isNameConflict = await _context.Collections.AnyAsync(c => c.Name == collectionModel.Name);
 				if (isNameConflict)
@@ -184,6 +212,10 @@ namespace Quoter.Framework.Services.ImportExport
 			return addedCollection;
 		}
 
+		/// <summary>
+		/// After adding a collection to the database it's CollectionId most likely has changed, so we must update all other
+		/// object's references to the Collection
+		/// </summary>
 		private void UpdateImportDataReferencesToCollection(ExportModel importModel, int currentCollectionId, int newCollectionId)
 		{
 			importModel.Books.Where(b => b.CollectionId == currentCollectionId).ToList()
@@ -230,6 +262,10 @@ namespace Quoter.Framework.Services.ImportExport
 			return addedBook;
 		}
 
+		/// <summary>
+		/// After adding a book to the database it's BookId most likely has changed, so we must update all other
+		/// object's references to the Book
+		/// </summary>
 		private void UpdateImportDataReferencesToBook(ExportModel importModel, int currentBookId, int newBookId)
 		{
 			importModel.Chapters.Where(c => c.BookId == currentBookId).ToList()
@@ -276,6 +312,10 @@ namespace Quoter.Framework.Services.ImportExport
 			return addedChapter;
 		}
 
+		/// <summary>
+		/// After adding a chapter to the database it's ChapterId most likely has changed, so we must update all other
+		/// object's (quotes) references to the chapter
+		/// </summary>
 		private void UpdateImportDataReferencesToChapter(ExportModel importModel, int currentChapterId, int newChapterId)
 		{
 			importModel.Quotes.Where(q => q.ChapterId == currentChapterId).ToList()

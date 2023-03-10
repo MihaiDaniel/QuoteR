@@ -3,6 +3,7 @@ using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
@@ -11,6 +12,8 @@ using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Quoter.App.Forms
 {
@@ -85,7 +88,6 @@ namespace Quoter.App.Forms
 			SetStatus(string.Empty, Color.Black);
 
 			pnlQuotesOptions.Visible = false;
-
 		}
 
 		public void SetTheme()
@@ -239,14 +241,11 @@ namespace Quoter.App.Forms
 
 		private async void ManageQuotesForm_Load(object sender, EventArgs e)
 		{
-			await SetSelectedTab(_options.Tab);
+			SetBackgroundTask(false, "");
 
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeIn);
-
+			await SetSelectedTab(_options.Tab, false);
 			await _manageFormController.EventFormLoaded();
-			await _editQuotesController.EventFormLoaded();
-			await _favouriteQuotesController.EventFormLoaded();
-			await _settingsController.EventFormLoaded();
 		}
 
 		private async void ManageForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -267,6 +266,11 @@ namespace Quoter.App.Forms
 		async Task IManageForm.SetSelectedTab(EnumTab tab)
 		{
 			await this.SetSelectedTab(tab);
+		}
+
+		void IManageForm.SetBackgroundTask(bool inProgress, string message)
+		{
+			SetBackgroundTask(inProgress, message);
 		}
 
 		#endregion IManageForm
@@ -668,6 +672,11 @@ namespace Quoter.App.Forms
 
 		}
 
+		private async void btnReloadEditCollections_Click(object sender, EventArgs e)
+		{
+			await _editQuotesController.LoadCollections();
+		}
+
 		#endregion  Events Edit quotes tab
 
 		#region Events Settings tab
@@ -690,20 +699,34 @@ namespace Quoter.App.Forms
 		private void txtQuotesInterval_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (!char.IsControl(e.KeyChar)
-				&& !char.IsDigit(e.KeyChar)
-				&& (e.KeyChar != '.'))
+				&& !char.IsDigit(e.KeyChar))
 			{
 				e.Handled = true;
+			}
+		}
+
+		private void txtQuotesInterval_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				this.tabPage3.Focus();
 			}
 		}
 
 		private void txtQuotesAutoCloseInterval_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			if (!char.IsControl(e.KeyChar)
-				&& !char.IsDigit(e.KeyChar)
-				&& (e.KeyChar != '.'))
+				&& !char.IsDigit(e.KeyChar))
 			{
 				e.Handled = true;
+			}
+		}
+
+		private void txtQuotesAutoCloseInterval_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				this.tabPage3.Focus();
 			}
 		}
 
@@ -783,6 +806,31 @@ namespace Quoter.App.Forms
 			btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Black;
 			btnPopupNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
 			_settingsController.SetNotificationType(EnumNotificationType.AlwaysOn);
+		}
+
+		private void rbAnimTopLeft_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopLeft);
+		}
+
+		private void rbAnimTopRight_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopRight);
+		}
+
+		private void rbAnimBottomLeft_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomLeft);
+		}
+
+		private void rbAnimBottomRight_CheckedChanged(object sender, EventArgs e)
+		{
+			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomRight);
+		}
+
+		private void btnNotificationFont_Click(object sender, EventArgs e)
+		{
+			_settingsController.SelectNotificationFont();
 		}
 
 		#endregion Events  Settings tab
@@ -865,6 +913,11 @@ namespace Quoter.App.Forms
 			_favouriteQuotesController.Import(chkImportMerge.Checked, chkImportIgnoreLanguage.Checked);
 		}
 
+		private async void btnRefreshFavouriteCollections_Click(object sender, EventArgs e)
+		{
+			await _favouriteQuotesController.LoadCollections();
+		}
+
 		#endregion Events Favourites tab
 
 		private async void btnTabPage1_Click(object sender, EventArgs e)
@@ -891,24 +944,35 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		private async Task SetSelectedTab(EnumTab tab)
+		private async Task SetSelectedTab(EnumTab tab, bool doEvents = true)
 		{
 			switch (tab)
 			{
 				case EnumTab.EditQuotes:
 					SetSelectedTabHighlight(btnTabPage1);
-					await _editQuotesController.LoadCollections();
-					// Change tab after loading data to reduce flickering
 					tabControl.SelectTab(tabPage1);
+					// Load the actual panel before starting to load data, to reduce bad flickering
+					if (doEvents)
+					{
+						Application.DoEvents();
+					}
+
+					await _editQuotesController.EventFormLoaded();
 					break;
 				case EnumTab.FavouriteQuotes:
 					tabControl.SelectTab(tabPage2);
+					// Load the actual panel before starting to load data, to reduce bad flickering
+					if (doEvents)
+					{
+						Application.DoEvents();
+					}
 					SetSelectedTabHighlight(btnTabPage2);
-					await _favouriteQuotesController.LoadCollections();
+					await _favouriteQuotesController.EventFormLoaded();
 					break;
 				case EnumTab.Settings:
 					tabControl.SelectTab(tabPage3);
 					SetSelectedTabHighlight(btnTabPage3);
+					await _settingsController.EventFormLoaded();
 					break;
 			}
 			SetStatus("", Const.ColorDefault);
@@ -932,31 +996,6 @@ namespace Quoter.App.Forms
 			txtStatus.ForeColor = color;
 		}
 
-		private void rbAnimTopLeft_CheckedChanged(object sender, EventArgs e)
-		{
-			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopLeft);
-		}
-
-		private void rbAnimTopRight_CheckedChanged(object sender, EventArgs e)
-		{
-			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromTopRight);
-		}
-
-		private void rbAnimBottomLeft_CheckedChanged(object sender, EventArgs e)
-		{
-			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomLeft);
-		}
-
-		private void rbAnimBottomRight_CheckedChanged(object sender, EventArgs e)
-		{
-			_settingsController.SetNotificationAnimation(EnumAnimation.FadeInFromBottomRight);
-		}
-
-		private void btnNotificationFont_Click(object sender, EventArgs e)
-		{
-			_settingsController.SelectNotificationFont();
-		}
-
 		private void chkWordWrap_CheckedChanged(object sender, EventArgs e)
 		{
 			if (chkWordWrap.Checked)
@@ -968,5 +1007,25 @@ namespace Quoter.App.Forms
 				rtbQuotes.WordWrap = false;
 			}
 		}
+
+		private void SetBackgroundTask(bool inProgress, string message)
+		{
+			this.InvokeIfRequired(() =>
+			{
+				if (inProgress)
+				{
+					lblBackgroundTask.Text = message;
+					pbBackgroundTask.Visible = true;
+					pbBackgroundTask.Enabled = true;
+				}
+				else
+				{
+					lblBackgroundTask.Text = "";
+					pbBackgroundTask.Visible = false;
+					pbBackgroundTask.Enabled = false;
+				}
+			});
+		}
+
 	}
 }

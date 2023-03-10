@@ -459,4 +459,13 @@
   <data name="Favourites" xml:space="preserve">
     <value>Favourite collections</value>
   </data>
+  <data name="ImportingInProgress" xml:space="preserve">
+    <value>Importing in progress</value>
+  </data>
+  <data name="ExportingInProgress" xml:space="preserve">
+    <value>Export in progress</value>
+  </data>
+  <data name="WorkInBackground" xml:space="preserve">
+    <value>Background work...</value>
+  </data>
 </root>

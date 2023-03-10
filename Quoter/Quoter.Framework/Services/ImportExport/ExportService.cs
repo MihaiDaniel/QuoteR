@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Models;
+using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using System.Reflection;
 using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
 {
-	/// <summary>
-	/// <see cref="IExportService"/> implementation
-	/// </summary>
-	public class ExportService : IExportService
+    /// <summary>
+    /// <see cref="IExportService"/> implementation
+    /// </summary>
+    public class ExportService : IExportService
 	{
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;
@@ -56,6 +57,7 @@ namespace Quoter.Framework.Services.ImportExport
 
 		private async Task BeginExport(bool isExportOnlyFavourites, string filePath)
 		{
+			PostedAnnouncement announcement = _messagingService.PostAnnouncement<string>(Event.ExportInProgress, "");
 			try
 			{
 				IsExportInProgress = true;
@@ -79,10 +81,12 @@ namespace Quoter.Framework.Services.ImportExport
 				string content = JsonSerializer.Serialize(exportModel);
 				await File.WriteAllTextAsync(filePath, content);
 
+				announcement.Remove();
 				_messagingService.SendMessage(Event.ExportSucessfull, filePath);
 			}
 			catch (Exception ex)
 			{
+				announcement.Remove();
 				_messagingService.SendMessage(Event.ExportFailed, ex.Message);
 			}
 			finally
@@ -96,6 +100,7 @@ namespace Quoter.Framework.Services.ImportExport
 			ExportModel export = new ExportModel()
 			{
 				Id = Guid.NewGuid(),
+				Version = Assembly.GetEntryAssembly().GetName().Version.ToString(),
 				Collections = new List<CollectionExportModel>(),
 				Books = new List<BookExportModel>(),
 				Chapters = new List<ChapterExportModel>(),

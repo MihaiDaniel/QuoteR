@@ -44,7 +44,7 @@ namespace Quoter.App
 				Text = _stringResources["Quoter"],
 				Visible = true
 			};
-
+			SetContextMenuStripIsWorkInBackground(false);
 			ShowWelcomeMessage();
 		}
 
@@ -93,7 +93,7 @@ namespace Quoter.App
 		{
 			int miliseconds = _settings.NotificationIntervalSeconds * 1000;
 			_timerShowNotifications = new(miliseconds);
-			_timerShowNotifications.Elapsed += async (sender, e) => await ElapsedTimerEventShowNotifications();
+			_timerShowNotifications.Elapsed += (sender, e) => ElapsedTimerEventShowNotifications();
 			_timerShowNotifications.Start();
 		}
 
@@ -116,7 +116,7 @@ namespace Quoter.App
 					}
 					if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 					{
-						await ShowQuoteNotification();
+						ShowQuoteNotification();
 					}
 				}).ConfigureAwait(false);
 			}
@@ -131,7 +131,8 @@ namespace Quoter.App
 			if (message == Event.LanguageChanged)
 			{
 				// Reset the context strip with the new language
-				_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
+				//_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
+				SetContextMenuStripTranslationsThreadSafe();
 			}
 			if (message == Event.NotificationIntervalChanged)
 			{
@@ -141,51 +142,57 @@ namespace Quoter.App
 				_timerShowNotifications.Interval = miliseconds;
 				_timerShowNotifications.Start();
 			}
+			if (message == Event.ImportInProgress || message == Event.ExportInProgress)
+			{
+				SetContextMenuStripIsWorkInBackground(true);
+			}
 			if (message == Event.ExportSucessfull)
 			{
-				DialogModel dialogModel = new DialogModel()
+				if (!_messagingService.ExistsAnnouncement(Event.ImportInProgress))
 				{
-					Title = _stringResources["ExportSuccessfull"],
-					Message = _stringResources["ExportSuccesfullMsg", argument?.ToString()],
-					MessageBoxButtons = EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					SetContextMenuStripIsWorkInBackground(false);
+				}
+				ShowDialog(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()], false);
 			}
 			if (message == Event.ExportFailed)
 			{
-				DialogModel dialogModel = new DialogModel()
+				if (!_messagingService.ExistsAnnouncement(Event.ImportInProgress))
 				{
-					Title = _stringResources["ExportFailed"],
-					TitleColor = Color.Red,
-					Message = _stringResources["ExportFailedMsg", argument?.ToString()],
-					MessageBoxButtons = EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					SetContextMenuStripIsWorkInBackground(false);
+				}
+				ShowDialog(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()], true);
 			}
 			if (message == Event.ImportSuccesfull)
 			{
-				DialogModel dialogModel = new DialogModel()
+				if (!_messagingService.ExistsAnnouncement(Event.ExportInProgress))
 				{
-					Title = _stringResources["ImportSuccessfull"],
-					Message = _stringResources["ImportSuccessfullMsg", argument?.ToString()],
-					MessageBoxButtons = EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					SetContextMenuStripIsWorkInBackground(false);
+				}
+				ShowDialog(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()], false);
 			}
 			if (message == Event.ImportFailed)
 			{
-				DialogModel dialogModel = new DialogModel()
+				if (!_messagingService.ExistsAnnouncement(Event.ExportInProgress))
 				{
-					Title = _stringResources["ImportFailed"],
-					TitleColor = Color.Red,
-					Message = _stringResources["ImportFailedMsg", argument?.ToString()],
-					MessageBoxButtons = EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					SetContextMenuStripIsWorkInBackground(false);
+				}
+				ShowDialog(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()], true);
 			}
 		}
 
-		private async Task ElapsedTimerEventShowNotifications()
+		private void ShowDialog(string title, string message, bool isError)
+		{
+			DialogModel dialogModel = new DialogModel()
+			{
+				Title = title,
+				TitleColor = isError ? Const.ColorError : Const.ColorDefault,
+				Message = message,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+		}
+
+		private void ElapsedTimerEventShowNotifications()
 		{
 			try
 			{
@@ -205,7 +212,7 @@ namespace Quoter.App
 
 				if (_settings.NotificationType == EnumNotificationType.Popup)
 				{
-					await ShowQuoteNotification();
+					ShowQuoteNotification();
 				}
 				else
 				{
@@ -218,7 +225,7 @@ namespace Quoter.App
 			}
 		}
 
-		private async Task ShowQuoteNotification()
+		private void ShowQuoteNotification()
 		{
 			if (_settings.NotificationType == EnumNotificationType.Popup)
 			{
@@ -244,55 +251,63 @@ namespace Quoter.App
 			}
 		}
 
-		void PauseOrResumeEventHandler(object? sender, EventArgs e)
+		private void PauseOrResumeEventHandler(object? sender, EventArgs e)
 		{
 			_settings.IsPaused = !_settings.IsPaused;
-			_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
+			SetContextMenuStripIsPaused();
 		}
 
-		void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
+		private void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
 		{
 			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.EditQuotes });
 		}
-		void EventHandlerOpenFavourties(object? sender, EventArgs e)
+		private void EventHandlerOpenFavourties(object? sender, EventArgs e)
 		{
 			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.FavouriteQuotes });
 		}
 
-		void EventHandlerOpenSettings(object? sender, EventArgs e)
+		private void EventHandlerOpenSettings(object? sender, EventArgs e)
 		{
 			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
 		}
 
-		void ShowQuoteEventHandler(object? sender, EventArgs e)
+		private void ShowQuoteEventHandler(object? sender, EventArgs e)
 		{
 			try
 			{
-				Task.Run(async () => { await ShowQuoteNotification(); });
+				ShowQuoteNotification();
 			}
 			catch (Exception ex)
 			{
 				_logger.Error(ex);
 			}
-
 		}
 
-		void ExitEventHandler(object? sender, EventArgs e)
+		private void ExitEventHandler(object? sender, EventArgs e)
 		{
 			// Hide tray icon, otherwise it will remain shown until user mouses over it
 			_trayIcon.Visible = false;
 			Application.Exit();
 		}
 
-		private ContextMenuStrip GetContextMenuStrip(bool isPaused = false)
+		private ContextMenuStrip GetContextMenuStrip()
 		{
-			string pauseResumeText = isPaused ? _stringResources["Resume"] : _stringResources["Pause"];
-			Bitmap pauseResumeImage = isPaused ? Resources.Resources.play_32 : Resources.Resources.pause_32;
+			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
+			Bitmap pauseResumeImage = _settings.IsPaused ? Resources.Resources.play_32 : Resources.Resources.pause_32;
 			ContextMenuStrip contextMenuStrip = new ContextMenuStrip()
 			{
+
 				Items =
 				{
 					new ToolStripLabel(_stringResources["Quoter"]),
+					new ToolStripLabel(_stringResources["WorkInBackground"], Resources.Resources.loading_transparent_128)
+					{
+						TextImageRelation = TextImageRelation.TextBeforeImage,
+						ImageAlign = ContentAlignment.MiddleRight,
+						//Available = false
+					},
+
+					new ToolStripSeparator(),
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
 					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_32, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
 					new ToolStripSeparator(),
@@ -306,5 +321,58 @@ namespace Quoter.App
 			return contextMenuStrip;
 		}
 
+		private void SetContextMenuStripIsPaused()
+		{
+			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
+			Bitmap pauseResumeImage = _settings.IsPaused ? Resources.Resources.play_32 : Resources.Resources.pause_32;
+
+			_trayIcon.ContextMenuStrip.Items[3].Text = pauseResumeText;
+			_trayIcon.ContextMenuStrip.Items[3].Image = pauseResumeImage;
+		}
+
+		private void SetContextMenuStripIsWorkInBackground(bool isWorkInBackground)
+		{
+			if (_trayIcon.ContextMenuStrip.InvokeRequired)
+			{
+				_trayIcon.ContextMenuStrip.BeginInvoke(() =>
+				{
+					_trayIcon.ContextMenuStrip.Items[1].Available = isWorkInBackground;
+				});
+			}
+			else
+			{
+				_trayIcon.ContextMenuStrip.Items[1].Available = isWorkInBackground;
+			}
+		}
+
+		private void SetContextMenuStripTranslationsThreadSafe()
+		{
+			if (_trayIcon.ContextMenuStrip.InvokeRequired)
+			{
+				_trayIcon.ContextMenuStrip.BeginInvoke(() =>
+				{
+					SetContextMenuStripTranslations();
+				});
+			}
+			else
+			{
+				SetContextMenuStripTranslations();
+			}
+		}
+
+		private void SetContextMenuStripTranslations()
+		{
+			_trayIcon.ContextMenuStrip.Items[0].Text = _stringResources["Quoter"];
+			_trayIcon.ContextMenuStrip.Items[1].Text = _stringResources["WorkInBackground"];
+			// separator
+			SetContextMenuStripIsPaused();
+			_trayIcon.ContextMenuStrip.Items[4].Text = _stringResources["ShowAQuote"];
+			// separator
+			_trayIcon.ContextMenuStrip.Items[6].Text = _stringResources["Edit"];
+			_trayIcon.ContextMenuStrip.Items[7].Text = _stringResources["Favourites"];
+			_trayIcon.ContextMenuStrip.Items[8].Text = _stringResources["Settings"];
+
+			_trayIcon.ContextMenuStrip.Items[10].Text = _stringResources["Exit"];
+		}
 	}
 }

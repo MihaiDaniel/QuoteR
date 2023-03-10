@@ -459,4 +459,13 @@
   <data name="Favourites" xml:space="preserve">
     <value>Colecții favorite</value>
   </data>
+  <data name="ImportingInProgress" xml:space="preserve">
+    <value>Import în curs</value>
+  </data>
+  <data name="ExportingInProgress" xml:space="preserve">
+    <value>Se exportă</value>
+  </data>
+  <data name="WorkInBackground" xml:space="preserve">
+    <value>Lucrează în fundal...</value>
+  </data>
 </root>

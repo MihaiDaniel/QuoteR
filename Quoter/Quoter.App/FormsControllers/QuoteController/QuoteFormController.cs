@@ -7,8 +7,9 @@ using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using System.Media;
 
-namespace Quoter.App.FormsControllers
+namespace Quoter.App.FormsControllers.QuoteController
 {
 	public class QuoteFormController : IQuoteFormController, IMessagingSubscriber
 	{
@@ -21,7 +22,7 @@ namespace Quoter.App.FormsControllers
 
 		private QuoteFormOptions? _quoteModel;
 
-		public QuoteFormController(IQuoteService quoteService, 
+		public QuoteFormController(IQuoteService quoteService,
 									IMessagingService messagingService,
 									IThemeService themeService,
 									ISettings settings,
@@ -52,7 +53,7 @@ namespace Quoter.App.FormsControllers
 
 		public async Task EventFormLoaded()
 		{
-			if(_quoteModel == null)
+			if (_quoteModel == null)
 			{
 				await GetRandomQuote();
 			}
@@ -115,8 +116,9 @@ namespace Quoter.App.FormsControllers
 
 		public async Task GetNextQuote()
 		{
-			if(_quoteModel != null)
+			if (_quoteModel != null)
 			{
+				
 				Quote? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
 				if (nextQuote != null)
 				{
@@ -124,13 +126,14 @@ namespace Quoter.App.FormsControllers
 					_form.SetQuote(_quoteModel);
 				}
 			}
-			
+
 		}
 
 		public async Task GetPreviousQuote()
 		{
 			if (_quoteModel != null)
 			{
+				
 				Quote? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
 				if (previousQuote != null)
 				{
@@ -165,8 +168,8 @@ namespace Quoter.App.FormsControllers
 				Title = title,
 				Footer = footer,
 				Body = quote.Content,
-				OpenAnimation = Framework.Enums.EnumAnimation.FadeInFromBottomRight,
-				CloseAnimation = Framework.Enums.EnumAnimation.FadeOut,
+				OpenAnimation = EnumAnimation.FadeInFromBottomRight,
+				CloseAnimation = EnumAnimation.FadeOut,
 				AllowNavigation = true
 			};
 		}

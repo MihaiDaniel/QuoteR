@@ -121,12 +121,6 @@
   <data name="icons8_close_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>icons8-close-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exit_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>exit-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="settings_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>settings-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icons8_save_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>icons8-save-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -145,9 +139,6 @@
   <data name="delete_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>delete-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="plus_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>plus-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="flag_france_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>flag_france_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -156,15 +147,6 @@
   </data>
   <data name="flag_uk_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>flag_uk_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pause_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>pause_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="play_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>play_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="quote_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>quote_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="edit_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>edit_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -186,5 +168,14 @@
   </data>
   <data name="star_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>star_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loading_transparent_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>loading_transparent_128.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>refresh_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>refresh_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

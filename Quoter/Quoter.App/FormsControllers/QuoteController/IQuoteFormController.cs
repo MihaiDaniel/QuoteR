@@ -1,12 +1,7 @@
 ﻿using Quoter.App.Forms;
 using Quoter.Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quoter.App.FormsControllers
+namespace Quoter.App.FormsControllers.QuoteController
 {
 	public interface IQuoteFormController : IFormController<IQuoteForm>
 	{

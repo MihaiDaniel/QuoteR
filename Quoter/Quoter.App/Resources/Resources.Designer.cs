@@ -113,16 +113,6 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap exit_64 {
-            get {
-                object obj = ResourceManager.GetObject("exit_64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap flag_france_64 {
             get {
                 object obj = ResourceManager.GetObject("flag_france_64", resourceCulture);
@@ -193,9 +183,9 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pause_32 {
+        internal static System.Drawing.Bitmap loading_transparent_128 {
             get {
-                object obj = ResourceManager.GetObject("pause_32", resourceCulture);
+                object obj = ResourceManager.GetObject("loading_transparent_128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +193,9 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pause_64 {
+        internal static System.Drawing.Bitmap pause_32 {
             get {
-                object obj = ResourceManager.GetObject("pause_64", resourceCulture);
+                object obj = ResourceManager.GetObject("pause_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,26 +213,6 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap play_64 {
-            get {
-                object obj = ResourceManager.GetObject("play_64", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap plus_32 {
-            get {
-                object obj = ResourceManager.GetObject("plus_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap quote_32 {
             get {
                 object obj = ResourceManager.GetObject("quote_32", resourceCulture);
@@ -253,9 +223,19 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap quote_64 {
+        internal static System.Drawing.Bitmap refresh_32 {
             get {
-                object obj = ResourceManager.GetObject("quote_64", resourceCulture);
+                object obj = ResourceManager.GetObject("refresh_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh_64 {
+            get {
+                object obj = ResourceManager.GetObject("refresh_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,16 +246,6 @@ namespace Quoter.App.Resources {
         internal static System.Drawing.Bitmap settings_32 {
             get {
                 object obj = ResourceManager.GetObject("settings_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap settings_64 {
-            get {
-                object obj = ResourceManager.GetObject("settings_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

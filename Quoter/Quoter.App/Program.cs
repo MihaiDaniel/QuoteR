@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
-using Quoter.App.FormsControllers;
 using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
+using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
@@ -31,6 +31,7 @@ namespace Quoter.App
 			// see https://aka.ms/applicationconfiguration.
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
 			ApplicationConfiguration.Initialize();
 
 			DependencyInjectionContainer diContainer = SetupDependencyInjection();
@@ -79,7 +80,6 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();
 
-			//QuoterContext context = new(GetContextConnectionString());
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());
 
 			return serviceCollection.GetContainer();
