@@ -132,6 +132,9 @@
 			this.pnlSelectedTab = new System.Windows.Forms.Panel();
 			this.pbBackgroundTask = new System.Windows.Forms.PictureBox();
 			this.lblBackgroundTask = new System.Windows.Forms.Label();
+			this.lblStartWithWindows = new System.Windows.Forms.Label();
+			this.btnStartWithWindowsNo = new System.Windows.Forms.Button();
+			this.btnStartWithWindowsYes = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -1141,6 +1144,9 @@
 			// 
 			this.gbOtherSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+			this.gbOtherSettings.Controls.Add(this.btnStartWithWindowsNo);
+			this.gbOtherSettings.Controls.Add(this.btnStartWithWindowsYes);
+			this.gbOtherSettings.Controls.Add(this.lblStartWithWindows);
 			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgNo);
 			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgYes);
 			this.gbOtherSettings.Controls.Add(this.lblShowWelcomeMsg);
@@ -1487,6 +1493,41 @@
 			this.lblBackgroundTask.Text = "Work being done in background";
 			this.lblBackgroundTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// lblStartWithWindows
+			// 
+			this.lblStartWithWindows.AutoSize = true;
+			this.lblStartWithWindows.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblStartWithWindows.Location = new System.Drawing.Point(6, 58);
+			this.lblStartWithWindows.Name = "lblStartWithWindows";
+			this.lblStartWithWindows.Size = new System.Drawing.Size(127, 18);
+			this.lblStartWithWindows.TabIndex = 19;
+			this.lblStartWithWindows.Text = "Start with windows";
+			// 
+			// btnStartWithWindowsNo
+			// 
+			this.btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+			this.btnStartWithWindowsNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnStartWithWindowsNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnStartWithWindowsNo.Location = new System.Drawing.Point(316, 52);
+			this.btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
+			this.btnStartWithWindowsNo.Size = new System.Drawing.Size(40, 30);
+			this.btnStartWithWindowsNo.TabIndex = 20;
+			this.btnStartWithWindowsNo.Text = "NO";
+			this.btnStartWithWindowsNo.UseVisualStyleBackColor = true;
+			this.btnStartWithWindowsNo.Click += new System.EventHandler(this.btnStartWithWindowsNo_Click);
+			// 
+			// btnStartWithWindowsYes
+			// 
+			this.btnStartWithWindowsYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnStartWithWindowsYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnStartWithWindowsYes.Location = new System.Drawing.Point(270, 52);
+			this.btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
+			this.btnStartWithWindowsYes.Size = new System.Drawing.Size(40, 30);
+			this.btnStartWithWindowsYes.TabIndex = 21;
+			this.btnStartWithWindowsYes.Text = "YES";
+			this.btnStartWithWindowsYes.UseVisualStyleBackColor = true;
+			this.btnStartWithWindowsYes.Click += new System.EventHandler(this.btnStartWithWindowsYes_Click);
+			// 
 			// ManageForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1650,5 +1691,8 @@
 		private Label lblBackgroundTask;
 		private Button btnRefreshFavouriteCollections;
 		private Button btnReloadEditCollections;
+		private Button btnStartWithWindowsNo;
+		private Button btnStartWithWindowsYes;
+		private Label lblStartWithWindows;
 	}
 }

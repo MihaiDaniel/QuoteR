@@ -1,9 +1,11 @@
-﻿using Quoter.App.Forms;
+﻿using IWshRuntimeLibrary;
+using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Enums;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.ComponentModel;
 using System.Globalization;
@@ -17,19 +19,9 @@ namespace Quoter.App.FormsControllers.Settings
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
+		private readonly ILogger _logger;
 
 		private ISettingsForm _form;
-
-		public SettingsFormController(ISettings settings,
-										IMessagingService messagingService,
-										IStringResources stringResources,
-										IFormsManager formsManager)
-		{
-			_settings = settings;
-			_messagingService = messagingService;
-			_stringResources = stringResources;
-			_formsManager = formsManager;
-		}
 
 		private string _notificationIntervalMinutes;
 		public string NotificationsIntervalMinutes
@@ -103,6 +95,20 @@ namespace Quoter.App.FormsControllers.Settings
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
+
+		public SettingsFormController(ISettings settings,
+										IMessagingService messagingService,
+										IStringResources stringResources,
+										IFormsManager formsManager,
+										ILogger logger)
+		{
+			_settings = settings;
+			_messagingService = messagingService;
+			_stringResources = stringResources;
+			_formsManager = formsManager;
+			_logger = logger;
+		}
+
 		public void RegisterForm(ISettingsForm form)
 		{
 			_form = form;
@@ -129,6 +135,7 @@ namespace Quoter.App.FormsControllers.Settings
 			_form.SetNotificationsType(_settings.NotificationType);
 			_form.SetNotificationsLocation(_settings.NotificationOpenAnimation);
 			_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
+			_form.SetIsStartWithWindows(_settings.IsStartWithWindows);
 
 			return Task.CompletedTask;
 		}
@@ -228,6 +235,38 @@ namespace Quoter.App.FormsControllers.Settings
 				_settings.FontStyle = fontDialog.Font.Style.ToString();
 				_settings.FontSize = fontDialog.Font.Size;
 				_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
+			}
+		}
+
+		public void SetStartWithWindows(bool startWithWindows)
+		{
+			_settings.IsStartWithWindows = startWithWindows;
+			try
+			{
+				if (_settings.IsStartWithWindows)
+				{
+					string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
+					WshShell shell = new WshShell();
+					IWshShortcut windowsApplicationShortcut = (IWshShortcut)shell.CreateShortcut(shortCutLinkFilePath);
+					windowsApplicationShortcut.Description = "Startup Quoter";
+					windowsApplicationShortcut.WorkingDirectory = Application.StartupPath;
+					windowsApplicationShortcut.TargetPath = Application.ExecutablePath;
+					windowsApplicationShortcut.Save();
+				}
+				else
+				{
+					string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
+					if (System.IO.File.Exists(shortCutLinkFilePath))
+					{
+						System.IO.File.Delete(shortCutLinkFilePath);
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				_logger.Error(ex);
 			}
 		}
 

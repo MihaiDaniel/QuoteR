@@ -24,5 +24,7 @@ namespace Quoter.App.Forms
 		void SetNotificationsLocation(EnumAnimation notificationOpenAnimation);
 
 		void SetNotificationFont(string fontName, string fontStyle, float fontSize);
+
+		void SetIsStartWithWindows(bool isStartWithWindows);
 	}
 }

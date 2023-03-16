@@ -197,6 +197,19 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public bool IsStartWithWindows
+		{
+			get
+			{
+				return Get<bool>(nameof(IsStartWithWindows));
+			}
+			set
+			{
+				Set<bool>(nameof(IsStartWithWindows), value);
+			}
+
+		}
+
 		/// <summary>
 		/// Gets the value of a setting thread-safe based on the <paramref name="key"/>
 		/// </summary>

@@ -131,7 +131,6 @@ namespace Quoter.App
 			if (message == Event.LanguageChanged)
 			{
 				// Reset the context strip with the new language
-				//_trayIcon.ContextMenuStrip = GetContextMenuStrip(_settings.IsPaused);
 				SetContextMenuStripTranslationsThreadSafe();
 			}
 			if (message == Event.NotificationIntervalChanged)

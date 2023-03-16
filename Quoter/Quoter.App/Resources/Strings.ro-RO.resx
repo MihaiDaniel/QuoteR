@@ -468,4 +468,7 @@
   <data name="WorkInBackground" xml:space="preserve">
     <value>Lucrează în fundal...</value>
   </data>
+  <data name="StartWithWindows" xml:space="preserve">
+    <value>Pornește cu Windows</value>
+  </data>
 </root>

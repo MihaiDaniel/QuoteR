@@ -226,5 +226,17 @@ namespace Quoter.App.Properties {
                 this["FontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsStartWithWindows {
+            get {
+                return ((bool)(this["IsStartWithWindows"]));
+            }
+            set {
+                this["IsStartWithWindows"] = value;
+            }
+        }
     }
 }

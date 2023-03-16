@@ -448,4 +448,7 @@
   <data name="WorkInBackground" xml:space="preserve">
     <value>Travail en arrière-plan...</value>
   </data>
+  <data name="StartWithWindows" xml:space="preserve">
+    <value>Cela commence par Windows</value>
+  </data>
 </root>

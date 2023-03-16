@@ -98,7 +98,7 @@
 			this.txtFooter.BackColor = System.Drawing.Color.White;
 			this.txtFooter.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtFooter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.txtFooter.Location = new System.Drawing.Point(12, 128);
+			this.txtFooter.Location = new System.Drawing.Point(12, 135);
 			this.txtFooter.Name = "txtFooter";
 			this.txtFooter.ReadOnly = true;
 			this.txtFooter.Size = new System.Drawing.Size(356, 20);

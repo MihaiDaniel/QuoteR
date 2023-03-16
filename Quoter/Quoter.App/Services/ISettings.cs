@@ -21,6 +21,6 @@ namespace Quoter.App.Services
 
 		EnumTheme Theme { get; set; }
 		double Opacity { get; set; }
-
+		bool IsStartWithWindows { get; set; }
 	}
 }

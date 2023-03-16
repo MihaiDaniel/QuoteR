@@ -28,5 +28,6 @@ namespace Quoter.App.FormsControllers.Settings
 
 		void SetNotificationAnimation(EnumAnimation animation);
 		void SelectNotificationFont();
+		void SetStartWithWindows(bool value);
 	}
 }

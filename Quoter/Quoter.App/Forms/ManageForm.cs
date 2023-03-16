@@ -173,6 +173,10 @@ namespace Quoter.App.Forms
 			btnShowWelcomeMsgYes.Text = _stringResources["Yes"];
 			btnShowWelcomeMsgNo.Text = _stringResources["No"];
 
+			lblStartWithWindows.Text = _stringResources["StartWithWindows"];
+			btnStartWithWindowsYes.Text = _stringResources["Yes"];
+			btnStartWithWindowsNo.Text = _stringResources["No"];
+
 			lblNotificationLocation.Text = _stringResources["NotificationLocation"];
 			lblNotificationFont.Text = _stringResources["NotificationFont"];
 			btnNotificationFont.Text = _stringResources["Change"];
@@ -371,6 +375,20 @@ namespace Quoter.App.Forms
 		void ISettingsForm.SetNotificationFont(string fontName, string fontStyle, float fontSize)
 		{
 			txtSelectedFont.Font = new Font(fontName, fontSize, FontHelper.GetFontStyle(fontStyle));
+		}
+
+		void ISettingsForm.SetIsStartWithWindows(bool isStartWithWindows)
+		{
+			if (isStartWithWindows)
+			{
+				btnStartWithWindowsYes.FlatAppearance.BorderSize = 1;
+				btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+			}
+			else
+			{
+				btnStartWithWindowsYes.FlatAppearance.BorderSize = 0;
+				btnStartWithWindowsNo.FlatAppearance.BorderSize = 1;
+			}
 		}
 
 		#endregion ISettingsForm
@@ -831,6 +849,22 @@ namespace Quoter.App.Forms
 		private void btnNotificationFont_Click(object sender, EventArgs e)
 		{
 			_settingsController.SelectNotificationFont();
+		}
+
+		private void btnStartWithWindowsYes_Click(object sender, EventArgs e)
+		{
+			btnStartWithWindowsYes.FlatAppearance.BorderSize = 1;
+			btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+
+			_settingsController.SetStartWithWindows(true);
+		}
+
+		private void btnStartWithWindowsNo_Click(object sender, EventArgs e)
+		{
+			btnStartWithWindowsYes.FlatAppearance.BorderSize = 0;
+			btnStartWithWindowsNo.FlatAppearance.BorderSize = 1;
+
+			_settingsController.SetStartWithWindows(false);
 		}
 
 		#endregion Events  Settings tab
