@@ -471,4 +471,7 @@
   <data name="StartWithWindows" xml:space="preserve">
     <value>Start with Windows</value>
   </data>
+  <data name="NotificationSound" xml:space="preserve">
+    <value>Notification sound</value>
+  </data>
 </root>

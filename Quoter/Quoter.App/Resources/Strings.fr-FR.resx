@@ -451,4 +451,7 @@
   <data name="StartWithWindows" xml:space="preserve">
     <value>Cela commence par Windows</value>
   </data>
+  <data name="NotificationSound" xml:space="preserve">
+    <value>Son de notification</value>
+  </data>
 </root>

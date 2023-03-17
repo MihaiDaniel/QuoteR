@@ -181,6 +181,7 @@ namespace Quoter.App.Forms
 			lblNotificationFont.Text = _stringResources["NotificationFont"];
 			btnNotificationFont.Text = _stringResources["Change"];
 
+			lblNotificationSound.Text = _stringResources["NotificationSound"];
 		}
 
 		private void BindEditQuotesControls()
@@ -218,6 +219,8 @@ namespace Quoter.App.Forms
 			txtQuotesInterval.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.NotificationsIntervalMinutes));
 			txtQuotesAutoCloseInterval.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.NotificationsAutoCloseSeconds));
 			lblOpacityPercent.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.OpacityValue));
+
+			cbNotificationSound.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedNotificationSound), false, DataSourceUpdateMode.Never);
 		}
 
 		private void BindFavouriteQuotesControls()
@@ -388,6 +391,15 @@ namespace Quoter.App.Forms
 			{
 				btnStartWithWindowsYes.FlatAppearance.BorderSize = 0;
 				btnStartWithWindowsNo.FlatAppearance.BorderSize = 1;
+			}
+		}
+
+		void ISettingsForm.SetNotificationSounds(List<string> notificationSounds)
+		{
+			cbNotificationSound.Items.Clear();
+			foreach (string item in notificationSounds)
+			{
+				cbNotificationSound.Items.Add(item);
 			}
 		}
 
@@ -867,6 +879,19 @@ namespace Quoter.App.Forms
 			_settingsController.SetStartWithWindows(false);
 		}
 
+		private void cbNotificationSound_SelectedValueChanged(object sender, EventArgs e)
+		{
+			if((string)cbNotificationSound.SelectedValue != _settingsController.SelectedNotificationSound)
+			{
+				_settingsController.SetSelectedNotificationSound((EnumSound)cbNotificationSound.SelectedIndex);
+			}
+		}
+
+		private void btnPlayNotificationSound_Click(object sender, EventArgs e)
+		{
+			_settingsController.PlayCurrentNotificationSound();
+		}
+
 		#endregion Events  Settings tab
 
 		#region Events  Favourites tab
@@ -1060,6 +1085,5 @@ namespace Quoter.App.Forms
 				}
 			});
 		}
-
 	}
 }

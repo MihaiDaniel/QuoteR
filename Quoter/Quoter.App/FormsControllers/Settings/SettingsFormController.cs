@@ -19,6 +19,7 @@ namespace Quoter.App.FormsControllers.Settings
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
+		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
 
 		private ISettingsForm _form;
@@ -86,7 +87,19 @@ namespace Quoter.App.FormsControllers.Settings
 			}
 		}
 
-		public int AutoCloseNotificationsSeconds { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		private string _selectedNotificationSound;
+		public string SelectedNotificationSound
+		{
+			get => _selectedNotificationSound;
+			set
+			{
+				if(_selectedNotificationSound != value)
+				{
+					_selectedNotificationSound = value;
+					OnPropertyChanged();
+				}
+			}
+		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -100,12 +113,14 @@ namespace Quoter.App.FormsControllers.Settings
 										IMessagingService messagingService,
 										IStringResources stringResources,
 										IFormsManager formsManager,
+										ISoundService soundService,
 										ILogger logger)
 		{
 			_settings = settings;
 			_messagingService = messagingService;
 			_stringResources = stringResources;
 			_formsManager = formsManager;
+			_soundService = soundService;
 			_logger = logger;
 		}
 
@@ -137,6 +152,28 @@ namespace Quoter.App.FormsControllers.Settings
 			_form.SetNotificationFont(_settings.FontName, _settings.FontStyle, _settings.FontSize);
 			_form.SetIsStartWithWindows(_settings.IsStartWithWindows);
 
+			List<string> notificationSounds = new List<string>()
+			{
+				"-",
+				"Click",
+				"Pop",
+				"Arpeggio",
+				"Bell"
+			};
+			_form.SetNotificationSounds(notificationSounds);
+			switch (_settings.NotificationSound)
+			{
+				case EnumSound.None: 
+					SelectedNotificationSound = "-"; break;
+				case EnumSound.Click:
+					SelectedNotificationSound = "Click"; break;
+				case EnumSound.Pop:
+					SelectedNotificationSound = "Pop"; break;
+				case EnumSound.Arpeggio:
+					SelectedNotificationSound = "Arpeggio"; break;
+				case EnumSound.Bell:
+					SelectedNotificationSound = "Bell"; break;
+			}
 			return Task.CompletedTask;
 		}
 
@@ -268,6 +305,16 @@ namespace Quoter.App.FormsControllers.Settings
 			{
 				_logger.Error(ex);
 			}
+		}
+
+		public void SetSelectedNotificationSound(EnumSound selectedSound)
+		{
+			_settings.NotificationSound = selectedSound;
+		}
+
+		public void PlayCurrentNotificationSound()
+		{
+			_soundService.Play(_settings.NotificationSound);
 		}
 
 		private string GetOpacityValuePercent(double opacity)

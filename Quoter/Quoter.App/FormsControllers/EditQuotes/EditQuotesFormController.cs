@@ -8,12 +8,9 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
-using Quoter.Framework.Services.Messaging;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Xml.Linq;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
@@ -295,12 +292,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				string newCollectionName = result.StringResult;
 				if (Collections.Any(c => c.Name == newCollectionName))
 				{
-					_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
-					{
-						Title = _stringResources["NameAlreadyTaken"],
-						Message = _stringResources["CollectionAlreadyExists"],
-						TitleColor = Const.ColorWarn,
-					});
+					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["CollectionAlreadyExists"]);
 					await AddCollection();
 				}
 				else
@@ -337,13 +329,22 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 			if (result.DialogResult == DialogResult.OK)
 			{
-				SelectedCollection.Name = result.StringResult;
-				await _context.SaveChangesAsync();
+				string newCollectionName = result.StringResult;
+				if(Collections.Any(c => c.Name == newCollectionName && c.Name != SelectedCollection.Name))
+				{
+					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["CollectionAlreadyExists"]);
+					await EditCollection();
+				}
+				else
+				{
+					SelectedCollection.Name = result.StringResult;
+					await _context.SaveChangesAsync();
 
-				await LoadCollections();
+					await LoadCollections();
 
-				SelectedCollection = Collections.First(c => c.Name == SelectedCollection.Name);
-				await LoadCollectionBooksOrQuotes();
+					SelectedCollection = Collections.First(c => c.Name == SelectedCollection.Name);
+					await LoadCollectionBooksOrQuotes();
+				}
 			}
 		}
 
@@ -405,12 +406,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			string newBookName = result.StringResult;
 			if (Books.Any(c => c.Name == newBookName))
 			{
-				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
-				{
-					Title = _stringResources["NameAlreadyTaken"],
-					Message = _stringResources["BookAlreadyExists"],
-					TitleColor = Const.ColorWarn,
-				});
+				ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["BookAlreadyExists"]);
 				await AddBook();
 			}
 			else
@@ -476,10 +472,20 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 			if (result.DialogResult == DialogResult.OK)
 			{
-				SelectedBook.Name = result.StringResult;
-				await _context.SaveChangesAsync();
+				string newBookName = result.StringResult;
+				if(Books.Any(b => b.Name == newBookName && b.Name != SelectedBook.Name))
+				{
+					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["BookAlreadyExists"]);
+					await EditBook();
+				}
+				else
+				{
+					SelectedBook.Name = result.StringResult;
+					await _context.SaveChangesAsync();
 
-				await ReloadBooks(SelectedCollection.CollectionId, SelectedBook.Name);
+					await ReloadBooks(SelectedCollection.CollectionId, SelectedBook.Name);
+					await ReloadChapters(SelectedBook.BookId, SelectedChapter.Name);
+				}
 			}
 		}
 
@@ -543,12 +549,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				string newChapterName = result.StringResult;
 				if (Chapters.Any(c => c.Name == newChapterName))
 				{
-					_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
-					{
-						Title = _stringResources["NameAlreadyTaken"],
-						Message = _stringResources["ChapterAlreadyExists"],
-						TitleColor = Const.ColorWarn,
-					});
+					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["ChapterAlreadyExists"]);
 					await AddChapter();
 				}
 				else
@@ -613,10 +614,19 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 			if (result.DialogResult == DialogResult.OK)
 			{
-				SelectedChapter.Name = result.StringResult;
-				await _context.SaveChangesAsync();
+				string newChapterName = result.StringResult;
+				if (Chapters.Any(c => c.Name == newChapterName && c.Name != SelectedChapter.Name))
+				{
+					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["ChapterAlreadyExists"]);
+					await EditChapter();
+				}
+				else
+				{
+					SelectedChapter.Name = result.StringResult;
+					await _context.SaveChangesAsync();
 
-				await ReloadChapters(SelectedBook.BookId, SelectedChapter.Name);
+					await ReloadChapters(SelectedBook.BookId, SelectedChapter.Name);
+				}
 			}
 		}
 
@@ -772,5 +782,14 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			return lstQuotes;
 		}
 
+		private void ShowDialogWarn(string title, string message)
+		{
+			_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+			{
+				Title = title,
+				Message = message,
+				TitleColor = Const.ColorWarn,
+			});
+		}
 	}
 }

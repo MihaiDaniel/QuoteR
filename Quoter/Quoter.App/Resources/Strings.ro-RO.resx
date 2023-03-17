@@ -471,4 +471,7 @@
   <data name="StartWithWindows" xml:space="preserve">
     <value>Pornește cu Windows</value>
   </data>
+  <data name="NotificationSound" xml:space="preserve">
+    <value>Sunet notificări</value>
+  </data>
 </root>

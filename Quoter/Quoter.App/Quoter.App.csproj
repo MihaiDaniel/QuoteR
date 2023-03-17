@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\snd-all-eyes-on-me-465.wav" />
+    <None Remove="Resources\snd-appointed-529.wav" />
+    <None Remove="Resources\snd-arpeggio-467.wav" />
+    <None Remove="Resources\snd-intuition-561.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>0</VersionMinor>
@@ -26,6 +33,13 @@
 
   <ItemGroup>
     <Content Include="Resources\icon_book_black.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\snd-all-eyes-on-me-465.wav" />
+    <EmbeddedResource Include="Resources\snd-appointed-529.wav" />
+    <EmbeddedResource Include="Resources\snd-arpeggio-467.wav" />
+    <EmbeddedResource Include="Resources\snd-intuition-561.wav" />
   </ItemGroup>
 
   <ItemGroup>

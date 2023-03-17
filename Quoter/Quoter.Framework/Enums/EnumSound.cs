@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quoter.Framework.Enums
+﻿namespace Quoter.Framework.Enums
 {
 	public enum EnumSound
 	{
-		Notification = 1 
+		None = 0,
+		Click = 1,
+		Pop = 2,
+		Arpeggio = 3,
+		Bell = 4,
 	}
 }

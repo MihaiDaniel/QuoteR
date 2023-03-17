@@ -9,6 +9,7 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 using System.Globalization;
+using System.Media;
 
 namespace Quoter.App
 {
@@ -19,6 +20,7 @@ namespace Quoter.App
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
+		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
 
 		private System.Timers.Timer _timerShowNotifications;
@@ -27,12 +29,14 @@ namespace Quoter.App
 										ISettings settings,
 										IStringResources stringResources,
 										IMessagingService messagingService,
+										ISoundService soundService,
 										ILogger logger)
 		{
 			_formsManager = formsManager;
 			_settings = settings;
 			_stringResources = stringResources;
 			_messagingService = messagingService;
+			_soundService = soundService;
 			_logger = logger;
 			InitializeApplication();
 			InitializeBackgroundTimers();
@@ -87,6 +91,7 @@ namespace Quoter.App
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
 			}
 			_messagingService.Subscribe(this);
+			_soundService.LoadSoundsAsync();
 		}
 
 		private void InitializeBackgroundTimers()
@@ -226,6 +231,7 @@ namespace Quoter.App
 
 		private void ShowQuoteNotification()
 		{
+			
 			if (_settings.NotificationType == EnumNotificationType.Popup)
 			{
 				_messagingService.SendMessage(Event.OpeningQuoteWindow);

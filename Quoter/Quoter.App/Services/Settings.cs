@@ -126,6 +126,18 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public EnumSound NotificationSound
+		{
+			get
+			{
+				return (EnumSound)Get<int>(nameof(NotificationSound));
+			}
+			set
+			{
+				Set<int>(nameof(NotificationSound), (int)value);
+			}
+		}
+
 		public string Language
 		{
 			get

@@ -238,5 +238,17 @@ namespace Quoter.App.Properties {
                 this["IsStartWithWindows"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int NotificationSound {
+            get {
+                return ((int)(this["NotificationSound"]));
+            }
+            set {
+                this["NotificationSound"] = value;
+            }
+        }
     }
 }

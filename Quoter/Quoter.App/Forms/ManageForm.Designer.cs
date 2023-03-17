@@ -86,8 +86,11 @@
 			this.tabBasicSettings = new System.Windows.Forms.TabControl();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
+			this.cbNotificationSound = new System.Windows.Forms.ComboBox();
 			this.lblNotificationFont = new System.Windows.Forms.Label();
+			this.btnPlayNotificationSound = new System.Windows.Forms.Button();
 			this.txtSelectedFont = new System.Windows.Forms.TextBox();
+			this.lblNotificationSound = new System.Windows.Forms.Label();
 			this.btnNotificationFont = new System.Windows.Forms.Button();
 			this.lblQuotesAutocloseTime = new System.Windows.Forms.Label();
 			this.txtQuotesAutoCloseInterval = new System.Windows.Forms.TextBox();
@@ -105,6 +108,9 @@
 			this.btnPopupNotifications = new System.Windows.Forms.Button();
 			this.lblNotificationType = new System.Windows.Forms.Label();
 			this.gbOtherSettings = new System.Windows.Forms.GroupBox();
+			this.btnStartWithWindowsNo = new System.Windows.Forms.Button();
+			this.btnStartWithWindowsYes = new System.Windows.Forms.Button();
+			this.lblStartWithWindows = new System.Windows.Forms.Label();
 			this.btnShowWelcomeMsgNo = new System.Windows.Forms.Button();
 			this.btnShowWelcomeMsgYes = new System.Windows.Forms.Button();
 			this.lblShowWelcomeMsg = new System.Windows.Forms.Label();
@@ -132,9 +138,6 @@
 			this.pnlSelectedTab = new System.Windows.Forms.Panel();
 			this.pbBackgroundTask = new System.Windows.Forms.PictureBox();
 			this.lblBackgroundTask = new System.Windows.Forms.Label();
-			this.lblStartWithWindows = new System.Windows.Forms.Label();
-			this.btnStartWithWindowsNo = new System.Windows.Forms.Button();
-			this.btnStartWithWindowsYes = new System.Windows.Forms.Button();
 			this.pnlTitle.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -892,12 +895,14 @@
 			// 
 			// tabBasicSettings
 			// 
+			this.tabBasicSettings.Alignment = System.Windows.Forms.TabAlignment.Left;
 			this.tabBasicSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabBasicSettings.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+			this.tabBasicSettings.Appearance = System.Windows.Forms.TabAppearance.Buttons;
 			this.tabBasicSettings.Controls.Add(this.tabPage4);
 			this.tabBasicSettings.Location = new System.Drawing.Point(6, 6);
+			this.tabBasicSettings.Multiline = true;
 			this.tabBasicSettings.Name = "tabBasicSettings";
 			this.tabBasicSettings.SelectedIndex = 0;
 			this.tabBasicSettings.Size = new System.Drawing.Size(778, 388);
@@ -910,10 +915,10 @@
 			this.tabPage4.Controls.Add(this.gbOtherSettings);
 			this.tabPage4.Controls.Add(this.gbThemeSettings);
 			this.tabPage4.Controls.Add(this.gbLanguageSettings);
-			this.tabPage4.Location = new System.Drawing.Point(4, 25);
+			this.tabPage4.Location = new System.Drawing.Point(52, 4);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(770, 359);
+			this.tabPage4.Size = new System.Drawing.Size(722, 380);
 			this.tabPage4.TabIndex = 0;
 			this.tabPage4.Text = "Basic";
 			// 
@@ -921,8 +926,11 @@
 			// 
 			this.gbQuotesSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+			this.gbQuotesSettings.Controls.Add(this.cbNotificationSound);
 			this.gbQuotesSettings.Controls.Add(this.lblNotificationFont);
+			this.gbQuotesSettings.Controls.Add(this.btnPlayNotificationSound);
 			this.gbQuotesSettings.Controls.Add(this.txtSelectedFont);
+			this.gbQuotesSettings.Controls.Add(this.lblNotificationSound);
 			this.gbQuotesSettings.Controls.Add(this.btnNotificationFont);
 			this.gbQuotesSettings.Controls.Add(this.lblQuotesAutocloseTime);
 			this.gbQuotesSettings.Controls.Add(this.txtQuotesAutoCloseInterval);
@@ -938,10 +946,21 @@
 			this.gbQuotesSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.gbQuotesSettings.Location = new System.Drawing.Point(374, 6);
 			this.gbQuotesSettings.Name = "gbQuotesSettings";
-			this.gbQuotesSettings.Size = new System.Drawing.Size(390, 347);
+			this.gbQuotesSettings.Size = new System.Drawing.Size(390, 359);
 			this.gbQuotesSettings.TabIndex = 22;
 			this.gbQuotesSettings.TabStop = false;
 			this.gbQuotesSettings.Text = "Quotes";
+			// 
+			// cbNotificationSound
+			// 
+			this.cbNotificationSound.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbNotificationSound.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.cbNotificationSound.FormattingEnabled = true;
+			this.cbNotificationSound.Location = new System.Drawing.Point(173, 335);
+			this.cbNotificationSound.Name = "cbNotificationSound";
+			this.cbNotificationSound.Size = new System.Drawing.Size(160, 27);
+			this.cbNotificationSound.TabIndex = 35;
+			this.cbNotificationSound.SelectedValueChanged += new System.EventHandler(this.cbNotificationSound_SelectedValueChanged);
 			// 
 			// lblNotificationFont
 			// 
@@ -952,6 +971,19 @@
 			this.lblNotificationFont.TabIndex = 28;
 			this.lblNotificationFont.Text = "Notification font";
 			this.lblNotificationFont.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
+			// btnPlayNotificationSound
+			// 
+			this.btnPlayNotificationSound.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.btnPlayNotificationSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnPlayNotificationSound.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnPlayNotificationSound.Location = new System.Drawing.Point(339, 335);
+			this.btnPlayNotificationSound.Name = "btnPlayNotificationSound";
+			this.btnPlayNotificationSound.Size = new System.Drawing.Size(30, 28);
+			this.btnPlayNotificationSound.TabIndex = 34;
+			this.btnPlayNotificationSound.Text = "▶ ";
+			this.btnPlayNotificationSound.UseVisualStyleBackColor = false;
+			this.btnPlayNotificationSound.Click += new System.EventHandler(this.btnPlayNotificationSound_Click);
 			// 
 			// txtSelectedFont
 			// 
@@ -964,6 +996,16 @@
 			this.txtSelectedFont.TabIndex = 27;
 			this.txtSelectedFont.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor in" +
     "cididunt ut labore et dolore magna aliqua";
+			// 
+			// lblNotificationSound
+			// 
+			this.lblNotificationSound.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblNotificationSound.Location = new System.Drawing.Point(19, 341);
+			this.lblNotificationSound.Name = "lblNotificationSound";
+			this.lblNotificationSound.Size = new System.Drawing.Size(148, 18);
+			this.lblNotificationSound.TabIndex = 30;
+			this.lblNotificationSound.Text = "Notification sound";
+			this.lblNotificationSound.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// btnNotificationFont
 			// 
@@ -1153,10 +1195,45 @@
 			this.gbOtherSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.gbOtherSettings.Location = new System.Drawing.Point(6, 240);
 			this.gbOtherSettings.Name = "gbOtherSettings";
-			this.gbOtherSettings.Size = new System.Drawing.Size(362, 113);
+			this.gbOtherSettings.Size = new System.Drawing.Size(362, 125);
 			this.gbOtherSettings.TabIndex = 21;
 			this.gbOtherSettings.TabStop = false;
 			this.gbOtherSettings.Text = "Other";
+			// 
+			// btnStartWithWindowsNo
+			// 
+			this.btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+			this.btnStartWithWindowsNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnStartWithWindowsNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnStartWithWindowsNo.Location = new System.Drawing.Point(316, 52);
+			this.btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
+			this.btnStartWithWindowsNo.Size = new System.Drawing.Size(40, 30);
+			this.btnStartWithWindowsNo.TabIndex = 20;
+			this.btnStartWithWindowsNo.Text = "NO";
+			this.btnStartWithWindowsNo.UseVisualStyleBackColor = true;
+			this.btnStartWithWindowsNo.Click += new System.EventHandler(this.btnStartWithWindowsNo_Click);
+			// 
+			// btnStartWithWindowsYes
+			// 
+			this.btnStartWithWindowsYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnStartWithWindowsYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnStartWithWindowsYes.Location = new System.Drawing.Point(270, 52);
+			this.btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
+			this.btnStartWithWindowsYes.Size = new System.Drawing.Size(40, 30);
+			this.btnStartWithWindowsYes.TabIndex = 21;
+			this.btnStartWithWindowsYes.Text = "YES";
+			this.btnStartWithWindowsYes.UseVisualStyleBackColor = true;
+			this.btnStartWithWindowsYes.Click += new System.EventHandler(this.btnStartWithWindowsYes_Click);
+			// 
+			// lblStartWithWindows
+			// 
+			this.lblStartWithWindows.AutoSize = true;
+			this.lblStartWithWindows.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lblStartWithWindows.Location = new System.Drawing.Point(6, 58);
+			this.lblStartWithWindows.Name = "lblStartWithWindows";
+			this.lblStartWithWindows.Size = new System.Drawing.Size(127, 18);
+			this.lblStartWithWindows.TabIndex = 19;
+			this.lblStartWithWindows.Text = "Start with windows";
 			// 
 			// btnShowWelcomeMsgNo
 			// 
@@ -1209,7 +1286,7 @@
 			this.gbThemeSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.gbThemeSettings.Location = new System.Drawing.Point(6, 106);
 			this.gbThemeSettings.Name = "gbThemeSettings";
-			this.gbThemeSettings.Size = new System.Drawing.Size(362, 135);
+			this.gbThemeSettings.Size = new System.Drawing.Size(362, 147);
 			this.gbThemeSettings.TabIndex = 20;
 			this.gbThemeSettings.TabStop = false;
 			this.gbThemeSettings.Text = "Theme";
@@ -1493,41 +1570,6 @@
 			this.lblBackgroundTask.Text = "Work being done in background";
 			this.lblBackgroundTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// lblStartWithWindows
-			// 
-			this.lblStartWithWindows.AutoSize = true;
-			this.lblStartWithWindows.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblStartWithWindows.Location = new System.Drawing.Point(6, 58);
-			this.lblStartWithWindows.Name = "lblStartWithWindows";
-			this.lblStartWithWindows.Size = new System.Drawing.Size(127, 18);
-			this.lblStartWithWindows.TabIndex = 19;
-			this.lblStartWithWindows.Text = "Start with windows";
-			// 
-			// btnStartWithWindowsNo
-			// 
-			this.btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
-			this.btnStartWithWindowsNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnStartWithWindowsNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnStartWithWindowsNo.Location = new System.Drawing.Point(316, 52);
-			this.btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
-			this.btnStartWithWindowsNo.Size = new System.Drawing.Size(40, 30);
-			this.btnStartWithWindowsNo.TabIndex = 20;
-			this.btnStartWithWindowsNo.Text = "NO";
-			this.btnStartWithWindowsNo.UseVisualStyleBackColor = true;
-			this.btnStartWithWindowsNo.Click += new System.EventHandler(this.btnStartWithWindowsNo_Click);
-			// 
-			// btnStartWithWindowsYes
-			// 
-			this.btnStartWithWindowsYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnStartWithWindowsYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnStartWithWindowsYes.Location = new System.Drawing.Point(270, 52);
-			this.btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
-			this.btnStartWithWindowsYes.Size = new System.Drawing.Size(40, 30);
-			this.btnStartWithWindowsYes.TabIndex = 21;
-			this.btnStartWithWindowsYes.Text = "YES";
-			this.btnStartWithWindowsYes.UseVisualStyleBackColor = true;
-			this.btnStartWithWindowsYes.Click += new System.EventHandler(this.btnStartWithWindowsYes_Click);
-			// 
 			// ManageForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1694,5 +1736,8 @@
 		private Button btnStartWithWindowsNo;
 		private Button btnStartWithWindowsYes;
 		private Label lblStartWithWindows;
+		private Button btnPlayNotificationSound;
+		private Label lblNotificationSound;
+		private ComboBox cbNotificationSound;
 	}
 }

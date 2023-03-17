@@ -18,6 +18,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 		private readonly IThemeService _themeService;
 		private readonly ISettings _settings;
 		private readonly IStringResources _stringResources;
+		private readonly ISoundService _soundService;
 		private IQuoteForm _form;
 
 		private QuoteFormOptions? _quoteModel;
@@ -26,13 +27,15 @@ namespace Quoter.App.FormsControllers.QuoteController
 									IMessagingService messagingService,
 									IThemeService themeService,
 									ISettings settings,
-									IStringResources stringResources)
+									IStringResources stringResources,
+									ISoundService soundService)
 		{
 			_quoteService = quoteService;
 			_messagingService = messagingService;
 			_themeService = themeService;
 			_settings = settings;
 			_stringResources = stringResources;
+			_soundService = soundService;
 		}
 
 		public void RegisterForm(IQuoteForm quoteForm)
@@ -55,6 +58,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 		{
 			if (_quoteModel == null)
 			{
+				_soundService.Play(_settings.NotificationSound);
 				await GetRandomQuote();
 			}
 		}

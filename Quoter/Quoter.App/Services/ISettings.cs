@@ -15,6 +15,8 @@ namespace Quoter.App.Services
 		EnumAnimation NotificationOpenAnimation { get; set; }
 		EnumAnimation NotificationCloseAnimation { get; set;}
 		EnumNotificationType NotificationType { get; set; }	
+		EnumSound NotificationSound { get; set; }
+
 		bool ShowCollectionsBasedOnLanguage { get; set; }
 		bool ShowWelcomeNotification { get; set; }
 		bool KeepNotificationOpenOnMouseOver { get; set; }

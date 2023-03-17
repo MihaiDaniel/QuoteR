@@ -1,5 +1,6 @@
 ﻿using Quoter.App.Forms;
 using Quoter.Framework.Enums;
+using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.Settings
 {
@@ -10,9 +11,9 @@ namespace Quoter.App.FormsControllers.Settings
 
 		string NotificationsAutoCloseSeconds { get; set; }
 
-		string OpacityValue { get; set; }
+		string SelectedNotificationSound { get; set; }
 
-		int AutoCloseNotificationsSeconds { get; set; }
+		string OpacityValue { get; set; }
 
 		void SetTheme(EnumTheme theme);
 
@@ -29,5 +30,7 @@ namespace Quoter.App.FormsControllers.Settings
 		void SetNotificationAnimation(EnumAnimation animation);
 		void SelectNotificationFont();
 		void SetStartWithWindows(bool value);
+		void SetSelectedNotificationSound(EnumSound selectedSound);
+		void PlayCurrentNotificationSound();
 	}
 }

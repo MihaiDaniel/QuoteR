@@ -59,6 +59,7 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
+			serviceCollection.AddSingleton<ISoundService, SoundService>();
 			serviceCollection.AddSingleton<QuoterApplicationContext>();
 
 			serviceCollection.AddTransient<SettingsForm>();

@@ -26,5 +26,7 @@ namespace Quoter.App.Forms
 		void SetNotificationFont(string fontName, string fontStyle, float fontSize);
 
 		void SetIsStartWithWindows(bool isStartWithWindows);
+
+		void SetNotificationSounds(List<string> notificationSounds);
 	}
 }
