@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoter.App", "Quoter.App\Qu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoter.Framework", "Quoter.Framework\Quoter.Framework.csproj", "{9826281C-4B96-4ED4-B9BB-87DC05819341}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Quoter", "Quoter\Quoter.vdproj", "{2CF47E20-58B6-42DF-ABF1-DAAA47340014}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{9826281C-4B96-4ED4-B9BB-87DC05819341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9826281C-4B96-4ED4-B9BB-87DC05819341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9826281C-4B96-4ED4-B9BB-87DC05819341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF47E20-58B6-42DF-ABF1-DAAA47340014}.Debug|Any CPU.ActiveCfg = Debug
+		{2CF47E20-58B6-42DF-ABF1-DAAA47340014}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

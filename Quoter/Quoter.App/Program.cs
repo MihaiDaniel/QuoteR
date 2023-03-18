@@ -19,7 +19,7 @@ using System.Resources;
 
 namespace Quoter.App
 {
-    internal static class Program
+	internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -35,7 +35,7 @@ namespace Quoter.App
 			ApplicationConfiguration.Initialize();
 
 			DependencyInjectionContainer diContainer = SetupDependencyInjection();
-			
+
 			// Apply migrations
 			QuoterContext context = diContainer.GetService<QuoterContext>();
 			context.Database.Migrate();
@@ -50,7 +50,7 @@ namespace Quoter.App
 
 			ResourceManager resourceManager = new("Quoter.App.Resources.Strings", typeof(Program).Assembly);
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
-			
+
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
 			serviceCollection.AddSingleton<ISettings, Settings>();
@@ -91,7 +91,8 @@ namespace Quoter.App
 			string? connectionString = Properties.Settings.Default[Const.Setting.ConnectionString] as string;
 			if (string.IsNullOrEmpty(connectionString))
 			{
-				connectionString = "Data Source=" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "quoter.db");
+				string dbFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.db");
 				Properties.Settings.Default[Const.Setting.ConnectionString] = connectionString;
 				Properties.Settings.Default.Save();
 			}
