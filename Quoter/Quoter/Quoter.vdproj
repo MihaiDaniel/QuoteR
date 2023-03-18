@@ -142,7 +142,7 @@
             "SourcePath" = "8:..\\..\\Collections\\Noul Testament - Traducerea Ortodoxa.qter"
             "TargetName" = "8:Noul Testament - Traducerea Ortodoxa.qter"
             "Tag" = "8:"
-            "Folder" = "8:_E0EF61F2FD964925A18D799C0D1315E3"
+            "Folder" = "8:_BCB9F9C1C95B40DF9C2ACE157024F139"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -202,7 +202,7 @@
             "SourcePath" = "8:..\\..\\Collections\\Noul Testament - Traducerea Cornilescu.qter"
             "TargetName" = "8:Noul Testament - Traducerea Cornilescu.qter"
             "Tag" = "8:"
-            "Folder" = "8:_E0EF61F2FD964925A18D799C0D1315E3"
+            "Folder" = "8:_BCB9F9C1C95B40DF9C2ACE157024F139"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -257,13 +257,24 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_E0EF61F2FD964925A18D799C0D1315E3"
                     {
-                    "Name" = "8:Import"
+                    "Name" = "8:Collections"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_227483B1DAB848F4A6C577B85110D2C8"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_BCB9F9C1C95B40DF9C2ACE157024F139"
+                            {
+                            "Name" = "8:ro"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_CE2569E4118F46EE96EC56FB054C5931"
+                                "Folders"
+                                {
+                                }
+                            }
                         }
                     }
                 }
@@ -285,7 +296,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Quoter"
         "ProductCode" = "8:{4669E75D-0CC0-4344-BF1C-90F0117997DA}"
-        "PackageCode" = "8:{260AF0A5-C7C9-48F3-A6A4-9FD50C0F12A8}"
+        "PackageCode" = "8:{1FAF7FAF-4BB8-4ACE-9777-746AFF1C259A}"
         "UpgradeCode" = "8:{ECB44F8D-FC3E-4FE0-9596-C16839D71780}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
