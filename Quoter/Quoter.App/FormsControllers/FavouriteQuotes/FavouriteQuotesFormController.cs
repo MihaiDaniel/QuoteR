@@ -57,12 +57,12 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			_form = form;
 		}
 
-		public async Task EventFormLoaded()
+		public async Task EventFormLoadedAsync()
 		{
 			await LoadCollections();
 		}
 
-		public Task EventFormClosing()
+		public Task EventFormClosingAsync()
 		{
 			// Nothing to do
 			return Task.CompletedTask;

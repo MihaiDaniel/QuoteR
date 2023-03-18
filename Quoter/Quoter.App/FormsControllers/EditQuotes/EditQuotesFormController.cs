@@ -127,12 +127,12 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			_form.SetChaptersControlsState(EnumCrudStates.None);
 		}
 
-		public async Task EventFormLoaded()
+		public async Task EventFormLoadedAsync()
 		{
 			await LoadCollections();
 		}
 
-		public Task EventFormClosing()
+		public Task EventFormClosingAsync()
 		{
 			// Nothing to do
 			return Task.CompletedTask;

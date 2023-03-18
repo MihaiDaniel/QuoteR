@@ -129,7 +129,7 @@ namespace Quoter.App.FormsControllers.Settings
 			_form = form;
 		}
 
-		public Task EventFormLoaded()
+		public Task EventFormLoadedAsync()
 		{
 			// Set selected language buttons
 			EnumLanguage selectedLanguage = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
@@ -177,7 +177,7 @@ namespace Quoter.App.FormsControllers.Settings
 			return Task.CompletedTask;
 		}
 
-		public Task EventFormClosing()
+		public Task EventFormClosingAsync()
 		{
 			// Nothing to do
 			return Task.CompletedTask;

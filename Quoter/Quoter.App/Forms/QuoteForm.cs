@@ -71,7 +71,7 @@ namespace Quoter.App.Views
 		private async void MessageForm_Load(object sender, EventArgs e)
 		{
 			Theme theme = _themeService.GetCurrentTheme();
-			await _formController.EventFormLoaded();
+			await _formController.EventFormLoadedAsync();
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
 
 		}

@@ -17,13 +17,13 @@ namespace Quoter.App.FormsControllers.Manage
 			_stringResources = stringResources;
 		}
 
-		public Task EventFormClosing()
+		public Task EventFormClosingAsync()
 		{
 			_messagingService.Unsubscribe(this);
 			return Task.CompletedTask;
 		}
 
-		public Task EventFormLoaded()
+		public Task EventFormLoadedAsync()
 		{
 			_messagingService.Subscribe(this);
 			Announcement<object>? announcementImport = _messagingService.FindAnnouncement<object>(Event.ImportInProgress);

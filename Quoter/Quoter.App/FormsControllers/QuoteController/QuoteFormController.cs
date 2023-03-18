@@ -54,7 +54,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 			_form.SetQuote(quoteModel);
 		}
 
-		public async Task EventFormLoaded()
+		public async Task EventFormLoadedAsync()
 		{
 			if (_quoteModel == null)
 			{
@@ -63,7 +63,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 			}
 		}
 
-		public Task EventFormClosing()
+		public Task EventFormClosingAsync()
 		{
 			// Nothing to do
 			return Task.CompletedTask;
@@ -84,6 +84,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 			}
 			if (message == Event.NotificationTimerElapsed || message == Event.ShowQuoteButtonEvent)
 			{
+				_soundService.Play(_settings.NotificationSound);
 				await GetRandomQuote();
 			}
 			if (message == Event.ThemeChanged)

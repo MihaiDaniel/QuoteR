@@ -12,11 +12,11 @@
 		/// <summary>
 		/// Event that should fire when the form is loaded
 		/// </summary>
-		Task EventFormLoaded();
+		Task EventFormLoadedAsync();
 
 		/// <summary>
 		/// Event that should fire when the form's Close() method is called
 		/// </summary>
-		Task EventFormClosing();
+		Task EventFormClosingAsync();
 	}
 }

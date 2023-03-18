@@ -252,15 +252,15 @@ namespace Quoter.App.Forms
 
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeIn);
 			await SetSelectedTab(_options.Tab, false);
-			await _manageFormController.EventFormLoaded();
+			await _manageFormController.EventFormLoadedAsync();
 		}
 
 		private async void ManageForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			await _manageFormController.EventFormClosing();
-			await _editQuotesController.EventFormClosing();
-			await _favouriteQuotesController.EventFormClosing();
-			await _settingsController.EventFormClosing();
+			await _manageFormController.EventFormClosingAsync();
+			await _editQuotesController.EventFormClosingAsync();
+			await _favouriteQuotesController.EventFormClosingAsync();
+			await _settingsController.EventFormClosingAsync();
 		}
 
 		void IForm.SetStatus(string message, Color color)
@@ -1016,7 +1016,7 @@ namespace Quoter.App.Forms
 						Application.DoEvents();
 					}
 
-					await _editQuotesController.EventFormLoaded();
+					await _editQuotesController.EventFormLoadedAsync();
 					break;
 				case EnumTab.FavouriteQuotes:
 					tabControl.SelectTab(tabPage2);
@@ -1026,12 +1026,12 @@ namespace Quoter.App.Forms
 						Application.DoEvents();
 					}
 					SetSelectedTabHighlight(btnTabPage2);
-					await _favouriteQuotesController.EventFormLoaded();
+					await _favouriteQuotesController.EventFormLoadedAsync();
 					break;
 				case EnumTab.Settings:
 					tabControl.SelectTab(tabPage3);
 					SetSelectedTabHighlight(btnTabPage3);
-					await _settingsController.EventFormLoaded();
+					await _settingsController.EventFormLoadedAsync();
 					break;
 			}
 			SetStatus("", Const.ColorDefault);

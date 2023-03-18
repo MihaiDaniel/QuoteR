@@ -219,7 +219,18 @@ namespace Quoter.App.Services
 			{
 				Set<bool>(nameof(IsStartWithWindows), value);
 			}
+		}
 
+		public bool IsSetupFinished
+		{
+			get
+			{
+				return Get<bool>(nameof(IsSetupFinished));
+			}
+			set
+			{
+				Set<bool>(nameof(IsSetupFinished), value);
+			}
 		}
 
 		/// <summary>

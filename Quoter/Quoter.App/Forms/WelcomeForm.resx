@@ -57,11 +57,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox2.Text" xml:space="preserve">
+  <data name="txtTab2Msg.Text" xml:space="preserve">
     <value>The applications needs to read the some text files with  your favourite writings so it can display them to you.  Press the folder button below to choose where the application will look for these files.
 </value>
   </data>
-  <data name="textBox5.Text" xml:space="preserve">
+  <data name="txtTab4Msg.Text" xml:space="preserve">
     <value>You can now start using the application. Press continue to close this setup. 
 The application will work in the background. 
 If you want to close it or modify some settings look for the icon in the tray bar.

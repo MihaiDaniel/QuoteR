@@ -5,6 +5,7 @@ using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.FormsControllers.Settings;
+using Quoter.App.FormsControllers.Welcome;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
@@ -48,9 +49,9 @@ namespace Quoter.App
 		{
 			ServiceCollection serviceCollection = new();
 
+			// Singleton services
 			ResourceManager resourceManager = new("Quoter.App.Resources.Strings", typeof(Program).Assembly);
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
-
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
 			serviceCollection.AddSingleton<ISettings, Settings>();
@@ -60,8 +61,11 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
 			serviceCollection.AddSingleton<ISoundService, SoundService>();
+
+			// Main application context
 			serviceCollection.AddSingleton<QuoterApplicationContext>();
 
+			// Forms
 			serviceCollection.AddTransient<SettingsForm>();
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
@@ -69,18 +73,22 @@ namespace Quoter.App
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();
 
-			serviceCollection.AddTransient<IQuoteService, QuoteService>();
-			serviceCollection.AddTransient<ILogger, Logger>();
-
+			// Forms controllers
 			serviceCollection.AddTransient<IManageFormController, ManageFormController>();
 			serviceCollection.AddTransient<IEditQuotesFormController, EditQuotesFormController>();
 			serviceCollection.AddTransient<ISettingsFormController, SettingsFormController>();
 			serviceCollection.AddTransient<IQuoteFormController, QuoteFormController>();
 			serviceCollection.AddTransient<IFavouriteQuotesFormController, FavouriteQuotesFormController>();
+			serviceCollection.AddTransient<IWelcomeFormController, WelcomeFormController>();
 
+			// Other transient services
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();
 
+			serviceCollection.AddTransient<IQuoteService, QuoteService>();
+			serviceCollection.AddTransient<ILogger, Logger>();
+
+			// Database
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());
 
 			return serviceCollection.GetContainer();

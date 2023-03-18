@@ -62,6 +62,7 @@ namespace Quoter.App
 				_settings.KeepNotificationOpenOnMouseOver = Const.SettingDefault.KeepNotificationOpenOnMouseOver;
 				_settings.ShowCollectionsBasedOnLanguage = Const.SettingDefault.ShowCollectionsBasedOnLanguage;
 				_settings.NotificationType = Const.SettingDefault.NotificationType;
+				_settings.NotificationSound = EnumSound.Click;
 
 				CultureInfo ci = CultureInfo.CurrentUICulture;
 				switch (ci.Name)
@@ -295,6 +296,11 @@ namespace Quoter.App
 			Application.Exit();
 		}
 
+		private void WelcomeEventHandler(object? sender, EventArgs e)
+		{
+			_formsManager.Show<WelcomeForm>();
+		}
+
 		private ContextMenuStrip GetContextMenuStrip()
 		{
 			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
@@ -320,7 +326,10 @@ namespace Quoter.App
 					new ToolStripMenuItem(_stringResources["Favourites"], Resources.Resources.star_32, new EventHandler(EventHandlerOpenFavourties), "Favourites"),
 					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_32, new EventHandler(EventHandlerOpenSettings), "Settings"),
 					new ToolStripSeparator(),
-					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(ExitEventHandler), "Exit")
+					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(ExitEventHandler), "Exit"),
+#if DEBUG
+					new ToolStripMenuItem("Welcome", null, new EventHandler(WelcomeEventHandler), "Welcome")
+#endif
 				}
 			};
 			return contextMenuStrip;
