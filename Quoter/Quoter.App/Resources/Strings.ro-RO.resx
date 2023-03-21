@@ -474,4 +474,46 @@
   <data name="NotificationSound" xml:space="preserve">
     <value>Sunet notificări</value>
   </data>
+  <data name="QuoterIntroduction" xml:space="preserve">
+    <value>Quoter îti afișează în mod regulat citatele sau versetele tale preferate. Alege o limbă și apasă înainte pentru a continua.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Înainte</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Înapoi</value>
+  </data>
+  <data name="ChooseCollectionToStart" xml:space="preserve">
+    <value>Alege una din colecțiile de mai jos</value>
+  </data>
+  <data name="ChooseCollectionToStartMsg" xml:space="preserve">
+    <value>Pentru a continua, alege una dintre colecțiile disponibile. Puteți edita ulterior sau chiar adăuga propriile colecții.</value>
+  </data>
+  <data name="AlmostDone" xml:space="preserve">
+    <value>Aproape am terminat</value>
+  </data>
+  <data name="Rare60" xml:space="preserve">
+    <value>Rar (la fiecare oră)</value>
+  </data>
+  <data name="Normal30" xml:space="preserve">
+    <value>Normal (la fiecare 30 de min)</value>
+  </data>
+  <data name="Often15" xml:space="preserve">
+    <value>Des (la fiecare 15 min)</value>
+  </data>
+  <data name="YouCanModifyLater" xml:space="preserve">
+    <value>Puteți modifica această setare și altele mai târziu din pagina de setări a aplicației.</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Gata</value>
+  </data>
+  <data name="DoneMsg" xml:space="preserve">
+    <value>Acum veți primi notificări regulate cu citatele preferate. Dacă doriți să adăugați, să editați sau să ștergeți colecții sau să modificați setările, puteți utiliza meniul contextual făcând clic dreapta pe pictograma aplicației din bara windows-ului.</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finalizează</value>
+  </data>
+  <data name="HowOften" xml:space="preserve">
+    <value>Cât de des doriți să primiți notificări?</value>
+  </data>
 </root>

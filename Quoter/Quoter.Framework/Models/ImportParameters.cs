@@ -13,6 +13,11 @@ namespace Quoter.Framework.Models
 		public string[] Files { get; set; } 
 
 		/// <summary>
+		/// Set the imported collections as favourite on import.
+		/// </summary>
+		public bool IsFavourite { get; set; }
+
+		/// <summary>
 		/// If True, imported collections will be assigned the current application language, regardless of 
 		/// their original language
 		/// </summary>

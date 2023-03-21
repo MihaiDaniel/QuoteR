@@ -49,7 +49,7 @@ namespace Quoter.App.Forms
 			DialogModel dialogModel = new DialogModel()
 			{
 				Title = "Are you sure?",
-				Message = "Are you sure you waont to exit?",
+				Message = "Are you sure you want to exit?",
 				TitleColor = Const.ColorWarn,
 				MessageBoxButtons = EnumDialogButtons.OkCancel
 			};
@@ -69,25 +69,25 @@ namespace Quoter.App.Forms
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 		}
 
-		private void btnTab1Next_Click(object sender, EventArgs e)
+		private async void btnTab1Next_Click(object sender, EventArgs e)
 		{
 			//tabControl.SelectTab(1);
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
 		}
 
-		private void btnTab2Back_Click(object sender, EventArgs e)
+		private async void btnTab2Back_Click(object sender, EventArgs e)
 		{
 			//tabControl.SelectTab(0);
 			_controller.SetSelectedTab(EnumWelcomeTab.SetLanguage);
 		}
 
-		private void btnTab2Next_Click(object sender, EventArgs e)
+		private async void btnTab2Next_Click(object sender, EventArgs e)
 		{
 			//tabControl.SelectTab(2);
 			_controller.SetSelectedTab(EnumWelcomeTab.SetNotificationSettings);
 		}
 
-		private void btnTab3Back_Click(object sender, EventArgs e)
+		private async void btnTab3Back_Click(object sender, EventArgs e)
 		{
 			//tabControl.SelectTab(1);
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
@@ -214,6 +214,32 @@ namespace Quoter.App.Forms
 			btnLanguageEn.Invalidate();
 			btnLanguageRo.Invalidate();
 			btnLanguageFr.Invalidate();
+
+			// Tab 1
+			lblTab1Welcome.Text = _stringResources["Welcome"];
+			txtTab1WelcomeMsg.Text = _stringResources["QuoterIntroduction"];
+			btnTab1Next.Text = _stringResources["Next"];
+
+			// Tab 2
+			lblTab2.Text = _stringResources["ChooseCollectionToStart"];
+			txtTab2Msg.Text = _stringResources["ChooseCollectionToStartMsg"];
+			btnTab2Back.Text = _stringResources["Back"];
+			btnTab2Next.Text = _stringResources["Next"];
+
+			// Tab 3
+			lblTab3.Text = _stringResources["AlmostDone"];
+			txtTab3NotificationInterval.Text = _stringResources["HowOften"];
+			btnTab3Rare.Text = _stringResources["Rare60"];
+			btnTab3Normal.Text = _stringResources["Normal30"];
+			btnTab3Often.Text = _stringResources["Often15"];
+			txtTab3Extra.Text = _stringResources["YouCanModifyLater"];
+			btnTab3Back.Text = _stringResources["Back"];
+			btnTab3Next.Text = _stringResources["Next"];
+
+			// Tab 4
+			lblTab4.Text = _stringResources["Done"];
+			txtTab4Msg.Text = _stringResources["DoneMsg"];
+			btnTab4Finish.Text = _stringResources["Finish"];
 		}
 	}
 }

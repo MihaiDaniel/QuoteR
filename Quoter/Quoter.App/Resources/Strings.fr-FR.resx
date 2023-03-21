@@ -454,4 +454,46 @@
   <data name="NotificationSound" xml:space="preserve">
     <value>Son de notification</value>
   </data>
+  <data name="QuoterIntroduction" xml:space="preserve">
+    <value>Quoter vous permet de recevoir des notifications régulières sur votre bureau de vos citations ou versets préférés. Sélectionnez une langue et appuyez sur suivant pour continuer.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Suivante</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Retourner</value>
+  </data>
+  <data name="ChooseCollectionToStart" xml:space="preserve">
+    <value>Choisissez l'une des collections ci-dessous</value>
+  </data>
+  <data name="ChooseCollectionToStartMsg" xml:space="preserve">
+    <value>Pour continuer, choisissez l'une des collections disponibles. Vous pouvez ensuite modifier ou même ajouter vos propres collections.</value>
+  </data>
+  <data name="AlmostDone" xml:space="preserve">
+    <value>Presque fini</value>
+  </data>
+  <data name="Rare60" xml:space="preserve">
+    <value>Rare (toutes les 1h)</value>
+  </data>
+  <data name="Normal30" xml:space="preserve">
+    <value>Normal (toutes les 30 min)</value>
+  </data>
+  <data name="Often15" xml:space="preserve">
+    <value>Souvent (toutes les 15 min)</value>
+  </data>
+  <data name="YouCanModifyLater" xml:space="preserve">
+    <value>Vous pouvez modifier ces paramètres et bien plus encore, à partir des paramètres de l'application, après avoir terminé la configuration.</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="DoneMsg" xml:space="preserve">
+    <value>Vous recevrez désormais des notifications régulières avec vos citations préférées. Si vous souhaitez ajouter, modifier ou supprimer des collections, ou modifier les paramètres, vous pouvez utiliser le menu contextuel en cliquant avec le bouton droit sur l'icône de la barre d'état de l'application.</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finir</value>
+  </data>
+  <data name="HowOften" xml:space="preserve">
+    <value>À quelle fréquence souhaitez-vous recevoir des notifications ?</value>
+  </data>
 </root>

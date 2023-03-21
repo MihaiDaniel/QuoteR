@@ -31,9 +31,16 @@ namespace Quoter.App.Forms
 		ILogger _logger;
 		/// <summary>
 		/// Boolean to stop events from propaganding from form to controller,
-		/// to eliminate a circular call and stack overflow
+		/// to eliminate a circular call and stack overflow. This is so we can add
+		/// elements to isFavourites tab controllers and set the checked status without
+		/// notifying the controller of any changes untill we finish the operation.
 		/// </summary>
 		private bool _allowFavouritesIsCheckedEventHandlers = true;
+
+		/// <summary>
+		/// The last key pressed
+		/// </summary>
+		private Keys _lastKey = Keys.None;
 
 		public ManageForm(IFormsManager formsManager,
 							IFormPositioningService formPositioningService,
@@ -617,7 +624,7 @@ namespace Quoter.App.Forms
 			await _editQuotesController.AddCollection();
 		}
 
-		private async void buttonEditCollection_Click(object sender, EventArgs e)
+		private async void btnEditCollection_Click(object sender, EventArgs e)
 		{
 			await _editQuotesController.EditCollection();
 		}
@@ -673,6 +680,8 @@ namespace Quoter.App.Forms
 				ExcludeChars = txtQuotesExcludedChars.Text,
 				AppendTextToBegining = txtQuotesAppendedTextToBeginning.Text,
 				AppendTextToEnd = txtQuotesAppendTextToEnd.Text,
+				ReplaceChars = txtQuotesReplaceChars.Text,
+				ReplacedCharsReplacement = txtQuotesReplaceCharsReplacement.Text,
 			};
 			await _editQuotesController.AddQuotes(saveOptions);
 		}
@@ -946,7 +955,7 @@ namespace Quoter.App.Forms
 
 		private void clbChapters_SelectedValueChanged(object sender, EventArgs e)
 		{
-
+			// Nothing to handle when chapter selected
 		}
 
 		private void clbChapters_ItemCheck(object sender, ItemCheckEventArgs e)
@@ -1085,5 +1094,83 @@ namespace Quoter.App.Forms
 				}
 			});
 		}
+
+		
+
+		private void ManageForm_KeyDown(object sender, KeyEventArgs e)
+		{
+			if(e.Shift)
+			{
+				switch (e.KeyCode)
+				{
+					case Keys.F1:
+						btnTabPage1_Click(sender, e);
+						break;
+					case Keys.F2:
+						btnTabPage2_Click(sender, e);
+						break;
+					case Keys.F3:
+						btnTabPage3_Click(sender, e);
+						break;
+				}
+			}
+			if(tabControl.SelectedIndex == 0)   // Edit quotes tab
+			{
+				if(e.Control) 
+				{
+					if(e.KeyCode == Keys.Enter)	// Save quotes
+					{
+						btnSaveQuotes_Click(sender, e);
+					}
+					else if(_lastKey == Keys.A) // Add something
+					{
+						switch(e.KeyCode)
+						{
+							case Keys.V:
+								btnAddCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnAddBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnAddChapter_Click(sender, e);
+								break;
+						}
+					}
+					else if(_lastKey == Keys.E) // Edit something
+					{
+						switch (e.KeyCode)
+						{
+							case Keys.V:
+								btnEditCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnEditBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnEditChapter_Click(sender, e);
+								break;
+						}
+					}
+					else if (_lastKey == Keys.D) // Delete something
+					{
+						switch (e.KeyCode)
+						{
+							case Keys.V:
+								btnDeleteCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnDeleteBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnDeleteChapter_Click(sender, e);
+								break;
+						}
+					}
+				}
+			}
+			_lastKey = e.KeyCode;
+		}
+
 	}
 }

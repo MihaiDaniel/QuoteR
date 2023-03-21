@@ -4,7 +4,9 @@ using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
+using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
+using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using System.Globalization;
 
@@ -15,13 +17,19 @@ namespace Quoter.App.FormsControllers.Welcome
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly IFormsManager _formsManager;
+		private readonly IImportService _importService;
 		private IWelcomeForm _form;
 
-		public WelcomeFormController(ISettings settings, IMessagingService messagingService, IFormsManager formsManager)
+
+		private List<CollectionFileModel> _importableCollections;
+
+		public WelcomeFormController(ISettings settings, IMessagingService messagingService, IFormsManager formsManager, IImportService importService)
 		{
 			_settings = settings;
 			_messagingService = messagingService;
 			_formsManager = formsManager;
+			_importService = importService;
+			_importableCollections = new List<CollectionFileModel>();
 		}
 
 		public void RegisterForm(IWelcomeForm form)
@@ -36,11 +44,33 @@ namespace Quoter.App.FormsControllers.Welcome
 
 		public Task EventFormLoadedAsync()
 		{
-			List<CollectionFileModel> files = new List<CollectionFileModel>();
-			files.Add(new CollectionFileModel() { Name = "Test1" });
-			files.Add(new CollectionFileModel() { Name = "Test2" });
-			_form.SetImportableCollections(files);
+			string collectionsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Collections");
+
+
+			string[] roFiles = Directory.GetFiles(Path.Combine(collectionsDir, "ro"));
+			string[] enFiles = Directory.GetFiles(Path.Combine(collectionsDir, "en"));
+			string[] frFiles = Directory.GetFiles(Path.Combine(collectionsDir, "fr"));
+
+			AddCollectionFiles(roFiles, EnumLanguage.Romanian);
+			AddCollectionFiles(enFiles, EnumLanguage.English);
+			AddCollectionFiles(frFiles, EnumLanguage.French);
+
+			_form.SetImportableCollections(_importableCollections.Where(f => f.Language == LanguageHelper.GetEnumLanguageFromString(_settings.Language)).ToList());
 			return Task.CompletedTask;
+		}
+
+		private void AddCollectionFiles(string[] files, EnumLanguage language)
+		{
+			foreach (string file in files)
+			{
+				string fileName = Path.GetFileNameWithoutExtension(file);
+				_importableCollections.Add(new CollectionFileModel()
+				{
+					Name = fileName,
+					Language = language,
+					FilePath = file
+				});
+			}
 		}
 
 		public void FinishSetup()
@@ -72,6 +102,7 @@ namespace Quoter.App.FormsControllers.Welcome
 					_form.SetSelectedLanguage(language);
 					break;
 			}
+			_form.SetImportableCollections(_importableCollections.Where(f => f.Language == LanguageHelper.GetEnumLanguageFromString(_settings.Language)).ToList());
 			_messagingService.SendMessage(Event.LanguageChanged);
 		}
 
@@ -84,6 +115,7 @@ namespace Quoter.App.FormsControllers.Welcome
 		{
 			switch (tab)
 			{
+				// This case is when the user leaves the collection choose tab
 				case EnumWelcomeTab.SetNotificationSettings:
 					List<CollectionFileModel> lstCollectionFiles = _form.GetSelectedCollections();
 					if (lstCollectionFiles.Count == 0)
@@ -99,8 +131,16 @@ namespace Quoter.App.FormsControllers.Welcome
 					}
 					else
 					{
-						// Begin import
+						// Begin import of selected collections
 						_form.SetTab(EnumWelcomeTab.SetNotificationSettings);
+						string[] filesToImport = _form.GetSelectedCollections().Select(c => c.FilePath).ToArray();
+						ImportParameters importParameters = new ImportParameters()
+						{
+							Files = filesToImport,
+							IsFavourite = true,			// Set the imported collections by default as favourites
+							IsMergeCollections = true	// In case the user goes back and forth, we don't want to duplicate the import
+						};
+						_importService.QueueImportJob(importParameters);
 					}
 					break;
 				default:

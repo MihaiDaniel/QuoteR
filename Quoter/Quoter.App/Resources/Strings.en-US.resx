@@ -474,4 +474,46 @@
   <data name="NotificationSound" xml:space="preserve">
     <value>Notification sound</value>
   </data>
+  <data name="QuoterIntroduction" xml:space="preserve">
+    <value>Quoter allows you to receive regular notifications on your desktop of your favourite quotes or verses. Select a language and press next to continue.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="ChooseCollectionToStart" xml:space="preserve">
+    <value>Choose one of the collections</value>
+  </data>
+  <data name="ChooseCollectionToStartMsg" xml:space="preserve">
+    <value>To continue, choose one of the available collections. You can later edit or even add your own collections.</value>
+  </data>
+  <data name="AlmostDone" xml:space="preserve">
+    <value>Almost done</value>
+  </data>
+  <data name="Rare60" xml:space="preserve">
+    <value>Rare (every 1 hour)</value>
+  </data>
+  <data name="Normal30" xml:space="preserve">
+    <value>Normal (every 30 min)</value>
+  </data>
+  <data name="Often15" xml:space="preserve">
+    <value>Often (every 15 min)</value>
+  </data>
+  <data name="YouCanModifyLater" xml:space="preserve">
+    <value>You can modify this settings and much more, from the application settings, after completing the setup.</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>All done</value>
+  </data>
+  <data name="DoneMsg" xml:space="preserve">
+    <value>You will now receive regular notifications with your favourite quotes. If you want to add, edit or delete collections, or modify settings you can use the context menu by right-clicking the tray icon of the application.</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="HowOften" xml:space="preserve">
+    <value>How often do you want to receive notifications?</value>
+  </data>
 </root>

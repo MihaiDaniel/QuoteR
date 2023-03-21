@@ -136,6 +136,10 @@ namespace Quoter.Framework.Services.ImportExport
 			{
 				collectionModel.Language = importParameters.Language;
 			}
+			if (importParameters.IsFavourite)
+			{
+				collectionModel.IsFavourite = true;
+			}
 			if (importParameters.IsMergeCollections)
 			{
 				Collection? existingCol = await _context.Collections.FirstOrDefaultAsync(c => c.Name == collectionModel.Name);
@@ -205,7 +209,7 @@ namespace Quoter.Framework.Services.ImportExport
 				Description = model.Description,
 				Name = model.Name,
 				Language = model.Language,
-				IsFavourite = false,
+				IsFavourite = model.IsFavourite,
 			};
 			_context.Collections.Add(addedCollection);
 			await _context.SaveChangesAsync();
@@ -227,6 +231,10 @@ namespace Quoter.Framework.Services.ImportExport
 
 		private async Task ImportBook(BookExportModel bookModel, ExportModel importModel, ImportParameters importParameters)
 		{
+			if (importParameters.IsFavourite)
+			{
+				bookModel.IsFavourite = true;
+			}
 			if (importParameters.IsMergeCollections)
 			{
 				Book? existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Name == bookModel.Name
@@ -255,7 +263,7 @@ namespace Quoter.Framework.Services.ImportExport
 				Name = bookModel.Name,
 				Description = bookModel.Description,
 				CollectionId = bookModel.CollectionId,
-				IsFavourite = false,
+				IsFavourite = bookModel.IsFavourite,
 			};
 			_context.Books.Add(addedBook);
 			await _context.SaveChangesAsync();
@@ -277,6 +285,10 @@ namespace Quoter.Framework.Services.ImportExport
 
 		private async Task ImportChapter(ChapterExportModel chapterModel, ExportModel importModel, ImportParameters importParameters)
 		{
+			if (importParameters.IsFavourite)
+			{
+				chapterModel.IsFavourite = true;
+			}
 			if (importParameters.IsMergeCollections)
 			{
 				Chapter? existingChapter = await _context.Chapters.FirstOrDefaultAsync(c => c.Name == chapterModel.Name
@@ -305,7 +317,7 @@ namespace Quoter.Framework.Services.ImportExport
 				Name = chapterModel.Name,
 				Description = chapterModel.Description,
 				BookId = chapterModel.BookId,
-				IsFavourite = false
+				IsFavourite = chapterModel.IsFavourite
 			};
 			_context.Chapters.Add(addedChapter);
 			await _context.SaveChangesAsync();
@@ -327,13 +339,21 @@ namespace Quoter.Framework.Services.ImportExport
 			int quoteIndex = 0;
 			if (importParameters.IsMergeCollections)
 			{
-				int lastIndex = await _context.Quotes
+				List<int> indexes = await _context.Quotes
 				.Where(q => q.CollectionId == quoteModel.CollectionId
 						&& q.BookId == quoteModel.BookId
 						&& q.ChapterId == quoteModel.BookId)
 				.Select(q => q.QuoteIndex)
-				.MaxAsync();
-				quoteIndex = lastIndex + 1;
+				.ToListAsync();
+
+				if(indexes.Count > 0)
+				{
+					quoteIndex = indexes.Max() + 1;
+				}
+				else
+				{
+					quoteIndex = quoteModel.QuoteIndex;
+				}
 			}
 			else
 			{

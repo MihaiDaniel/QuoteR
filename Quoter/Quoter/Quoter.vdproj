@@ -68,6 +68,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -99,9 +107,14 @@
                     "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.6.0.x64"
+                    {
+                    "Name" = "8:.NET Runtime 6.0.13 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.6.0.x64"
+                    }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     {
-                    "Name" = "8:.NET Desktop Runtime 6.0.11 (x64)"
+                    "Name" = "8:.NET Desktop Runtime 6.0.13 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
@@ -264,6 +277,17 @@
                     "Property" = "8:_227483B1DAB848F4A6C577B85110D2C8"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_655D936D0DD548D2890BC93E2A2ECC90"
+                            {
+                            "Name" = "8:en"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_C86FB0412E734204B26A3A1FFDA06E9B"
+                                "Folders"
+                                {
+                                }
+                            }
                             "{9EF0B969-E518-4E46-987F-47570745A589}:_BCB9F9C1C95B40DF9C2ACE157024F139"
                             {
                             "Name" = "8:ro"
@@ -271,6 +295,17 @@
                             "Condition" = "8:"
                             "Transitive" = "11:FALSE"
                             "Property" = "8:_CE2569E4118F46EE96EC56FB054C5931"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_E994CFF46DAB44198313C3A35EE0DE8C"
+                            {
+                            "Name" = "8:fr"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_150F4F78DCCC4F43AE42189A37B4032D"
                                 "Folders"
                                 {
                                 }
@@ -296,7 +331,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Quoter"
         "ProductCode" = "8:{4669E75D-0CC0-4344-BF1C-90F0117997DA}"
-        "PackageCode" = "8:{1FAF7FAF-4BB8-4ACE-9777-746AFF1C259A}"
+        "PackageCode" = "8:{AD01F0B7-F66B-4542-809E-B1DB955351FA}"
         "UpgradeCode" = "8:{ECB44F8D-FC3E-4FE0-9596-C16839D71780}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -873,7 +908,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FC955F9C43744E1688B2C334BDB13BAE"
             {
-            "SourcePath" = "8:..\\Quoter.App\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Quoter.App\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EC72B8C2B4024669AEC72D9DCB085211"

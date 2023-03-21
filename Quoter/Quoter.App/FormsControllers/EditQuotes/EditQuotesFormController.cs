@@ -425,6 +425,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 				Books.Add(newBook);
 				SelectedBook = newBook;
+				await LoadBookChaptersOrQuotes();
 
 				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
 				_form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
@@ -566,6 +567,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 					Chapters.Add(newChapter);
 					SelectedChapter = newChapter;
+					await LoadQuotes();
 
 					_form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
 					_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
@@ -753,6 +755,21 @@ namespace Quoter.App.FormsControllers.EditQuotes
 						newQuoteContent = newQuoteContent.Replace(c.ToString(), "");
 					}
 				}
+				if (!string.IsNullOrWhiteSpace(saveOptions.ReplaceChars))
+				{
+					char[] replacebleChars = saveOptions.ReplaceChars.ToCharArray();
+					foreach (char c in replacebleChars)
+					{
+						if(saveOptions.ReplacedCharsReplacement == "\\n" || saveOptions.ReplacedCharsReplacement == "\\r\\n")
+						{
+							newQuoteContent = newQuoteContent.Replace(c.ToString(), Environment.NewLine);
+						}
+						else
+						{
+							newQuoteContent = newQuoteContent.Replace(c.ToString(), saveOptions.ReplacedCharsReplacement);
+						}
+					}
+				}
 
 				if (!string.IsNullOrEmpty(saveOptions.AppendTextToBegining))
 				{
@@ -765,7 +782,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 				newQuoteContent = newQuoteContent.Trim();
 
-				if (!string.IsNullOrEmpty(newQuoteContent))
+				if (!string.IsNullOrWhiteSpace(newQuoteContent))
 				{
 					Quote quote = new()
 					{

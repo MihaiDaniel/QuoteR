@@ -12,5 +12,7 @@ namespace Quoter.App.Models
 		public string ExcludeChars { get; set; }
 		public string AppendTextToBegining { get; set; }
 		public string AppendTextToEnd { get; set; }
+		public string ReplaceChars { get; set; }
+		public string ReplacedCharsReplacement { get; set; }
 	}
 }

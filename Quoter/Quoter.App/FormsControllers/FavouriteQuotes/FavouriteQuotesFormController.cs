@@ -17,6 +17,10 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
 	public class FavouriteQuotesFormController : IFavouriteQuotesFormController
 	{
+		/// <summary>
+		/// Special item in the list boxes. If this is checked or unchecked it should check/uncheck
+		/// all other items present in the respective list (and their children)
+		/// </summary>
 		private const int IdSelectAllItems = -1;
 
 		private readonly QuoterContext _context;

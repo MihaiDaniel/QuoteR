@@ -38,6 +38,9 @@
 			this.gbQuotes = new System.Windows.Forms.GroupBox();
 			this.btnQuotesOptions = new System.Windows.Forms.Button();
 			this.pnlQuotesOptions = new System.Windows.Forms.Panel();
+			this.txtQuotesReplaceCharsReplacement = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.txtQuotesReplaceChars = new System.Windows.Forms.TextBox();
 			this.chkWordWrap = new System.Windows.Forms.CheckBox();
 			this.lblQuotesAppendEnd = new System.Windows.Forms.Label();
 			this.txtQuotesAppendTextToEnd = new System.Windows.Forms.TextBox();
@@ -275,6 +278,9 @@
 			// pnlQuotesOptions
 			// 
 			this.pnlQuotesOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceCharsReplacement);
+			this.pnlQuotesOptions.Controls.Add(this.label1);
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceChars);
 			this.pnlQuotesOptions.Controls.Add(this.chkWordWrap);
 			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendEnd);
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendTextToEnd);
@@ -283,17 +289,41 @@
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludedChars);
 			this.pnlQuotesOptions.Controls.Add(this.lblQuotesExcludeChars);
 			this.pnlQuotesOptions.Controls.Add(this.chkQuotesTrimRow);
-			this.pnlQuotesOptions.Location = new System.Drawing.Point(42, 211);
+			this.pnlQuotesOptions.Location = new System.Drawing.Point(42, 174);
 			this.pnlQuotesOptions.Name = "pnlQuotesOptions";
-			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 170);
+			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 207);
 			this.pnlQuotesOptions.TabIndex = 15;
+			// 
+			// txtQuotesReplaceCharsReplacement
+			// 
+			this.txtQuotesReplaceCharsReplacement.Location = new System.Drawing.Point(180, 134);
+			this.txtQuotesReplaceCharsReplacement.Multiline = true;
+			this.txtQuotesReplaceCharsReplacement.Name = "txtQuotesReplaceCharsReplacement";
+			this.txtQuotesReplaceCharsReplacement.Size = new System.Drawing.Size(77, 40);
+			this.txtQuotesReplaceCharsReplacement.TabIndex = 10;
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(77, 134);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(100, 40);
+			this.label1.TabIndex = 9;
+			this.label1.Text = "Replace chars with";
+			// 
+			// txtQuotesReplaceChars
+			// 
+			this.txtQuotesReplaceChars.Location = new System.Drawing.Point(9, 138);
+			this.txtQuotesReplaceChars.Multiline = true;
+			this.txtQuotesReplaceChars.Name = "txtQuotesReplaceChars";
+			this.txtQuotesReplaceChars.Size = new System.Drawing.Size(62, 36);
+			this.txtQuotesReplaceChars.TabIndex = 8;
 			// 
 			// chkWordWrap
 			// 
 			this.chkWordWrap.AutoSize = true;
 			this.chkWordWrap.Checked = true;
 			this.chkWordWrap.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chkWordWrap.Location = new System.Drawing.Point(9, 139);
+			this.chkWordWrap.Location = new System.Drawing.Point(9, 180);
 			this.chkWordWrap.Name = "chkWordWrap";
 			this.chkWordWrap.Size = new System.Drawing.Size(87, 19);
 			this.chkWordWrap.TabIndex = 7;
@@ -343,7 +373,7 @@
 			// 
 			this.lblQuotesExcludeChars.Location = new System.Drawing.Point(77, 36);
 			this.lblQuotesExcludeChars.Name = "lblQuotesExcludeChars";
-			this.lblQuotesExcludeChars.Size = new System.Drawing.Size(180, 48);
+			this.lblQuotesExcludeChars.Size = new System.Drawing.Size(180, 39);
 			this.lblQuotesExcludeChars.TabIndex = 1;
 			this.lblQuotesExcludeChars.Text = "Exclude characters ( input characters with no spaces)";
 			// 
@@ -620,7 +650,7 @@
 			this.btnEditCollection.TabIndex = 8;
 			this.btnEditCollection.Text = "Modifica";
 			this.btnEditCollection.UseVisualStyleBackColor = false;
-			this.btnEditCollection.Click += new System.EventHandler(this.buttonEditCollection_Click);
+			this.btnEditCollection.Click += new System.EventHandler(this.btnEditCollection_Click);
 			// 
 			// btnDeleteCollection
 			// 
@@ -1589,11 +1619,13 @@
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.Name = "ManageForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ManageQuotesForm";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageForm_FormClosing);
 			this.Load += new System.EventHandler(this.ManageQuotesForm_Load);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManageForm_KeyDown);
 			this.pnlTitle.ResumeLayout(false);
 			this.pnlTitle.PerformLayout();
 			this.tabControl.ResumeLayout(false);
@@ -1739,5 +1771,8 @@
 		private Button btnPlayNotificationSound;
 		private Label lblNotificationSound;
 		private ComboBox cbNotificationSound;
+		private TextBox txtQuotesReplaceCharsReplacement;
+		private Label label1;
+		private TextBox txtQuotesReplaceChars;
 	}
 }
