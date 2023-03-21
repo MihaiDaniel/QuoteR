@@ -516,4 +516,7 @@
   <data name="HowOften" xml:space="preserve">
     <value>Cât de des doriți să primiți notificări?</value>
   </data>
+  <data name="ConfirmExit" xml:space="preserve">
+    <value>Doriți să închideți aplicația?</value>
+  </data>
 </root>

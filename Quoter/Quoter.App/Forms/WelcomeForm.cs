@@ -46,17 +46,10 @@ namespace Quoter.App.Forms
 
 		private void btnClose_Click(object sender, EventArgs e)
 		{
-			DialogModel dialogModel = new DialogModel()
+			bool canClose = _controller.Close();
+			if (canClose)
 			{
-				Title = "Are you sure?",
-				Message = "Are you sure you want to exit?",
-				TitleColor = Const.ColorWarn,
-				MessageBoxButtons = EnumDialogButtons.OkCancel
-			};
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
-			if (result.DialogResult == DialogResult.OK)
-			{
-				Application.Exit();
+				_formsManager.Close(this);
 			}
 		}
 
@@ -71,31 +64,26 @@ namespace Quoter.App.Forms
 
 		private async void btnTab1Next_Click(object sender, EventArgs e)
 		{
-			//tabControl.SelectTab(1);
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
 		}
 
 		private async void btnTab2Back_Click(object sender, EventArgs e)
 		{
-			//tabControl.SelectTab(0);
 			_controller.SetSelectedTab(EnumWelcomeTab.SetLanguage);
 		}
 
 		private async void btnTab2Next_Click(object sender, EventArgs e)
 		{
-			//tabControl.SelectTab(2);
 			_controller.SetSelectedTab(EnumWelcomeTab.SetNotificationSettings);
 		}
 
 		private async void btnTab3Back_Click(object sender, EventArgs e)
 		{
-			//tabControl.SelectTab(1);
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
 		}
 
 		private void btnTab3Next_Click(object sender, EventArgs e)
 		{
-			//tabControl.SelectTab(3);
 			_controller.SetSelectedTab(EnumWelcomeTab.Finish);
 		}
 
@@ -119,7 +107,6 @@ namespace Quoter.App.Forms
 		{
 			_controller.SetLanguage(EnumLanguage.French);
 		}
-
 
 		private void btnTab3Often_Click(object sender, EventArgs e)
 		{

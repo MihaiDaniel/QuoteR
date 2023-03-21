@@ -10,5 +10,6 @@ namespace Quoter.App.FormsControllers.Welcome
 		void SetLanguage(EnumLanguage language);
 		void SetNotificationsInterval(int  interval);
 		void FinishSetup();
+		bool Close();
 	}
 }

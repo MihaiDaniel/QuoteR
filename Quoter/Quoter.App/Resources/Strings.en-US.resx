@@ -516,4 +516,7 @@
   <data name="HowOften" xml:space="preserve">
     <value>How often do you want to receive notifications?</value>
   </data>
+  <data name="ConfirmExit" xml:space="preserve">
+    <value>Are you sure you want to exit?</value>
+  </data>
 </root>
