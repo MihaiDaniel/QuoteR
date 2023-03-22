@@ -135,7 +135,7 @@ namespace Quoter.App.Forms
 			btnSaveQuotes.Text = _stringResources["Save"];
 			gbQuotes.Text = _stringResources["Quotes"];
 
-			chkQuotesTrimRow.Text = _stringResources["OptionTrimRow"];
+			//chkQuotesTrimRow.Text = _stringResources["OptionTrimRow"];
 			lblQuotesExcludeChars.Text = _stringResources["OptionExcludeChars"];
 			lblQuotesAppendStart.Text = _stringResources["OptionAppendTextStart"];
 			lblQuotesAppendEnd.Text = _stringResources["OptionAppendTextEnd"];
@@ -676,7 +676,8 @@ namespace Quoter.App.Forms
 		{
 			QuoteSaveOptions saveOptions = new()
 			{
-				TrimUntillFirstWhiteSpace = chkQuotesTrimRow.Checked,
+				//TrimUntillFirstWhiteSpace = chkQuotesTrimRow.Checked,
+				TrimUntil = txtQuotesExcludeUntillChars.Text,
 				ExcludeChars = txtQuotesExcludedChars.Text,
 				AppendTextToBegining = txtQuotesAppendedTextToBeginning.Text,
 				AppendTextToEnd = txtQuotesAppendTextToEnd.Text,
@@ -1172,5 +1173,9 @@ namespace Quoter.App.Forms
 			_lastKey = e.KeyCode;
 		}
 
+		private void btnQuickAdd_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.QuickAdd();
+		}
 	}
 }

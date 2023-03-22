@@ -36,6 +36,7 @@
 			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.btnReloadEditCollections = new System.Windows.Forms.Button();
 			this.gbQuotes = new System.Windows.Forms.GroupBox();
+			this.btnQuickAdd = new System.Windows.Forms.Button();
 			this.btnQuotesOptions = new System.Windows.Forms.Button();
 			this.pnlQuotesOptions = new System.Windows.Forms.Panel();
 			this.txtQuotesReplaceCharsReplacement = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@
 			this.txtQuotesAppendedTextToBeginning = new System.Windows.Forms.TextBox();
 			this.txtQuotesExcludedChars = new System.Windows.Forms.TextBox();
 			this.lblQuotesExcludeChars = new System.Windows.Forms.Label();
-			this.chkQuotesTrimRow = new System.Windows.Forms.CheckBox();
 			this.lineNumbers_For_RichTextBox1 = new LineNumbers.LineNumbers_For_RichTextBox();
 			this.rtbQuotes = new System.Windows.Forms.RichTextBox();
 			this.btnSaveQuotes = new System.Windows.Forms.Button();
@@ -141,6 +141,8 @@
 			this.pnlSelectedTab = new System.Windows.Forms.Panel();
 			this.pbBackgroundTask = new System.Windows.Forms.PictureBox();
 			this.lblBackgroundTask = new System.Windows.Forms.Label();
+			this.txtQuotesExcludeUntillChars = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.pnlTitle.SuspendLayout();
 			this.tabControl.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -251,6 +253,7 @@
 			// gbQuotes
 			// 
 			this.gbQuotes.BackColor = System.Drawing.Color.WhiteSmoke;
+			this.gbQuotes.Controls.Add(this.btnQuickAdd);
 			this.gbQuotes.Controls.Add(this.btnQuotesOptions);
 			this.gbQuotes.Controls.Add(this.pnlQuotesOptions);
 			this.gbQuotes.Controls.Add(this.lineNumbers_For_RichTextBox1);
@@ -263,6 +266,21 @@
 			this.gbQuotes.TabIndex = 17;
 			this.gbQuotes.TabStop = false;
 			this.gbQuotes.Text = "Quotes";
+			// 
+			// btnQuickAdd
+			// 
+			this.btnQuickAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnQuickAdd.BackColor = System.Drawing.Color.LightGoldenrodYellow;
+			this.btnQuickAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.btnQuickAdd.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.btnQuickAdd.ForeColor = System.Drawing.Color.Olive;
+			this.btnQuickAdd.Location = new System.Drawing.Point(370, 380);
+			this.btnQuickAdd.Name = "btnQuickAdd";
+			this.btnQuickAdd.Size = new System.Drawing.Size(91, 24);
+			this.btnQuickAdd.TabIndex = 17;
+			this.btnQuickAdd.Text = "Quick add";
+			this.btnQuickAdd.UseVisualStyleBackColor = false;
+			this.btnQuickAdd.Click += new System.EventHandler(this.btnQuickAdd_Click);
 			// 
 			// btnQuotesOptions
 			// 
@@ -278,6 +296,8 @@
 			// pnlQuotesOptions
 			// 
 			this.pnlQuotesOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.pnlQuotesOptions.Controls.Add(this.label2);
+			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludeUntillChars);
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceCharsReplacement);
 			this.pnlQuotesOptions.Controls.Add(this.label1);
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceChars);
@@ -288,7 +308,6 @@
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendedTextToBeginning);
 			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludedChars);
 			this.pnlQuotesOptions.Controls.Add(this.lblQuotesExcludeChars);
-			this.pnlQuotesOptions.Controls.Add(this.chkQuotesTrimRow);
 			this.pnlQuotesOptions.Location = new System.Drawing.Point(42, 174);
 			this.pnlQuotesOptions.Name = "pnlQuotesOptions";
 			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 207);
@@ -376,16 +395,6 @@
 			this.lblQuotesExcludeChars.Size = new System.Drawing.Size(180, 39);
 			this.lblQuotesExcludeChars.TabIndex = 1;
 			this.lblQuotesExcludeChars.Text = "Exclude characters ( input characters with no spaces)";
-			// 
-			// chkQuotesTrimRow
-			// 
-			this.chkQuotesTrimRow.AutoSize = true;
-			this.chkQuotesTrimRow.Location = new System.Drawing.Point(9, 12);
-			this.chkQuotesTrimRow.Name = "chkQuotesTrimRow";
-			this.chkQuotesTrimRow.Size = new System.Drawing.Size(222, 19);
-			this.chkQuotesTrimRow.TabIndex = 0;
-			this.chkQuotesTrimRow.Text = "Trim row untill first space character";
-			this.chkQuotesTrimRow.UseVisualStyleBackColor = true;
 			// 
 			// lineNumbers_For_RichTextBox1
 			// 
@@ -1600,6 +1609,21 @@
 			this.lblBackgroundTask.Text = "Work being done in background";
 			this.lblBackgroundTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// txtExcludeUntillChars
+			// 
+			this.txtQuotesExcludeUntillChars.Location = new System.Drawing.Point(195, 3);
+			this.txtQuotesExcludeUntillChars.Name = "txtExcludeUntillChars";
+			this.txtQuotesExcludeUntillChars.Size = new System.Drawing.Size(62, 23);
+			this.txtQuotesExcludeUntillChars.TabIndex = 11;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(9, 6);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(180, 20);
+			this.label2.TabIndex = 12;
+			this.label2.Text = "Exclude characters untill";
+			// 
 			// ManageForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1752,7 +1776,6 @@
 		private TextBox txtQuotesAppendedTextToBeginning;
 		private TextBox txtQuotesExcludedChars;
 		private Label lblQuotesExcludeChars;
-		private CheckBox chkQuotesTrimRow;
 		private CheckBox chkImportMerge;
 		private Panel pnlSelectedTab;
 		private Button btnNotificationFont;
@@ -1774,5 +1797,8 @@
 		private TextBox txtQuotesReplaceCharsReplacement;
 		private Label label1;
 		private TextBox txtQuotesReplaceChars;
+		private Button btnQuickAdd;
+		private Label label2;
+		private TextBox txtQuotesExcludeUntillChars;
 	}
 }

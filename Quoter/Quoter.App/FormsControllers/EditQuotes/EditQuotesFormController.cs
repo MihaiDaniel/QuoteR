@@ -11,6 +11,7 @@ using Quoter.Framework.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
@@ -23,6 +24,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 		private readonly ILogger _logger;
 
 		private IEditQuotesForm _form;
+		private Regex _regexQuote;
 
 		#region Data binding
 
@@ -112,6 +114,9 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			_formsManager = formManager;
 			_settings = settings;
 			_logger = logger;
+
+			// Match any number and punctuation mark
+			_regexQuote = new Regex("^[0-9*\\+.,;-]+$");
 
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
@@ -672,6 +677,26 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 		#endregion  Add, Edit, Delete chapters
 
+		public async Task QuickAdd()
+		{
+			// Quick Add chapter
+			bool parseOk = int.TryParse(SelectedChapter?.Name, out int chapterNo);
+			if (parseOk)
+			{
+				Chapter newChapter = new()
+				{
+					Name = (chapterNo + 1).ToString(),
+					BookId = SelectedBook.BookId
+				};
+				_context.Chapters.Add(newChapter);
+				await _context.SaveChangesAsync();
+				Chapters.Add(newChapter);
+				SelectedChapter = newChapter;
+				await LoadQuotes();
+				_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
+			}
+		}
+
 		public async Task AddQuotes(QuoteSaveOptions saveOptions)
 		{
 			if (string.IsNullOrWhiteSpace(Quotes) || string.IsNullOrEmpty(SelectedCollection?.Name))
@@ -737,13 +762,13 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				string newQuoteContent = quoteContent;
 
-				if (saveOptions.TrimUntillFirstWhiteSpace)
+				if (!string.IsNullOrEmpty(saveOptions.TrimUntil))
 				{
 					newQuoteContent = newQuoteContent.Trim();
-					int firstSpaceIndex = newQuoteContent.IndexOf(" ");
+					int firstSpaceIndex = newQuoteContent.IndexOf(saveOptions.TrimUntil);
 					if (firstSpaceIndex >= 0 && newQuoteContent.Length > firstSpaceIndex + 1)
 					{
-						newQuoteContent = newQuoteContent.Substring(firstSpaceIndex, newQuoteContent.Length - firstSpaceIndex);
+						newQuoteContent = newQuoteContent.Substring(firstSpaceIndex + 1, newQuoteContent.Length - firstSpaceIndex - 1);
 					}
 					newQuoteContent = newQuoteContent.TrimStart();
 				}
@@ -769,6 +794,10 @@ namespace Quoter.App.FormsControllers.EditQuotes
 							newQuoteContent = newQuoteContent.Replace(c.ToString(), saveOptions.ReplacedCharsReplacement);
 						}
 					}
+				}
+				if (_regexQuote.IsMatch(newQuoteContent))
+				{
+					continue; // If it only has numbers and symbols it might not be a valid quote so ignore it.
 				}
 
 				if (!string.IsNullOrEmpty(saveOptions.AppendTextToBegining))

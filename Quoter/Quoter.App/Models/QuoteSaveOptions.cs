@@ -14,5 +14,6 @@ namespace Quoter.App.Models
 		public string AppendTextToEnd { get; set; }
 		public string ReplaceChars { get; set; }
 		public string ReplacedCharsReplacement { get; set; }
+		public string TrimUntil { get; set; }
 	}
 }

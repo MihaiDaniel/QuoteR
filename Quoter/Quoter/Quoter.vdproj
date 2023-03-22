@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_0819FA862F2043D1A3D8CAAFFF0FE0DB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_58F4A51D41114D7D98359178FDB51A7E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -22,6 +28,18 @@
         "Entry"
         {
         "MsmKey" = "8:_731B1D6F323F49288D0950FEC5EA953A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AA996F2EF4094126A625B94FB89F3C73"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AB24E4341622454988EAA9D27B748609"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -150,6 +168,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0819FA862F2043D1A3D8CAAFFF0FE0DB"
+            {
+            "SourcePath" = "8:..\\..\\Collections\\New Testament - Standard King James Version.qter"
+            "TargetName" = "8:New Testament - Standard King James Version.qter"
+            "Tag" = "8:"
+            "Folder" = "8:_655D936D0DD548D2890BC93E2A2ECC90"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_58F4A51D41114D7D98359178FDB51A7E"
             {
             "SourcePath" = "8:..\\..\\Collections\\Noul Testament - Traducerea Ortodoxa.qter"
@@ -176,6 +214,46 @@
             "TargetName" = "8:Quoter.App.deps.json"
             "Tag" = "8:"
             "Folder" = "8:_EC72B8C2B4024669AEC72D9DCB085211"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA996F2EF4094126A625B94FB89F3C73"
+            {
+            "SourcePath" = "8:..\\..\\Collections\\Noul Testament - Traducerea Romano-Catolica.qter"
+            "TargetName" = "8:Noul Testament - Traducerea Romano-Catolica.qter"
+            "Tag" = "8:"
+            "Folder" = "8:_BCB9F9C1C95B40DF9C2ACE157024F139"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AB24E4341622454988EAA9D27B748609"
+            {
+            "SourcePath" = "8:..\\..\\Collections\\Novo Testamento - Biblia de Jerusalem.qter"
+            "TargetName" = "8:Novo Testamento - Biblia de Jerusalem.qter"
+            "Tag" = "8:"
+            "Folder" = "8:_E994CFF46DAB44198313C3A35EE0DE8C"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -908,7 +986,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FC955F9C43744E1688B2C334BDB13BAE"
             {
-            "SourcePath" = "8:..\\Quoter.App\\obj\\Debug\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Quoter.App\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EC72B8C2B4024669AEC72D9DCB085211"

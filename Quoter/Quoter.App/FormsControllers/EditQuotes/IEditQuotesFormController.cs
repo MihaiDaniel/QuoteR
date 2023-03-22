@@ -37,5 +37,6 @@ namespace Quoter.App.FormsControllers.EditQuotes
 		Task DeleteChapter();
 
 		Task AddQuotes(QuoteSaveOptions saveOptions);
+		Task QuickAdd();
 	}
 }

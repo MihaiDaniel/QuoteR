@@ -54,6 +54,9 @@ namespace Quoter.App
 
 		private void InitializeApplication()
 		{
+			_messagingService.Subscribe(this);
+			_soundService.LoadSoundsAsync();
+
 			if (_settings.IsFirstStart)
 			{
 				_settings.NotificationIntervalSeconds = Const.SettingDefault.NotificationIntervalSeconds;
@@ -91,8 +94,10 @@ namespace Quoter.App
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(_settings.Language);
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
 			}
-			_messagingService.Subscribe(this);
-			_soundService.LoadSoundsAsync();
+			if(!_settings.IsSetupFinished)
+			{
+				_formsManager.Show<WelcomeForm>();
+			}
 		}
 
 		private void InitializeBackgroundTimers()
