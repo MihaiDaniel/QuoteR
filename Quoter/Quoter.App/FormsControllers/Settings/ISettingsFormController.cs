@@ -32,5 +32,6 @@ namespace Quoter.App.FormsControllers.Settings
 		void SetStartWithWindows(bool value);
 		void SetSelectedNotificationSound(EnumSound selectedSound);
 		void PlayCurrentNotificationSound();
+		void SetWindowSize(Size size);
 	}
 }

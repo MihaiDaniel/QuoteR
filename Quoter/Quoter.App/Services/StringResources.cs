@@ -1,4 +1,5 @@
-﻿using System.Resources;
+﻿using Quoter.Framework.Services;
+using System.Resources;
 
 namespace Quoter.App.Services
 {
@@ -8,10 +9,12 @@ namespace Quoter.App.Services
 	public class StringResources : IStringResources
 	{
 		private readonly ResourceManager _resourceManager;
+		private readonly ILogger _logger;
 
-		public StringResources(ResourceManager resourceManager)
+		public StringResources(ResourceManager resourceManager, ILogger logger)
 		{
 			_resourceManager = resourceManager;
+			_logger = logger;
 		}
 
 		/// <inheritdoc/>
@@ -23,7 +26,16 @@ namespace Quoter.App.Services
 				{
 					throw new ArgumentNullException(nameof(name));
 				}
-				return _resourceManager.GetString(name) ?? throw new ArgumentException($"String not found: {name}");
+				string returnValue = _resourceManager.GetString(name);
+				if(returnValue == null)
+				{
+					_logger.Warn($"No translation found for: {name}");
+					return "! " + name;
+				}
+				else
+				{
+					return returnValue;
+				}
 			}
 		}
 
@@ -36,7 +48,12 @@ namespace Quoter.App.Services
 				{
 					throw new ArgumentNullException(nameof(name));
 				}
-				string localizedString = _resourceManager.GetString(name) ?? throw new ArgumentException($"String not found: {name}");
+				string? localizedString = _resourceManager.GetString(name);
+				if(localizedString == null)
+				{
+					_logger.Warn($"No translation found for: {name}");
+					return "! " + name;
+				}
 				for(int index = 0; index < param.Length; index++)
 				{
 					string parameterInString = $"{{{index}}}";

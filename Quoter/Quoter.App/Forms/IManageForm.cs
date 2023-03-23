@@ -6,6 +6,8 @@ namespace Quoter.App.Forms
 	{
 		Task SetSelectedTab(EnumTab tab);
 
+		void SetSize(Size size);
+
 		void SetBackgroundTask(bool inProgress, string message);
 	}
 }

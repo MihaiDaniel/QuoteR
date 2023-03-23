@@ -62,5 +62,8 @@
     <Setting Name="IsSetupFinished" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ManageWindowSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">800, 524</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

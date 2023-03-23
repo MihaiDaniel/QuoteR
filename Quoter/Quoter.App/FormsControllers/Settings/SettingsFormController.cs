@@ -57,7 +57,7 @@ namespace Quoter.App.FormsControllers.Settings
 			get => _notificationsAutoCloseSeconds;
 			set
 			{
-				_notificationsAutoCloseSeconds= value;
+				_notificationsAutoCloseSeconds = value;
 				OnPropertyChanged();
 
 				(bool isValidInput, int intValue) = ValidateValidNumber(value);
@@ -93,7 +93,7 @@ namespace Quoter.App.FormsControllers.Settings
 			get => _selectedNotificationSound;
 			set
 			{
-				if(_selectedNotificationSound != value)
+				if (_selectedNotificationSound != value)
 				{
 					_selectedNotificationSound = value;
 					OnPropertyChanged();
@@ -163,7 +163,7 @@ namespace Quoter.App.FormsControllers.Settings
 			_form.SetNotificationSounds(notificationSounds);
 			switch (_settings.NotificationSound)
 			{
-				case EnumSound.None: 
+				case EnumSound.None:
 					SelectedNotificationSound = "-"; break;
 				case EnumSound.Click:
 					SelectedNotificationSound = "Click"; break;
@@ -301,7 +301,7 @@ namespace Quoter.App.FormsControllers.Settings
 					}
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_logger.Error(ex);
 			}
@@ -315,6 +315,11 @@ namespace Quoter.App.FormsControllers.Settings
 		public void PlayCurrentNotificationSound()
 		{
 			_soundService.Play(_settings.NotificationSound);
+		}
+
+		public void SetWindowSize(Size size)
+		{
+			_settings.ManageWindowSize = size;
 		}
 
 		private string GetOpacityValuePercent(double opacity)

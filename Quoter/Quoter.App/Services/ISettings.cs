@@ -25,5 +25,6 @@ namespace Quoter.App.Services
 		double Opacity { get; set; }
 		bool IsStartWithWindows { get; set; }
 		bool IsSetupFinished { get; set; }
+		Size ManageWindowSize { get; set; }
 	}
 }

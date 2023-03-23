@@ -519,4 +519,10 @@
   <data name="ConfirmExit" xml:space="preserve">
     <value>Are you sure you want to exit?</value>
   </data>
+  <data name="OptionTrimCharsUntil" xml:space="preserve">
+    <value>Trim until first</value>
+  </data>
+  <data name="OptionReplaceChars" xml:space="preserve">
+    <value>Replace with:</value>
+  </data>
 </root>

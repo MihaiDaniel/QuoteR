@@ -519,4 +519,10 @@
   <data name="ConfirmExit" xml:space="preserve">
     <value>Doriți să închideți aplicația?</value>
   </data>
+  <data name="OptionTrimCharsUntil" xml:space="preserve">
+    <value>Șterge până la primul</value>
+  </data>
+  <data name="OptionReplaceChars" xml:space="preserve">
+    <value>Înlocuiește cu:</value>
+  </data>
 </root>

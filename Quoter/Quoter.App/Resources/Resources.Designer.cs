@@ -243,6 +243,16 @@ namespace Quoter.App.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap resize_12 {
+            get {
+                object obj = ResourceManager.GetObject("resize_12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap settings_32 {
             get {
                 object obj = ResourceManager.GetObject("settings_32", resourceCulture);

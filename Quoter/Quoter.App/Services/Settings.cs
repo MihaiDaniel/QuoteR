@@ -233,6 +233,18 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public Size ManageWindowSize
+		{
+			get
+			{
+				return Get<Size>(nameof(ManageWindowSize));
+			}
+			set
+			{
+				Set<Size>(nameof(ManageWindowSize), value);
+			}
+		}
+
 		/// <summary>
 		/// Gets the value of a setting thread-safe based on the <paramref name="key"/>
 		/// </summary>

@@ -19,6 +19,9 @@ namespace Quoter.App.Forms
 {
 	public partial class ManageForm : Form, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
 	{
+		private const int WM_NCHITTEST = 0x0084;
+		private const int HTBOTTOMRIGHT = 17;
+
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IStringResources _stringResources;
@@ -91,11 +94,46 @@ namespace Quoter.App.Forms
 			tabBasicSettings.ItemSize = new Size(0, 1);
 			tabBasicSettings.SelectTab(0);
 
+#if DEBUG
+			btnQuickAdd.Visible = true;
+#else
+			btnQuickAdd.Visible = false;
+#endif
+
 			SetTheme();
 			SetStatus(string.Empty, Color.Black);
 
 			pnlQuotesOptions.Visible = false;
 		}
+
+		/// <summary>
+		/// Used to make the form resizable considering the fact it does not have any borders
+		/// </summary>
+		protected override void WndProc(ref Message m)
+		{
+			base.WndProc(ref m);
+
+			if (m.Msg == WM_NCHITTEST)
+			{
+				Point p = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+				if (p.X >= this.ClientSize.Width - 16 && p.Y >= this.ClientSize.Height - 16)
+				{
+					m.Result = (IntPtr)HTBOTTOMRIGHT;
+				}
+			}
+		}
+
+		// Can use this as alternative for bad flickering
+		//protected override void OnResizeBegin(EventArgs e)
+		//{
+		//	SuspendLayout();
+		//	base.OnResizeBegin(e);
+		//}
+		//protected override void OnResizeEnd(EventArgs e)
+		//{
+		//	ResumeLayout();
+		//	base.OnResizeEnd(e);
+		//}
 
 		public void SetTheme()
 		{
@@ -135,7 +173,8 @@ namespace Quoter.App.Forms
 			btnSaveQuotes.Text = _stringResources["Save"];
 			gbQuotes.Text = _stringResources["Quotes"];
 
-			//chkQuotesTrimRow.Text = _stringResources["OptionTrimRow"];
+			lblQuotesExcludeCharsUntill.Text = _stringResources["OptionTrimCharsUntil"];
+			lblQuotesReplaceChars.Text = _stringResources["OptionReplaceChars"];
 			lblQuotesExcludeChars.Text = _stringResources["OptionExcludeChars"];
 			lblQuotesAppendStart.Text = _stringResources["OptionAppendTextStart"];
 			lblQuotesAppendEnd.Text = _stringResources["OptionAppendTextEnd"];
@@ -270,16 +309,116 @@ namespace Quoter.App.Forms
 			await _settingsController.EventFormClosingAsync();
 		}
 
+		private void ManageForm_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Shift)
+			{
+				switch (e.KeyCode)
+				{
+					case Keys.F1:
+						btnTabPage1_Click(sender, e);
+						break;
+					case Keys.F2:
+						btnTabPage2_Click(sender, e);
+						break;
+					case Keys.F3:
+						btnTabPage3_Click(sender, e);
+						break;
+				}
+			}
+			if (tabControl.SelectedIndex == 0)   // Edit quotes tab
+			{
+				if (e.Control)
+				{
+					if (e.KeyCode == Keys.Enter)    // Save quotes
+					{
+						btnSaveQuotes_Click(sender, e);
+					}
+					else if (_lastKey == Keys.A) // Add something
+					{
+						switch (e.KeyCode)
+						{
+							case Keys.V:
+								btnAddCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnAddBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnAddChapter_Click(sender, e);
+								break;
+						}
+					}
+					else if (_lastKey == Keys.E) // Edit something
+					{
+						switch (e.KeyCode)
+						{
+							case Keys.V:
+								btnEditCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnEditBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnEditChapter_Click(sender, e);
+								break;
+						}
+					}
+					else if (_lastKey == Keys.D) // Delete something
+					{
+						switch (e.KeyCode)
+						{
+							case Keys.V:
+								btnDeleteCollection_Click(sender, e);
+								break;
+							case Keys.B:
+								btnDeleteBook_Click(sender, e);
+								break;
+							case Keys.C:
+								btnDeleteChapter_Click(sender, e);
+								break;
+						}
+					}
+				}
+			}
+			_lastKey = e.KeyCode;
+		}
+
+		private void ManageForm_ResizeBegin(object sender, EventArgs e)
+		{
+			// Instead of trying to recalculate the position on resize of the 
+			// selected tab highlight just recalculate it at the end of the resize event
+			// and keep the panel hidden durint the resize
+			pnlSelectedTab.Visible = false;
+		}
+
+		private void ManageForm_ResizeEnd(object sender, EventArgs e)
+		{
+			pnlSelectedTab.Visible = true;
+			switch (tabControl.SelectedIndex)
+			{
+				case 0: SetSelectedTabHighlight(btnTabPage1); break;
+				case 1: SetSelectedTabHighlight(btnTabPage2); break;
+				case 2: SetSelectedTabHighlight(btnTabPage3); break;
+			}
+			_settingsController.SetWindowSize(this.Size);
+		}
+
 		void IForm.SetStatus(string message, Color color)
 		{
 			SetStatus(message, color);
 		}
 
-		#region IManageForm
+#region IManageForm
 
 		async Task IManageForm.SetSelectedTab(EnumTab tab)
 		{
 			await this.SetSelectedTab(tab);
+		}
+
+		void IManageForm.SetSize(Size size)
+		{
+			this.Size = new Size(size.Width, size.Height);
 		}
 
 		void IManageForm.SetBackgroundTask(bool inProgress, string message)
@@ -287,9 +426,9 @@ namespace Quoter.App.Forms
 			SetBackgroundTask(inProgress, message);
 		}
 
-		#endregion IManageForm
+#endregion IManageForm
 
-		#region ISettingsForm
+#region ISettingsForm
 
 		void ISettingsForm.SetSelectedLanguage(EnumLanguage language)
 		{
@@ -410,9 +549,9 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		#endregion ISettingsForm
+#endregion ISettingsForm
 
-		#region IFavouriteQuotesForm
+#region IFavouriteQuotesForm
 
 		void IFavouriteQuotesForm.SetChecksFavourites()
 		{
@@ -500,9 +639,9 @@ namespace Quoter.App.Forms
 			//}
 		}
 
-		#endregion IFavouriteQuotesForm
+#endregion IFavouriteQuotesForm
 
-		#region IEditQuotesForm
+#region IEditQuotesForm
 
 		void IEditQuotesForm.SetBooksControlsState(EnumCrudStates state)
 		{
@@ -567,9 +706,9 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		#endregion IEditQuotesForm
+#endregion IEditQuotesForm
 
-		#region Events Edit quotes tab
+#region Events Edit quotes tab
 
 		private async void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -617,7 +756,7 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		#region Button events Add, Edit, Delete Collections
+#region Button events Add, Edit, Delete Collections
 
 		private async void btnAddCollection_Click(object sender, EventArgs e)
 		{
@@ -634,9 +773,9 @@ namespace Quoter.App.Forms
 			await _editQuotesController.DeleteCollection();
 		}
 
-		#endregion Button events Add, Edit, Delete Collections
+#endregion Button events Add, Edit, Delete Collections
 
-		#region Button events Add, Edit, Delete Books
+#region Button events Add, Edit, Delete Books
 
 		private async void btnAddBook_Click(object sender, EventArgs e)
 		{
@@ -653,9 +792,9 @@ namespace Quoter.App.Forms
 			await _editQuotesController.DeleteBook();
 		}
 
-		#endregion Button events Add, Edit, Delete Books
+#endregion Button events Add, Edit, Delete Books
 
-		#region Button events Add, Edit, Delete Chapters
+#region Button events Add, Edit, Delete Chapters
 
 		private async void btnAddChapter_Click(object sender, EventArgs e)
 		{
@@ -687,7 +826,7 @@ namespace Quoter.App.Forms
 			await _editQuotesController.AddQuotes(saveOptions);
 		}
 
-		#endregion  Button events Add, Edit, Delete Chapters
+#endregion  Button events Add, Edit, Delete Chapters
 
 		private async void btnAddFirstBook_Click(object sender, EventArgs e)
 		{
@@ -717,9 +856,26 @@ namespace Quoter.App.Forms
 			await _editQuotesController.LoadCollections();
 		}
 
+		private void btnQuickAdd_Click(object sender, EventArgs e)
+		{
+			_editQuotesController.QuickAdd();
+		}
+
+		private void chkWordWrap_CheckedChanged(object sender, EventArgs e)
+		{
+			if (chkWordWrap.Checked)
+			{
+				rtbQuotes.WordWrap = true;
+			}
+			else
+			{
+				rtbQuotes.WordWrap = false;
+			}
+		}
+
 		#endregion  Events Edit quotes tab
 
-		#region Events Settings tab
+#region Events Settings tab
 
 		private void btnLanguageEn_Click(object sender, EventArgs e)
 		{
@@ -891,7 +1047,7 @@ namespace Quoter.App.Forms
 
 		private void cbNotificationSound_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if((string)cbNotificationSound.SelectedValue != _settingsController.SelectedNotificationSound)
+			if ((string)cbNotificationSound.SelectedValue != _settingsController.SelectedNotificationSound)
 			{
 				_settingsController.SetSelectedNotificationSound((EnumSound)cbNotificationSound.SelectedIndex);
 			}
@@ -902,9 +1058,9 @@ namespace Quoter.App.Forms
 			_settingsController.PlayCurrentNotificationSound();
 		}
 
-		#endregion Events  Settings tab
+#endregion Events  Settings tab
 
-		#region Events  Favourites tab
+#region Events  Favourites tab
 
 		private void clbCollections_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -987,7 +1143,7 @@ namespace Quoter.App.Forms
 			await _favouriteQuotesController.LoadCollections();
 		}
 
-		#endregion Events Favourites tab
+#endregion Events Favourites tab
 
 		private async void btnTabPage1_Click(object sender, EventArgs e)
 		{
@@ -1011,6 +1167,11 @@ namespace Quoter.App.Forms
 			{
 				await SetSelectedTab(EnumTab.Settings);
 			}
+		}
+
+		private void btnClose_Click(object sender, EventArgs e)
+		{
+			_formsManager.Close(this);
 		}
 
 		private async Task SetSelectedTab(EnumTab tab, bool doEvents = true)
@@ -1049,32 +1210,22 @@ namespace Quoter.App.Forms
 
 		private void SetSelectedTabHighlight(Button button)
 		{
-			pnlSelectedTab.Location = new Point(button.Location.X, button.Location.Y + button.Size.Height);
+			// Location.X of the button is relative to the form, but the Y is relative to the tableLayout parent
+			// for some reason, that's why use constant for Y
+			pnlSelectedTab.Location = new Point(button.Location.X, 70);
 			pnlSelectedTab.Size = new Size(button.Size.Width, 2);
-		}
 
-		private void btnClose_Click(object sender, EventArgs e)
-		{
-			_formsManager.Close(this);
+			// this is hidden in as default, so check if it's visible after setting position
+			if (!pnlSelectedTab.Visible) 
+			{
+				pnlSelectedTab.Visible = true;
+			}
 		}
-
 
 		private void SetStatus(string message, Color color)
 		{
 			txtStatus.Text = message;
 			txtStatus.ForeColor = color;
-		}
-
-		private void chkWordWrap_CheckedChanged(object sender, EventArgs e)
-		{
-			if (chkWordWrap.Checked)
-			{
-				rtbQuotes.WordWrap = true;
-			}
-			else
-			{
-				rtbQuotes.WordWrap = false;
-			}
 		}
 
 		private void SetBackgroundTask(bool inProgress, string message)
@@ -1096,86 +1247,5 @@ namespace Quoter.App.Forms
 			});
 		}
 
-		
-
-		private void ManageForm_KeyDown(object sender, KeyEventArgs e)
-		{
-			if(e.Shift)
-			{
-				switch (e.KeyCode)
-				{
-					case Keys.F1:
-						btnTabPage1_Click(sender, e);
-						break;
-					case Keys.F2:
-						btnTabPage2_Click(sender, e);
-						break;
-					case Keys.F3:
-						btnTabPage3_Click(sender, e);
-						break;
-				}
-			}
-			if(tabControl.SelectedIndex == 0)   // Edit quotes tab
-			{
-				if(e.Control) 
-				{
-					if(e.KeyCode == Keys.Enter)	// Save quotes
-					{
-						btnSaveQuotes_Click(sender, e);
-					}
-					else if(_lastKey == Keys.A) // Add something
-					{
-						switch(e.KeyCode)
-						{
-							case Keys.V:
-								btnAddCollection_Click(sender, e);
-								break;
-							case Keys.B:
-								btnAddBook_Click(sender, e);
-								break;
-							case Keys.C:
-								btnAddChapter_Click(sender, e);
-								break;
-						}
-					}
-					else if(_lastKey == Keys.E) // Edit something
-					{
-						switch (e.KeyCode)
-						{
-							case Keys.V:
-								btnEditCollection_Click(sender, e);
-								break;
-							case Keys.B:
-								btnEditBook_Click(sender, e);
-								break;
-							case Keys.C:
-								btnEditChapter_Click(sender, e);
-								break;
-						}
-					}
-					else if (_lastKey == Keys.D) // Delete something
-					{
-						switch (e.KeyCode)
-						{
-							case Keys.V:
-								btnDeleteCollection_Click(sender, e);
-								break;
-							case Keys.B:
-								btnDeleteBook_Click(sender, e);
-								break;
-							case Keys.C:
-								btnDeleteChapter_Click(sender, e);
-								break;
-						}
-					}
-				}
-			}
-			_lastKey = e.KeyCode;
-		}
-
-		private void btnQuickAdd_Click(object sender, EventArgs e)
-		{
-			_editQuotesController.QuickAdd();
-		}
 	}
 }

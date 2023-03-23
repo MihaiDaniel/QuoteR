@@ -9,12 +9,14 @@ namespace Quoter.App.FormsControllers.Manage
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
+		private readonly ISettings _settings;
 		private IManageForm _form;
 
-		public ManageFormController(IMessagingService messagingService, IStringResources stringResources)
+		public ManageFormController(IMessagingService messagingService, IStringResources stringResources, ISettings settings)
 		{
 			_messagingService = messagingService;
 			_stringResources = stringResources;
+			_settings = settings;
 		}
 
 		public Task EventFormClosingAsync()
@@ -25,14 +27,15 @@ namespace Quoter.App.FormsControllers.Manage
 
 		public Task EventFormLoadedAsync()
 		{
+			
 			_messagingService.Subscribe(this);
-			Announcement<object>? announcementImport = _messagingService.FindAnnouncement<object>(Event.ImportInProgress);
-			if(announcementImport != null)
+			bool isAnnouncementImport = _messagingService.ExistsAnnouncement(Event.ImportInProgress);
+			if(isAnnouncementImport)
 			{
 				_form.SetBackgroundTask(true, _stringResources["ImportingInProgress"]);
 			}
-			Announcement<object>? announcementExport = _messagingService.FindAnnouncement<object>(Event.ExportInProgress);
-			if (announcementExport != null)
+			bool isAnnouncementExport = _messagingService.ExistsAnnouncement(Event.ExportInProgress);
+			if (isAnnouncementExport)
 			{
 				_form.SetBackgroundTask(true, _stringResources["ExportingInProgress"]);
 			}
@@ -42,6 +45,8 @@ namespace Quoter.App.FormsControllers.Manage
 		public void RegisterForm(IManageForm form)
 		{
 			_form = form;
+			// Set the size as soon as the form is intialized.
+			_form.SetSize(_settings.ManageWindowSize);
 		}
 
 		public void OnMessageEvent(string message, object? argument)
