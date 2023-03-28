@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
@@ -760,56 +761,12 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			int quoteIndex = 1;
 			foreach (string quoteContent in arrQuoteContent)
 			{
-				string newQuoteContent = quoteContent;
+				string newQuoteContent = ApplyQuoteSaveOptions(quoteContent, saveOptions);
 
-				if (!string.IsNullOrEmpty(saveOptions.TrimUntil))
-				{
-					newQuoteContent = newQuoteContent.Trim();
-					int firstSpaceIndex = newQuoteContent.IndexOf(saveOptions.TrimUntil);
-					if (firstSpaceIndex >= 0 && newQuoteContent.Length > firstSpaceIndex + 1)
-					{
-						newQuoteContent = newQuoteContent.Substring(firstSpaceIndex + 1, newQuoteContent.Length - firstSpaceIndex - 1);
-					}
-					newQuoteContent = newQuoteContent.TrimStart();
-				}
-				if (!string.IsNullOrEmpty(saveOptions.ExcludeChars))
-				{
-					char[] excludedChars = saveOptions.ExcludeChars.ToCharArray();
-					foreach (char c in excludedChars)
-					{
-						newQuoteContent = newQuoteContent.Replace(c.ToString(), "");
-					}
-				}
-				if (!string.IsNullOrWhiteSpace(saveOptions.ReplaceChars))
-				{
-					char[] replacebleChars = saveOptions.ReplaceChars.ToCharArray();
-					foreach (char c in replacebleChars)
-					{
-						if(saveOptions.ReplacedCharsReplacement == "\\n" || saveOptions.ReplacedCharsReplacement == "\\r\\n")
-						{
-							newQuoteContent = newQuoteContent.Replace(c.ToString(), Environment.NewLine);
-						}
-						else
-						{
-							newQuoteContent = newQuoteContent.Replace(c.ToString(), saveOptions.ReplacedCharsReplacement);
-						}
-					}
-				}
 				if (_regexQuote.IsMatch(newQuoteContent))
 				{
 					continue; // If it only has numbers and symbols it might not be a valid quote so ignore it.
 				}
-
-				if (!string.IsNullOrEmpty(saveOptions.AppendTextToBegining))
-				{
-					newQuoteContent = saveOptions.AppendTextToBegining + newQuoteContent;
-				}
-				if (!string.IsNullOrEmpty(saveOptions.AppendTextToEnd))
-				{
-					newQuoteContent = newQuoteContent + saveOptions.AppendTextToEnd;
-				}
-
-				newQuoteContent = newQuoteContent.Trim();
 
 				if (!string.IsNullOrWhiteSpace(newQuoteContent))
 				{
@@ -826,6 +783,79 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				}
 			}
 			return lstQuotes;
+		}
+
+		private string ApplyQuoteSaveOptions(string quoteContent, QuoteSaveOptions saveOptions)
+		{
+			string newQuoteContent = quoteContent;
+
+			// Apply trim start untill first string detected
+			if (!string.IsNullOrEmpty(saveOptions.TrimUntil))
+			{
+				newQuoteContent = newQuoteContent.Trim();
+				int firstSpaceIndex = newQuoteContent.IndexOf(saveOptions.TrimUntil);
+				if (firstSpaceIndex >= 0 && newQuoteContent.Length > firstSpaceIndex + 1)
+				{
+					newQuoteContent = newQuoteContent.Substring(firstSpaceIndex + 1, newQuoteContent.Length - firstSpaceIndex - 1);
+				}
+				newQuoteContent = newQuoteContent.TrimStart();
+			}
+			// Delete all excluded chars
+			if (!string.IsNullOrEmpty(saveOptions.ExcludeChars))
+			{
+				char[] excludedChars = saveOptions.ExcludeChars.ToCharArray();
+				foreach (char c in excludedChars)
+				{
+					newQuoteContent = newQuoteContent.Replace(c.ToString(), "");
+				}
+			}
+			// Replace chars with replacements
+			// Ex: Ab,5,*	->	 ab, ,&
+			if (!string.IsNullOrWhiteSpace(saveOptions.ReplaceChars))
+			{
+				string[] replacebleChars = saveOptions.ReplaceChars.Split(",", StringSplitOptions.None).ToArray();
+				string[] replacements = saveOptions.ReplacedCharsReplacement.Split(",", StringSplitOptions.None).ToArray();
+
+				if(replacebleChars.Length != replacements.Length)
+				{
+					_logger.Warn($"{nameof(ApplyQuoteSaveOptions)} Can't apply replacements! No valid replacements for all strings!");
+				}
+				else
+				{
+					for (int i = 0; i < replacebleChars.Length; i++)
+					{
+						string strToReplce = replacebleChars[i];
+						string newStr = replacements[i];
+						if (strToReplce == "\\n" || strToReplce == "\\r\\n")
+						{
+							newQuoteContent = newQuoteContent.Replace(strToReplce, Environment.NewLine);
+						}
+						else
+						{
+							newQuoteContent = newQuoteContent.Replace(strToReplce, newStr);
+						}
+					}
+				}
+			}
+
+			// If it only has numbers and symbols it might not be a valid quote so don't apply appends and just return.
+			if (_regexQuote.IsMatch(newQuoteContent))
+			{
+				return newQuoteContent; 
+			}
+
+			// Apply append to start and end
+			if (!string.IsNullOrEmpty(saveOptions.AppendTextToBegining))
+			{
+				newQuoteContent = saveOptions.AppendTextToBegining + newQuoteContent;
+			}
+			if (!string.IsNullOrEmpty(saveOptions.AppendTextToEnd))
+			{
+				newQuoteContent = newQuoteContent + saveOptions.AppendTextToEnd;
+			}
+			// Final trim and return
+			newQuoteContent = newQuoteContent.Trim();
+			return newQuoteContent;
 		}
 
 		private void ShowDialogWarn(string title, string message)

@@ -29,1934 +29,1845 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageForm));
-			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.btnClose = new System.Windows.Forms.Button();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.gbCollections = new System.Windows.Forms.GroupBox();
-			this.btnReloadEditCollections = new System.Windows.Forms.Button();
-			this.btnEditCollection = new System.Windows.Forms.Button();
-			this.btnDeleteCollection = new System.Windows.Forms.Button();
-			this.cbCollection = new System.Windows.Forms.ComboBox();
-			this.btnAddCollection = new System.Windows.Forms.Button();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.gbBooks = new System.Windows.Forms.GroupBox();
-			this.btnAddFirstBook = new System.Windows.Forms.Button();
-			this.btnEditBook = new System.Windows.Forms.Button();
-			this.btnDeleteBook = new System.Windows.Forms.Button();
-			this.cbBooks = new System.Windows.Forms.ComboBox();
-			this.btnAddBook = new System.Windows.Forms.Button();
-			this.panel4 = new System.Windows.Forms.Panel();
-			this.gbChapters = new System.Windows.Forms.GroupBox();
-			this.btnAddFirstChapter = new System.Windows.Forms.Button();
-			this.btnEditChapter = new System.Windows.Forms.Button();
-			this.btnDeleteChapter = new System.Windows.Forms.Button();
-			this.btnAddChapter = new System.Windows.Forms.Button();
-			this.lbChapters = new System.Windows.Forms.ListBox();
-			this.panel5 = new System.Windows.Forms.Panel();
-			this.gbQuotes = new System.Windows.Forms.GroupBox();
-			this.btnQuickAdd = new System.Windows.Forms.Button();
-			this.btnQuotesOptions = new System.Windows.Forms.Button();
-			this.pnlQuotesOptions = new System.Windows.Forms.Panel();
-			this.lblQuotesExcludeCharsUntill = new System.Windows.Forms.Label();
-			this.txtQuotesExcludeUntillChars = new System.Windows.Forms.TextBox();
-			this.txtQuotesReplaceCharsReplacement = new System.Windows.Forms.TextBox();
-			this.lblQuotesReplaceChars = new System.Windows.Forms.Label();
-			this.txtQuotesReplaceChars = new System.Windows.Forms.TextBox();
-			this.chkWordWrap = new System.Windows.Forms.CheckBox();
-			this.lblQuotesAppendEnd = new System.Windows.Forms.Label();
-			this.txtQuotesAppendTextToEnd = new System.Windows.Forms.TextBox();
-			this.lblQuotesAppendStart = new System.Windows.Forms.Label();
-			this.txtQuotesAppendedTextToBeginning = new System.Windows.Forms.TextBox();
-			this.txtQuotesExcludedChars = new System.Windows.Forms.TextBox();
-			this.lblQuotesExcludeChars = new System.Windows.Forms.Label();
-			this.lineNumbers_For_RichTextBox1 = new LineNumbers.LineNumbers_For_RichTextBox();
-			this.rtbQuotes = new System.Windows.Forms.RichTextBox();
-			this.btnSaveQuotes = new System.Windows.Forms.Button();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.gbImport = new System.Windows.Forms.GroupBox();
-			this.chkImportMerge = new System.Windows.Forms.CheckBox();
-			this.chkImportIgnoreLanguage = new System.Windows.Forms.CheckBox();
-			this.btnImport = new System.Windows.Forms.Button();
-			this.gbExport = new System.Windows.Forms.GroupBox();
-			this.chkExportFavCollections = new System.Windows.Forms.CheckBox();
-			this.btnExportCollection = new System.Windows.Forms.Button();
-			this.tableLayoutPanelFavourites = new System.Windows.Forms.TableLayoutPanel();
-			this.panel6 = new System.Windows.Forms.Panel();
-			this.btnRefreshFavouriteCollections = new System.Windows.Forms.Button();
-			this.lblFavouriteCollections = new System.Windows.Forms.Label();
-			this.clbCollections = new System.Windows.Forms.CheckedListBox();
-			this.panel7 = new System.Windows.Forms.Panel();
-			this.lblFavouriteBooks = new System.Windows.Forms.Label();
-			this.clbBooks = new System.Windows.Forms.CheckedListBox();
-			this.panel8 = new System.Windows.Forms.Panel();
-			this.lblFavouriteChapters = new System.Windows.Forms.Label();
-			this.clbChapters = new System.Windows.Forms.CheckedListBox();
-			this.lblFavoritesText = new System.Windows.Forms.Label();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.tabBasicSettings = new System.Windows.Forms.TabControl();
-			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.gbQuotesSettings = new System.Windows.Forms.GroupBox();
-			this.cbNotificationSound = new System.Windows.Forms.ComboBox();
-			this.lblNotificationFont = new System.Windows.Forms.Label();
-			this.btnPlayNotificationSound = new System.Windows.Forms.Button();
-			this.txtSelectedFont = new System.Windows.Forms.TextBox();
-			this.lblNotificationSound = new System.Windows.Forms.Label();
-			this.btnNotificationFont = new System.Windows.Forms.Button();
-			this.lblQuotesAutocloseTime = new System.Windows.Forms.Label();
-			this.txtQuotesAutoCloseInterval = new System.Windows.Forms.TextBox();
-			this.lblQuotesAutocloseInterval = new System.Windows.Forms.Label();
-			this.lblNotificationLocation = new System.Windows.Forms.Label();
-			this.panel3 = new System.Windows.Forms.Panel();
-			this.rbAnimTopRight = new System.Windows.Forms.RadioButton();
-			this.rbAnimBottomRight = new System.Windows.Forms.RadioButton();
-			this.rbAnimBottomLeft = new System.Windows.Forms.RadioButton();
-			this.rbAnimTopLeft = new System.Windows.Forms.RadioButton();
-			this.lblQuotesFrequencyTime = new System.Windows.Forms.Label();
-			this.btnAlwaysOnNotifications = new System.Windows.Forms.Button();
-			this.txtQuotesInterval = new System.Windows.Forms.TextBox();
-			this.lblQuotesFrequency = new System.Windows.Forms.Label();
-			this.btnPopupNotifications = new System.Windows.Forms.Button();
-			this.lblNotificationType = new System.Windows.Forms.Label();
-			this.gbOtherSettings = new System.Windows.Forms.GroupBox();
-			this.btnStartWithWindowsNo = new System.Windows.Forms.Button();
-			this.btnStartWithWindowsYes = new System.Windows.Forms.Button();
-			this.lblStartWithWindows = new System.Windows.Forms.Label();
-			this.btnShowWelcomeMsgNo = new System.Windows.Forms.Button();
-			this.btnShowWelcomeMsgYes = new System.Windows.Forms.Button();
-			this.lblShowWelcomeMsg = new System.Windows.Forms.Label();
-			this.gbThemeSettings = new System.Windows.Forms.GroupBox();
-			this.lblOpacityPercent = new System.Windows.Forms.Label();
-			this.lblOpacity = new System.Windows.Forms.Label();
-			this.tbOpacity = new System.Windows.Forms.TrackBar();
-			this.btnTheme1 = new System.Windows.Forms.Button();
-			this.btnTheme2 = new System.Windows.Forms.Button();
-			this.btnTheme3 = new System.Windows.Forms.Button();
-			this.btnTheme6 = new System.Windows.Forms.Button();
-			this.btnTheme5 = new System.Windows.Forms.Button();
-			this.btnTheme4 = new System.Windows.Forms.Button();
-			this.gbLanguageSettings = new System.Windows.Forms.GroupBox();
-			this.btnLanguageFr = new System.Windows.Forms.Button();
-			this.btnShowCollBasedOnLanguageNo = new System.Windows.Forms.Button();
-			this.btnLanguageRo = new System.Windows.Forms.Button();
-			this.btnShowCollBasedOnLanguageYes = new System.Windows.Forms.Button();
-			this.btnLanguageEn = new System.Windows.Forms.Button();
-			this.lblShowCollByLanguage = new System.Windows.Forms.Label();
-			this.txtStatus = new System.Windows.Forms.TextBox();
-			this.btnTabPage1 = new System.Windows.Forms.Button();
-			this.btnTabPage2 = new System.Windows.Forms.Button();
-			this.btnTabPage3 = new System.Windows.Forms.Button();
-			this.pnlSelectedTab = new System.Windows.Forms.Panel();
-			this.pbBackgroundTask = new System.Windows.Forms.PictureBox();
-			this.lblBackgroundTask = new System.Windows.Forms.Label();
-			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.pnlTitle.SuspendLayout();
-			this.tabControl.SuspendLayout();
-			this.tabPage1.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
-			this.tableLayoutPanel2.SuspendLayout();
-			this.panel1.SuspendLayout();
-			this.gbCollections.SuspendLayout();
-			this.panel2.SuspendLayout();
-			this.gbBooks.SuspendLayout();
-			this.panel4.SuspendLayout();
-			this.gbChapters.SuspendLayout();
-			this.panel5.SuspendLayout();
-			this.gbQuotes.SuspendLayout();
-			this.pnlQuotesOptions.SuspendLayout();
-			this.tabPage2.SuspendLayout();
-			this.gbImport.SuspendLayout();
-			this.gbExport.SuspendLayout();
-			this.tableLayoutPanelFavourites.SuspendLayout();
-			this.panel6.SuspendLayout();
-			this.panel7.SuspendLayout();
-			this.panel8.SuspendLayout();
-			this.tabPage3.SuspendLayout();
-			this.tabBasicSettings.SuspendLayout();
-			this.tabPage4.SuspendLayout();
-			this.gbQuotesSettings.SuspendLayout();
-			this.panel3.SuspendLayout();
-			this.gbOtherSettings.SuspendLayout();
-			this.gbThemeSettings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).BeginInit();
-			this.gbLanguageSettings.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pbBackgroundTask)).BeginInit();
-			this.tableLayoutPanel3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.SuspendLayout();
+			pnlTitle = new Panel();
+			lblTitle = new Label();
+			btnClose = new Button();
+			tabControl = new TabControl();
+			tabPage1 = new TabPage();
+			tableLayoutPanel1 = new TableLayoutPanel();
+			tableLayoutPanel2 = new TableLayoutPanel();
+			panel1 = new Panel();
+			gbCollections = new GroupBox();
+			btnReloadEditCollections = new Button();
+			btnEditCollection = new Button();
+			btnDeleteCollection = new Button();
+			cbCollection = new ComboBox();
+			btnAddCollection = new Button();
+			panel2 = new Panel();
+			gbBooks = new GroupBox();
+			btnAddFirstBook = new Button();
+			btnEditBook = new Button();
+			btnDeleteBook = new Button();
+			cbBooks = new ComboBox();
+			btnAddBook = new Button();
+			panel4 = new Panel();
+			gbChapters = new GroupBox();
+			btnAddFirstChapter = new Button();
+			btnEditChapter = new Button();
+			btnDeleteChapter = new Button();
+			btnAddChapter = new Button();
+			lbChapters = new ListBox();
+			panel5 = new Panel();
+			gbQuotes = new GroupBox();
+			btnQuickAdd = new Button();
+			btnQuotesOptions = new Button();
+			pnlQuotesOptions = new Panel();
+			lblQuotesExcludeCharsUntill = new Label();
+			txtQuotesExcludeUntillChars = new TextBox();
+			txtQuotesReplaceCharsReplacement = new TextBox();
+			lblQuotesReplaceChars = new Label();
+			txtQuotesReplaceChars = new TextBox();
+			chkWordWrap = new CheckBox();
+			lblQuotesAppendEnd = new Label();
+			txtQuotesAppendTextToEnd = new TextBox();
+			lblQuotesAppendStart = new Label();
+			txtQuotesAppendedTextToBeginning = new TextBox();
+			txtQuotesExcludedChars = new TextBox();
+			lblQuotesExcludeChars = new Label();
+			lineNumbers_For_RichTextBox1 = new LineNumbers.LineNumbers_For_RichTextBox();
+			rtbQuotes = new RichTextBox();
+			btnSaveQuotes = new Button();
+			tabPage2 = new TabPage();
+			gbImport = new GroupBox();
+			chkImportMerge = new CheckBox();
+			chkImportIgnoreLanguage = new CheckBox();
+			btnImport = new Button();
+			gbExport = new GroupBox();
+			chkExportFavCollections = new CheckBox();
+			btnExportCollection = new Button();
+			tableLayoutPanelFavourites = new TableLayoutPanel();
+			panel6 = new Panel();
+			btnRefreshFavouriteCollections = new Button();
+			lblFavouriteCollections = new Label();
+			clbCollections = new CheckedListBox();
+			panel7 = new Panel();
+			lblFavouriteBooks = new Label();
+			clbBooks = new CheckedListBox();
+			panel8 = new Panel();
+			lblFavouriteChapters = new Label();
+			clbChapters = new CheckedListBox();
+			lblFavoritesText = new Label();
+			tabPage3 = new TabPage();
+			tabBasicSettings = new TabControl();
+			tabPage4 = new TabPage();
+			gbQuotesSettings = new GroupBox();
+			cbNotificationSound = new ComboBox();
+			lblNotificationFont = new Label();
+			btnPlayNotificationSound = new Button();
+			txtSelectedFont = new TextBox();
+			lblNotificationSound = new Label();
+			btnNotificationFont = new Button();
+			lblQuotesAutocloseTime = new Label();
+			txtQuotesAutoCloseInterval = new TextBox();
+			lblQuotesAutocloseInterval = new Label();
+			lblNotificationLocation = new Label();
+			panel3 = new Panel();
+			rbAnimTopRight = new RadioButton();
+			rbAnimBottomRight = new RadioButton();
+			rbAnimBottomLeft = new RadioButton();
+			rbAnimTopLeft = new RadioButton();
+			lblQuotesFrequencyTime = new Label();
+			btnAlwaysOnNotifications = new Button();
+			txtQuotesInterval = new TextBox();
+			lblQuotesFrequency = new Label();
+			btnPopupNotifications = new Button();
+			lblNotificationType = new Label();
+			gbOtherSettings = new GroupBox();
+			btnStartWithWindowsNo = new Button();
+			btnStartWithWindowsYes = new Button();
+			lblStartWithWindows = new Label();
+			btnShowWelcomeMsgNo = new Button();
+			btnShowWelcomeMsgYes = new Button();
+			lblShowWelcomeMsg = new Label();
+			gbThemeSettings = new GroupBox();
+			lblOpacityPercent = new Label();
+			lblOpacity = new Label();
+			tbOpacity = new TrackBar();
+			btnTheme1 = new Button();
+			btnTheme2 = new Button();
+			btnTheme3 = new Button();
+			btnTheme6 = new Button();
+			btnTheme5 = new Button();
+			btnTheme4 = new Button();
+			gbLanguageSettings = new GroupBox();
+			btnLanguageFr = new Button();
+			btnShowCollBasedOnLanguageNo = new Button();
+			btnLanguageRo = new Button();
+			btnShowCollBasedOnLanguageYes = new Button();
+			btnLanguageEn = new Button();
+			lblShowCollByLanguage = new Label();
+			txtStatus = new TextBox();
+			btnTabPage1 = new Button();
+			btnTabPage2 = new Button();
+			btnTabPage3 = new Button();
+			pnlSelectedTab = new Panel();
+			pbBackgroundTask = new PictureBox();
+			lblBackgroundTask = new Label();
+			tableLayoutPanel3 = new TableLayoutPanel();
+			pictureBox1 = new PictureBox();
+			pnlTitle.SuspendLayout();
+			tabControl.SuspendLayout();
+			tabPage1.SuspendLayout();
+			tableLayoutPanel1.SuspendLayout();
+			tableLayoutPanel2.SuspendLayout();
+			panel1.SuspendLayout();
+			gbCollections.SuspendLayout();
+			panel2.SuspendLayout();
+			gbBooks.SuspendLayout();
+			panel4.SuspendLayout();
+			gbChapters.SuspendLayout();
+			panel5.SuspendLayout();
+			gbQuotes.SuspendLayout();
+			pnlQuotesOptions.SuspendLayout();
+			tabPage2.SuspendLayout();
+			gbImport.SuspendLayout();
+			gbExport.SuspendLayout();
+			tableLayoutPanelFavourites.SuspendLayout();
+			panel6.SuspendLayout();
+			panel7.SuspendLayout();
+			panel8.SuspendLayout();
+			tabPage3.SuspendLayout();
+			tabBasicSettings.SuspendLayout();
+			tabPage4.SuspendLayout();
+			gbQuotesSettings.SuspendLayout();
+			panel3.SuspendLayout();
+			gbOtherSettings.SuspendLayout();
+			gbThemeSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)tbOpacity).BeginInit();
+			gbLanguageSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).BeginInit();
+			tableLayoutPanel3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			SuspendLayout();
 			// 
 			// pnlTitle
 			// 
-			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlTitle.BackColor = System.Drawing.Color.SteelBlue;
-			this.pnlTitle.Controls.Add(this.lblTitle);
-			this.pnlTitle.Controls.Add(this.btnClose);
-			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(800, 40);
-			this.pnlTitle.TabIndex = 1;
+			pnlTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			pnlTitle.BackColor = Color.SteelBlue;
+			pnlTitle.Controls.Add(lblTitle);
+			pnlTitle.Controls.Add(btnClose);
+			pnlTitle.Location = new Point(0, 0);
+			pnlTitle.Name = "pnlTitle";
+			pnlTitle.Size = new Size(800, 40);
+			pnlTitle.TabIndex = 1;
 			// 
 			// lblTitle
 			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTitle.ForeColor = System.Drawing.Color.White;
-			this.lblTitle.Location = new System.Drawing.Point(12, 7);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(144, 26);
-			this.lblTitle.TabIndex = 2;
-			this.lblTitle.Text = "Manage quotes";
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new Font("Calibri Light", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTitle.ForeColor = Color.White;
+			lblTitle.Location = new Point(12, 7);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new Size(144, 26);
+			lblTitle.TabIndex = 2;
+			lblTitle.Text = "Manage quotes";
 			// 
 			// btnClose
 			// 
-			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnClose.BackColor = System.Drawing.Color.Transparent;
-			this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-			this.btnClose.FlatAppearance.BorderSize = 0;
-			this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-			this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnClose.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.btnClose.ForeColor = System.Drawing.Color.White;
-			this.btnClose.Location = new System.Drawing.Point(754, 0);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(46, 40);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Text = "X";
-			this.btnClose.UseVisualStyleBackColor = false;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnClose.BackColor = Color.Transparent;
+			btnClose.BackgroundImageLayout = ImageLayout.Zoom;
+			btnClose.FlatAppearance.BorderColor = Color.Silver;
+			btnClose.FlatAppearance.BorderSize = 0;
+			btnClose.FlatAppearance.MouseDownBackColor = Color.FromArgb(225, 40, 40);
+			btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(225, 80, 80);
+			btnClose.FlatStyle = FlatStyle.Flat;
+			btnClose.Font = new Font("Lucida Console", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			btnClose.ForeColor = Color.White;
+			btnClose.Location = new Point(754, 0);
+			btnClose.Name = "btnClose";
+			btnClose.Size = new Size(46, 40);
+			btnClose.TabIndex = 1;
+			btnClose.Text = "X";
+			btnClose.UseVisualStyleBackColor = false;
+			btnClose.Click += btnClose_Click;
 			// 
 			// tabControl
 			// 
-			this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-			this.tabControl.Controls.Add(this.tabPage1);
-			this.tabControl.Controls.Add(this.tabPage2);
-			this.tabControl.Controls.Add(this.tabPage3);
-			this.tabControl.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.tabControl.Location = new System.Drawing.Point(0, 75);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(798, 424);
-			this.tabControl.TabIndex = 2;
+			tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tabControl.Appearance = TabAppearance.FlatButtons;
+			tabControl.Controls.Add(tabPage1);
+			tabControl.Controls.Add(tabPage2);
+			tabControl.Controls.Add(tabPage3);
+			tabControl.Font = new Font("Calibri", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+			tabControl.Location = new Point(0, 75);
+			tabControl.Name = "tabControl";
+			tabControl.SelectedIndex = 0;
+			tabControl.Size = new Size(798, 424);
+			tabControl.TabIndex = 2;
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 25);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(790, 395);
-			this.tabPage1.TabIndex = 2;
-			this.tabPage1.Text = "Create your own quotes library";
+			tabPage1.BackColor = Color.WhiteSmoke;
+			tabPage1.Controls.Add(tableLayoutPanel1);
+			tabPage1.Location = new Point(4, 25);
+			tabPage1.Name = "tabPage1";
+			tabPage1.Padding = new Padding(3);
+			tabPage1.Size = new Size(790, 395);
+			tabPage1.TabIndex = 2;
+			tabPage1.Text = "Create your own quotes library";
 			// 
 			// tableLayoutPanel1
 			// 
-			this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-			this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 0);
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 190F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 389);
-			this.tableLayoutPanel1.TabIndex = 19;
+			tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.ColumnCount = 2;
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
+			tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
+			tableLayoutPanel1.Controls.Add(panel4, 0, 1);
+			tableLayoutPanel1.Controls.Add(panel5, 1, 0);
+			tableLayoutPanel1.Location = new Point(3, 3);
+			tableLayoutPanel1.Name = "tableLayoutPanel1";
+			tableLayoutPanel1.RowCount = 2;
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 190F));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle());
+			tableLayoutPanel1.Size = new Size(784, 389);
+			tableLayoutPanel1.TabIndex = 19;
 			// 
 			// tableLayoutPanel2
 			// 
-			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel2.ColumnCount = 1;
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
-			this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 1);
-			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-			this.tableLayoutPanel2.RowCount = 2;
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.47594F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.52406F));
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(229, 184);
-			this.tableLayoutPanel2.TabIndex = 0;
+			tableLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.ColumnCount = 1;
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel2.Controls.Add(panel1, 0, 0);
+			tableLayoutPanel2.Controls.Add(panel2, 0, 1);
+			tableLayoutPanel2.Location = new Point(3, 3);
+			tableLayoutPanel2.Name = "tableLayoutPanel2";
+			tableLayoutPanel2.RowCount = 2;
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 53.47594F));
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 46.52406F));
+			tableLayoutPanel2.Size = new Size(229, 184);
+			tableLayoutPanel2.TabIndex = 0;
 			// 
 			// panel1
 			// 
-			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel1.Controls.Add(this.gbCollections);
-			this.panel1.Location = new System.Drawing.Point(3, 3);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(223, 92);
-			this.panel1.TabIndex = 0;
+			panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel1.Controls.Add(gbCollections);
+			panel1.Location = new Point(3, 3);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(223, 92);
+			panel1.TabIndex = 0;
 			// 
 			// gbCollections
 			// 
-			this.gbCollections.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbCollections.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.gbCollections.Controls.Add(this.btnReloadEditCollections);
-			this.gbCollections.Controls.Add(this.btnEditCollection);
-			this.gbCollections.Controls.Add(this.btnDeleteCollection);
-			this.gbCollections.Controls.Add(this.cbCollection);
-			this.gbCollections.Controls.Add(this.btnAddCollection);
-			this.gbCollections.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbCollections.Location = new System.Drawing.Point(3, 5);
-			this.gbCollections.Name = "gbCollections";
-			this.gbCollections.Size = new System.Drawing.Size(217, 84);
-			this.gbCollections.TabIndex = 14;
-			this.gbCollections.TabStop = false;
-			this.gbCollections.Text = "Colectia";
+			gbCollections.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbCollections.BackColor = Color.WhiteSmoke;
+			gbCollections.Controls.Add(btnReloadEditCollections);
+			gbCollections.Controls.Add(btnEditCollection);
+			gbCollections.Controls.Add(btnDeleteCollection);
+			gbCollections.Controls.Add(cbCollection);
+			gbCollections.Controls.Add(btnAddCollection);
+			gbCollections.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbCollections.Location = new Point(3, 5);
+			gbCollections.Name = "gbCollections";
+			gbCollections.Size = new Size(217, 84);
+			gbCollections.TabIndex = 14;
+			gbCollections.TabStop = false;
+			gbCollections.Text = "Colectia";
 			// 
 			// btnReloadEditCollections
 			// 
-			this.btnReloadEditCollections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnReloadEditCollections.BackgroundImage = global::Quoter.App.Resources.Resources.refresh_32;
-			this.btnReloadEditCollections.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnReloadEditCollections.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-			this.btnReloadEditCollections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnReloadEditCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnReloadEditCollections.Location = new System.Drawing.Point(187, 0);
-			this.btnReloadEditCollections.Name = "btnReloadEditCollections";
-			this.btnReloadEditCollections.Size = new System.Drawing.Size(24, 24);
-			this.btnReloadEditCollections.TabIndex = 18;
-			this.btnReloadEditCollections.UseVisualStyleBackColor = true;
-			this.btnReloadEditCollections.Click += new System.EventHandler(this.btnReloadEditCollections_Click);
+			btnReloadEditCollections.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnReloadEditCollections.BackgroundImage = Resources.Resources.refresh_32;
+			btnReloadEditCollections.BackgroundImageLayout = ImageLayout.Zoom;
+			btnReloadEditCollections.FlatAppearance.BorderColor = Color.Gray;
+			btnReloadEditCollections.FlatStyle = FlatStyle.Flat;
+			btnReloadEditCollections.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnReloadEditCollections.Location = new Point(187, 0);
+			btnReloadEditCollections.Name = "btnReloadEditCollections";
+			btnReloadEditCollections.Size = new Size(24, 24);
+			btnReloadEditCollections.TabIndex = 18;
+			btnReloadEditCollections.UseVisualStyleBackColor = true;
+			btnReloadEditCollections.Click += btnReloadEditCollections_Click;
 			// 
 			// btnEditCollection
 			// 
-			this.btnEditCollection.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnEditCollection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnEditCollection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnEditCollection.ForeColor = System.Drawing.Color.Black;
-			this.btnEditCollection.Location = new System.Drawing.Point(73, 55);
-			this.btnEditCollection.Name = "btnEditCollection";
-			this.btnEditCollection.Size = new System.Drawing.Size(71, 24);
-			this.btnEditCollection.TabIndex = 8;
-			this.btnEditCollection.Text = "Modifica";
-			this.btnEditCollection.UseVisualStyleBackColor = false;
-			this.btnEditCollection.Click += new System.EventHandler(this.btnEditCollection_Click);
+			btnEditCollection.BackColor = Color.WhiteSmoke;
+			btnEditCollection.FlatStyle = FlatStyle.Popup;
+			btnEditCollection.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnEditCollection.ForeColor = Color.Black;
+			btnEditCollection.Location = new Point(73, 55);
+			btnEditCollection.Name = "btnEditCollection";
+			btnEditCollection.Size = new Size(71, 24);
+			btnEditCollection.TabIndex = 8;
+			btnEditCollection.Text = "Modifica";
+			btnEditCollection.UseVisualStyleBackColor = false;
+			btnEditCollection.Click += btnEditCollection_Click;
 			// 
 			// btnDeleteCollection
 			// 
-			this.btnDeleteCollection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-			this.btnDeleteCollection.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnDeleteCollection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnDeleteCollection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnDeleteCollection.ForeColor = System.Drawing.Color.DarkRed;
-			this.btnDeleteCollection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnDeleteCollection.Location = new System.Drawing.Point(6, 55);
-			this.btnDeleteCollection.Name = "btnDeleteCollection";
-			this.btnDeleteCollection.Size = new System.Drawing.Size(68, 24);
-			this.btnDeleteCollection.TabIndex = 7;
-			this.btnDeleteCollection.Text = "Delete";
-			this.btnDeleteCollection.UseVisualStyleBackColor = false;
-			this.btnDeleteCollection.Click += new System.EventHandler(this.btnDeleteCollection_Click);
+			btnDeleteCollection.BackColor = Color.FromArgb(255, 240, 240);
+			btnDeleteCollection.BackgroundImageLayout = ImageLayout.Zoom;
+			btnDeleteCollection.FlatStyle = FlatStyle.Popup;
+			btnDeleteCollection.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnDeleteCollection.ForeColor = Color.DarkRed;
+			btnDeleteCollection.ImageAlign = ContentAlignment.MiddleLeft;
+			btnDeleteCollection.Location = new Point(6, 55);
+			btnDeleteCollection.Name = "btnDeleteCollection";
+			btnDeleteCollection.Size = new Size(68, 24);
+			btnDeleteCollection.TabIndex = 7;
+			btnDeleteCollection.Text = "Delete";
+			btnDeleteCollection.UseVisualStyleBackColor = false;
+			btnDeleteCollection.Click += btnDeleteCollection_Click;
 			// 
 			// cbCollection
 			// 
-			this.cbCollection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbCollection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbCollection.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cbCollection.FormattingEnabled = true;
-			this.cbCollection.Location = new System.Drawing.Point(6, 25);
-			this.cbCollection.Name = "cbCollection";
-			this.cbCollection.Size = new System.Drawing.Size(205, 26);
-			this.cbCollection.TabIndex = 2;
-			this.cbCollection.SelectedValueChanged += new System.EventHandler(this.cbCollection_SelectedValueChanged);
+			cbCollection.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cbCollection.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbCollection.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			cbCollection.FormattingEnabled = true;
+			cbCollection.Location = new Point(6, 25);
+			cbCollection.Name = "cbCollection";
+			cbCollection.Size = new Size(205, 26);
+			cbCollection.TabIndex = 2;
+			cbCollection.SelectedValueChanged += cbCollection_SelectedValueChanged;
 			// 
 			// btnAddCollection
 			// 
-			this.btnAddCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddCollection.BackColor = System.Drawing.Color.Honeydew;
-			this.btnAddCollection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAddCollection.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddCollection.ForeColor = System.Drawing.Color.DarkGreen;
-			this.btnAddCollection.Location = new System.Drawing.Point(143, 55);
-			this.btnAddCollection.Name = "btnAddCollection";
-			this.btnAddCollection.Size = new System.Drawing.Size(68, 24);
-			this.btnAddCollection.TabIndex = 6;
-			this.btnAddCollection.Text = "Adaugă";
-			this.btnAddCollection.UseVisualStyleBackColor = false;
-			this.btnAddCollection.Click += new System.EventHandler(this.btnAddCollection_Click);
+			btnAddCollection.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnAddCollection.BackColor = Color.Honeydew;
+			btnAddCollection.FlatStyle = FlatStyle.Popup;
+			btnAddCollection.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAddCollection.ForeColor = Color.DarkGreen;
+			btnAddCollection.Location = new Point(143, 55);
+			btnAddCollection.Name = "btnAddCollection";
+			btnAddCollection.Size = new Size(68, 24);
+			btnAddCollection.TabIndex = 6;
+			btnAddCollection.Text = "Adaugă";
+			btnAddCollection.UseVisualStyleBackColor = false;
+			btnAddCollection.Click += btnAddCollection_Click;
 			// 
 			// panel2
 			// 
-			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel2.Controls.Add(this.gbBooks);
-			this.panel2.Location = new System.Drawing.Point(3, 101);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(223, 80);
-			this.panel2.TabIndex = 1;
+			panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel2.Controls.Add(gbBooks);
+			panel2.Location = new Point(3, 101);
+			panel2.Name = "panel2";
+			panel2.Size = new Size(223, 80);
+			panel2.TabIndex = 1;
 			// 
 			// gbBooks
 			// 
-			this.gbBooks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbBooks.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.gbBooks.Controls.Add(this.btnAddFirstBook);
-			this.gbBooks.Controls.Add(this.btnEditBook);
-			this.gbBooks.Controls.Add(this.btnDeleteBook);
-			this.gbBooks.Controls.Add(this.cbBooks);
-			this.gbBooks.Controls.Add(this.btnAddBook);
-			this.gbBooks.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbBooks.Location = new System.Drawing.Point(3, 3);
-			this.gbBooks.Name = "gbBooks";
-			this.gbBooks.Size = new System.Drawing.Size(217, 74);
-			this.gbBooks.TabIndex = 15;
-			this.gbBooks.TabStop = false;
-			this.gbBooks.Text = "Book";
+			gbBooks.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbBooks.BackColor = Color.WhiteSmoke;
+			gbBooks.Controls.Add(btnAddFirstBook);
+			gbBooks.Controls.Add(btnEditBook);
+			gbBooks.Controls.Add(btnDeleteBook);
+			gbBooks.Controls.Add(cbBooks);
+			gbBooks.Controls.Add(btnAddBook);
+			gbBooks.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbBooks.Location = new Point(3, 3);
+			gbBooks.Name = "gbBooks";
+			gbBooks.Size = new Size(217, 74);
+			gbBooks.TabIndex = 15;
+			gbBooks.TabStop = false;
+			gbBooks.Text = "Book";
 			// 
 			// btnAddFirstBook
 			// 
-			this.btnAddFirstBook.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddFirstBook.BackColor = System.Drawing.Color.Honeydew;
-			this.btnAddFirstBook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAddFirstBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddFirstBook.ForeColor = System.Drawing.Color.DarkGreen;
-			this.btnAddFirstBook.Location = new System.Drawing.Point(81, 22);
-			this.btnAddFirstBook.MaximumSize = new System.Drawing.Size(68, 24);
-			this.btnAddFirstBook.MinimumSize = new System.Drawing.Size(68, 24);
-			this.btnAddFirstBook.Name = "btnAddFirstBook";
-			this.btnAddFirstBook.Size = new System.Drawing.Size(68, 24);
-			this.btnAddFirstBook.TabIndex = 10;
-			this.btnAddFirstBook.Text = "Adaugă";
-			this.btnAddFirstBook.UseVisualStyleBackColor = false;
-			this.btnAddFirstBook.Click += new System.EventHandler(this.btnAddFirstBook_Click);
+			btnAddFirstBook.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			btnAddFirstBook.BackColor = Color.Honeydew;
+			btnAddFirstBook.FlatStyle = FlatStyle.Popup;
+			btnAddFirstBook.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAddFirstBook.ForeColor = Color.DarkGreen;
+			btnAddFirstBook.Location = new Point(81, 22);
+			btnAddFirstBook.MaximumSize = new Size(68, 24);
+			btnAddFirstBook.MinimumSize = new Size(68, 24);
+			btnAddFirstBook.Name = "btnAddFirstBook";
+			btnAddFirstBook.Size = new Size(68, 24);
+			btnAddFirstBook.TabIndex = 10;
+			btnAddFirstBook.Text = "Adaugă";
+			btnAddFirstBook.UseVisualStyleBackColor = false;
+			btnAddFirstBook.Click += btnAddFirstBook_Click;
 			// 
 			// btnEditBook
 			// 
-			this.btnEditBook.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnEditBook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnEditBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnEditBook.ForeColor = System.Drawing.Color.Black;
-			this.btnEditBook.Location = new System.Drawing.Point(73, 47);
-			this.btnEditBook.Name = "btnEditBook";
-			this.btnEditBook.Size = new System.Drawing.Size(71, 24);
-			this.btnEditBook.TabIndex = 9;
-			this.btnEditBook.Text = "Modifica";
-			this.btnEditBook.UseVisualStyleBackColor = false;
-			this.btnEditBook.Click += new System.EventHandler(this.btnEditBook_Click);
+			btnEditBook.BackColor = Color.WhiteSmoke;
+			btnEditBook.FlatStyle = FlatStyle.Popup;
+			btnEditBook.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnEditBook.ForeColor = Color.Black;
+			btnEditBook.Location = new Point(73, 47);
+			btnEditBook.Name = "btnEditBook";
+			btnEditBook.Size = new Size(71, 24);
+			btnEditBook.TabIndex = 9;
+			btnEditBook.Text = "Modifica";
+			btnEditBook.UseVisualStyleBackColor = false;
+			btnEditBook.Click += btnEditBook_Click;
 			// 
 			// btnDeleteBook
 			// 
-			this.btnDeleteBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-			this.btnDeleteBook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnDeleteBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnDeleteBook.ForeColor = System.Drawing.Color.DarkRed;
-			this.btnDeleteBook.Location = new System.Drawing.Point(6, 47);
-			this.btnDeleteBook.Name = "btnDeleteBook";
-			this.btnDeleteBook.Size = new System.Drawing.Size(68, 24);
-			this.btnDeleteBook.TabIndex = 7;
-			this.btnDeleteBook.Text = "Șterge";
-			this.btnDeleteBook.UseVisualStyleBackColor = false;
-			this.btnDeleteBook.Click += new System.EventHandler(this.btnDeleteBook_Click);
+			btnDeleteBook.BackColor = Color.FromArgb(255, 240, 240);
+			btnDeleteBook.FlatStyle = FlatStyle.Popup;
+			btnDeleteBook.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnDeleteBook.ForeColor = Color.DarkRed;
+			btnDeleteBook.Location = new Point(6, 47);
+			btnDeleteBook.Name = "btnDeleteBook";
+			btnDeleteBook.Size = new Size(68, 24);
+			btnDeleteBook.TabIndex = 7;
+			btnDeleteBook.Text = "Șterge";
+			btnDeleteBook.UseVisualStyleBackColor = false;
+			btnDeleteBook.Click += btnDeleteBook_Click;
 			// 
 			// cbBooks
 			// 
-			this.cbBooks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbBooks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbBooks.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cbBooks.FormattingEnabled = true;
-			this.cbBooks.Location = new System.Drawing.Point(6, 17);
-			this.cbBooks.Name = "cbBooks";
-			this.cbBooks.Size = new System.Drawing.Size(205, 26);
-			this.cbBooks.TabIndex = 2;
-			this.cbBooks.SelectedValueChanged += new System.EventHandler(this.cbBooks_SelectedValueChanged);
+			cbBooks.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cbBooks.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbBooks.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			cbBooks.FormattingEnabled = true;
+			cbBooks.Location = new Point(6, 17);
+			cbBooks.Name = "cbBooks";
+			cbBooks.Size = new Size(205, 26);
+			cbBooks.TabIndex = 2;
+			cbBooks.SelectedValueChanged += cbBooks_SelectedValueChanged;
 			// 
 			// btnAddBook
 			// 
-			this.btnAddBook.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddBook.BackColor = System.Drawing.Color.Honeydew;
-			this.btnAddBook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAddBook.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddBook.ForeColor = System.Drawing.Color.DarkGreen;
-			this.btnAddBook.Location = new System.Drawing.Point(143, 47);
-			this.btnAddBook.Name = "btnAddBook";
-			this.btnAddBook.Size = new System.Drawing.Size(68, 24);
-			this.btnAddBook.TabIndex = 6;
-			this.btnAddBook.Text = "Adaugă";
-			this.btnAddBook.UseVisualStyleBackColor = false;
-			this.btnAddBook.Click += new System.EventHandler(this.btnAddBook_Click);
+			btnAddBook.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnAddBook.BackColor = Color.Honeydew;
+			btnAddBook.FlatStyle = FlatStyle.Popup;
+			btnAddBook.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAddBook.ForeColor = Color.DarkGreen;
+			btnAddBook.Location = new Point(143, 47);
+			btnAddBook.Name = "btnAddBook";
+			btnAddBook.Size = new Size(68, 24);
+			btnAddBook.TabIndex = 6;
+			btnAddBook.Text = "Adaugă";
+			btnAddBook.UseVisualStyleBackColor = false;
+			btnAddBook.Click += btnAddBook_Click;
 			// 
 			// panel4
 			// 
-			this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel4.Controls.Add(this.gbChapters);
-			this.panel4.Location = new System.Drawing.Point(3, 193);
-			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(229, 193);
-			this.panel4.TabIndex = 1;
+			panel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel4.Controls.Add(gbChapters);
+			panel4.Location = new Point(3, 193);
+			panel4.Name = "panel4";
+			panel4.Size = new Size(229, 193);
+			panel4.TabIndex = 1;
 			// 
 			// gbChapters
 			// 
-			this.gbChapters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbChapters.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.gbChapters.Controls.Add(this.btnAddFirstChapter);
-			this.gbChapters.Controls.Add(this.btnEditChapter);
-			this.gbChapters.Controls.Add(this.btnDeleteChapter);
-			this.gbChapters.Controls.Add(this.btnAddChapter);
-			this.gbChapters.Controls.Add(this.lbChapters);
-			this.gbChapters.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbChapters.Location = new System.Drawing.Point(4, 3);
-			this.gbChapters.Name = "gbChapters";
-			this.gbChapters.Size = new System.Drawing.Size(222, 187);
-			this.gbChapters.TabIndex = 16;
-			this.gbChapters.TabStop = false;
-			this.gbChapters.Text = "Capitole";
+			gbChapters.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbChapters.BackColor = Color.WhiteSmoke;
+			gbChapters.Controls.Add(btnAddFirstChapter);
+			gbChapters.Controls.Add(btnEditChapter);
+			gbChapters.Controls.Add(btnDeleteChapter);
+			gbChapters.Controls.Add(btnAddChapter);
+			gbChapters.Controls.Add(lbChapters);
+			gbChapters.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbChapters.Location = new Point(4, 3);
+			gbChapters.Name = "gbChapters";
+			gbChapters.Size = new Size(222, 187);
+			gbChapters.TabIndex = 16;
+			gbChapters.TabStop = false;
+			gbChapters.Text = "Capitole";
 			// 
 			// btnAddFirstChapter
 			// 
-			this.btnAddFirstChapter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddFirstChapter.BackColor = System.Drawing.Color.Honeydew;
-			this.btnAddFirstChapter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAddFirstChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddFirstChapter.ForeColor = System.Drawing.Color.DarkGreen;
-			this.btnAddFirstChapter.Location = new System.Drawing.Point(81, 96);
-			this.btnAddFirstChapter.MaximumSize = new System.Drawing.Size(68, 24);
-			this.btnAddFirstChapter.MinimumSize = new System.Drawing.Size(68, 24);
-			this.btnAddFirstChapter.Name = "btnAddFirstChapter";
-			this.btnAddFirstChapter.Size = new System.Drawing.Size(68, 24);
-			this.btnAddFirstChapter.TabIndex = 11;
-			this.btnAddFirstChapter.Text = "Adaugă";
-			this.btnAddFirstChapter.UseVisualStyleBackColor = false;
-			this.btnAddFirstChapter.Click += new System.EventHandler(this.btnAddFirstChapter_Click);
+			btnAddFirstChapter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			btnAddFirstChapter.BackColor = Color.Honeydew;
+			btnAddFirstChapter.FlatStyle = FlatStyle.Popup;
+			btnAddFirstChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAddFirstChapter.ForeColor = Color.DarkGreen;
+			btnAddFirstChapter.Location = new Point(81, 96);
+			btnAddFirstChapter.MaximumSize = new Size(68, 24);
+			btnAddFirstChapter.MinimumSize = new Size(68, 24);
+			btnAddFirstChapter.Name = "btnAddFirstChapter";
+			btnAddFirstChapter.Size = new Size(68, 24);
+			btnAddFirstChapter.TabIndex = 11;
+			btnAddFirstChapter.Text = "Adaugă";
+			btnAddFirstChapter.UseVisualStyleBackColor = false;
+			btnAddFirstChapter.Click += btnAddFirstChapter_Click;
 			// 
 			// btnEditChapter
 			// 
-			this.btnEditChapter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnEditChapter.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnEditChapter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnEditChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnEditChapter.ForeColor = System.Drawing.Color.Black;
-			this.btnEditChapter.Location = new System.Drawing.Point(73, 157);
-			this.btnEditChapter.Name = "btnEditChapter";
-			this.btnEditChapter.Size = new System.Drawing.Size(71, 24);
-			this.btnEditChapter.TabIndex = 10;
-			this.btnEditChapter.Text = "Modifica";
-			this.btnEditChapter.UseVisualStyleBackColor = false;
-			this.btnEditChapter.Click += new System.EventHandler(this.btnEditChapter_Click);
+			btnEditChapter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnEditChapter.BackColor = Color.WhiteSmoke;
+			btnEditChapter.FlatStyle = FlatStyle.Popup;
+			btnEditChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnEditChapter.ForeColor = Color.Black;
+			btnEditChapter.Location = new Point(73, 157);
+			btnEditChapter.Name = "btnEditChapter";
+			btnEditChapter.Size = new Size(71, 24);
+			btnEditChapter.TabIndex = 10;
+			btnEditChapter.Text = "Modifica";
+			btnEditChapter.UseVisualStyleBackColor = false;
+			btnEditChapter.Click += btnEditChapter_Click;
 			// 
 			// btnDeleteChapter
 			// 
-			this.btnDeleteChapter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnDeleteChapter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-			this.btnDeleteChapter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnDeleteChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnDeleteChapter.ForeColor = System.Drawing.Color.DarkRed;
-			this.btnDeleteChapter.Location = new System.Drawing.Point(6, 157);
-			this.btnDeleteChapter.Name = "btnDeleteChapter";
-			this.btnDeleteChapter.Size = new System.Drawing.Size(68, 24);
-			this.btnDeleteChapter.TabIndex = 7;
-			this.btnDeleteChapter.Text = "Șterge";
-			this.btnDeleteChapter.UseVisualStyleBackColor = false;
-			this.btnDeleteChapter.Click += new System.EventHandler(this.btnDeleteChapter_Click);
+			btnDeleteChapter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnDeleteChapter.BackColor = Color.FromArgb(255, 240, 240);
+			btnDeleteChapter.FlatStyle = FlatStyle.Popup;
+			btnDeleteChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnDeleteChapter.ForeColor = Color.DarkRed;
+			btnDeleteChapter.Location = new Point(6, 157);
+			btnDeleteChapter.Name = "btnDeleteChapter";
+			btnDeleteChapter.Size = new Size(68, 24);
+			btnDeleteChapter.TabIndex = 7;
+			btnDeleteChapter.Text = "Șterge";
+			btnDeleteChapter.UseVisualStyleBackColor = false;
+			btnDeleteChapter.Click += btnDeleteChapter_Click;
 			// 
 			// btnAddChapter
 			// 
-			this.btnAddChapter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddChapter.BackColor = System.Drawing.Color.Honeydew;
-			this.btnAddChapter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnAddChapter.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAddChapter.ForeColor = System.Drawing.Color.DarkGreen;
-			this.btnAddChapter.Location = new System.Drawing.Point(143, 157);
-			this.btnAddChapter.Name = "btnAddChapter";
-			this.btnAddChapter.Size = new System.Drawing.Size(68, 24);
-			this.btnAddChapter.TabIndex = 6;
-			this.btnAddChapter.Text = "Adaugă";
-			this.btnAddChapter.UseVisualStyleBackColor = false;
-			this.btnAddChapter.Click += new System.EventHandler(this.btnAddChapter_Click);
+			btnAddChapter.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnAddChapter.BackColor = Color.Honeydew;
+			btnAddChapter.FlatStyle = FlatStyle.Popup;
+			btnAddChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAddChapter.ForeColor = Color.DarkGreen;
+			btnAddChapter.Location = new Point(143, 157);
+			btnAddChapter.Name = "btnAddChapter";
+			btnAddChapter.Size = new Size(68, 24);
+			btnAddChapter.TabIndex = 6;
+			btnAddChapter.Text = "Adaugă";
+			btnAddChapter.UseVisualStyleBackColor = false;
+			btnAddChapter.Click += btnAddChapter_Click;
 			// 
 			// lbChapters
 			// 
-			this.lbChapters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lbChapters.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lbChapters.FormattingEnabled = true;
-			this.lbChapters.ItemHeight = 18;
-			this.lbChapters.Items.AddRange(new object[] {
-            "test",
-            "test1",
-            "test4"});
-			this.lbChapters.Location = new System.Drawing.Point(6, 16);
-			this.lbChapters.Name = "lbChapters";
-			this.lbChapters.Size = new System.Drawing.Size(207, 130);
-			this.lbChapters.TabIndex = 5;
-			this.lbChapters.SelectedValueChanged += new System.EventHandler(this.lbChapters_SelectedValueChanged);
+			lbChapters.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			lbChapters.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lbChapters.FormattingEnabled = true;
+			lbChapters.ItemHeight = 18;
+			lbChapters.Items.AddRange(new object[] { "test", "test1", "test4" });
+			lbChapters.Location = new Point(6, 16);
+			lbChapters.Name = "lbChapters";
+			lbChapters.Size = new Size(207, 130);
+			lbChapters.TabIndex = 5;
+			lbChapters.SelectedValueChanged += lbChapters_SelectedValueChanged;
 			// 
 			// panel5
 			// 
-			this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel5.Controls.Add(this.gbQuotes);
-			this.panel5.Location = new System.Drawing.Point(238, 3);
-			this.panel5.Name = "panel5";
-			this.tableLayoutPanel1.SetRowSpan(this.panel5, 2);
-			this.panel5.Size = new System.Drawing.Size(543, 383);
-			this.panel5.TabIndex = 2;
+			panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel5.Controls.Add(gbQuotes);
+			panel5.Location = new Point(238, 3);
+			panel5.Name = "panel5";
+			tableLayoutPanel1.SetRowSpan(panel5, 2);
+			panel5.Size = new Size(543, 383);
+			panel5.TabIndex = 2;
 			// 
 			// gbQuotes
 			// 
-			this.gbQuotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbQuotes.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.gbQuotes.Controls.Add(this.btnQuickAdd);
-			this.gbQuotes.Controls.Add(this.btnQuotesOptions);
-			this.gbQuotes.Controls.Add(this.pnlQuotesOptions);
-			this.gbQuotes.Controls.Add(this.lineNumbers_For_RichTextBox1);
-			this.gbQuotes.Controls.Add(this.btnSaveQuotes);
-			this.gbQuotes.Controls.Add(this.rtbQuotes);
-			this.gbQuotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbQuotes.Location = new System.Drawing.Point(3, 3);
-			this.gbQuotes.Name = "gbQuotes";
-			this.gbQuotes.Size = new System.Drawing.Size(537, 377);
-			this.gbQuotes.TabIndex = 17;
-			this.gbQuotes.TabStop = false;
-			this.gbQuotes.Text = "Quotes";
+			gbQuotes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbQuotes.BackColor = Color.WhiteSmoke;
+			gbQuotes.Controls.Add(btnQuickAdd);
+			gbQuotes.Controls.Add(btnQuotesOptions);
+			gbQuotes.Controls.Add(pnlQuotesOptions);
+			gbQuotes.Controls.Add(lineNumbers_For_RichTextBox1);
+			gbQuotes.Controls.Add(btnSaveQuotes);
+			gbQuotes.Controls.Add(rtbQuotes);
+			gbQuotes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbQuotes.Location = new Point(3, 3);
+			gbQuotes.Name = "gbQuotes";
+			gbQuotes.Size = new Size(537, 377);
+			gbQuotes.TabIndex = 17;
+			gbQuotes.TabStop = false;
+			gbQuotes.Text = "Quotes";
 			// 
 			// btnQuickAdd
 			// 
-			this.btnQuickAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnQuickAdd.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-			this.btnQuickAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnQuickAdd.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnQuickAdd.ForeColor = System.Drawing.Color.Olive;
-			this.btnQuickAdd.Location = new System.Drawing.Point(366, 347);
-			this.btnQuickAdd.Name = "btnQuickAdd";
-			this.btnQuickAdd.Size = new System.Drawing.Size(91, 24);
-			this.btnQuickAdd.TabIndex = 17;
-			this.btnQuickAdd.Text = "Quick add";
-			this.btnQuickAdd.UseVisualStyleBackColor = false;
-			this.btnQuickAdd.Click += new System.EventHandler(this.btnQuickAdd_Click);
+			btnQuickAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnQuickAdd.BackColor = Color.LightGoldenrodYellow;
+			btnQuickAdd.FlatStyle = FlatStyle.Popup;
+			btnQuickAdd.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnQuickAdd.ForeColor = Color.Olive;
+			btnQuickAdd.Location = new Point(366, 347);
+			btnQuickAdd.Name = "btnQuickAdd";
+			btnQuickAdd.Size = new Size(91, 24);
+			btnQuickAdd.TabIndex = 17;
+			btnQuickAdd.Text = "Quick add";
+			btnQuickAdd.UseVisualStyleBackColor = false;
+			btnQuickAdd.Click += btnQuickAdd_Click;
 			// 
 			// btnQuotesOptions
 			// 
-			this.btnQuotesOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnQuotesOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnQuotesOptions.Location = new System.Drawing.Point(42, 347);
-			this.btnQuotesOptions.Name = "btnQuotesOptions";
-			this.btnQuotesOptions.Size = new System.Drawing.Size(68, 24);
-			this.btnQuotesOptions.TabIndex = 16;
-			this.btnQuotesOptions.Text = "Options";
-			this.btnQuotesOptions.UseVisualStyleBackColor = true;
-			this.btnQuotesOptions.Click += new System.EventHandler(this.btnQuotesOptions_Click);
+			btnQuotesOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			btnQuotesOptions.FlatStyle = FlatStyle.Flat;
+			btnQuotesOptions.Location = new Point(42, 347);
+			btnQuotesOptions.Name = "btnQuotesOptions";
+			btnQuotesOptions.Size = new Size(68, 24);
+			btnQuotesOptions.TabIndex = 16;
+			btnQuotesOptions.Text = "Options";
+			btnQuotesOptions.UseVisualStyleBackColor = true;
+			btnQuotesOptions.Click += btnQuotesOptions_Click;
 			// 
 			// pnlQuotesOptions
 			// 
-			this.pnlQuotesOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.pnlQuotesOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.pnlQuotesOptions.Controls.Add(this.lblQuotesExcludeCharsUntill);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludeUntillChars);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceCharsReplacement);
-			this.pnlQuotesOptions.Controls.Add(this.lblQuotesReplaceChars);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesReplaceChars);
-			this.pnlQuotesOptions.Controls.Add(this.chkWordWrap);
-			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendEnd);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendTextToEnd);
-			this.pnlQuotesOptions.Controls.Add(this.lblQuotesAppendStart);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesAppendedTextToBeginning);
-			this.pnlQuotesOptions.Controls.Add(this.txtQuotesExcludedChars);
-			this.pnlQuotesOptions.Controls.Add(this.lblQuotesExcludeChars);
-			this.pnlQuotesOptions.Location = new System.Drawing.Point(42, 141);
-			this.pnlQuotesOptions.Name = "pnlQuotesOptions";
-			this.pnlQuotesOptions.Size = new System.Drawing.Size(274, 207);
-			this.pnlQuotesOptions.TabIndex = 15;
+			pnlQuotesOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			pnlQuotesOptions.BorderStyle = BorderStyle.FixedSingle;
+			pnlQuotesOptions.Controls.Add(lblQuotesExcludeCharsUntill);
+			pnlQuotesOptions.Controls.Add(txtQuotesExcludeUntillChars);
+			pnlQuotesOptions.Controls.Add(txtQuotesReplaceCharsReplacement);
+			pnlQuotesOptions.Controls.Add(lblQuotesReplaceChars);
+			pnlQuotesOptions.Controls.Add(txtQuotesReplaceChars);
+			pnlQuotesOptions.Controls.Add(chkWordWrap);
+			pnlQuotesOptions.Controls.Add(lblQuotesAppendEnd);
+			pnlQuotesOptions.Controls.Add(txtQuotesAppendTextToEnd);
+			pnlQuotesOptions.Controls.Add(lblQuotesAppendStart);
+			pnlQuotesOptions.Controls.Add(txtQuotesAppendedTextToBeginning);
+			pnlQuotesOptions.Controls.Add(txtQuotesExcludedChars);
+			pnlQuotesOptions.Controls.Add(lblQuotesExcludeChars);
+			pnlQuotesOptions.Location = new Point(42, 141);
+			pnlQuotesOptions.Name = "pnlQuotesOptions";
+			pnlQuotesOptions.Size = new Size(274, 207);
+			pnlQuotesOptions.TabIndex = 15;
 			// 
 			// lblQuotesExcludeCharsUntill
 			// 
-			this.lblQuotesExcludeCharsUntill.Location = new System.Drawing.Point(9, 6);
-			this.lblQuotesExcludeCharsUntill.Name = "lblQuotesExcludeCharsUntill";
-			this.lblQuotesExcludeCharsUntill.Size = new System.Drawing.Size(180, 20);
-			this.lblQuotesExcludeCharsUntill.TabIndex = 12;
-			this.lblQuotesExcludeCharsUntill.Text = "Exclude characters untill";
+			lblQuotesExcludeCharsUntill.Location = new Point(9, 6);
+			lblQuotesExcludeCharsUntill.Name = "lblQuotesExcludeCharsUntill";
+			lblQuotesExcludeCharsUntill.Size = new Size(180, 20);
+			lblQuotesExcludeCharsUntill.TabIndex = 12;
+			lblQuotesExcludeCharsUntill.Text = "Exclude characters untill";
 			// 
 			// txtQuotesExcludeUntillChars
 			// 
-			this.txtQuotesExcludeUntillChars.Location = new System.Drawing.Point(195, 3);
-			this.txtQuotesExcludeUntillChars.Name = "txtQuotesExcludeUntillChars";
-			this.txtQuotesExcludeUntillChars.Size = new System.Drawing.Size(62, 23);
-			this.txtQuotesExcludeUntillChars.TabIndex = 11;
+			txtQuotesExcludeUntillChars.Location = new Point(195, 3);
+			txtQuotesExcludeUntillChars.Name = "txtQuotesExcludeUntillChars";
+			txtQuotesExcludeUntillChars.Size = new Size(62, 23);
+			txtQuotesExcludeUntillChars.TabIndex = 11;
 			// 
 			// txtQuotesReplaceCharsReplacement
 			// 
-			this.txtQuotesReplaceCharsReplacement.Location = new System.Drawing.Point(180, 134);
-			this.txtQuotesReplaceCharsReplacement.Multiline = true;
-			this.txtQuotesReplaceCharsReplacement.Name = "txtQuotesReplaceCharsReplacement";
-			this.txtQuotesReplaceCharsReplacement.Size = new System.Drawing.Size(77, 40);
-			this.txtQuotesReplaceCharsReplacement.TabIndex = 10;
+			txtQuotesReplaceCharsReplacement.Location = new Point(180, 134);
+			txtQuotesReplaceCharsReplacement.Multiline = true;
+			txtQuotesReplaceCharsReplacement.Name = "txtQuotesReplaceCharsReplacement";
+			txtQuotesReplaceCharsReplacement.Size = new Size(77, 40);
+			txtQuotesReplaceCharsReplacement.TabIndex = 10;
 			// 
 			// lblQuotesReplaceChars
 			// 
-			this.lblQuotesReplaceChars.Location = new System.Drawing.Point(77, 134);
-			this.lblQuotesReplaceChars.Name = "lblQuotesReplaceChars";
-			this.lblQuotesReplaceChars.Size = new System.Drawing.Size(100, 40);
-			this.lblQuotesReplaceChars.TabIndex = 9;
-			this.lblQuotesReplaceChars.Text = "Replace chars with";
+			lblQuotesReplaceChars.Location = new Point(77, 134);
+			lblQuotesReplaceChars.Name = "lblQuotesReplaceChars";
+			lblQuotesReplaceChars.Size = new Size(100, 40);
+			lblQuotesReplaceChars.TabIndex = 9;
+			lblQuotesReplaceChars.Text = "Replace chars with";
 			// 
 			// txtQuotesReplaceChars
 			// 
-			this.txtQuotesReplaceChars.Location = new System.Drawing.Point(9, 138);
-			this.txtQuotesReplaceChars.Multiline = true;
-			this.txtQuotesReplaceChars.Name = "txtQuotesReplaceChars";
-			this.txtQuotesReplaceChars.Size = new System.Drawing.Size(62, 36);
-			this.txtQuotesReplaceChars.TabIndex = 8;
+			txtQuotesReplaceChars.Location = new Point(9, 138);
+			txtQuotesReplaceChars.Multiline = true;
+			txtQuotesReplaceChars.Name = "txtQuotesReplaceChars";
+			txtQuotesReplaceChars.Size = new Size(62, 36);
+			txtQuotesReplaceChars.TabIndex = 8;
 			// 
 			// chkWordWrap
 			// 
-			this.chkWordWrap.AutoSize = true;
-			this.chkWordWrap.Checked = true;
-			this.chkWordWrap.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.chkWordWrap.Location = new System.Drawing.Point(9, 180);
-			this.chkWordWrap.Name = "chkWordWrap";
-			this.chkWordWrap.Size = new System.Drawing.Size(87, 19);
-			this.chkWordWrap.TabIndex = 7;
-			this.chkWordWrap.Text = "Word wrap";
-			this.chkWordWrap.UseVisualStyleBackColor = true;
-			this.chkWordWrap.CheckedChanged += new System.EventHandler(this.chkWordWrap_CheckedChanged);
+			chkWordWrap.AutoSize = true;
+			chkWordWrap.Checked = true;
+			chkWordWrap.CheckState = CheckState.Checked;
+			chkWordWrap.Location = new Point(9, 180);
+			chkWordWrap.Name = "chkWordWrap";
+			chkWordWrap.Size = new Size(87, 19);
+			chkWordWrap.TabIndex = 7;
+			chkWordWrap.Text = "Word wrap";
+			chkWordWrap.UseVisualStyleBackColor = true;
+			chkWordWrap.CheckedChanged += chkWordWrap_CheckedChanged;
 			// 
 			// lblQuotesAppendEnd
 			// 
-			this.lblQuotesAppendEnd.Location = new System.Drawing.Point(77, 106);
-			this.lblQuotesAppendEnd.Name = "lblQuotesAppendEnd";
-			this.lblQuotesAppendEnd.Size = new System.Drawing.Size(192, 30);
-			this.lblQuotesAppendEnd.TabIndex = 6;
-			this.lblQuotesAppendEnd.Text = "Append text to end of quote";
+			lblQuotesAppendEnd.Location = new Point(77, 106);
+			lblQuotesAppendEnd.Name = "lblQuotesAppendEnd";
+			lblQuotesAppendEnd.Size = new Size(192, 30);
+			lblQuotesAppendEnd.TabIndex = 6;
+			lblQuotesAppendEnd.Text = "Append text to end of quote";
 			// 
 			// txtQuotesAppendTextToEnd
 			// 
-			this.txtQuotesAppendTextToEnd.Location = new System.Drawing.Point(9, 109);
-			this.txtQuotesAppendTextToEnd.Name = "txtQuotesAppendTextToEnd";
-			this.txtQuotesAppendTextToEnd.Size = new System.Drawing.Size(62, 23);
-			this.txtQuotesAppendTextToEnd.TabIndex = 5;
+			txtQuotesAppendTextToEnd.Location = new Point(9, 109);
+			txtQuotesAppendTextToEnd.Name = "txtQuotesAppendTextToEnd";
+			txtQuotesAppendTextToEnd.Size = new Size(62, 23);
+			txtQuotesAppendTextToEnd.TabIndex = 5;
 			// 
 			// lblQuotesAppendStart
 			// 
-			this.lblQuotesAppendStart.Location = new System.Drawing.Point(77, 75);
-			this.lblQuotesAppendStart.Name = "lblQuotesAppendStart";
-			this.lblQuotesAppendStart.Size = new System.Drawing.Size(192, 30);
-			this.lblQuotesAppendStart.TabIndex = 4;
-			this.lblQuotesAppendStart.Text = "Append text to the beginning of quote";
+			lblQuotesAppendStart.Location = new Point(77, 75);
+			lblQuotesAppendStart.Name = "lblQuotesAppendStart";
+			lblQuotesAppendStart.Size = new Size(192, 30);
+			lblQuotesAppendStart.TabIndex = 4;
+			lblQuotesAppendStart.Text = "Append text to the beginning of quote";
 			// 
 			// txtQuotesAppendedTextToBeginning
 			// 
-			this.txtQuotesAppendedTextToBeginning.Location = new System.Drawing.Point(9, 80);
-			this.txtQuotesAppendedTextToBeginning.Name = "txtQuotesAppendedTextToBeginning";
-			this.txtQuotesAppendedTextToBeginning.Size = new System.Drawing.Size(62, 23);
-			this.txtQuotesAppendedTextToBeginning.TabIndex = 3;
+			txtQuotesAppendedTextToBeginning.Location = new Point(9, 80);
+			txtQuotesAppendedTextToBeginning.Name = "txtQuotesAppendedTextToBeginning";
+			txtQuotesAppendedTextToBeginning.Size = new Size(62, 23);
+			txtQuotesAppendedTextToBeginning.TabIndex = 3;
 			// 
 			// txtQuotesExcludedChars
 			// 
-			this.txtQuotesExcludedChars.Location = new System.Drawing.Point(9, 37);
-			this.txtQuotesExcludedChars.Multiline = true;
-			this.txtQuotesExcludedChars.Name = "txtQuotesExcludedChars";
-			this.txtQuotesExcludedChars.Size = new System.Drawing.Size(62, 37);
-			this.txtQuotesExcludedChars.TabIndex = 2;
+			txtQuotesExcludedChars.Location = new Point(9, 37);
+			txtQuotesExcludedChars.Multiline = true;
+			txtQuotesExcludedChars.Name = "txtQuotesExcludedChars";
+			txtQuotesExcludedChars.Size = new Size(62, 37);
+			txtQuotesExcludedChars.TabIndex = 2;
 			// 
 			// lblQuotesExcludeChars
 			// 
-			this.lblQuotesExcludeChars.Location = new System.Drawing.Point(77, 36);
-			this.lblQuotesExcludeChars.Name = "lblQuotesExcludeChars";
-			this.lblQuotesExcludeChars.Size = new System.Drawing.Size(180, 39);
-			this.lblQuotesExcludeChars.TabIndex = 1;
-			this.lblQuotesExcludeChars.Text = "Exclude characters ( input characters with no spaces)";
+			lblQuotesExcludeChars.Location = new Point(77, 36);
+			lblQuotesExcludeChars.Name = "lblQuotesExcludeChars";
+			lblQuotesExcludeChars.Size = new Size(180, 39);
+			lblQuotesExcludeChars.TabIndex = 1;
+			lblQuotesExcludeChars.Text = "Exclude characters ( input characters with no spaces)";
 			// 
 			// lineNumbers_For_RichTextBox1
 			// 
-			this.lineNumbers_For_RichTextBox1._SeeThroughMode_ = false;
-			this.lineNumbers_For_RichTextBox1.AutoSizing = true;
-			this.lineNumbers_For_RichTextBox1.BackgroundGradient_AlphaColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-			this.lineNumbers_For_RichTextBox1.BackgroundGradient_BetaColor = System.Drawing.Color.WhiteSmoke;
-			this.lineNumbers_For_RichTextBox1.BackgroundGradient_Direction = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-			this.lineNumbers_For_RichTextBox1.BorderLines_Color = System.Drawing.Color.WhiteSmoke;
-			this.lineNumbers_For_RichTextBox1.BorderLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
-			this.lineNumbers_For_RichTextBox1.BorderLines_Thickness = 1F;
-			this.lineNumbers_For_RichTextBox1.DockSide = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Left;
-			this.lineNumbers_For_RichTextBox1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lineNumbers_For_RichTextBox1.GridLines_Color = System.Drawing.Color.LightGray;
-			this.lineNumbers_For_RichTextBox1.GridLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
-			this.lineNumbers_For_RichTextBox1.GridLines_Thickness = 1F;
-			this.lineNumbers_For_RichTextBox1.LineNrs_Alignment = System.Drawing.ContentAlignment.TopRight;
-			this.lineNumbers_For_RichTextBox1.LineNrs_AntiAlias = true;
-			this.lineNumbers_For_RichTextBox1.LineNrs_AsHexadecimal = false;
-			this.lineNumbers_For_RichTextBox1.LineNrs_ClippedByItemRectangle = true;
-			this.lineNumbers_For_RichTextBox1.LineNrs_LeadingZeroes = true;
-			this.lineNumbers_For_RichTextBox1.LineNrs_Offset = new System.Drawing.Size(0, 0);
-			this.lineNumbers_For_RichTextBox1.Location = new System.Drawing.Point(12, 17);
-			this.lineNumbers_For_RichTextBox1.Margin = new System.Windows.Forms.Padding(0);
-			this.lineNumbers_For_RichTextBox1.MarginLines_Color = System.Drawing.Color.SlateGray;
-			this.lineNumbers_For_RichTextBox1.MarginLines_Side = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Right;
-			this.lineNumbers_For_RichTextBox1.MarginLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
-			this.lineNumbers_For_RichTextBox1.MarginLines_Thickness = 1F;
-			this.lineNumbers_For_RichTextBox1.Name = "lineNumbers_For_RichTextBox1";
-			this.lineNumbers_For_RichTextBox1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-			this.lineNumbers_For_RichTextBox1.ParentRichTextBox = this.rtbQuotes;
-			this.lineNumbers_For_RichTextBox1.Show_BackgroundGradient = true;
-			this.lineNumbers_For_RichTextBox1.Show_BorderLines = true;
-			this.lineNumbers_For_RichTextBox1.Show_GridLines = true;
-			this.lineNumbers_For_RichTextBox1.Show_LineNrs = true;
-			this.lineNumbers_For_RichTextBox1.Show_MarginLines = false;
-			this.lineNumbers_For_RichTextBox1.Size = new System.Drawing.Size(29, 324);
-			this.lineNumbers_For_RichTextBox1.TabIndex = 14;
+			lineNumbers_For_RichTextBox1._SeeThroughMode_ = false;
+			lineNumbers_For_RichTextBox1.AutoSizing = true;
+			lineNumbers_For_RichTextBox1.BackgroundGradient_AlphaColor = Color.FromArgb(0, 0, 0, 0);
+			lineNumbers_For_RichTextBox1.BackgroundGradient_BetaColor = Color.WhiteSmoke;
+			lineNumbers_For_RichTextBox1.BackgroundGradient_Direction = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+			lineNumbers_For_RichTextBox1.BorderLines_Color = Color.WhiteSmoke;
+			lineNumbers_For_RichTextBox1.BorderLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
+			lineNumbers_For_RichTextBox1.BorderLines_Thickness = 1F;
+			lineNumbers_For_RichTextBox1.DockSide = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Left;
+			lineNumbers_For_RichTextBox1.Font = new Font("Calibri", 9F, FontStyle.Regular, GraphicsUnit.Point);
+			lineNumbers_For_RichTextBox1.GridLines_Color = Color.LightGray;
+			lineNumbers_For_RichTextBox1.GridLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
+			lineNumbers_For_RichTextBox1.GridLines_Thickness = 1F;
+			lineNumbers_For_RichTextBox1.LineNrs_Alignment = ContentAlignment.TopRight;
+			lineNumbers_For_RichTextBox1.LineNrs_AntiAlias = true;
+			lineNumbers_For_RichTextBox1.LineNrs_AsHexadecimal = false;
+			lineNumbers_For_RichTextBox1.LineNrs_ClippedByItemRectangle = true;
+			lineNumbers_For_RichTextBox1.LineNrs_LeadingZeroes = true;
+			lineNumbers_For_RichTextBox1.LineNrs_Offset = new Size(0, 0);
+			lineNumbers_For_RichTextBox1.Location = new Point(12, 17);
+			lineNumbers_For_RichTextBox1.Margin = new Padding(0);
+			lineNumbers_For_RichTextBox1.MarginLines_Color = Color.SlateGray;
+			lineNumbers_For_RichTextBox1.MarginLines_Side = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Right;
+			lineNumbers_For_RichTextBox1.MarginLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
+			lineNumbers_For_RichTextBox1.MarginLines_Thickness = 1F;
+			lineNumbers_For_RichTextBox1.Name = "lineNumbers_For_RichTextBox1";
+			lineNumbers_For_RichTextBox1.Padding = new Padding(0, 0, 2, 0);
+			lineNumbers_For_RichTextBox1.ParentRichTextBox = rtbQuotes;
+			lineNumbers_For_RichTextBox1.Show_BackgroundGradient = true;
+			lineNumbers_For_RichTextBox1.Show_BorderLines = true;
+			lineNumbers_For_RichTextBox1.Show_GridLines = true;
+			lineNumbers_For_RichTextBox1.Show_LineNrs = true;
+			lineNumbers_For_RichTextBox1.Show_MarginLines = false;
+			lineNumbers_For_RichTextBox1.Size = new Size(29, 324);
+			lineNumbers_For_RichTextBox1.TabIndex = 14;
 			// 
 			// rtbQuotes
 			// 
-			this.rtbQuotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.rtbQuotes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.rtbQuotes.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.rtbQuotes.Location = new System.Drawing.Point(42, 17);
-			this.rtbQuotes.Name = "rtbQuotes";
-			this.rtbQuotes.Size = new System.Drawing.Size(489, 324);
-			this.rtbQuotes.TabIndex = 13;
-			this.rtbQuotes.Text = "1\n2\n3\n3\n5\n6\n7\n8\n1\n";
+			rtbQuotes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			rtbQuotes.BorderStyle = BorderStyle.FixedSingle;
+			rtbQuotes.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			rtbQuotes.Location = new Point(42, 17);
+			rtbQuotes.Name = "rtbQuotes";
+			rtbQuotes.Size = new Size(489, 324);
+			rtbQuotes.TabIndex = 13;
+			rtbQuotes.Text = "1\n2\n3\n3\n5\n6\n7\n8\n1\n";
 			// 
 			// btnSaveQuotes
 			// 
-			this.btnSaveQuotes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSaveQuotes.BackColor = System.Drawing.Color.Honeydew;
-			this.btnSaveQuotes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.btnSaveQuotes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnSaveQuotes.ForeColor = System.Drawing.Color.Green;
-			this.btnSaveQuotes.Location = new System.Drawing.Point(463, 347);
-			this.btnSaveQuotes.Name = "btnSaveQuotes";
-			this.btnSaveQuotes.Size = new System.Drawing.Size(68, 24);
-			this.btnSaveQuotes.TabIndex = 9;
-			this.btnSaveQuotes.Text = "Save";
-			this.btnSaveQuotes.UseVisualStyleBackColor = false;
-			this.btnSaveQuotes.Click += new System.EventHandler(this.btnSaveQuotes_Click);
+			btnSaveQuotes.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnSaveQuotes.BackColor = Color.Honeydew;
+			btnSaveQuotes.FlatStyle = FlatStyle.Popup;
+			btnSaveQuotes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnSaveQuotes.ForeColor = Color.Green;
+			btnSaveQuotes.Location = new Point(463, 347);
+			btnSaveQuotes.Name = "btnSaveQuotes";
+			btnSaveQuotes.Size = new Size(68, 24);
+			btnSaveQuotes.TabIndex = 9;
+			btnSaveQuotes.Text = "Save";
+			btnSaveQuotes.UseVisualStyleBackColor = false;
+			btnSaveQuotes.Click += btnSaveQuotes_Click;
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage2.Controls.Add(this.gbImport);
-			this.tabPage2.Controls.Add(this.gbExport);
-			this.tabPage2.Controls.Add(this.tableLayoutPanelFavourites);
-			this.tabPage2.Controls.Add(this.lblFavoritesText);
-			this.tabPage2.Location = new System.Drawing.Point(4, 25);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(790, 395);
-			this.tabPage2.TabIndex = 3;
-			this.tabPage2.Text = "Quotes collection";
+			tabPage2.BackColor = Color.WhiteSmoke;
+			tabPage2.Controls.Add(gbImport);
+			tabPage2.Controls.Add(gbExport);
+			tabPage2.Controls.Add(tableLayoutPanelFavourites);
+			tabPage2.Controls.Add(lblFavoritesText);
+			tabPage2.Location = new Point(4, 25);
+			tabPage2.Name = "tabPage2";
+			tabPage2.Padding = new Padding(3);
+			tabPage2.Size = new Size(790, 395);
+			tabPage2.TabIndex = 3;
+			tabPage2.Text = "Quotes collection";
 			// 
 			// gbImport
 			// 
-			this.gbImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbImport.Controls.Add(this.chkImportMerge);
-			this.gbImport.Controls.Add(this.chkImportIgnoreLanguage);
-			this.gbImport.Controls.Add(this.btnImport);
-			this.gbImport.Location = new System.Drawing.Point(402, 309);
-			this.gbImport.Name = "gbImport";
-			this.gbImport.Size = new System.Drawing.Size(382, 81);
-			this.gbImport.TabIndex = 15;
-			this.gbImport.TabStop = false;
-			this.gbImport.Text = "Import quotes";
+			gbImport.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			gbImport.Controls.Add(chkImportMerge);
+			gbImport.Controls.Add(chkImportIgnoreLanguage);
+			gbImport.Controls.Add(btnImport);
+			gbImport.Location = new Point(402, 309);
+			gbImport.Name = "gbImport";
+			gbImport.Size = new Size(382, 81);
+			gbImport.TabIndex = 15;
+			gbImport.TabStop = false;
+			gbImport.Text = "Import quotes";
 			// 
 			// chkImportMerge
 			// 
-			this.chkImportMerge.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.chkImportMerge.Location = new System.Drawing.Point(6, 20);
-			this.chkImportMerge.Name = "chkImportMerge";
-			this.chkImportMerge.Size = new System.Drawing.Size(362, 19);
-			this.chkImportMerge.TabIndex = 15;
-			this.chkImportMerge.Text = "Merge collections with the same name into existing ones";
-			this.chkImportMerge.UseVisualStyleBackColor = true;
+			chkImportMerge.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			chkImportMerge.Location = new Point(6, 20);
+			chkImportMerge.Name = "chkImportMerge";
+			chkImportMerge.Size = new Size(362, 19);
+			chkImportMerge.TabIndex = 15;
+			chkImportMerge.Text = "Merge collections with the same name into existing ones";
+			chkImportMerge.UseVisualStyleBackColor = true;
 			// 
 			// chkImportIgnoreLanguage
 			// 
-			this.chkImportIgnoreLanguage.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.chkImportIgnoreLanguage.Location = new System.Drawing.Point(6, 40);
-			this.chkImportIgnoreLanguage.Name = "chkImportIgnoreLanguage";
-			this.chkImportIgnoreLanguage.Size = new System.Drawing.Size(228, 38);
-			this.chkImportIgnoreLanguage.TabIndex = 14;
-			this.chkImportIgnoreLanguage.Text = "Ignore collection language on import";
-			this.chkImportIgnoreLanguage.UseVisualStyleBackColor = true;
+			chkImportIgnoreLanguage.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			chkImportIgnoreLanguage.Location = new Point(6, 40);
+			chkImportIgnoreLanguage.Name = "chkImportIgnoreLanguage";
+			chkImportIgnoreLanguage.Size = new Size(228, 38);
+			chkImportIgnoreLanguage.TabIndex = 14;
+			chkImportIgnoreLanguage.Text = "Ignore collection language on import";
+			chkImportIgnoreLanguage.UseVisualStyleBackColor = true;
 			// 
 			// btnImport
 			// 
-			this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnImport.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnImport.Location = new System.Drawing.Point(261, 43);
-			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new System.Drawing.Size(107, 32);
-			this.btnImport.TabIndex = 8;
-			this.btnImport.Text = "Import";
-			this.btnImport.UseVisualStyleBackColor = true;
-			this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+			btnImport.FlatStyle = FlatStyle.Flat;
+			btnImport.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnImport.Location = new Point(261, 43);
+			btnImport.Name = "btnImport";
+			btnImport.Size = new Size(107, 32);
+			btnImport.TabIndex = 8;
+			btnImport.Text = "Import";
+			btnImport.UseVisualStyleBackColor = true;
+			btnImport.Click += btnImport_Click;
 			// 
 			// gbExport
 			// 
-			this.gbExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.gbExport.Controls.Add(this.chkExportFavCollections);
-			this.gbExport.Controls.Add(this.btnExportCollection);
-			this.gbExport.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbExport.Location = new System.Drawing.Point(6, 309);
-			this.gbExport.Name = "gbExport";
-			this.gbExport.Size = new System.Drawing.Size(390, 81);
-			this.gbExport.TabIndex = 14;
-			this.gbExport.TabStop = false;
-			this.gbExport.Text = "Export quotes";
+			gbExport.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			gbExport.Controls.Add(chkExportFavCollections);
+			gbExport.Controls.Add(btnExportCollection);
+			gbExport.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbExport.Location = new Point(6, 309);
+			gbExport.Name = "gbExport";
+			gbExport.Size = new Size(390, 81);
+			gbExport.TabIndex = 14;
+			gbExport.TabStop = false;
+			gbExport.Text = "Export quotes";
 			// 
 			// chkExportFavCollections
 			// 
-			this.chkExportFavCollections.AutoSize = true;
-			this.chkExportFavCollections.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.chkExportFavCollections.Location = new System.Drawing.Point(6, 20);
-			this.chkExportFavCollections.Name = "chkExportFavCollections";
-			this.chkExportFavCollections.Size = new System.Drawing.Size(181, 19);
-			this.chkExportFavCollections.TabIndex = 13;
-			this.chkExportFavCollections.Text = "Export only favourite quotes";
-			this.chkExportFavCollections.UseVisualStyleBackColor = true;
+			chkExportFavCollections.AutoSize = true;
+			chkExportFavCollections.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			chkExportFavCollections.Location = new Point(6, 20);
+			chkExportFavCollections.Name = "chkExportFavCollections";
+			chkExportFavCollections.Size = new Size(181, 19);
+			chkExportFavCollections.TabIndex = 13;
+			chkExportFavCollections.Text = "Export only favourite quotes";
+			chkExportFavCollections.UseVisualStyleBackColor = true;
 			// 
 			// btnExportCollection
 			// 
-			this.btnExportCollection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnExportCollection.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnExportCollection.Location = new System.Drawing.Point(273, 43);
-			this.btnExportCollection.Name = "btnExportCollection";
-			this.btnExportCollection.Size = new System.Drawing.Size(111, 32);
-			this.btnExportCollection.TabIndex = 7;
-			this.btnExportCollection.Text = "Export";
-			this.btnExportCollection.UseVisualStyleBackColor = true;
-			this.btnExportCollection.Click += new System.EventHandler(this.btnExportCollection_Click);
+			btnExportCollection.FlatStyle = FlatStyle.Flat;
+			btnExportCollection.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnExportCollection.Location = new Point(273, 43);
+			btnExportCollection.Name = "btnExportCollection";
+			btnExportCollection.Size = new Size(111, 32);
+			btnExportCollection.TabIndex = 7;
+			btnExportCollection.Text = "Export";
+			btnExportCollection.UseVisualStyleBackColor = true;
+			btnExportCollection.Click += btnExportCollection_Click;
 			// 
 			// tableLayoutPanelFavourites
 			// 
-			this.tableLayoutPanelFavourites.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanelFavourites.ColumnCount = 3;
-			this.tableLayoutPanelFavourites.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-			this.tableLayoutPanelFavourites.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
-			this.tableLayoutPanelFavourites.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-			this.tableLayoutPanelFavourites.Controls.Add(this.panel6, 0, 0);
-			this.tableLayoutPanelFavourites.Controls.Add(this.panel7, 1, 0);
-			this.tableLayoutPanelFavourites.Controls.Add(this.panel8, 2, 0);
-			this.tableLayoutPanelFavourites.Location = new System.Drawing.Point(3, 49);
-			this.tableLayoutPanelFavourites.Name = "tableLayoutPanelFavourites";
-			this.tableLayoutPanelFavourites.RowCount = 1;
-			this.tableLayoutPanelFavourites.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanelFavourites.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanelFavourites.Size = new System.Drawing.Size(784, 274);
-			this.tableLayoutPanelFavourites.TabIndex = 16;
+			tableLayoutPanelFavourites.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanelFavourites.ColumnCount = 3;
+			tableLayoutPanelFavourites.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+			tableLayoutPanelFavourites.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+			tableLayoutPanelFavourites.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+			tableLayoutPanelFavourites.Controls.Add(panel6, 0, 0);
+			tableLayoutPanelFavourites.Controls.Add(panel7, 1, 0);
+			tableLayoutPanelFavourites.Controls.Add(panel8, 2, 0);
+			tableLayoutPanelFavourites.Location = new Point(3, 49);
+			tableLayoutPanelFavourites.Name = "tableLayoutPanelFavourites";
+			tableLayoutPanelFavourites.RowCount = 1;
+			tableLayoutPanelFavourites.RowStyles.Add(new RowStyle());
+			tableLayoutPanelFavourites.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanelFavourites.Size = new Size(784, 274);
+			tableLayoutPanelFavourites.TabIndex = 16;
 			// 
 			// panel6
 			// 
-			this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel6.Controls.Add(this.btnRefreshFavouriteCollections);
-			this.panel6.Controls.Add(this.lblFavouriteCollections);
-			this.panel6.Controls.Add(this.clbCollections);
-			this.panel6.Location = new System.Drawing.Point(3, 3);
-			this.panel6.Name = "panel6";
-			this.panel6.Size = new System.Drawing.Size(255, 268);
-			this.panel6.TabIndex = 0;
+			panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel6.Controls.Add(btnRefreshFavouriteCollections);
+			panel6.Controls.Add(lblFavouriteCollections);
+			panel6.Controls.Add(clbCollections);
+			panel6.Location = new Point(3, 3);
+			panel6.Name = "panel6";
+			panel6.Size = new Size(255, 268);
+			panel6.TabIndex = 0;
 			// 
 			// btnRefreshFavouriteCollections
 			// 
-			this.btnRefreshFavouriteCollections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnRefreshFavouriteCollections.BackgroundImage = global::Quoter.App.Resources.Resources.refresh_32;
-			this.btnRefreshFavouriteCollections.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnRefreshFavouriteCollections.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-			this.btnRefreshFavouriteCollections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnRefreshFavouriteCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnRefreshFavouriteCollections.Location = new System.Drawing.Point(228, 3);
-			this.btnRefreshFavouriteCollections.Name = "btnRefreshFavouriteCollections";
-			this.btnRefreshFavouriteCollections.Size = new System.Drawing.Size(24, 24);
-			this.btnRefreshFavouriteCollections.TabIndex = 14;
-			this.btnRefreshFavouriteCollections.UseVisualStyleBackColor = true;
-			this.btnRefreshFavouriteCollections.Click += new System.EventHandler(this.btnRefreshFavouriteCollections_Click);
+			btnRefreshFavouriteCollections.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnRefreshFavouriteCollections.BackgroundImage = Resources.Resources.refresh_32;
+			btnRefreshFavouriteCollections.BackgroundImageLayout = ImageLayout.Zoom;
+			btnRefreshFavouriteCollections.FlatAppearance.BorderColor = Color.Gray;
+			btnRefreshFavouriteCollections.FlatStyle = FlatStyle.Flat;
+			btnRefreshFavouriteCollections.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnRefreshFavouriteCollections.Location = new Point(228, 3);
+			btnRefreshFavouriteCollections.Name = "btnRefreshFavouriteCollections";
+			btnRefreshFavouriteCollections.Size = new Size(24, 24);
+			btnRefreshFavouriteCollections.TabIndex = 14;
+			btnRefreshFavouriteCollections.UseVisualStyleBackColor = true;
+			btnRefreshFavouriteCollections.Click += btnRefreshFavouriteCollections_Click;
 			// 
 			// lblFavouriteCollections
 			// 
-			this.lblFavouriteCollections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblFavouriteCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblFavouriteCollections.Location = new System.Drawing.Point(3, 0);
-			this.lblFavouriteCollections.Name = "lblFavouriteCollections";
-			this.lblFavouriteCollections.Size = new System.Drawing.Size(249, 27);
-			this.lblFavouriteCollections.TabIndex = 9;
-			this.lblFavouriteCollections.Text = "label2";
-			this.lblFavouriteCollections.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblFavouriteCollections.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			lblFavouriteCollections.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			lblFavouriteCollections.Location = new Point(3, 0);
+			lblFavouriteCollections.Name = "lblFavouriteCollections";
+			lblFavouriteCollections.Size = new Size(249, 27);
+			lblFavouriteCollections.TabIndex = 9;
+			lblFavouriteCollections.Text = "label2";
+			lblFavouriteCollections.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// clbCollections
 			// 
-			this.clbCollections.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.clbCollections.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.clbCollections.ColumnWidth = 50;
-			this.clbCollections.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.clbCollections.FormattingEnabled = true;
-			this.clbCollections.HorizontalScrollbar = true;
-			this.clbCollections.Items.AddRange(new object[] {
-            "This is one of the collections (Description)",
-            "col2",
-            "col3",
-            "col4",
-            "col5",
-            "col6"});
-			this.clbCollections.Location = new System.Drawing.Point(3, 30);
-			this.clbCollections.Name = "clbCollections";
-			this.clbCollections.Size = new System.Drawing.Size(249, 222);
-			this.clbCollections.TabIndex = 0;
-			this.clbCollections.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbCollections_ItemCheck);
-			this.clbCollections.SelectedValueChanged += new System.EventHandler(this.clbCollections_SelectedValueChanged);
+			clbCollections.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			clbCollections.BorderStyle = BorderStyle.FixedSingle;
+			clbCollections.ColumnWidth = 50;
+			clbCollections.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			clbCollections.FormattingEnabled = true;
+			clbCollections.HorizontalScrollbar = true;
+			clbCollections.Items.AddRange(new object[] { "This is one of the collections (Description)", "col2", "col3", "col4", "col5", "col6" });
+			clbCollections.Location = new Point(3, 30);
+			clbCollections.Name = "clbCollections";
+			clbCollections.Size = new Size(249, 222);
+			clbCollections.TabIndex = 0;
+			clbCollections.ItemCheck += clbCollections_ItemCheck;
+			clbCollections.SelectedValueChanged += clbCollections_SelectedValueChanged;
 			// 
 			// panel7
 			// 
-			this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel7.Controls.Add(this.lblFavouriteBooks);
-			this.panel7.Controls.Add(this.clbBooks);
-			this.panel7.Location = new System.Drawing.Point(264, 3);
-			this.panel7.Name = "panel7";
-			this.panel7.Size = new System.Drawing.Size(255, 268);
-			this.panel7.TabIndex = 1;
+			panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel7.Controls.Add(lblFavouriteBooks);
+			panel7.Controls.Add(clbBooks);
+			panel7.Location = new Point(264, 3);
+			panel7.Name = "panel7";
+			panel7.Size = new Size(255, 268);
+			panel7.TabIndex = 1;
 			// 
 			// lblFavouriteBooks
 			// 
-			this.lblFavouriteBooks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblFavouriteBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblFavouriteBooks.Location = new System.Drawing.Point(3, 0);
-			this.lblFavouriteBooks.Name = "lblFavouriteBooks";
-			this.lblFavouriteBooks.Size = new System.Drawing.Size(249, 27);
-			this.lblFavouriteBooks.TabIndex = 10;
-			this.lblFavouriteBooks.Text = "label2";
-			this.lblFavouriteBooks.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblFavouriteBooks.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			lblFavouriteBooks.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			lblFavouriteBooks.Location = new Point(3, 0);
+			lblFavouriteBooks.Name = "lblFavouriteBooks";
+			lblFavouriteBooks.Size = new Size(249, 27);
+			lblFavouriteBooks.TabIndex = 10;
+			lblFavouriteBooks.Text = "label2";
+			lblFavouriteBooks.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// clbBooks
 			// 
-			this.clbBooks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.clbBooks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.clbBooks.ColumnWidth = 50;
-			this.clbBooks.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.clbBooks.FormattingEnabled = true;
-			this.clbBooks.HorizontalScrollbar = true;
-			this.clbBooks.Items.AddRange(new object[] {
-            "This is one of the collections (Description)",
-            "col2",
-            "col3",
-            "col4",
-            "col5",
-            "col6"});
-			this.clbBooks.Location = new System.Drawing.Point(3, 30);
-			this.clbBooks.Name = "clbBooks";
-			this.clbBooks.Size = new System.Drawing.Size(249, 222);
-			this.clbBooks.TabIndex = 1;
-			this.clbBooks.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbBooks_ItemCheck);
-			this.clbBooks.SelectedValueChanged += new System.EventHandler(this.clbBooks_SelectedValueChanged);
+			clbBooks.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			clbBooks.BorderStyle = BorderStyle.FixedSingle;
+			clbBooks.ColumnWidth = 50;
+			clbBooks.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			clbBooks.FormattingEnabled = true;
+			clbBooks.HorizontalScrollbar = true;
+			clbBooks.Items.AddRange(new object[] { "This is one of the collections (Description)", "col2", "col3", "col4", "col5", "col6" });
+			clbBooks.Location = new Point(3, 30);
+			clbBooks.Name = "clbBooks";
+			clbBooks.Size = new Size(249, 222);
+			clbBooks.TabIndex = 1;
+			clbBooks.ItemCheck += clbBooks_ItemCheck;
+			clbBooks.SelectedValueChanged += clbBooks_SelectedValueChanged;
 			// 
 			// panel8
 			// 
-			this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.panel8.Controls.Add(this.lblFavouriteChapters);
-			this.panel8.Controls.Add(this.clbChapters);
-			this.panel8.Location = new System.Drawing.Point(525, 3);
-			this.panel8.Name = "panel8";
-			this.panel8.Size = new System.Drawing.Size(256, 268);
-			this.panel8.TabIndex = 2;
+			panel8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel8.Controls.Add(lblFavouriteChapters);
+			panel8.Controls.Add(clbChapters);
+			panel8.Location = new Point(525, 3);
+			panel8.Name = "panel8";
+			panel8.Size = new Size(256, 268);
+			panel8.TabIndex = 2;
 			// 
 			// lblFavouriteChapters
 			// 
-			this.lblFavouriteChapters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblFavouriteChapters.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblFavouriteChapters.Location = new System.Drawing.Point(3, 0);
-			this.lblFavouriteChapters.Name = "lblFavouriteChapters";
-			this.lblFavouriteChapters.Size = new System.Drawing.Size(250, 27);
-			this.lblFavouriteChapters.TabIndex = 11;
-			this.lblFavouriteChapters.Text = "label2";
-			this.lblFavouriteChapters.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblFavouriteChapters.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			lblFavouriteChapters.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			lblFavouriteChapters.Location = new Point(3, 0);
+			lblFavouriteChapters.Name = "lblFavouriteChapters";
+			lblFavouriteChapters.Size = new Size(250, 27);
+			lblFavouriteChapters.TabIndex = 11;
+			lblFavouriteChapters.Text = "label2";
+			lblFavouriteChapters.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// clbChapters
 			// 
-			this.clbChapters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.clbChapters.BackColor = System.Drawing.SystemColors.Window;
-			this.clbChapters.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.clbChapters.ColumnWidth = 50;
-			this.clbChapters.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.clbChapters.ForeColor = System.Drawing.SystemColors.WindowText;
-			this.clbChapters.FormattingEnabled = true;
-			this.clbChapters.HorizontalScrollbar = true;
-			this.clbChapters.Items.AddRange(new object[] {
-            "This is one of the collections (Description)",
-            "col2",
-            "col3",
-            "col4",
-            "col5",
-            "col6"});
-			this.clbChapters.Location = new System.Drawing.Point(3, 30);
-			this.clbChapters.Name = "clbChapters";
-			this.clbChapters.Size = new System.Drawing.Size(250, 222);
-			this.clbChapters.TabIndex = 2;
-			this.clbChapters.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbChapters_ItemCheck);
-			this.clbChapters.SelectedValueChanged += new System.EventHandler(this.clbChapters_SelectedValueChanged);
+			clbChapters.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			clbChapters.BackColor = SystemColors.Window;
+			clbChapters.BorderStyle = BorderStyle.FixedSingle;
+			clbChapters.ColumnWidth = 50;
+			clbChapters.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			clbChapters.ForeColor = SystemColors.WindowText;
+			clbChapters.FormattingEnabled = true;
+			clbChapters.HorizontalScrollbar = true;
+			clbChapters.Items.AddRange(new object[] { "This is one of the collections (Description)", "col2", "col3", "col4", "col5", "col6" });
+			clbChapters.Location = new Point(3, 30);
+			clbChapters.Name = "clbChapters";
+			clbChapters.Size = new Size(250, 222);
+			clbChapters.TabIndex = 2;
+			clbChapters.ItemCheck += clbChapters_ItemCheck;
+			clbChapters.SelectedValueChanged += clbChapters_SelectedValueChanged;
 			// 
 			// lblFavoritesText
 			// 
-			this.lblFavoritesText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblFavoritesText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblFavoritesText.Location = new System.Drawing.Point(127, 6);
-			this.lblFavoritesText.Name = "lblFavoritesText";
-			this.lblFavoritesText.Size = new System.Drawing.Size(525, 40);
-			this.lblFavoritesText.TabIndex = 12;
-			this.lblFavoritesText.Text = "Here you can set your favourite collections, books or chapters. Quotes that are d" +
-    "isplayed will be selected from this list.";
-			this.lblFavoritesText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblFavoritesText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			lblFavoritesText.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblFavoritesText.Location = new Point(127, 6);
+			lblFavoritesText.Name = "lblFavoritesText";
+			lblFavoritesText.Size = new Size(525, 40);
+			lblFavoritesText.TabIndex = 12;
+			lblFavoritesText.Text = "Here you can set your favourite collections, books or chapters. Quotes that are displayed will be selected from this list.";
+			lblFavoritesText.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage3.Controls.Add(this.tabBasicSettings);
-			this.tabPage3.Location = new System.Drawing.Point(4, 25);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(790, 395);
-			this.tabPage3.TabIndex = 4;
-			this.tabPage3.Text = "Settings";
+			tabPage3.BackColor = Color.WhiteSmoke;
+			tabPage3.Controls.Add(tabBasicSettings);
+			tabPage3.Location = new Point(4, 25);
+			tabPage3.Name = "tabPage3";
+			tabPage3.Padding = new Padding(3);
+			tabPage3.Size = new Size(790, 395);
+			tabPage3.TabIndex = 4;
+			tabPage3.Text = "Settings";
 			// 
 			// tabBasicSettings
 			// 
-			this.tabBasicSettings.Alignment = System.Windows.Forms.TabAlignment.Left;
-			this.tabBasicSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tabBasicSettings.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-			this.tabBasicSettings.Controls.Add(this.tabPage4);
-			this.tabBasicSettings.Location = new System.Drawing.Point(6, 6);
-			this.tabBasicSettings.Multiline = true;
-			this.tabBasicSettings.Name = "tabBasicSettings";
-			this.tabBasicSettings.SelectedIndex = 0;
-			this.tabBasicSettings.Size = new System.Drawing.Size(780, 386);
-			this.tabBasicSettings.TabIndex = 15;
+			tabBasicSettings.Alignment = TabAlignment.Left;
+			tabBasicSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tabBasicSettings.Appearance = TabAppearance.Buttons;
+			tabBasicSettings.Controls.Add(tabPage4);
+			tabBasicSettings.Location = new Point(6, 6);
+			tabBasicSettings.Multiline = true;
+			tabBasicSettings.Name = "tabBasicSettings";
+			tabBasicSettings.SelectedIndex = 0;
+			tabBasicSettings.Size = new Size(780, 386);
+			tabBasicSettings.TabIndex = 15;
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.tabPage4.Controls.Add(this.gbQuotesSettings);
-			this.tabPage4.Controls.Add(this.gbOtherSettings);
-			this.tabPage4.Controls.Add(this.gbThemeSettings);
-			this.tabPage4.Controls.Add(this.gbLanguageSettings);
-			this.tabPage4.Location = new System.Drawing.Point(52, 4);
-			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(724, 378);
-			this.tabPage4.TabIndex = 0;
-			this.tabPage4.Text = "Basic";
+			tabPage4.BackColor = Color.WhiteSmoke;
+			tabPage4.Controls.Add(gbQuotesSettings);
+			tabPage4.Controls.Add(gbOtherSettings);
+			tabPage4.Controls.Add(gbThemeSettings);
+			tabPage4.Controls.Add(gbLanguageSettings);
+			tabPage4.Location = new Point(52, 4);
+			tabPage4.Name = "tabPage4";
+			tabPage4.Padding = new Padding(3);
+			tabPage4.Size = new Size(724, 378);
+			tabPage4.TabIndex = 0;
+			tabPage4.Text = "Basic";
 			// 
 			// gbQuotesSettings
 			// 
-			this.gbQuotesSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gbQuotesSettings.Controls.Add(this.cbNotificationSound);
-			this.gbQuotesSettings.Controls.Add(this.lblNotificationFont);
-			this.gbQuotesSettings.Controls.Add(this.btnPlayNotificationSound);
-			this.gbQuotesSettings.Controls.Add(this.txtSelectedFont);
-			this.gbQuotesSettings.Controls.Add(this.lblNotificationSound);
-			this.gbQuotesSettings.Controls.Add(this.btnNotificationFont);
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesAutocloseTime);
-			this.gbQuotesSettings.Controls.Add(this.txtQuotesAutoCloseInterval);
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesAutocloseInterval);
-			this.gbQuotesSettings.Controls.Add(this.lblNotificationLocation);
-			this.gbQuotesSettings.Controls.Add(this.panel3);
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequencyTime);
-			this.gbQuotesSettings.Controls.Add(this.btnAlwaysOnNotifications);
-			this.gbQuotesSettings.Controls.Add(this.txtQuotesInterval);
-			this.gbQuotesSettings.Controls.Add(this.lblQuotesFrequency);
-			this.gbQuotesSettings.Controls.Add(this.btnPopupNotifications);
-			this.gbQuotesSettings.Controls.Add(this.lblNotificationType);
-			this.gbQuotesSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbQuotesSettings.Location = new System.Drawing.Point(374, 6);
-			this.gbQuotesSettings.Name = "gbQuotesSettings";
-			this.gbQuotesSettings.Size = new System.Drawing.Size(390, 357);
-			this.gbQuotesSettings.TabIndex = 22;
-			this.gbQuotesSettings.TabStop = false;
-			this.gbQuotesSettings.Text = "Quotes";
+			gbQuotesSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbQuotesSettings.Controls.Add(cbNotificationSound);
+			gbQuotesSettings.Controls.Add(lblNotificationFont);
+			gbQuotesSettings.Controls.Add(btnPlayNotificationSound);
+			gbQuotesSettings.Controls.Add(txtSelectedFont);
+			gbQuotesSettings.Controls.Add(lblNotificationSound);
+			gbQuotesSettings.Controls.Add(btnNotificationFont);
+			gbQuotesSettings.Controls.Add(lblQuotesAutocloseTime);
+			gbQuotesSettings.Controls.Add(txtQuotesAutoCloseInterval);
+			gbQuotesSettings.Controls.Add(lblQuotesAutocloseInterval);
+			gbQuotesSettings.Controls.Add(lblNotificationLocation);
+			gbQuotesSettings.Controls.Add(panel3);
+			gbQuotesSettings.Controls.Add(lblQuotesFrequencyTime);
+			gbQuotesSettings.Controls.Add(btnAlwaysOnNotifications);
+			gbQuotesSettings.Controls.Add(txtQuotesInterval);
+			gbQuotesSettings.Controls.Add(lblQuotesFrequency);
+			gbQuotesSettings.Controls.Add(btnPopupNotifications);
+			gbQuotesSettings.Controls.Add(lblNotificationType);
+			gbQuotesSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbQuotesSettings.Location = new Point(374, 6);
+			gbQuotesSettings.Name = "gbQuotesSettings";
+			gbQuotesSettings.Size = new Size(390, 357);
+			gbQuotesSettings.TabIndex = 22;
+			gbQuotesSettings.TabStop = false;
+			gbQuotesSettings.Text = "Quotes";
 			// 
 			// cbNotificationSound
 			// 
-			this.cbNotificationSound.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbNotificationSound.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.cbNotificationSound.FormattingEnabled = true;
-			this.cbNotificationSound.Location = new System.Drawing.Point(173, 335);
-			this.cbNotificationSound.Name = "cbNotificationSound";
-			this.cbNotificationSound.Size = new System.Drawing.Size(160, 27);
-			this.cbNotificationSound.TabIndex = 35;
-			this.cbNotificationSound.SelectedValueChanged += new System.EventHandler(this.cbNotificationSound_SelectedValueChanged);
+			cbNotificationSound.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbNotificationSound.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			cbNotificationSound.FormattingEnabled = true;
+			cbNotificationSound.Location = new Point(173, 335);
+			cbNotificationSound.Name = "cbNotificationSound";
+			cbNotificationSound.Size = new Size(160, 27);
+			cbNotificationSound.TabIndex = 35;
+			cbNotificationSound.SelectedValueChanged += cbNotificationSound_SelectedValueChanged;
 			// 
 			// lblNotificationFont
 			// 
-			this.lblNotificationFont.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblNotificationFont.Location = new System.Drawing.Point(39, 183);
-			this.lblNotificationFont.Name = "lblNotificationFont";
-			this.lblNotificationFont.Size = new System.Drawing.Size(167, 18);
-			this.lblNotificationFont.TabIndex = 28;
-			this.lblNotificationFont.Text = "Notification font";
-			this.lblNotificationFont.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblNotificationFont.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblNotificationFont.Location = new Point(39, 183);
+			lblNotificationFont.Name = "lblNotificationFont";
+			lblNotificationFont.Size = new Size(167, 18);
+			lblNotificationFont.TabIndex = 28;
+			lblNotificationFont.Text = "Notification font";
+			lblNotificationFont.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// btnPlayNotificationSound
 			// 
-			this.btnPlayNotificationSound.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnPlayNotificationSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnPlayNotificationSound.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnPlayNotificationSound.Location = new System.Drawing.Point(339, 335);
-			this.btnPlayNotificationSound.Name = "btnPlayNotificationSound";
-			this.btnPlayNotificationSound.Size = new System.Drawing.Size(30, 28);
-			this.btnPlayNotificationSound.TabIndex = 34;
-			this.btnPlayNotificationSound.Text = "▶ ";
-			this.btnPlayNotificationSound.UseVisualStyleBackColor = false;
-			this.btnPlayNotificationSound.Click += new System.EventHandler(this.btnPlayNotificationSound_Click);
+			btnPlayNotificationSound.BackColor = Color.WhiteSmoke;
+			btnPlayNotificationSound.FlatStyle = FlatStyle.Flat;
+			btnPlayNotificationSound.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnPlayNotificationSound.Location = new Point(339, 335);
+			btnPlayNotificationSound.Name = "btnPlayNotificationSound";
+			btnPlayNotificationSound.Size = new Size(30, 28);
+			btnPlayNotificationSound.TabIndex = 34;
+			btnPlayNotificationSound.Text = "▶ ";
+			btnPlayNotificationSound.UseVisualStyleBackColor = false;
+			btnPlayNotificationSound.Click += btnPlayNotificationSound_Click;
 			// 
 			// txtSelectedFont
 			// 
-			this.txtSelectedFont.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtSelectedFont.Location = new System.Drawing.Point(19, 214);
-			this.txtSelectedFont.Multiline = true;
-			this.txtSelectedFont.Name = "txtSelectedFont";
-			this.txtSelectedFont.ReadOnly = true;
-			this.txtSelectedFont.Size = new System.Drawing.Size(215, 78);
-			this.txtSelectedFont.TabIndex = 27;
-			this.txtSelectedFont.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor in" +
-    "cididunt ut labore et dolore magna aliqua";
+			txtSelectedFont.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			txtSelectedFont.Location = new Point(19, 214);
+			txtSelectedFont.Multiline = true;
+			txtSelectedFont.Name = "txtSelectedFont";
+			txtSelectedFont.ReadOnly = true;
+			txtSelectedFont.Size = new Size(215, 78);
+			txtSelectedFont.TabIndex = 27;
+			txtSelectedFont.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
 			// 
 			// lblNotificationSound
 			// 
-			this.lblNotificationSound.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblNotificationSound.Location = new System.Drawing.Point(19, 341);
-			this.lblNotificationSound.Name = "lblNotificationSound";
-			this.lblNotificationSound.Size = new System.Drawing.Size(148, 18);
-			this.lblNotificationSound.TabIndex = 30;
-			this.lblNotificationSound.Text = "Notification sound";
-			this.lblNotificationSound.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			lblNotificationSound.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblNotificationSound.Location = new Point(19, 341);
+			lblNotificationSound.Name = "lblNotificationSound";
+			lblNotificationSound.Size = new Size(148, 18);
+			lblNotificationSound.TabIndex = 30;
+			lblNotificationSound.Text = "Notification sound";
+			lblNotificationSound.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// btnNotificationFont
 			// 
-			this.btnNotificationFont.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnNotificationFont.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnNotificationFont.Location = new System.Drawing.Point(19, 298);
-			this.btnNotificationFont.Name = "btnNotificationFont";
-			this.btnNotificationFont.Size = new System.Drawing.Size(75, 28);
-			this.btnNotificationFont.TabIndex = 26;
-			this.btnNotificationFont.Text = "Change";
-			this.btnNotificationFont.UseVisualStyleBackColor = false;
-			this.btnNotificationFont.Click += new System.EventHandler(this.btnNotificationFont_Click);
+			btnNotificationFont.BackColor = Color.WhiteSmoke;
+			btnNotificationFont.FlatStyle = FlatStyle.Flat;
+			btnNotificationFont.Location = new Point(19, 298);
+			btnNotificationFont.Name = "btnNotificationFont";
+			btnNotificationFont.Size = new Size(75, 28);
+			btnNotificationFont.TabIndex = 26;
+			btnNotificationFont.Text = "Change";
+			btnNotificationFont.UseVisualStyleBackColor = false;
+			btnNotificationFont.Click += btnNotificationFont_Click;
 			// 
 			// lblQuotesAutocloseTime
 			// 
-			this.lblQuotesAutocloseTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesAutocloseTime.Location = new System.Drawing.Point(293, 143);
-			this.lblQuotesAutocloseTime.Name = "lblQuotesAutocloseTime";
-			this.lblQuotesAutocloseTime.Size = new System.Drawing.Size(69, 18);
-			this.lblQuotesAutocloseTime.TabIndex = 25;
-			this.lblQuotesAutocloseTime.Text = "seconds";
+			lblQuotesAutocloseTime.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblQuotesAutocloseTime.Location = new Point(293, 143);
+			lblQuotesAutocloseTime.Name = "lblQuotesAutocloseTime";
+			lblQuotesAutocloseTime.Size = new Size(69, 18);
+			lblQuotesAutocloseTime.TabIndex = 25;
+			lblQuotesAutocloseTime.Text = "seconds";
 			// 
 			// txtQuotesAutoCloseInterval
 			// 
-			this.txtQuotesAutoCloseInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtQuotesAutoCloseInterval.Location = new System.Drawing.Point(245, 140);
-			this.txtQuotesAutoCloseInterval.Name = "txtQuotesAutoCloseInterval";
-			this.txtQuotesAutoCloseInterval.Size = new System.Drawing.Size(42, 26);
-			this.txtQuotesAutoCloseInterval.TabIndex = 24;
-			this.txtQuotesAutoCloseInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.txtQuotesAutoCloseInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuotesAutoCloseInterval_KeyDown);
-			this.txtQuotesAutoCloseInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesAutoCloseInterval_KeyPress);
+			txtQuotesAutoCloseInterval.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			txtQuotesAutoCloseInterval.Location = new Point(245, 140);
+			txtQuotesAutoCloseInterval.Name = "txtQuotesAutoCloseInterval";
+			txtQuotesAutoCloseInterval.Size = new Size(42, 26);
+			txtQuotesAutoCloseInterval.TabIndex = 24;
+			txtQuotesAutoCloseInterval.TextAlign = HorizontalAlignment.Center;
+			txtQuotesAutoCloseInterval.KeyDown += txtQuotesAutoCloseInterval_KeyDown;
+			txtQuotesAutoCloseInterval.KeyPress += txtQuotesAutoCloseInterval_KeyPress;
 			// 
 			// lblQuotesAutocloseInterval
 			// 
-			this.lblQuotesAutocloseInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesAutocloseInterval.Location = new System.Drawing.Point(6, 135);
-			this.lblQuotesAutocloseInterval.Name = "lblQuotesAutocloseInterval";
-			this.lblQuotesAutocloseInterval.Size = new System.Drawing.Size(228, 39);
-			this.lblQuotesAutocloseInterval.TabIndex = 23;
-			this.lblQuotesAutocloseInterval.Text = "Auto-close popup notifications after some time";
-			this.lblQuotesAutocloseInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			lblQuotesAutocloseInterval.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblQuotesAutocloseInterval.Location = new Point(6, 135);
+			lblQuotesAutocloseInterval.Name = "lblQuotesAutocloseInterval";
+			lblQuotesAutocloseInterval.Size = new Size(228, 39);
+			lblQuotesAutocloseInterval.TabIndex = 23;
+			lblQuotesAutocloseInterval.Text = "Auto-close popup notifications after some time";
+			lblQuotesAutocloseInterval.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// lblNotificationLocation
 			// 
-			this.lblNotificationLocation.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblNotificationLocation.Location = new System.Drawing.Point(240, 174);
-			this.lblNotificationLocation.Name = "lblNotificationLocation";
-			this.lblNotificationLocation.Size = new System.Drawing.Size(144, 37);
-			this.lblNotificationLocation.TabIndex = 22;
-			this.lblNotificationLocation.Text = "Notification location on screen";
-			this.lblNotificationLocation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblNotificationLocation.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblNotificationLocation.Location = new Point(240, 174);
+			lblNotificationLocation.Name = "lblNotificationLocation";
+			lblNotificationLocation.Size = new Size(144, 37);
+			lblNotificationLocation.TabIndex = 22;
+			lblNotificationLocation.Text = "Notification location on screen";
+			lblNotificationLocation.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// panel3
 			// 
-			this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel3.Controls.Add(this.rbAnimTopRight);
-			this.panel3.Controls.Add(this.rbAnimBottomRight);
-			this.panel3.Controls.Add(this.rbAnimBottomLeft);
-			this.panel3.Controls.Add(this.rbAnimTopLeft);
-			this.panel3.Location = new System.Drawing.Point(249, 214);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(131, 78);
-			this.panel3.TabIndex = 21;
+			panel3.BorderStyle = BorderStyle.FixedSingle;
+			panel3.Controls.Add(rbAnimTopRight);
+			panel3.Controls.Add(rbAnimBottomRight);
+			panel3.Controls.Add(rbAnimBottomLeft);
+			panel3.Controls.Add(rbAnimTopLeft);
+			panel3.Location = new Point(249, 214);
+			panel3.Name = "panel3";
+			panel3.Size = new Size(131, 78);
+			panel3.TabIndex = 21;
 			// 
 			// rbAnimTopRight
 			// 
-			this.rbAnimTopRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.rbAnimTopRight.AutoSize = true;
-			this.rbAnimTopRight.Location = new System.Drawing.Point(111, 4);
-			this.rbAnimTopRight.Name = "rbAnimTopRight";
-			this.rbAnimTopRight.Size = new System.Drawing.Size(14, 13);
-			this.rbAnimTopRight.TabIndex = 3;
-			this.rbAnimTopRight.UseVisualStyleBackColor = true;
-			this.rbAnimTopRight.CheckedChanged += new System.EventHandler(this.rbAnimTopRight_CheckedChanged);
+			rbAnimTopRight.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			rbAnimTopRight.AutoSize = true;
+			rbAnimTopRight.Location = new Point(111, 4);
+			rbAnimTopRight.Name = "rbAnimTopRight";
+			rbAnimTopRight.Size = new Size(14, 13);
+			rbAnimTopRight.TabIndex = 3;
+			rbAnimTopRight.UseVisualStyleBackColor = true;
+			rbAnimTopRight.CheckedChanged += rbAnimTopRight_CheckedChanged;
 			// 
 			// rbAnimBottomRight
 			// 
-			this.rbAnimBottomRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.rbAnimBottomRight.AutoSize = true;
-			this.rbAnimBottomRight.Checked = true;
-			this.rbAnimBottomRight.Location = new System.Drawing.Point(110, 59);
-			this.rbAnimBottomRight.Name = "rbAnimBottomRight";
-			this.rbAnimBottomRight.Size = new System.Drawing.Size(14, 13);
-			this.rbAnimBottomRight.TabIndex = 2;
-			this.rbAnimBottomRight.TabStop = true;
-			this.rbAnimBottomRight.UseVisualStyleBackColor = true;
-			this.rbAnimBottomRight.CheckedChanged += new System.EventHandler(this.rbAnimBottomRight_CheckedChanged);
+			rbAnimBottomRight.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			rbAnimBottomRight.AutoSize = true;
+			rbAnimBottomRight.Checked = true;
+			rbAnimBottomRight.Location = new Point(110, 59);
+			rbAnimBottomRight.Name = "rbAnimBottomRight";
+			rbAnimBottomRight.Size = new Size(14, 13);
+			rbAnimBottomRight.TabIndex = 2;
+			rbAnimBottomRight.TabStop = true;
+			rbAnimBottomRight.UseVisualStyleBackColor = true;
+			rbAnimBottomRight.CheckedChanged += rbAnimBottomRight_CheckedChanged;
 			// 
 			// rbAnimBottomLeft
 			// 
-			this.rbAnimBottomLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.rbAnimBottomLeft.AutoSize = true;
-			this.rbAnimBottomLeft.Location = new System.Drawing.Point(4, 59);
-			this.rbAnimBottomLeft.Name = "rbAnimBottomLeft";
-			this.rbAnimBottomLeft.Size = new System.Drawing.Size(14, 13);
-			this.rbAnimBottomLeft.TabIndex = 1;
-			this.rbAnimBottomLeft.UseVisualStyleBackColor = true;
-			this.rbAnimBottomLeft.CheckedChanged += new System.EventHandler(this.rbAnimBottomLeft_CheckedChanged);
+			rbAnimBottomLeft.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			rbAnimBottomLeft.AutoSize = true;
+			rbAnimBottomLeft.Location = new Point(4, 59);
+			rbAnimBottomLeft.Name = "rbAnimBottomLeft";
+			rbAnimBottomLeft.Size = new Size(14, 13);
+			rbAnimBottomLeft.TabIndex = 1;
+			rbAnimBottomLeft.UseVisualStyleBackColor = true;
+			rbAnimBottomLeft.CheckedChanged += rbAnimBottomLeft_CheckedChanged;
 			// 
 			// rbAnimTopLeft
 			// 
-			this.rbAnimTopLeft.AutoSize = true;
-			this.rbAnimTopLeft.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.rbAnimTopLeft.Location = new System.Drawing.Point(4, 4);
-			this.rbAnimTopLeft.Name = "rbAnimTopLeft";
-			this.rbAnimTopLeft.Size = new System.Drawing.Size(14, 13);
-			this.rbAnimTopLeft.TabIndex = 0;
-			this.rbAnimTopLeft.UseVisualStyleBackColor = true;
-			this.rbAnimTopLeft.CheckedChanged += new System.EventHandler(this.rbAnimTopLeft_CheckedChanged);
+			rbAnimTopLeft.AutoSize = true;
+			rbAnimTopLeft.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			rbAnimTopLeft.Location = new Point(4, 4);
+			rbAnimTopLeft.Name = "rbAnimTopLeft";
+			rbAnimTopLeft.Size = new Size(14, 13);
+			rbAnimTopLeft.TabIndex = 0;
+			rbAnimTopLeft.UseVisualStyleBackColor = true;
+			rbAnimTopLeft.CheckedChanged += rbAnimTopLeft_CheckedChanged;
 			// 
 			// lblQuotesFrequencyTime
 			// 
-			this.lblQuotesFrequencyTime.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesFrequencyTime.Location = new System.Drawing.Point(293, 111);
-			this.lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
-			this.lblQuotesFrequencyTime.Size = new System.Drawing.Size(69, 18);
-			this.lblQuotesFrequencyTime.TabIndex = 19;
-			this.lblQuotesFrequencyTime.Text = "minutes";
+			lblQuotesFrequencyTime.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblQuotesFrequencyTime.Location = new Point(293, 111);
+			lblQuotesFrequencyTime.Name = "lblQuotesFrequencyTime";
+			lblQuotesFrequencyTime.Size = new Size(69, 18);
+			lblQuotesFrequencyTime.TabIndex = 19;
+			lblQuotesFrequencyTime.Text = "minutes";
 			// 
 			// btnAlwaysOnNotifications
 			// 
-			this.btnAlwaysOnNotifications.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro;
-			this.btnAlwaysOnNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnAlwaysOnNotifications.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnAlwaysOnNotifications.Location = new System.Drawing.Point(201, 45);
-			this.btnAlwaysOnNotifications.Name = "btnAlwaysOnNotifications";
-			this.btnAlwaysOnNotifications.Size = new System.Drawing.Size(183, 54);
-			this.btnAlwaysOnNotifications.TabIndex = 20;
-			this.btnAlwaysOnNotifications.Text = "Show quotes in a window that is always on screen";
-			this.btnAlwaysOnNotifications.UseVisualStyleBackColor = true;
-			this.btnAlwaysOnNotifications.Click += new System.EventHandler(this.btnAlwaysOnNotifications_Click);
+			btnAlwaysOnNotifications.FlatAppearance.BorderColor = Color.Gainsboro;
+			btnAlwaysOnNotifications.FlatStyle = FlatStyle.Flat;
+			btnAlwaysOnNotifications.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnAlwaysOnNotifications.Location = new Point(201, 45);
+			btnAlwaysOnNotifications.Name = "btnAlwaysOnNotifications";
+			btnAlwaysOnNotifications.Size = new Size(183, 54);
+			btnAlwaysOnNotifications.TabIndex = 20;
+			btnAlwaysOnNotifications.Text = "Show quotes in a window that is always on screen";
+			btnAlwaysOnNotifications.UseVisualStyleBackColor = true;
+			btnAlwaysOnNotifications.Click += btnAlwaysOnNotifications_Click;
 			// 
 			// txtQuotesInterval
 			// 
-			this.txtQuotesInterval.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtQuotesInterval.Location = new System.Drawing.Point(245, 108);
-			this.txtQuotesInterval.Name = "txtQuotesInterval";
-			this.txtQuotesInterval.Size = new System.Drawing.Size(42, 26);
-			this.txtQuotesInterval.TabIndex = 6;
-			this.txtQuotesInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.txtQuotesInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuotesInterval_KeyDown);
-			this.txtQuotesInterval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuotesInterval_KeyPress);
+			txtQuotesInterval.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			txtQuotesInterval.Location = new Point(245, 108);
+			txtQuotesInterval.Name = "txtQuotesInterval";
+			txtQuotesInterval.Size = new Size(42, 26);
+			txtQuotesInterval.TabIndex = 6;
+			txtQuotesInterval.TextAlign = HorizontalAlignment.Center;
+			txtQuotesInterval.KeyDown += txtQuotesInterval_KeyDown;
+			txtQuotesInterval.KeyPress += txtQuotesInterval_KeyPress;
 			// 
 			// lblQuotesFrequency
 			// 
-			this.lblQuotesFrequency.AutoSize = true;
-			this.lblQuotesFrequency.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblQuotesFrequency.Location = new System.Drawing.Point(6, 111);
-			this.lblQuotesFrequency.Name = "lblQuotesFrequency";
-			this.lblQuotesFrequency.Size = new System.Drawing.Size(126, 18);
-			this.lblQuotesFrequency.TabIndex = 18;
-			this.lblQuotesFrequency.Text = "Show quotes every";
+			lblQuotesFrequency.AutoSize = true;
+			lblQuotesFrequency.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblQuotesFrequency.Location = new Point(6, 111);
+			lblQuotesFrequency.Name = "lblQuotesFrequency";
+			lblQuotesFrequency.Size = new Size(126, 18);
+			lblQuotesFrequency.TabIndex = 18;
+			lblQuotesFrequency.Text = "Show quotes every";
 			// 
 			// btnPopupNotifications
 			// 
-			this.btnPopupNotifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnPopupNotifications.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnPopupNotifications.Location = new System.Drawing.Point(6, 45);
-			this.btnPopupNotifications.Name = "btnPopupNotifications";
-			this.btnPopupNotifications.Size = new System.Drawing.Size(183, 54);
-			this.btnPopupNotifications.TabIndex = 19;
-			this.btnPopupNotifications.Text = "Show quotes as a popup notification";
-			this.btnPopupNotifications.UseVisualStyleBackColor = true;
-			this.btnPopupNotifications.Click += new System.EventHandler(this.btnPopupNotifications_Click);
+			btnPopupNotifications.FlatStyle = FlatStyle.Flat;
+			btnPopupNotifications.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnPopupNotifications.Location = new Point(6, 45);
+			btnPopupNotifications.Name = "btnPopupNotifications";
+			btnPopupNotifications.Size = new Size(183, 54);
+			btnPopupNotifications.TabIndex = 19;
+			btnPopupNotifications.Text = "Show quotes as a popup notification";
+			btnPopupNotifications.UseVisualStyleBackColor = true;
+			btnPopupNotifications.Click += btnPopupNotifications_Click;
 			// 
 			// lblNotificationType
 			// 
-			this.lblNotificationType.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblNotificationType.Location = new System.Drawing.Point(80, 19);
-			this.lblNotificationType.Name = "lblNotificationType";
-			this.lblNotificationType.Size = new System.Drawing.Size(237, 18);
-			this.lblNotificationType.TabIndex = 19;
-			this.lblNotificationType.Text = "Notification type";
-			this.lblNotificationType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblNotificationType.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblNotificationType.Location = new Point(80, 19);
+			lblNotificationType.Name = "lblNotificationType";
+			lblNotificationType.Size = new Size(237, 18);
+			lblNotificationType.TabIndex = 19;
+			lblNotificationType.Text = "Notification type";
+			lblNotificationType.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// gbOtherSettings
 			// 
-			this.gbOtherSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.gbOtherSettings.Controls.Add(this.btnStartWithWindowsNo);
-			this.gbOtherSettings.Controls.Add(this.btnStartWithWindowsYes);
-			this.gbOtherSettings.Controls.Add(this.lblStartWithWindows);
-			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgNo);
-			this.gbOtherSettings.Controls.Add(this.btnShowWelcomeMsgYes);
-			this.gbOtherSettings.Controls.Add(this.lblShowWelcomeMsg);
-			this.gbOtherSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbOtherSettings.Location = new System.Drawing.Point(6, 240);
-			this.gbOtherSettings.Name = "gbOtherSettings";
-			this.gbOtherSettings.Size = new System.Drawing.Size(362, 123);
-			this.gbOtherSettings.TabIndex = 21;
-			this.gbOtherSettings.TabStop = false;
-			this.gbOtherSettings.Text = "Other";
+			gbOtherSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			gbOtherSettings.Controls.Add(btnStartWithWindowsNo);
+			gbOtherSettings.Controls.Add(btnStartWithWindowsYes);
+			gbOtherSettings.Controls.Add(lblStartWithWindows);
+			gbOtherSettings.Controls.Add(btnShowWelcomeMsgNo);
+			gbOtherSettings.Controls.Add(btnShowWelcomeMsgYes);
+			gbOtherSettings.Controls.Add(lblShowWelcomeMsg);
+			gbOtherSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbOtherSettings.Location = new Point(6, 240);
+			gbOtherSettings.Name = "gbOtherSettings";
+			gbOtherSettings.Size = new Size(362, 123);
+			gbOtherSettings.TabIndex = 21;
+			gbOtherSettings.TabStop = false;
+			gbOtherSettings.Text = "Other";
 			// 
 			// btnStartWithWindowsNo
 			// 
-			this.btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
-			this.btnStartWithWindowsNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnStartWithWindowsNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnStartWithWindowsNo.Location = new System.Drawing.Point(316, 52);
-			this.btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
-			this.btnStartWithWindowsNo.Size = new System.Drawing.Size(40, 30);
-			this.btnStartWithWindowsNo.TabIndex = 20;
-			this.btnStartWithWindowsNo.Text = "NO";
-			this.btnStartWithWindowsNo.UseVisualStyleBackColor = true;
-			this.btnStartWithWindowsNo.Click += new System.EventHandler(this.btnStartWithWindowsNo_Click);
+			btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+			btnStartWithWindowsNo.FlatStyle = FlatStyle.Flat;
+			btnStartWithWindowsNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnStartWithWindowsNo.Location = new Point(316, 52);
+			btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
+			btnStartWithWindowsNo.Size = new Size(40, 30);
+			btnStartWithWindowsNo.TabIndex = 20;
+			btnStartWithWindowsNo.Text = "NO";
+			btnStartWithWindowsNo.UseVisualStyleBackColor = true;
+			btnStartWithWindowsNo.Click += btnStartWithWindowsNo_Click;
 			// 
 			// btnStartWithWindowsYes
 			// 
-			this.btnStartWithWindowsYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnStartWithWindowsYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnStartWithWindowsYes.Location = new System.Drawing.Point(270, 52);
-			this.btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
-			this.btnStartWithWindowsYes.Size = new System.Drawing.Size(40, 30);
-			this.btnStartWithWindowsYes.TabIndex = 21;
-			this.btnStartWithWindowsYes.Text = "YES";
-			this.btnStartWithWindowsYes.UseVisualStyleBackColor = true;
-			this.btnStartWithWindowsYes.Click += new System.EventHandler(this.btnStartWithWindowsYes_Click);
+			btnStartWithWindowsYes.FlatStyle = FlatStyle.Flat;
+			btnStartWithWindowsYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnStartWithWindowsYes.Location = new Point(270, 52);
+			btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
+			btnStartWithWindowsYes.Size = new Size(40, 30);
+			btnStartWithWindowsYes.TabIndex = 21;
+			btnStartWithWindowsYes.Text = "YES";
+			btnStartWithWindowsYes.UseVisualStyleBackColor = true;
+			btnStartWithWindowsYes.Click += btnStartWithWindowsYes_Click;
 			// 
 			// lblStartWithWindows
 			// 
-			this.lblStartWithWindows.AutoSize = true;
-			this.lblStartWithWindows.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblStartWithWindows.Location = new System.Drawing.Point(6, 58);
-			this.lblStartWithWindows.Name = "lblStartWithWindows";
-			this.lblStartWithWindows.Size = new System.Drawing.Size(127, 18);
-			this.lblStartWithWindows.TabIndex = 19;
-			this.lblStartWithWindows.Text = "Start with windows";
+			lblStartWithWindows.AutoSize = true;
+			lblStartWithWindows.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblStartWithWindows.Location = new Point(6, 58);
+			lblStartWithWindows.Name = "lblStartWithWindows";
+			lblStartWithWindows.Size = new Size(127, 18);
+			lblStartWithWindows.TabIndex = 19;
+			lblStartWithWindows.Text = "Start with windows";
 			// 
 			// btnShowWelcomeMsgNo
 			// 
-			this.btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
-			this.btnShowWelcomeMsgNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnShowWelcomeMsgNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowWelcomeMsgNo.Location = new System.Drawing.Point(316, 16);
-			this.btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
-			this.btnShowWelcomeMsgNo.Size = new System.Drawing.Size(40, 30);
-			this.btnShowWelcomeMsgNo.TabIndex = 18;
-			this.btnShowWelcomeMsgNo.Text = "NO";
-			this.btnShowWelcomeMsgNo.UseVisualStyleBackColor = true;
-			this.btnShowWelcomeMsgNo.Click += new System.EventHandler(this.btnShowWelcomeMsgNo_Click);
+			btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
+			btnShowWelcomeMsgNo.FlatStyle = FlatStyle.Flat;
+			btnShowWelcomeMsgNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowWelcomeMsgNo.Location = new Point(316, 16);
+			btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
+			btnShowWelcomeMsgNo.Size = new Size(40, 30);
+			btnShowWelcomeMsgNo.TabIndex = 18;
+			btnShowWelcomeMsgNo.Text = "NO";
+			btnShowWelcomeMsgNo.UseVisualStyleBackColor = true;
+			btnShowWelcomeMsgNo.Click += btnShowWelcomeMsgNo_Click;
 			// 
 			// btnShowWelcomeMsgYes
 			// 
-			this.btnShowWelcomeMsgYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnShowWelcomeMsgYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowWelcomeMsgYes.Location = new System.Drawing.Point(270, 16);
-			this.btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
-			this.btnShowWelcomeMsgYes.Size = new System.Drawing.Size(40, 30);
-			this.btnShowWelcomeMsgYes.TabIndex = 18;
-			this.btnShowWelcomeMsgYes.Text = "YES";
-			this.btnShowWelcomeMsgYes.UseVisualStyleBackColor = true;
-			this.btnShowWelcomeMsgYes.Click += new System.EventHandler(this.btnShowWelcomeMsgYes_Click);
+			btnShowWelcomeMsgYes.FlatStyle = FlatStyle.Flat;
+			btnShowWelcomeMsgYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowWelcomeMsgYes.Location = new Point(270, 16);
+			btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
+			btnShowWelcomeMsgYes.Size = new Size(40, 30);
+			btnShowWelcomeMsgYes.TabIndex = 18;
+			btnShowWelcomeMsgYes.Text = "YES";
+			btnShowWelcomeMsgYes.UseVisualStyleBackColor = true;
+			btnShowWelcomeMsgYes.Click += btnShowWelcomeMsgYes_Click;
 			// 
 			// lblShowWelcomeMsg
 			// 
-			this.lblShowWelcomeMsg.AutoSize = true;
-			this.lblShowWelcomeMsg.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblShowWelcomeMsg.Location = new System.Drawing.Point(6, 22);
-			this.lblShowWelcomeMsg.Name = "lblShowWelcomeMsg";
-			this.lblShowWelcomeMsg.Size = new System.Drawing.Size(159, 18);
-			this.lblShowWelcomeMsg.TabIndex = 18;
-			this.lblShowWelcomeMsg.Text = "Show welcome message";
+			lblShowWelcomeMsg.AutoSize = true;
+			lblShowWelcomeMsg.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblShowWelcomeMsg.Location = new Point(6, 22);
+			lblShowWelcomeMsg.Name = "lblShowWelcomeMsg";
+			lblShowWelcomeMsg.Size = new Size(159, 18);
+			lblShowWelcomeMsg.TabIndex = 18;
+			lblShowWelcomeMsg.Text = "Show welcome message";
 			// 
 			// gbThemeSettings
 			// 
-			this.gbThemeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.gbThemeSettings.Controls.Add(this.lblOpacityPercent);
-			this.gbThemeSettings.Controls.Add(this.lblOpacity);
-			this.gbThemeSettings.Controls.Add(this.tbOpacity);
-			this.gbThemeSettings.Controls.Add(this.btnTheme1);
-			this.gbThemeSettings.Controls.Add(this.btnTheme2);
-			this.gbThemeSettings.Controls.Add(this.btnTheme3);
-			this.gbThemeSettings.Controls.Add(this.btnTheme6);
-			this.gbThemeSettings.Controls.Add(this.btnTheme5);
-			this.gbThemeSettings.Controls.Add(this.btnTheme4);
-			this.gbThemeSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbThemeSettings.Location = new System.Drawing.Point(6, 106);
-			this.gbThemeSettings.Name = "gbThemeSettings";
-			this.gbThemeSettings.Size = new System.Drawing.Size(362, 145);
-			this.gbThemeSettings.TabIndex = 20;
-			this.gbThemeSettings.TabStop = false;
-			this.gbThemeSettings.Text = "Theme";
+			gbThemeSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			gbThemeSettings.Controls.Add(lblOpacityPercent);
+			gbThemeSettings.Controls.Add(lblOpacity);
+			gbThemeSettings.Controls.Add(tbOpacity);
+			gbThemeSettings.Controls.Add(btnTheme1);
+			gbThemeSettings.Controls.Add(btnTheme2);
+			gbThemeSettings.Controls.Add(btnTheme3);
+			gbThemeSettings.Controls.Add(btnTheme6);
+			gbThemeSettings.Controls.Add(btnTheme5);
+			gbThemeSettings.Controls.Add(btnTheme4);
+			gbThemeSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbThemeSettings.Location = new Point(6, 106);
+			gbThemeSettings.Name = "gbThemeSettings";
+			gbThemeSettings.Size = new Size(362, 145);
+			gbThemeSettings.TabIndex = 20;
+			gbThemeSettings.TabStop = false;
+			gbThemeSettings.Text = "Theme";
 			// 
 			// lblOpacityPercent
 			// 
-			this.lblOpacityPercent.AutoSize = true;
-			this.lblOpacityPercent.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblOpacityPercent.Location = new System.Drawing.Point(11, 93);
-			this.lblOpacityPercent.Name = "lblOpacityPercent";
-			this.lblOpacityPercent.Size = new System.Drawing.Size(33, 18);
-			this.lblOpacityPercent.TabIndex = 21;
-			this.lblOpacityPercent.Text = "90%";
+			lblOpacityPercent.AutoSize = true;
+			lblOpacityPercent.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblOpacityPercent.Location = new Point(11, 93);
+			lblOpacityPercent.Name = "lblOpacityPercent";
+			lblOpacityPercent.Size = new Size(33, 18);
+			lblOpacityPercent.TabIndex = 21;
+			lblOpacityPercent.Text = "90%";
 			// 
 			// lblOpacity
 			// 
-			this.lblOpacity.AutoSize = true;
-			this.lblOpacity.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblOpacity.Location = new System.Drawing.Point(6, 75);
-			this.lblOpacity.Name = "lblOpacity";
-			this.lblOpacity.Size = new System.Drawing.Size(55, 18);
-			this.lblOpacity.TabIndex = 20;
-			this.lblOpacity.Text = "Opacity";
+			lblOpacity.AutoSize = true;
+			lblOpacity.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblOpacity.Location = new Point(6, 75);
+			lblOpacity.Name = "lblOpacity";
+			lblOpacity.Size = new Size(55, 18);
+			lblOpacity.TabIndex = 20;
+			lblOpacity.Text = "Opacity";
 			// 
 			// tbOpacity
 			// 
-			this.tbOpacity.LargeChange = 1;
-			this.tbOpacity.Location = new System.Drawing.Point(67, 75);
-			this.tbOpacity.Minimum = 1;
-			this.tbOpacity.Name = "tbOpacity";
-			this.tbOpacity.Size = new System.Drawing.Size(289, 45);
-			this.tbOpacity.TabIndex = 15;
-			this.tbOpacity.Value = 2;
-			this.tbOpacity.Scroll += new System.EventHandler(this.tbOpacity_Scroll);
+			tbOpacity.LargeChange = 1;
+			tbOpacity.Location = new Point(67, 75);
+			tbOpacity.Minimum = 1;
+			tbOpacity.Name = "tbOpacity";
+			tbOpacity.Size = new Size(289, 45);
+			tbOpacity.TabIndex = 15;
+			tbOpacity.Value = 2;
+			tbOpacity.Scroll += tbOpacity_Scroll;
 			// 
 			// btnTheme1
 			// 
-			this.btnTheme1.BackColor = System.Drawing.Color.SlateGray;
-			this.btnTheme1.FlatAppearance.BorderSize = 0;
-			this.btnTheme1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme1.Location = new System.Drawing.Point(6, 22);
-			this.btnTheme1.Name = "btnTheme1";
-			this.btnTheme1.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme1.TabIndex = 9;
-			this.btnTheme1.UseVisualStyleBackColor = false;
-			this.btnTheme1.Click += new System.EventHandler(this.btnTheme1_Click);
+			btnTheme1.BackColor = Color.SlateGray;
+			btnTheme1.FlatAppearance.BorderSize = 0;
+			btnTheme1.FlatStyle = FlatStyle.Flat;
+			btnTheme1.Location = new Point(6, 22);
+			btnTheme1.Name = "btnTheme1";
+			btnTheme1.Size = new Size(46, 44);
+			btnTheme1.TabIndex = 9;
+			btnTheme1.UseVisualStyleBackColor = false;
+			btnTheme1.Click += btnTheme1_Click;
 			// 
 			// btnTheme2
 			// 
-			this.btnTheme2.BackColor = System.Drawing.Color.SteelBlue;
-			this.btnTheme2.FlatAppearance.BorderSize = 0;
-			this.btnTheme2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme2.Location = new System.Drawing.Point(65, 22);
-			this.btnTheme2.Name = "btnTheme2";
-			this.btnTheme2.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme2.TabIndex = 10;
-			this.btnTheme2.UseVisualStyleBackColor = false;
-			this.btnTheme2.Click += new System.EventHandler(this.btnTheme2_Click);
+			btnTheme2.BackColor = Color.SteelBlue;
+			btnTheme2.FlatAppearance.BorderSize = 0;
+			btnTheme2.FlatStyle = FlatStyle.Flat;
+			btnTheme2.Location = new Point(65, 22);
+			btnTheme2.Name = "btnTheme2";
+			btnTheme2.Size = new Size(46, 44);
+			btnTheme2.TabIndex = 10;
+			btnTheme2.UseVisualStyleBackColor = false;
+			btnTheme2.Click += btnTheme2_Click;
 			// 
 			// btnTheme3
 			// 
-			this.btnTheme3.BackColor = System.Drawing.Color.Green;
-			this.btnTheme3.FlatAppearance.BorderSize = 0;
-			this.btnTheme3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme3.Location = new System.Drawing.Point(124, 22);
-			this.btnTheme3.Name = "btnTheme3";
-			this.btnTheme3.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme3.TabIndex = 11;
-			this.btnTheme3.UseVisualStyleBackColor = false;
-			this.btnTheme3.Click += new System.EventHandler(this.btnTheme3_Click);
+			btnTheme3.BackColor = Color.Green;
+			btnTheme3.FlatAppearance.BorderSize = 0;
+			btnTheme3.FlatStyle = FlatStyle.Flat;
+			btnTheme3.Location = new Point(124, 22);
+			btnTheme3.Name = "btnTheme3";
+			btnTheme3.Size = new Size(46, 44);
+			btnTheme3.TabIndex = 11;
+			btnTheme3.UseVisualStyleBackColor = false;
+			btnTheme3.Click += btnTheme3_Click;
 			// 
 			// btnTheme6
 			// 
-			this.btnTheme6.BackColor = System.Drawing.Color.IndianRed;
-			this.btnTheme6.FlatAppearance.BorderSize = 0;
-			this.btnTheme6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme6.Location = new System.Drawing.Point(299, 22);
-			this.btnTheme6.Name = "btnTheme6";
-			this.btnTheme6.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme6.TabIndex = 13;
-			this.btnTheme6.UseVisualStyleBackColor = false;
-			this.btnTheme6.Click += new System.EventHandler(this.btnTheme6_Click);
+			btnTheme6.BackColor = Color.IndianRed;
+			btnTheme6.FlatAppearance.BorderSize = 0;
+			btnTheme6.FlatStyle = FlatStyle.Flat;
+			btnTheme6.Location = new Point(299, 22);
+			btnTheme6.Name = "btnTheme6";
+			btnTheme6.Size = new Size(46, 44);
+			btnTheme6.TabIndex = 13;
+			btnTheme6.UseVisualStyleBackColor = false;
+			btnTheme6.Click += btnTheme6_Click;
 			// 
 			// btnTheme5
 			// 
-			this.btnTheme5.BackColor = System.Drawing.Color.LightCoral;
-			this.btnTheme5.FlatAppearance.BorderSize = 0;
-			this.btnTheme5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme5.Location = new System.Drawing.Point(240, 22);
-			this.btnTheme5.Name = "btnTheme5";
-			this.btnTheme5.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme5.TabIndex = 14;
-			this.btnTheme5.UseVisualStyleBackColor = false;
-			this.btnTheme5.Click += new System.EventHandler(this.btnTheme5_Click);
+			btnTheme5.BackColor = Color.LightCoral;
+			btnTheme5.FlatAppearance.BorderSize = 0;
+			btnTheme5.FlatStyle = FlatStyle.Flat;
+			btnTheme5.Location = new Point(240, 22);
+			btnTheme5.Name = "btnTheme5";
+			btnTheme5.Size = new Size(46, 44);
+			btnTheme5.TabIndex = 14;
+			btnTheme5.UseVisualStyleBackColor = false;
+			btnTheme5.Click += btnTheme5_Click;
 			// 
 			// btnTheme4
 			// 
-			this.btnTheme4.BackColor = System.Drawing.Color.DarkOrange;
-			this.btnTheme4.FlatAppearance.BorderSize = 0;
-			this.btnTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTheme4.Location = new System.Drawing.Point(184, 22);
-			this.btnTheme4.Name = "btnTheme4";
-			this.btnTheme4.Size = new System.Drawing.Size(46, 44);
-			this.btnTheme4.TabIndex = 12;
-			this.btnTheme4.UseVisualStyleBackColor = false;
-			this.btnTheme4.Click += new System.EventHandler(this.btnTheme4_Click);
+			btnTheme4.BackColor = Color.DarkOrange;
+			btnTheme4.FlatAppearance.BorderSize = 0;
+			btnTheme4.FlatStyle = FlatStyle.Flat;
+			btnTheme4.Location = new Point(184, 22);
+			btnTheme4.Name = "btnTheme4";
+			btnTheme4.Size = new Size(46, 44);
+			btnTheme4.TabIndex = 12;
+			btnTheme4.UseVisualStyleBackColor = false;
+			btnTheme4.Click += btnTheme4_Click;
 			// 
 			// gbLanguageSettings
 			// 
-			this.gbLanguageSettings.Controls.Add(this.btnLanguageFr);
-			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageNo);
-			this.gbLanguageSettings.Controls.Add(this.btnLanguageRo);
-			this.gbLanguageSettings.Controls.Add(this.btnShowCollBasedOnLanguageYes);
-			this.gbLanguageSettings.Controls.Add(this.btnLanguageEn);
-			this.gbLanguageSettings.Controls.Add(this.lblShowCollByLanguage);
-			this.gbLanguageSettings.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.gbLanguageSettings.Location = new System.Drawing.Point(6, 6);
-			this.gbLanguageSettings.Name = "gbLanguageSettings";
-			this.gbLanguageSettings.Size = new System.Drawing.Size(362, 100);
-			this.gbLanguageSettings.TabIndex = 15;
-			this.gbLanguageSettings.TabStop = false;
-			this.gbLanguageSettings.Text = "Language";
+			gbLanguageSettings.Controls.Add(btnLanguageFr);
+			gbLanguageSettings.Controls.Add(btnShowCollBasedOnLanguageNo);
+			gbLanguageSettings.Controls.Add(btnLanguageRo);
+			gbLanguageSettings.Controls.Add(btnShowCollBasedOnLanguageYes);
+			gbLanguageSettings.Controls.Add(btnLanguageEn);
+			gbLanguageSettings.Controls.Add(lblShowCollByLanguage);
+			gbLanguageSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbLanguageSettings.Location = new Point(6, 6);
+			gbLanguageSettings.Name = "gbLanguageSettings";
+			gbLanguageSettings.Size = new Size(362, 100);
+			gbLanguageSettings.TabIndex = 15;
+			gbLanguageSettings.TabStop = false;
+			gbLanguageSettings.Text = "Language";
 			// 
 			// btnLanguageFr
 			// 
-			this.btnLanguageFr.BackgroundImage = global::Quoter.App.Resources.Resources.flag_france_64;
-			this.btnLanguageFr.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageFr.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageFr.FlatAppearance.BorderSize = 2;
-			this.btnLanguageFr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageFr.Location = new System.Drawing.Point(118, 22);
-			this.btnLanguageFr.Name = "btnLanguageFr";
-			this.btnLanguageFr.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageFr.TabIndex = 18;
-			this.btnLanguageFr.UseVisualStyleBackColor = true;
-			this.btnLanguageFr.Click += new System.EventHandler(this.btnLanguageFr_Click);
+			btnLanguageFr.BackgroundImage = Resources.Resources.flag_france_64;
+			btnLanguageFr.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageFr.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageFr.FlatAppearance.BorderSize = 2;
+			btnLanguageFr.FlatStyle = FlatStyle.Flat;
+			btnLanguageFr.Location = new Point(118, 22);
+			btnLanguageFr.Name = "btnLanguageFr";
+			btnLanguageFr.Size = new Size(50, 35);
+			btnLanguageFr.TabIndex = 18;
+			btnLanguageFr.UseVisualStyleBackColor = true;
+			btnLanguageFr.Click += btnLanguageFr_Click;
 			// 
 			// btnShowCollBasedOnLanguageNo
 			// 
-			this.btnShowCollBasedOnLanguageNo.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
-			this.btnShowCollBasedOnLanguageNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnShowCollBasedOnLanguageNo.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowCollBasedOnLanguageNo.Location = new System.Drawing.Point(316, 64);
-			this.btnShowCollBasedOnLanguageNo.Name = "btnShowCollBasedOnLanguageNo";
-			this.btnShowCollBasedOnLanguageNo.Size = new System.Drawing.Size(40, 30);
-			this.btnShowCollBasedOnLanguageNo.TabIndex = 17;
-			this.btnShowCollBasedOnLanguageNo.Text = "NO";
-			this.btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = false;
-			this.btnShowCollBasedOnLanguageNo.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageNo_Click);
+			btnShowCollBasedOnLanguageNo.BackColor = Color.WhiteSmoke;
+			btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
+			btnShowCollBasedOnLanguageNo.FlatStyle = FlatStyle.Flat;
+			btnShowCollBasedOnLanguageNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowCollBasedOnLanguageNo.Location = new Point(316, 64);
+			btnShowCollBasedOnLanguageNo.Name = "btnShowCollBasedOnLanguageNo";
+			btnShowCollBasedOnLanguageNo.Size = new Size(40, 30);
+			btnShowCollBasedOnLanguageNo.TabIndex = 17;
+			btnShowCollBasedOnLanguageNo.Text = "NO";
+			btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = false;
+			btnShowCollBasedOnLanguageNo.Click += btnShowCollBasedOnLanguageNo_Click;
 			// 
 			// btnLanguageRo
 			// 
-			this.btnLanguageRo.BackgroundImage = global::Quoter.App.Resources.Resources.flag_romania_64;
-			this.btnLanguageRo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageRo.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageRo.FlatAppearance.BorderSize = 2;
-			this.btnLanguageRo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageRo.Location = new System.Drawing.Point(62, 22);
-			this.btnLanguageRo.Name = "btnLanguageRo";
-			this.btnLanguageRo.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageRo.TabIndex = 1;
-			this.btnLanguageRo.UseVisualStyleBackColor = true;
-			this.btnLanguageRo.Click += new System.EventHandler(this.btnLanguageRo_Click);
+			btnLanguageRo.BackgroundImage = Resources.Resources.flag_romania_64;
+			btnLanguageRo.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageRo.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageRo.FlatAppearance.BorderSize = 2;
+			btnLanguageRo.FlatStyle = FlatStyle.Flat;
+			btnLanguageRo.Location = new Point(62, 22);
+			btnLanguageRo.Name = "btnLanguageRo";
+			btnLanguageRo.Size = new Size(50, 35);
+			btnLanguageRo.TabIndex = 1;
+			btnLanguageRo.UseVisualStyleBackColor = true;
+			btnLanguageRo.Click += btnLanguageRo_Click;
 			// 
 			// btnShowCollBasedOnLanguageYes
 			// 
-			this.btnShowCollBasedOnLanguageYes.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnShowCollBasedOnLanguageYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnShowCollBasedOnLanguageYes.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnShowCollBasedOnLanguageYes.Location = new System.Drawing.Point(270, 63);
-			this.btnShowCollBasedOnLanguageYes.Name = "btnShowCollBasedOnLanguageYes";
-			this.btnShowCollBasedOnLanguageYes.Size = new System.Drawing.Size(40, 30);
-			this.btnShowCollBasedOnLanguageYes.TabIndex = 16;
-			this.btnShowCollBasedOnLanguageYes.Text = "YES";
-			this.btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = false;
-			this.btnShowCollBasedOnLanguageYes.Click += new System.EventHandler(this.btnShowCollBasedOnLanguageYes_Click);
+			btnShowCollBasedOnLanguageYes.BackColor = Color.WhiteSmoke;
+			btnShowCollBasedOnLanguageYes.FlatStyle = FlatStyle.Flat;
+			btnShowCollBasedOnLanguageYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowCollBasedOnLanguageYes.Location = new Point(270, 63);
+			btnShowCollBasedOnLanguageYes.Name = "btnShowCollBasedOnLanguageYes";
+			btnShowCollBasedOnLanguageYes.Size = new Size(40, 30);
+			btnShowCollBasedOnLanguageYes.TabIndex = 16;
+			btnShowCollBasedOnLanguageYes.Text = "YES";
+			btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = false;
+			btnShowCollBasedOnLanguageYes.Click += btnShowCollBasedOnLanguageYes_Click;
 			// 
 			// btnLanguageEn
 			// 
-			this.btnLanguageEn.BackgroundImage = global::Quoter.App.Resources.Resources.flag_uk_64;
-			this.btnLanguageEn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageEn.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageEn.FlatAppearance.BorderSize = 2;
-			this.btnLanguageEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageEn.Location = new System.Drawing.Point(6, 22);
-			this.btnLanguageEn.Name = "btnLanguageEn";
-			this.btnLanguageEn.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageEn.TabIndex = 0;
-			this.btnLanguageEn.UseVisualStyleBackColor = true;
-			this.btnLanguageEn.Click += new System.EventHandler(this.btnLanguageEn_Click);
+			btnLanguageEn.BackgroundImage = Resources.Resources.flag_uk_64;
+			btnLanguageEn.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageEn.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageEn.FlatAppearance.BorderSize = 2;
+			btnLanguageEn.FlatStyle = FlatStyle.Flat;
+			btnLanguageEn.Location = new Point(6, 22);
+			btnLanguageEn.Name = "btnLanguageEn";
+			btnLanguageEn.Size = new Size(50, 35);
+			btnLanguageEn.TabIndex = 0;
+			btnLanguageEn.UseVisualStyleBackColor = true;
+			btnLanguageEn.Click += btnLanguageEn_Click;
 			// 
 			// lblShowCollByLanguage
 			// 
-			this.lblShowCollByLanguage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblShowCollByLanguage.Location = new System.Drawing.Point(8, 58);
-			this.lblShowCollByLanguage.Name = "lblShowCollByLanguage";
-			this.lblShowCollByLanguage.Size = new System.Drawing.Size(256, 40);
-			this.lblShowCollByLanguage.TabIndex = 7;
-			this.lblShowCollByLanguage.Text = "Show collections based on language";
-			this.lblShowCollByLanguage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			lblShowCollByLanguage.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblShowCollByLanguage.Location = new Point(8, 58);
+			lblShowCollByLanguage.Name = "lblShowCollByLanguage";
+			lblShowCollByLanguage.Size = new Size(256, 40);
+			lblShowCollByLanguage.TabIndex = 7;
+			lblShowCollByLanguage.Text = "Show collections based on language";
+			lblShowCollByLanguage.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// txtStatus
 			// 
-			this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtStatus.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtStatus.ForeColor = System.Drawing.Color.Green;
-			this.txtStatus.Location = new System.Drawing.Point(1, 499);
-			this.txtStatus.Multiline = true;
-			this.txtStatus.Name = "txtStatus";
-			this.txtStatus.Size = new System.Drawing.Size(580, 21);
-			this.txtStatus.TabIndex = 15;
-			this.txtStatus.Text = "Status acesta este un status ca s-a facut ceva corect bravo tie mai ce sa zicem";
+			txtStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			txtStatus.BackColor = Color.WhiteSmoke;
+			txtStatus.BorderStyle = BorderStyle.None;
+			txtStatus.ForeColor = Color.Green;
+			txtStatus.Location = new Point(1, 499);
+			txtStatus.Multiline = true;
+			txtStatus.Name = "txtStatus";
+			txtStatus.Size = new Size(580, 21);
+			txtStatus.TabIndex = 15;
+			txtStatus.Text = "Status acesta este un status ca s-a facut ceva corect bravo tie mai ce sa zicem";
 			// 
 			// btnTabPage1
 			// 
-			this.btnTabPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnTabPage1.FlatAppearance.BorderSize = 0;
-			this.btnTabPage1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTabPage1.Font = new System.Drawing.Font("Calibri Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnTabPage1.Location = new System.Drawing.Point(3, 3);
-			this.btnTabPage1.Name = "btnTabPage1";
-			this.btnTabPage1.Size = new System.Drawing.Size(260, 27);
-			this.btnTabPage1.TabIndex = 3;
-			this.btnTabPage1.Text = "Create and edit quotes";
-			this.btnTabPage1.UseVisualStyleBackColor = true;
-			this.btnTabPage1.Click += new System.EventHandler(this.btnTabPage1_Click);
+			btnTabPage1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			btnTabPage1.FlatAppearance.BorderSize = 0;
+			btnTabPage1.FlatStyle = FlatStyle.Flat;
+			btnTabPage1.Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnTabPage1.Location = new Point(3, 3);
+			btnTabPage1.Name = "btnTabPage1";
+			btnTabPage1.Size = new Size(260, 27);
+			btnTabPage1.TabIndex = 3;
+			btnTabPage1.Text = "Create and edit quotes";
+			btnTabPage1.UseVisualStyleBackColor = true;
+			btnTabPage1.Click += btnTabPage1_Click;
 			// 
 			// btnTabPage2
 			// 
-			this.btnTabPage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnTabPage2.FlatAppearance.BorderSize = 0;
-			this.btnTabPage2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTabPage2.Font = new System.Drawing.Font("Calibri Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnTabPage2.Location = new System.Drawing.Point(269, 3);
-			this.btnTabPage2.Name = "btnTabPage2";
-			this.btnTabPage2.Size = new System.Drawing.Size(260, 27);
-			this.btnTabPage2.TabIndex = 4;
-			this.btnTabPage2.Text = "Quotes collection";
-			this.btnTabPage2.UseVisualStyleBackColor = true;
-			this.btnTabPage2.Click += new System.EventHandler(this.btnTabPage2_Click);
+			btnTabPage2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			btnTabPage2.FlatAppearance.BorderSize = 0;
+			btnTabPage2.FlatStyle = FlatStyle.Flat;
+			btnTabPage2.Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnTabPage2.Location = new Point(269, 3);
+			btnTabPage2.Name = "btnTabPage2";
+			btnTabPage2.Size = new Size(260, 27);
+			btnTabPage2.TabIndex = 4;
+			btnTabPage2.Text = "Quotes collection";
+			btnTabPage2.UseVisualStyleBackColor = true;
+			btnTabPage2.Click += btnTabPage2_Click;
 			// 
 			// btnTabPage3
 			// 
-			this.btnTabPage3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnTabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.btnTabPage3.FlatAppearance.BorderSize = 0;
-			this.btnTabPage3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTabPage3.Font = new System.Drawing.Font("Calibri Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnTabPage3.Location = new System.Drawing.Point(535, 3);
-			this.btnTabPage3.Name = "btnTabPage3";
-			this.btnTabPage3.Size = new System.Drawing.Size(261, 27);
-			this.btnTabPage3.TabIndex = 5;
-			this.btnTabPage3.Text = "Settings";
-			this.btnTabPage3.UseVisualStyleBackColor = false;
-			this.btnTabPage3.Click += new System.EventHandler(this.btnTabPage3_Click);
+			btnTabPage3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			btnTabPage3.BackColor = Color.WhiteSmoke;
+			btnTabPage3.FlatAppearance.BorderSize = 0;
+			btnTabPage3.FlatStyle = FlatStyle.Flat;
+			btnTabPage3.Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnTabPage3.Location = new Point(535, 3);
+			btnTabPage3.Name = "btnTabPage3";
+			btnTabPage3.Size = new Size(261, 27);
+			btnTabPage3.TabIndex = 5;
+			btnTabPage3.Text = "Settings";
+			btnTabPage3.UseVisualStyleBackColor = false;
+			btnTabPage3.Click += btnTabPage3_Click;
 			// 
 			// pnlSelectedTab
 			// 
-			this.pnlSelectedTab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlSelectedTab.BackColor = System.Drawing.Color.SlateGray;
-			this.pnlSelectedTab.Location = new System.Drawing.Point(534, 68);
-			this.pnlSelectedTab.Name = "pnlSelectedTab";
-			this.pnlSelectedTab.Size = new System.Drawing.Size(71, 2);
-			this.pnlSelectedTab.TabIndex = 16;
-			this.pnlSelectedTab.Visible = false;
+			pnlSelectedTab.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			pnlSelectedTab.BackColor = Color.SlateGray;
+			pnlSelectedTab.Location = new Point(534, 68);
+			pnlSelectedTab.Name = "pnlSelectedTab";
+			pnlSelectedTab.Size = new Size(71, 2);
+			pnlSelectedTab.TabIndex = 16;
+			pnlSelectedTab.Visible = false;
 			// 
 			// pbBackgroundTask
 			// 
-			this.pbBackgroundTask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.pbBackgroundTask.BackColor = System.Drawing.Color.Transparent;
-			this.pbBackgroundTask.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.pbBackgroundTask.Image = global::Quoter.App.Resources.Resources.loading_transparent_128;
-			this.pbBackgroundTask.Location = new System.Drawing.Point(761, 499);
-			this.pbBackgroundTask.Name = "pbBackgroundTask";
-			this.pbBackgroundTask.Size = new System.Drawing.Size(29, 20);
-			this.pbBackgroundTask.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.pbBackgroundTask.TabIndex = 17;
-			this.pbBackgroundTask.TabStop = false;
+			pbBackgroundTask.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			pbBackgroundTask.BackColor = Color.Transparent;
+			pbBackgroundTask.BackgroundImageLayout = ImageLayout.None;
+			pbBackgroundTask.Image = Resources.Resources.loading_transparent_128;
+			pbBackgroundTask.Location = new Point(761, 499);
+			pbBackgroundTask.Name = "pbBackgroundTask";
+			pbBackgroundTask.Size = new Size(29, 20);
+			pbBackgroundTask.SizeMode = PictureBoxSizeMode.Zoom;
+			pbBackgroundTask.TabIndex = 17;
+			pbBackgroundTask.TabStop = false;
 			// 
 			// lblBackgroundTask
 			// 
-			this.lblBackgroundTask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.lblBackgroundTask.Location = new System.Drawing.Point(579, 499);
-			this.lblBackgroundTask.Name = "lblBackgroundTask";
-			this.lblBackgroundTask.Size = new System.Drawing.Size(181, 20);
-			this.lblBackgroundTask.TabIndex = 18;
-			this.lblBackgroundTask.Text = "Work being done in background";
-			this.lblBackgroundTask.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			lblBackgroundTask.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			lblBackgroundTask.Location = new Point(579, 499);
+			lblBackgroundTask.Name = "lblBackgroundTask";
+			lblBackgroundTask.Size = new Size(181, 20);
+			lblBackgroundTask.TabIndex = 18;
+			lblBackgroundTask.Text = "Work being done in background";
+			lblBackgroundTask.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// tableLayoutPanel3
 			// 
-			this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel3.ColumnCount = 3;
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-			this.tableLayoutPanel3.Controls.Add(this.btnTabPage1, 0, 0);
-			this.tableLayoutPanel3.Controls.Add(this.btnTabPage3, 2, 0);
-			this.tableLayoutPanel3.Controls.Add(this.btnTabPage2, 1, 0);
-			this.tableLayoutPanel3.Location = new System.Drawing.Point(1, 40);
-			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-			this.tableLayoutPanel3.RowCount = 1;
-			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel3.Size = new System.Drawing.Size(799, 33);
-			this.tableLayoutPanel3.TabIndex = 19;
+			tableLayoutPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel3.ColumnCount = 3;
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+			tableLayoutPanel3.Controls.Add(btnTabPage1, 0, 0);
+			tableLayoutPanel3.Controls.Add(btnTabPage3, 2, 0);
+			tableLayoutPanel3.Controls.Add(btnTabPage2, 1, 0);
+			tableLayoutPanel3.Location = new Point(1, 40);
+			tableLayoutPanel3.Name = "tableLayoutPanel3";
+			tableLayoutPanel3.RowCount = 1;
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Size = new Size(799, 33);
+			tableLayoutPanel3.TabIndex = 19;
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.pictureBox1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
-			this.pictureBox1.Enabled = false;
-			this.pictureBox1.Image = global::Quoter.App.Resources.Resources.resize_12;
-			this.pictureBox1.Location = new System.Drawing.Point(787, 511);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(12, 12);
-			this.pictureBox1.TabIndex = 20;
-			this.pictureBox1.TabStop = false;
+			pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			pictureBox1.Cursor = Cursors.SizeNWSE;
+			pictureBox1.Enabled = false;
+			pictureBox1.Image = Resources.Resources.resize_12;
+			pictureBox1.Location = new Point(787, 511);
+			pictureBox1.Name = "pictureBox1";
+			pictureBox1.Size = new Size(12, 12);
+			pictureBox1.TabIndex = 20;
+			pictureBox1.TabStop = false;
 			// 
 			// ManageForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			this.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.ClientSize = new System.Drawing.Size(800, 524);
-			this.ControlBox = false;
-			this.Controls.Add(this.pictureBox1);
-			this.Controls.Add(this.pnlSelectedTab);
-			this.Controls.Add(this.tableLayoutPanel3);
-			this.Controls.Add(this.lblBackgroundTask);
-			this.Controls.Add(this.pbBackgroundTask);
-			this.Controls.Add(this.txtStatus);
-			this.Controls.Add(this.tabControl);
-			this.Controls.Add(this.pnlTitle);
-			this.DoubleBuffered = true;
-			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.KeyPreview = true;
-			this.MinimumSize = new System.Drawing.Size(800, 524);
-			this.Name = "ManageForm";
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "ManageQuotesForm";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ManageForm_FormClosing);
-			this.Load += new System.EventHandler(this.ManageQuotesForm_Load);
-			this.ResizeBegin += new System.EventHandler(this.ManageForm_ResizeBegin);
-			this.ResizeEnd += new System.EventHandler(this.ManageForm_ResizeEnd);
-			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManageForm_KeyDown);
-			this.pnlTitle.ResumeLayout(false);
-			this.pnlTitle.PerformLayout();
-			this.tabControl.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel2.ResumeLayout(false);
-			this.panel1.ResumeLayout(false);
-			this.gbCollections.ResumeLayout(false);
-			this.panel2.ResumeLayout(false);
-			this.gbBooks.ResumeLayout(false);
-			this.panel4.ResumeLayout(false);
-			this.gbChapters.ResumeLayout(false);
-			this.panel5.ResumeLayout(false);
-			this.gbQuotes.ResumeLayout(false);
-			this.pnlQuotesOptions.ResumeLayout(false);
-			this.pnlQuotesOptions.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			this.gbImport.ResumeLayout(false);
-			this.gbExport.ResumeLayout(false);
-			this.gbExport.PerformLayout();
-			this.tableLayoutPanelFavourites.ResumeLayout(false);
-			this.panel6.ResumeLayout(false);
-			this.panel7.ResumeLayout(false);
-			this.panel8.ResumeLayout(false);
-			this.tabPage3.ResumeLayout(false);
-			this.tabBasicSettings.ResumeLayout(false);
-			this.tabPage4.ResumeLayout(false);
-			this.gbQuotesSettings.ResumeLayout(false);
-			this.gbQuotesSettings.PerformLayout();
-			this.panel3.ResumeLayout(false);
-			this.panel3.PerformLayout();
-			this.gbOtherSettings.ResumeLayout(false);
-			this.gbOtherSettings.PerformLayout();
-			this.gbThemeSettings.ResumeLayout(false);
-			this.gbThemeSettings.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tbOpacity)).EndInit();
-			this.gbLanguageSettings.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pbBackgroundTask)).EndInit();
-			this.tableLayoutPanel3.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(96F, 96F);
+			AutoScaleMode = AutoScaleMode.Dpi;
+			BackColor = Color.WhiteSmoke;
+			ClientSize = new Size(800, 524);
+			ControlBox = false;
+			Controls.Add(pictureBox1);
+			Controls.Add(pnlSelectedTab);
+			Controls.Add(tableLayoutPanel3);
+			Controls.Add(lblBackgroundTask);
+			Controls.Add(pbBackgroundTask);
+			Controls.Add(txtStatus);
+			Controls.Add(tabControl);
+			Controls.Add(pnlTitle);
+			DoubleBuffered = true;
+			Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			FormBorderStyle = FormBorderStyle.None;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			KeyPreview = true;
+			MinimumSize = new Size(800, 524);
+			Name = "ManageForm";
+			SizeGripStyle = SizeGripStyle.Show;
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "ManageQuotesForm";
+			FormClosing += ManageForm_FormClosing;
+			Load += ManageQuotesForm_Load;
+			ResizeBegin += ManageForm_ResizeBegin;
+			ResizeEnd += ManageForm_ResizeEnd;
+			KeyDown += ManageForm_KeyDown;
+			pnlTitle.ResumeLayout(false);
+			pnlTitle.PerformLayout();
+			tabControl.ResumeLayout(false);
+			tabPage1.ResumeLayout(false);
+			tableLayoutPanel1.ResumeLayout(false);
+			tableLayoutPanel2.ResumeLayout(false);
+			panel1.ResumeLayout(false);
+			gbCollections.ResumeLayout(false);
+			panel2.ResumeLayout(false);
+			gbBooks.ResumeLayout(false);
+			panel4.ResumeLayout(false);
+			gbChapters.ResumeLayout(false);
+			panel5.ResumeLayout(false);
+			gbQuotes.ResumeLayout(false);
+			pnlQuotesOptions.ResumeLayout(false);
+			pnlQuotesOptions.PerformLayout();
+			tabPage2.ResumeLayout(false);
+			gbImport.ResumeLayout(false);
+			gbExport.ResumeLayout(false);
+			gbExport.PerformLayout();
+			tableLayoutPanelFavourites.ResumeLayout(false);
+			panel6.ResumeLayout(false);
+			panel7.ResumeLayout(false);
+			panel8.ResumeLayout(false);
+			tabPage3.ResumeLayout(false);
+			tabBasicSettings.ResumeLayout(false);
+			tabPage4.ResumeLayout(false);
+			gbQuotesSettings.ResumeLayout(false);
+			gbQuotesSettings.PerformLayout();
+			panel3.ResumeLayout(false);
+			panel3.PerformLayout();
+			gbOtherSettings.ResumeLayout(false);
+			gbOtherSettings.PerformLayout();
+			gbThemeSettings.ResumeLayout(false);
+			gbThemeSettings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)tbOpacity).EndInit();
+			gbLanguageSettings.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).EndInit();
+			tableLayoutPanel3.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

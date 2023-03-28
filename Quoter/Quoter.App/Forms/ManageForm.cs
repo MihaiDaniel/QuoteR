@@ -257,7 +257,7 @@ namespace Quoter.App.Forms
 			lbChapters.DataBindings.Add("SelectedItem", _editQuotesController, nameof(IEditQuotesFormController.SelectedChapter), false, DataSourceUpdateMode.Never);
 
 			// Quotes
-			rtbQuotes.DataBindings.Add("Text", _editQuotesController, "Quotes");
+			rtbQuotes.DataBindings.Add("Text", _editQuotesController, nameof(_editQuotesController.Quotes));
 		}
 
 		private void BindSettingsControls()
@@ -409,7 +409,7 @@ namespace Quoter.App.Forms
 			SetStatus(message, color);
 		}
 
-#region IManageForm
+		#region IManageForm
 
 		async Task IManageForm.SetSelectedTab(EnumTab tab)
 		{
@@ -426,9 +426,9 @@ namespace Quoter.App.Forms
 			SetBackgroundTask(inProgress, message);
 		}
 
-#endregion IManageForm
+		#endregion IManageForm
 
-#region ISettingsForm
+		#region ISettingsForm
 
 		void ISettingsForm.SetSelectedLanguage(EnumLanguage language)
 		{
@@ -549,9 +549,9 @@ namespace Quoter.App.Forms
 			}
 		}
 
-#endregion ISettingsForm
+		#endregion ISettingsForm
 
-#region IFavouriteQuotesForm
+		#region IFavouriteQuotesForm
 
 		void IFavouriteQuotesForm.SetChecksFavourites()
 		{
@@ -639,9 +639,9 @@ namespace Quoter.App.Forms
 			//}
 		}
 
-#endregion IFavouriteQuotesForm
+		#endregion IFavouriteQuotesForm
 
-#region IEditQuotesForm
+		#region IEditQuotesForm
 
 		void IEditQuotesForm.SetBooksControlsState(EnumCrudStates state)
 		{
@@ -706,9 +706,9 @@ namespace Quoter.App.Forms
 			}
 		}
 
-#endregion IEditQuotesForm
+		#endregion IEditQuotesForm
 
-#region Events Edit quotes tab
+		#region Events Edit quotes tab
 
 		private async void cbCollection_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -756,7 +756,7 @@ namespace Quoter.App.Forms
 			}
 		}
 
-#region Button events Add, Edit, Delete Collections
+		#region Button events Add, Edit, Delete Collections
 
 		private async void btnAddCollection_Click(object sender, EventArgs e)
 		{
@@ -773,9 +773,9 @@ namespace Quoter.App.Forms
 			await _editQuotesController.DeleteCollection();
 		}
 
-#endregion Button events Add, Edit, Delete Collections
+		#endregion Button events Add, Edit, Delete Collections
 
-#region Button events Add, Edit, Delete Books
+		#region Button events Add, Edit, Delete Books
 
 		private async void btnAddBook_Click(object sender, EventArgs e)
 		{
@@ -792,9 +792,9 @@ namespace Quoter.App.Forms
 			await _editQuotesController.DeleteBook();
 		}
 
-#endregion Button events Add, Edit, Delete Books
+		#endregion Button events Add, Edit, Delete Books
 
-#region Button events Add, Edit, Delete Chapters
+		#region Button events Add, Edit, Delete Chapters
 
 		private async void btnAddChapter_Click(object sender, EventArgs e)
 		{
@@ -826,7 +826,7 @@ namespace Quoter.App.Forms
 			await _editQuotesController.AddQuotes(saveOptions);
 		}
 
-#endregion  Button events Add, Edit, Delete Chapters
+		#endregion  Button events Add, Edit, Delete Chapters
 
 		private async void btnAddFirstBook_Click(object sender, EventArgs e)
 		{
@@ -875,7 +875,7 @@ namespace Quoter.App.Forms
 
 		#endregion  Events Edit quotes tab
 
-#region Events Settings tab
+		#region Events Settings tab
 
 		private void btnLanguageEn_Click(object sender, EventArgs e)
 		{
@@ -1058,9 +1058,9 @@ namespace Quoter.App.Forms
 			_settingsController.PlayCurrentNotificationSound();
 		}
 
-#endregion Events  Settings tab
+		#endregion Events  Settings tab
 
-#region Events  Favourites tab
+		#region Events  Favourites tab
 
 		private void clbCollections_SelectedValueChanged(object sender, EventArgs e)
 		{
@@ -1143,7 +1143,7 @@ namespace Quoter.App.Forms
 			await _favouriteQuotesController.LoadCollections();
 		}
 
-#endregion Events Favourites tab
+		#endregion Events Favourites tab
 
 		private async void btnTabPage1_Click(object sender, EventArgs e)
 		{
@@ -1216,7 +1216,7 @@ namespace Quoter.App.Forms
 			pnlSelectedTab.Size = new Size(button.Size.Width, 2);
 
 			// this is hidden in as default, so check if it's visible after setting position
-			if (!pnlSelectedTab.Visible) 
+			if (!pnlSelectedTab.Visible)
 			{
 				pnlSelectedTab.Visible = true;
 			}
