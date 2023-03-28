@@ -1,11 +1,19 @@
 ﻿using Quoter.App.Helpers.Extensions;
 using Quoter.Framework.Enums;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
 namespace Quoter.App.Services.FormAnimation
 {
 	public class FormAnimationsService : IFormAnimationService
 	{
+		private readonly ConcurrentDictionary<string, string?> _dicRunningAnimations;
+
+		public FormAnimationsService()
+		{
+			_dicRunningAnimations = new ConcurrentDictionary<string, string?>();
+		}
+
 		public async Task AnimateAsync(Form form, EnumAnimation enumAnimation)
 		{
 			switch (enumAnimation)
@@ -29,6 +37,78 @@ namespace Quoter.App.Services.FormAnimation
 					await FadeIn(form);
 					break;
 			}
+		}
+
+		public async Task AnimateStatusAsync(Control control, Action action)
+		{
+			if (!_dicRunningAnimations.ContainsKey(nameof(AnimateStatusAsync)))
+			{
+				_dicRunningAnimations.TryAdd(nameof(AnimateStatusAsync), null);
+				try
+				{
+					int startY = control.Location.Y;
+					await MoveControlY(control, startY, startY - control.Height - 5);
+					control.InvokeIfRequired(() =>
+					{
+						if (!control.IsDisposed)
+						{
+							action.Invoke();
+						}
+					});
+					await MoveControlY(control, startY + control.Height + 5, startY);
+				}
+				finally
+				{
+					_dicRunningAnimations.TryRemove(nameof(AnimateStatusAsync), out _);
+				}
+			}
+		}
+
+		private async Task MoveControlY(Control control, int startY, int endY)
+		{
+			int frame = 10;
+			int frameIncrement = Math.Abs((control.Location.Y - endY) / frame);
+			int currentY = startY;
+			while (frame > 0)
+			{
+				bool isDisposed = control.InvokeIfRequiredReturn<bool>(() =>
+				{
+					if (!control.IsDisposed)
+					{
+						control.Location = new Point(control.Location.X, currentY);
+						return false;
+					}
+					else
+					{
+						return true;
+					}
+				});
+				if (isDisposed)
+				{
+					break;
+				}
+				else
+				{
+					if(startY > endY)
+					{
+						currentY -= frameIncrement; // Must go Up so Y decreases
+					}
+					else
+					{
+						currentY += frameIncrement; // Must go Down so Y increases
+					}
+					
+					await Task.Delay(50 / frame);
+					frame--;
+				}
+			}
+			control.InvokeIfRequired(() =>
+			{
+				if (!control.IsDisposed)
+				{
+					control.Location = new Point(control.Location.X, endY);
+				}
+			});
 		}
 
 		private async Task FadeInFromTopLeft(Form form)
@@ -241,7 +321,7 @@ namespace Quoter.App.Services.FormAnimation
 					form.Update();
 				});
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.ToString());
 			}
@@ -288,7 +368,7 @@ namespace Quoter.App.Services.FormAnimation
 				}
 				form.InvokeIfRequired(() =>
 				{
-					if(maxOpacity >= form.Opacity + incrementOpacity)
+					if (maxOpacity >= form.Opacity + incrementOpacity)
 					{
 						form.Opacity += incrementOpacity;
 					}

@@ -1222,10 +1222,21 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		private void SetStatus(string message, Color color)
+		private async Task SetStatus(string message, Color color)
 		{
-			txtStatus.Text = message;
-			txtStatus.ForeColor = color;
+			Action changeStatusAction = () => 
+			{
+				txtStatus.Text = message;
+				txtStatus.ForeColor = color;
+			};
+			if (!string.IsNullOrWhiteSpace(message))
+			{
+				await _formAnimationService.AnimateStatusAsync(txtStatus, changeStatusAction);
+			}
+			else
+			{
+				changeStatusAction.Invoke();
+			}
 		}
 
 		private void SetBackgroundTask(bool inProgress, string message)

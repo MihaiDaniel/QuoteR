@@ -155,6 +155,7 @@
 			lblBackgroundTask = new Label();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			pictureBox1 = new PictureBox();
+			panel9 = new Panel();
 			pnlTitle.SuspendLayout();
 			tabControl.SuspendLayout();
 			tabPage1.SuspendLayout();
@@ -188,6 +189,7 @@
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			panel9.SuspendLayout();
 			SuspendLayout();
 			// 
 			// pnlTitle
@@ -1684,10 +1686,10 @@
 			txtStatus.BackColor = Color.WhiteSmoke;
 			txtStatus.BorderStyle = BorderStyle.None;
 			txtStatus.ForeColor = Color.Green;
-			txtStatus.Location = new Point(1, 499);
+			txtStatus.Location = new Point(3, 1);
 			txtStatus.Multiline = true;
 			txtStatus.Name = "txtStatus";
-			txtStatus.Size = new Size(580, 21);
+			txtStatus.Size = new Size(566, 17);
 			txtStatus.TabIndex = 15;
 			txtStatus.Text = "Status acesta este un status ca s-a facut ceva corect bravo tie mai ce sa zicem";
 			// 
@@ -1796,6 +1798,14 @@
 			pictureBox1.TabIndex = 20;
 			pictureBox1.TabStop = false;
 			// 
+			// panel9
+			// 
+			panel9.Controls.Add(txtStatus);
+			panel9.Location = new Point(4, 498);
+			panel9.Name = "panel9";
+			panel9.Size = new Size(576, 21);
+			panel9.TabIndex = 21;
+			// 
 			// ManageForm
 			// 
 			AutoScaleDimensions = new SizeF(96F, 96F);
@@ -1803,12 +1813,12 @@
 			BackColor = Color.WhiteSmoke;
 			ClientSize = new Size(800, 524);
 			ControlBox = false;
+			Controls.Add(panel9);
 			Controls.Add(pictureBox1);
 			Controls.Add(pnlSelectedTab);
 			Controls.Add(tableLayoutPanel3);
 			Controls.Add(lblBackgroundTask);
 			Controls.Add(pbBackgroundTask);
-			Controls.Add(txtStatus);
 			Controls.Add(tabControl);
 			Controls.Add(pnlTitle);
 			DoubleBuffered = true;
@@ -1866,8 +1876,9 @@
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+			panel9.ResumeLayout(false);
+			panel9.PerformLayout();
 			ResumeLayout(false);
-			PerformLayout();
 		}
 
 		#endregion
@@ -1999,5 +2010,6 @@
 		private Panel panel6;
 		private Panel panel7;
 		private Panel panel8;
+		private Panel panel9;
 	}
 }
