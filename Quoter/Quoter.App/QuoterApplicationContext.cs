@@ -306,6 +306,11 @@ namespace Quoter.App
 			_formsManager.Show<WelcomeForm>();
 		}
 
+		private void ReaderEventHandler(object? sender, EventArgs e)
+		{
+			_formsManager.Show<ReaderForm>();
+		}
+
 		private ContextMenuStrip GetContextMenuStrip()
 		{
 			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
@@ -333,7 +338,8 @@ namespace Quoter.App
 					new ToolStripSeparator(),
 					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(ExitEventHandler), "Exit"),
 #if DEBUG
-					new ToolStripMenuItem("Welcome", null, new EventHandler(WelcomeEventHandler), "Welcome")
+					new ToolStripMenuItem("Welcome", null, new EventHandler(WelcomeEventHandler), "Welcome"),
+					new ToolStripMenuItem("Reader", null, new EventHandler(ReaderEventHandler), "Reader")
 #endif
 				}
 			};

@@ -4,6 +4,7 @@ using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.QuoteController;
+using Quoter.App.FormsControllers.Reader;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.FormsControllers.Welcome;
 using Quoter.App.Helpers;
@@ -70,6 +71,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
 			serviceCollection.AddTransient<ManageForm>();
+			serviceCollection.AddTransient<ReaderForm>();
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();
 
@@ -80,6 +82,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IQuoteFormController, QuoteFormController>();
 			serviceCollection.AddTransient<IFavouriteQuotesFormController, FavouriteQuotesFormController>();
 			serviceCollection.AddTransient<IWelcomeFormController, WelcomeFormController>();
+			serviceCollection.AddTransient<IReaderFormController, ReaderFormController>();
 
 			// Other transient services
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();

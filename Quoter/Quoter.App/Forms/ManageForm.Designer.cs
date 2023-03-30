@@ -200,7 +200,7 @@
 			pnlTitle.Controls.Add(btnClose);
 			pnlTitle.Location = new Point(0, 0);
 			pnlTitle.Name = "pnlTitle";
-			pnlTitle.Size = new Size(800, 40);
+			pnlTitle.Size = new Size(800, 30);
 			pnlTitle.TabIndex = 1;
 			// 
 			// lblTitle
@@ -208,7 +208,7 @@
 			lblTitle.AutoSize = true;
 			lblTitle.Font = new Font("Calibri Light", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
 			lblTitle.ForeColor = Color.White;
-			lblTitle.Location = new Point(12, 7);
+			lblTitle.Location = new Point(12, 2);
 			lblTitle.Name = "lblTitle";
 			lblTitle.Size = new Size(144, 26);
 			lblTitle.TabIndex = 2;
@@ -228,7 +228,7 @@
 			btnClose.ForeColor = Color.White;
 			btnClose.Location = new Point(754, 0);
 			btnClose.Name = "btnClose";
-			btnClose.Size = new Size(46, 40);
+			btnClose.Size = new Size(46, 30);
 			btnClose.TabIndex = 1;
 			btnClose.Text = "X";
 			btnClose.UseVisualStyleBackColor = false;
@@ -242,10 +242,10 @@
 			tabControl.Controls.Add(tabPage2);
 			tabControl.Controls.Add(tabPage3);
 			tabControl.Font = new Font("Calibri", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-			tabControl.Location = new Point(0, 75);
+			tabControl.Location = new Point(0, 64);
 			tabControl.Name = "tabControl";
 			tabControl.SelectedIndex = 0;
-			tabControl.Size = new Size(798, 424);
+			tabControl.Size = new Size(798, 432);
 			tabControl.TabIndex = 2;
 			// 
 			// tabPage1
@@ -255,7 +255,7 @@
 			tabPage1.Location = new Point(4, 25);
 			tabPage1.Name = "tabPage1";
 			tabPage1.Padding = new Padding(3);
-			tabPage1.Size = new Size(790, 395);
+			tabPage1.Size = new Size(790, 403);
 			tabPage1.TabIndex = 2;
 			tabPage1.Text = "Create your own quotes library";
 			// 
@@ -273,7 +273,7 @@
 			tableLayoutPanel1.RowCount = 2;
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 190F));
 			tableLayoutPanel1.RowStyles.Add(new RowStyle());
-			tableLayoutPanel1.Size = new Size(784, 389);
+			tableLayoutPanel1.Size = new Size(784, 397);
 			tableLayoutPanel1.TabIndex = 19;
 			// 
 			// tableLayoutPanel2
@@ -493,7 +493,7 @@
 			panel4.Controls.Add(gbChapters);
 			panel4.Location = new Point(3, 193);
 			panel4.Name = "panel4";
-			panel4.Size = new Size(229, 193);
+			panel4.Size = new Size(229, 201);
 			panel4.TabIndex = 1;
 			// 
 			// gbChapters
@@ -508,7 +508,7 @@
 			gbChapters.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			gbChapters.Location = new Point(4, 3);
 			gbChapters.Name = "gbChapters";
-			gbChapters.Size = new Size(222, 187);
+			gbChapters.Size = new Size(222, 195);
 			gbChapters.TabIndex = 16;
 			gbChapters.TabStop = false;
 			gbChapters.Text = "Capitole";
@@ -537,7 +537,7 @@
 			btnEditChapter.FlatStyle = FlatStyle.Popup;
 			btnEditChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			btnEditChapter.ForeColor = Color.Black;
-			btnEditChapter.Location = new Point(73, 157);
+			btnEditChapter.Location = new Point(73, 165);
 			btnEditChapter.Name = "btnEditChapter";
 			btnEditChapter.Size = new Size(71, 24);
 			btnEditChapter.TabIndex = 10;
@@ -552,7 +552,7 @@
 			btnDeleteChapter.FlatStyle = FlatStyle.Popup;
 			btnDeleteChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			btnDeleteChapter.ForeColor = Color.DarkRed;
-			btnDeleteChapter.Location = new Point(6, 157);
+			btnDeleteChapter.Location = new Point(6, 165);
 			btnDeleteChapter.Name = "btnDeleteChapter";
 			btnDeleteChapter.Size = new Size(68, 24);
 			btnDeleteChapter.TabIndex = 7;
@@ -567,7 +567,7 @@
 			btnAddChapter.FlatStyle = FlatStyle.Popup;
 			btnAddChapter.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			btnAddChapter.ForeColor = Color.DarkGreen;
-			btnAddChapter.Location = new Point(143, 157);
+			btnAddChapter.Location = new Point(143, 165);
 			btnAddChapter.Name = "btnAddChapter";
 			btnAddChapter.Size = new Size(68, 24);
 			btnAddChapter.TabIndex = 6;
@@ -595,7 +595,7 @@
 			panel5.Location = new Point(238, 3);
 			panel5.Name = "panel5";
 			tableLayoutPanel1.SetRowSpan(panel5, 2);
-			panel5.Size = new Size(543, 383);
+			panel5.Size = new Size(543, 391);
 			panel5.TabIndex = 2;
 			// 
 			// gbQuotes
@@ -611,7 +611,7 @@
 			gbQuotes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			gbQuotes.Location = new Point(3, 3);
 			gbQuotes.Name = "gbQuotes";
-			gbQuotes.Size = new Size(537, 377);
+			gbQuotes.Size = new Size(537, 385);
 			gbQuotes.TabIndex = 17;
 			gbQuotes.TabStop = false;
 			gbQuotes.Text = "Quotes";
@@ -623,7 +623,7 @@
 			btnQuickAdd.FlatStyle = FlatStyle.Popup;
 			btnQuickAdd.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			btnQuickAdd.ForeColor = Color.Olive;
-			btnQuickAdd.Location = new Point(366, 347);
+			btnQuickAdd.Location = new Point(366, 355);
 			btnQuickAdd.Name = "btnQuickAdd";
 			btnQuickAdd.Size = new Size(91, 24);
 			btnQuickAdd.TabIndex = 17;
@@ -635,7 +635,7 @@
 			// 
 			btnQuotesOptions.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			btnQuotesOptions.FlatStyle = FlatStyle.Flat;
-			btnQuotesOptions.Location = new Point(42, 347);
+			btnQuotesOptions.Location = new Point(42, 355);
 			btnQuotesOptions.Name = "btnQuotesOptions";
 			btnQuotesOptions.Size = new Size(68, 24);
 			btnQuotesOptions.TabIndex = 16;
@@ -659,7 +659,7 @@
 			pnlQuotesOptions.Controls.Add(txtQuotesAppendedTextToBeginning);
 			pnlQuotesOptions.Controls.Add(txtQuotesExcludedChars);
 			pnlQuotesOptions.Controls.Add(lblQuotesExcludeChars);
-			pnlQuotesOptions.Location = new Point(42, 141);
+			pnlQuotesOptions.Location = new Point(42, 149);
 			pnlQuotesOptions.Name = "pnlQuotesOptions";
 			pnlQuotesOptions.Size = new Size(274, 207);
 			pnlQuotesOptions.TabIndex = 15;
@@ -797,7 +797,7 @@
 			lineNumbers_For_RichTextBox1.Show_GridLines = true;
 			lineNumbers_For_RichTextBox1.Show_LineNrs = true;
 			lineNumbers_For_RichTextBox1.Show_MarginLines = false;
-			lineNumbers_For_RichTextBox1.Size = new Size(29, 324);
+			lineNumbers_For_RichTextBox1.Size = new Size(29, 332);
 			lineNumbers_For_RichTextBox1.TabIndex = 14;
 			// 
 			// rtbQuotes
@@ -807,7 +807,7 @@
 			rtbQuotes.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
 			rtbQuotes.Location = new Point(42, 17);
 			rtbQuotes.Name = "rtbQuotes";
-			rtbQuotes.Size = new Size(489, 324);
+			rtbQuotes.Size = new Size(489, 332);
 			rtbQuotes.TabIndex = 13;
 			rtbQuotes.Text = "1\n2\n3\n3\n5\n6\n7\n8\n1\n";
 			// 
@@ -818,7 +818,7 @@
 			btnSaveQuotes.FlatStyle = FlatStyle.Popup;
 			btnSaveQuotes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			btnSaveQuotes.ForeColor = Color.Green;
-			btnSaveQuotes.Location = new Point(463, 347);
+			btnSaveQuotes.Location = new Point(463, 355);
 			btnSaveQuotes.Name = "btnSaveQuotes";
 			btnSaveQuotes.Size = new Size(68, 24);
 			btnSaveQuotes.TabIndex = 9;
@@ -1779,7 +1779,7 @@
 			tableLayoutPanel3.Controls.Add(btnTabPage1, 0, 0);
 			tableLayoutPanel3.Controls.Add(btnTabPage3, 2, 0);
 			tableLayoutPanel3.Controls.Add(btnTabPage2, 1, 0);
-			tableLayoutPanel3.Location = new Point(1, 40);
+			tableLayoutPanel3.Location = new Point(1, 31);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
 			tableLayoutPanel3.RowCount = 1;
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));

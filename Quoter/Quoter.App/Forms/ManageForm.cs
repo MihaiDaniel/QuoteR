@@ -1224,7 +1224,7 @@ namespace Quoter.App.Forms
 
 		private async Task SetStatus(string message, Color color)
 		{
-			Action changeStatusAction = () => 
+			Action changeStatusAction = () =>
 			{
 				txtStatus.Text = message;
 				txtStatus.ForeColor = color;
