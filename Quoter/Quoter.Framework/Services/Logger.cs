@@ -1,5 +1,6 @@
 ﻿using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Quoter.Framework.Services
@@ -92,9 +93,14 @@ namespace Quoter.Framework.Services
 			}
 		}
 
-		public void Debug(string message)
+		public void Debug(string message, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "")
 		{
-			System.Diagnostics.Debug.WriteLine($"{DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss,FFF")} Thread:{Thread.CurrentThread.ManagedThreadId} {message}");
+			string callerFile = Path.GetFileNameWithoutExtension(callerFilePath);
+			string dateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss,FFF");
+			string thread = Thread.CurrentThread.ManagedThreadId.ToString();
+
+			string fullMessage = $"{dateTime} Th:{thread} {callerFile}.{callerMemberName} {message}";
+			System.Diagnostics.Debug.WriteLine(fullMessage);
 #if DEBUG
 			lock (_lock)
 			{
@@ -102,12 +108,13 @@ namespace Quoter.Framework.Services
 				{
 					DateTime = DateTime.Now,
 					LogLevel = Enums.EnumLogLevel.Debug,
-					Message = message
+					Message = $"Th:{thread} {callerFile}.{callerMemberName} {message}"
 				});
 				_context.SaveChanges();
 
 			}
 #endif
 		}
+
 	}
 }

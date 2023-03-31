@@ -48,7 +48,7 @@ namespace Quoter.App
 			//	Body = "Acesta este un text lung care vorbeste despre un citat asa ca sa vedem ceva mai lung textul foarte bine!",
 			//	Footer = "Acesta este un footer"
 			//};
-			DialogModel dialogModel = new()
+			DialogMessageFormOptions dialogModel = new()
 			{
 				TitleColor= Color.Red,
 				Message = "Acesta este un mesaj",
@@ -100,7 +100,7 @@ namespace Quoter.App
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			_formsManager.Show<WelcomeForm>();
+			_formsManager.ShowAndCloseOthers<WelcomeForm>();
 		}
 
 		private async void button3_Click(object sender, EventArgs e)

@@ -1,11 +1,5 @@
 ﻿using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services
 {
@@ -20,16 +14,24 @@ namespace Quoter.Framework.Services
 		/// </summary>
 		/// <param name="language"></param>
 		/// <returns></returns>
-		Task<Quote?> GetRandomQuote(EnumLanguage language);
+		Task<Quote?> GetRandQuoteFromFavsAsync(EnumLanguage language);
 
 		/// <summary>
 		/// Returns the next quote after the one with the QuoteId = <paramref name="quoteId"/>
 		/// </summary>
-		Task<Quote?> GetNextQuote(long quoteId);
+		Task<Quote?> GetNextQuoteAsync(long quoteId);
 
 		/// <summary>
 		/// Returns the previous quote before the one with the QuoteId = <paramref name="quoteId"/>
 		/// </summary>
-		Task<Quote?> GetPreviousQuote(long quoteId);
+		Task<Quote?> GetPreviousQuoteAsync(long quoteId);
+
+		/// <summary>
+		/// Returns a list of <see cref="Quote"/> depending on the parameters passed.
+		/// If no <paramref name="bookId"/> is specified it will filter only by <paramref name="collectionId"/>.
+		/// If no <paramref name="chapterId"/> is specified it will filter only by <paramref name="collectionId"/> and <paramref name="bookId"/>.
+		/// If not <paramref name="bookId"/> or <paramref name="chapterId"/> is specified it will filter only by <paramref name="collectionId"/>
+		/// </summary>
+		Task<List<Quote>> GetQuotesAsync(int collectionId, int? bookId, int? chapterId);
 	}
 }

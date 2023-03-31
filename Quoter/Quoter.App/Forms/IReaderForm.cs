@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.Framework.Entities;
 
 namespace Quoter.App.Forms
 {
-	public interface IReaderForm : IForm
+	public interface IReaderForm : IResizableForm, IForm
 	{
+		void SetQuotesContent(string content);
+		void BuildTreeNavigation(Collection collection);
+		void SetLocationInCollection(string location);
+		void ScrollToQuote(string quoteContent);
 	}
 }

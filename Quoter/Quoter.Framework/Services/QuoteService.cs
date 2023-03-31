@@ -3,6 +3,7 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using System.Text;
 
 namespace Quoter.Framework.Services
 {
@@ -18,7 +19,38 @@ namespace Quoter.Framework.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<Quote?> GetNextQuote(long quoteId)
+		public async Task<Quote?> GetRandQuoteFromFavsAsync(EnumLanguage language)
+		{
+			IQueryable<Quote> queryableQuoteIds = _context.Quotes
+				.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
+							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
+
+			if (language != EnumLanguage.None)
+			{
+				queryableQuoteIds = queryableQuoteIds.Where(q => q.Collection.Language == language);
+			}
+
+			List<long> idQuotes = await queryableQuoteIds.Select(q => q.QuoteId).ToListAsync();
+
+			if (idQuotes is null || idQuotes.Count == 0)
+			{
+				return null;
+			}
+
+			int quoteIndexToShow = _random.Next(idQuotes.Count);
+			long quoteIdToShow = idQuotes[quoteIndexToShow];
+
+			Quote? quote = await _context.Quotes
+										.Include(q => q.Book)
+										.Include(q => q.Chapter)
+										.Include(q => q.Collection)
+										.FirstOrDefaultAsync(q => q.QuoteId == quoteIdToShow);
+			return quote;
+		}
+
+		/// <inheritdoc/>
+		public async Task<Quote?> GetNextQuoteAsync(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -46,7 +78,7 @@ namespace Quoter.Framework.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<Quote?> GetPreviousQuote(long quoteId)
+		public async Task<Quote?> GetPreviousQuoteAsync(long quoteId)
 		{
 			Quote? currentQuote = await _context.Quotes.FirstOrDefaultAsync(q => q.QuoteId == quoteId);
 			if (currentQuote == null)
@@ -73,34 +105,20 @@ namespace Quoter.Framework.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task<Quote?> GetRandomQuote(EnumLanguage language)
+		public async Task<List<Quote>> GetQuotesAsync(int collectionId, int? bookId, int? chapterId)
 		{
-			IQueryable<Quote> queryableQuoteIds = _context.Quotes
-				.Where(q => (q.ChapterId != null && q.Chapter.IsFavourite == true)
-							|| (q.ChapterId == null && q.BookId != null && q.Book.IsFavourite == true)
-							|| (q.ChapterId == null && q.BookId == null && q.Collection.IsFavourite == true));
+			IQueryable<Quote> queryQuotes = _context.Quotes.Where(q => q.CollectionId == collectionId);
 
-			if(language != EnumLanguage.None)
+			if (bookId.HasValue && chapterId.HasValue)
 			{
-				queryableQuoteIds = queryableQuoteIds.Where(q => q.Collection.Language == language);
+				queryQuotes = queryQuotes.Where(q => q.BookId == bookId && q.ChapterId == chapterId);
+			}
+			else if (bookId.HasValue)
+			{
+				queryQuotes = queryQuotes.Where(q => q.BookId == bookId);
 			}
 
-			List<long> idQuotes = await queryableQuoteIds.Select(q => q.QuoteId).ToListAsync();
-
-			if (idQuotes is null || idQuotes.Count == 0)
-			{
-				return null;
-			}
-
-			int quoteIndexToShow = _random.Next(idQuotes.Count);
-			long quoteIdToShow = idQuotes[quoteIndexToShow];
-
-			Quote? quote = await _context.Quotes
-										.Include(q => q.Book)
-										.Include(q => q.Chapter)
-										.Include(q => q.Collection)
-										.FirstOrDefaultAsync(q => q.QuoteId == quoteIdToShow);
-			return quote;
+			return await queryQuotes.ToListAsync();
 		}
 
 		private IQueryable<Quote> GetQuoteQueryableByBookAndChapter(Quote currentQuote)

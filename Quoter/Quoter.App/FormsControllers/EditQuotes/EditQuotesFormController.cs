@@ -7,6 +7,7 @@ using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
+using Quoter.Framework.Helpers;
 using Quoter.Framework.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -24,8 +25,9 @@ namespace Quoter.App.FormsControllers.EditQuotes
 		private readonly ISettings _settings;
 		private readonly ILogger _logger;
 
+		private readonly Regex _regexQuote;
+
 		private IEditQuotesForm _form;
-		private Regex _regexQuote;
 
 		#region Data binding
 
@@ -267,27 +269,14 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 			List<Quote> lstQuotes = await queryQuotes.ToListAsync();
 
-			if (lstQuotes.Any())
-			{
-				StringBuilder stringBuilder = new();
-				foreach (Quote quote in lstQuotes)
-				{
-					stringBuilder.Append(quote.Content);
-					stringBuilder.Append(Environment.NewLine);
-				}
-				Quotes = stringBuilder.ToString();
-			}
-			else
-			{
-				Quotes = "";
-			}
+			Quotes = QuoteHelper.GetString(lstQuotes) ?? string.Empty;
 		}
 
 		#region Add, Edit, Delete collections
 
 		public async Task AddCollection()
 		{
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["NewCollection"],
 				Message = _stringResources["NewCollectionName"],
@@ -326,7 +315,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["EditCollection"],
 				Message = _stringResources["EditCollectionMsg"],
@@ -360,7 +349,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["DeleteCollection"],
 				Message = _stringResources["DeleteCollectionMsg", SelectedCollection.Name],
@@ -399,7 +388,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["NewBook"],
 				Message = _stringResources["NewBookName", SelectedCollection.Name],
@@ -455,7 +444,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					quote.BookId = book.BookId;
 				}
 				await _context.SaveChangesAsync();
-				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+				_formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 				{
 					Title = _stringResources["QuotesAddedToBook"],
 					Message = _stringResources["QuotesAddedToBookMsg", book.Name],
@@ -470,7 +459,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["EditBook"],
 				Message = _stringResources["EditBookMsg"],
@@ -518,7 +507,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["DeleteBook"],
 				Message = _stringResources["DeleteBookMsg", SelectedBook.Name],
@@ -545,7 +534,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["NewChapter"],
 				Message = _stringResources["NewChapterName", SelectedBook.Name],
@@ -598,7 +587,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					quote.ChapterId = newChapter.ChapterId;
 				}
 				await _context.SaveChangesAsync();
-				_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+				_formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 				{
 					Title = _stringResources["QuotesAddedToChapter"],
 					Message = _stringResources["QuotesAddedToChapterMsg", SelectedBook.Name, newChapter.Name],
@@ -613,7 +602,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["EditChapter"],
 				Message = _stringResources["EditChapterMsg"],
@@ -661,7 +650,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 			{
 				Title = _stringResources["DeleteChapter"],
 				Message = _stringResources["DeleteChapterMsg", SelectedChapter.Name],
@@ -726,6 +715,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				if (quotesToDelete.Any())
 				{
 					_context.Quotes.RemoveRange(quotesToDelete);
+					await _context.SaveChangesAsync();
 				}
 
 				// Then add the quotes in the database
@@ -860,7 +850,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 		private void ShowDialogWarn(string title, string message)
 		{
-			_formsManager.ShowDialog<DialogMessageForm>(new DialogModel()
+			_formsManager.ShowDialog<DialogMessageForm>(new DialogMessageFormOptions()
 			{
 				Title = title,
 				Message = message,

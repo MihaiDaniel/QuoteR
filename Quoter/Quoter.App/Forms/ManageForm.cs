@@ -1,4 +1,5 @@
-﻿using Quoter.App.FormsControllers.EditQuotes;
+﻿using Quoter.App.Forms.Common;
+using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
 using Quoter.App.FormsControllers.Settings;
@@ -12,15 +13,17 @@ using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace Quoter.App.Forms
 {
-	public partial class ManageForm : Form, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
+	/// <summary>
+	/// Main form of the application that contains different tabs for settings and managing quotes.
+	/// Expects a <see cref="ManageFormOptions"/>
+	/// </summary>
+	public partial class ManageForm : ResizableForm, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
 	{
-		private const int WM_NCHITTEST = 0x0084;
-		private const int HTBOTTOMRIGHT = 17;
+		//private const int WM_NCHITTEST = 0x0084;
+		//private const int HTBOTTOMRIGHT = 17;
 
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;
@@ -41,7 +44,7 @@ namespace Quoter.App.Forms
 		private bool _allowFavouritesIsCheckedEventHandlers = true;
 
 		/// <summary>
-		/// The last key pressed
+		/// The last key pressed by the user on the form. Used to handle keys combination shortcuts
 		/// </summary>
 		private Keys _lastKey = Keys.None;
 
@@ -101,29 +104,27 @@ namespace Quoter.App.Forms
 #endif
 
 			SetTheme();
-			SetStatus(string.Empty, Color.Black);
-
 			pnlQuotesOptions.Visible = false;
 		}
 
 		/// <summary>
 		/// Used to make the form resizable considering the fact it does not have any borders
 		/// </summary>
-		protected override void WndProc(ref Message m)
-		{
-			base.WndProc(ref m);
+		//protected override void WndProc(ref Message m)
+		//{
+		//	base.WndProc(ref m);
 
-			if (m.Msg == WM_NCHITTEST)
-			{
-				Point p = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-				if (p.X >= this.ClientSize.Width - 16 && p.Y >= this.ClientSize.Height - 16)
-				{
-					m.Result = (IntPtr)HTBOTTOMRIGHT;
-				}
-			}
-		}
+		//	if (m.Msg == WM_NCHITTEST)
+		//	{
+		//		Point p = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+		//		if (p.X >= this.ClientSize.Width - 16 && p.Y >= this.ClientSize.Height - 16)
+		//		{
+		//			m.Result = (IntPtr)HTBOTTOMRIGHT;
+		//		}
+		//	}
+		//}
 
-		// Can use this as alternative for bad flickering
+		// Can use this as alternative for bad flickering. Stops drawing while resizing
 		//protected override void OnResizeBegin(EventArgs e)
 		//{
 		//	SuspendLayout();
@@ -295,7 +296,7 @@ namespace Quoter.App.Forms
 		private async void ManageQuotesForm_Load(object sender, EventArgs e)
 		{
 			SetBackgroundTask(false, "");
-
+			await SetStatus(string.Empty, Color.Black);
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeIn);
 			await SetSelectedTab(_options.Tab, false);
 			await _manageFormController.EventFormLoadedAsync();
@@ -409,16 +410,16 @@ namespace Quoter.App.Forms
 			SetStatus(message, color);
 		}
 
+		void IResizableForm.SetSize(Size size)
+		{
+			this.Size = new Size(size.Width, size.Height);
+		}
+
 		#region IManageForm
 
 		async Task IManageForm.SetSelectedTab(EnumTab tab)
 		{
 			await this.SetSelectedTab(tab);
-		}
-
-		void IManageForm.SetSize(Size size)
-		{
-			this.Size = new Size(size.Width, size.Height);
 		}
 
 		void IManageForm.SetBackgroundTask(bool inProgress, string message)

@@ -10,7 +10,7 @@ using Quoter.Framework.Models;
 
 namespace Quoter.App.Views
 {
-    public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
+	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
 		//private const int BodyMaxChars = 310; // at 10 font size
@@ -21,7 +21,7 @@ namespace Quoter.App.Views
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;
 		private readonly IThemeService _themeService;
-		private readonly IQuoteFormController _formController;
+		private readonly IQuoteFormController _controller;
 
 		private List<IFormMonitor> _lstFormMonitors;
 
@@ -39,11 +39,11 @@ namespace Quoter.App.Views
 			_positioningService = positioningService;
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
-			_formController = formController;
+			_controller = formController;
 
 			_lstFormMonitors = new List<IFormMonitor>();
 
-			_formController.RegisterForm(this);
+			_controller.RegisterForm(this);
 		}
 
 		public QuoteForm(IFormsManager formsManager,
@@ -61,17 +61,17 @@ namespace Quoter.App.Views
 			_positioningService = positioningService;
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
-			_formController = formController;
+			_controller = formController;
 
 			_lstFormMonitors = new List<IFormMonitor>();
 
-			_formController.RegisterForm(this, quoteModel);
+			_controller.RegisterForm(this, quoteModel);
 		}
 
 		private async void MessageForm_Load(object sender, EventArgs e)
 		{
 			Theme theme = _themeService.GetCurrentTheme();
-			await _formController.EventFormLoadedAsync();
+			await _controller.EventFormLoadedAsync();
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
 
 		}
@@ -121,7 +121,7 @@ namespace Quoter.App.Views
 				}
 			});
 		}
-		
+
 		/// <summary>
 		/// Adjusts the fontSize for a particular font so that the text can be fully displayed in the txtBody.
 		/// The minimum fontSize returned is 10.
@@ -227,13 +227,30 @@ namespace Quoter.App.Views
 
 		private async void btnPreviousQuote_Click(object sender, EventArgs e)
 		{
-			await _formController.GetPreviousQuote();
+			await _controller.GetPreviousQuoteAsync();
 		}
 
 		private async void btnNextQuote_Click(object sender, EventArgs e)
 		{
-			await _formController.GetNextQuote();
+			await _controller.GetNextQuoteAsync();
 		}
 
+		private void txtFooter_MouseEnter(object sender, EventArgs e)
+		{
+			FontStyle newFontStyle = FontStyle.Bold | FontStyle.Underline;
+			txtFooter.Font = new Font(txtFooter.Font.Name, txtFooter.Font.Size, newFontStyle);
+		}
+
+		private void txtFooter_MouseLeave(object sender, EventArgs e)
+		{
+			FontStyle newFontStyle = FontStyle.Bold;
+			txtFooter.Font = new Font(txtFooter.Font.Name, txtFooter.Font.Size, newFontStyle);
+		}
+
+		private async void txtFooter_Click(object sender, EventArgs e)
+		{
+			btnClose_Click(sender, e);
+			await _controller.OpenReaderForm();
+		}
 	}
 }

@@ -20,7 +20,7 @@ namespace Quoter.App.Forms
 							   IFormPositioningService formPositioningService,
 							   IStringResources stringResources,
 							   IThemeService themeService,
-							   DialogModel dialogModel)
+							   DialogMessageFormOptions dialogModel)
 		{
 			InitializeComponent();
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);

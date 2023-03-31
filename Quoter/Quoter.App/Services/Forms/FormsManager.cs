@@ -32,9 +32,9 @@ namespace Quoter.App.Services.Forms
 		}
 
 		/// <inheritdoc/>
-		public void Show<TForm>(params object[] arrParameters) where TForm : Form
+		public void ShowAndCloseOthers<TForm>(params object[] arrParameters) where TForm : Form
 		{
-			_logger.Debug("FormsManager.Show() " + typeof(TForm));
+			_logger.Debug(typeof(TForm).ToString());
 
 			try
 			{
@@ -75,7 +75,7 @@ namespace Quoter.App.Services.Forms
 		/// <inheritdoc/>
 		public IDialogReturnable ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogReturnable
 		{
-			_logger.Debug("FormsManager.ShowDialog() " + typeof(TForm));
+			_logger.Debug(typeof(TForm).ToString());
 			try
 			{
 				Form form = _diContainer.GetService<TForm>(arrParameters);
@@ -100,7 +100,7 @@ namespace Quoter.App.Services.Forms
 		/// <inheritdoc/>
 		public void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
 		{
-			_logger.Debug($"FormsManager.ShowDialog() {typeof(TForm)} autoClose: {autoCloseSeconds}");
+			_logger.Debug($"{typeof(TForm)}, autoClose: {autoCloseSeconds}");
 
 			try
 			{
@@ -111,7 +111,6 @@ namespace Quoter.App.Services.Forms
 				{
 					_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
 				}
-
 				form.ShowDialog();
 
 				if (!form.IsDisposed)
@@ -128,7 +127,7 @@ namespace Quoter.App.Services.Forms
 		/// <inheritdoc/>
 		public void Close(Form form)
 		{
-			_logger.Debug($"FormsManager.Close() {form.GetType()}");
+			_logger.Debug($"{form.GetType()}");
 			try
 			{
 				FormStateModel? formState = _lstOpenedForms.FirstOrDefault(f => f.Form == form);

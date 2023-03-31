@@ -19,16 +19,19 @@ namespace Quoter.App.FormsControllers.QuoteController
 		private readonly ISettings _settings;
 		private readonly IStringResources _stringResources;
 		private readonly ISoundService _soundService;
+		private readonly IFormsManager _formsManager;
 		private IQuoteForm _form;
 
-		private QuoteFormOptions? _quoteModel;
+		private Quote? _currentQuote;
+		private QuoteFormOptions? _quoteFormOptions;
 
 		public QuoteFormController(IQuoteService quoteService,
 									IMessagingService messagingService,
 									IThemeService themeService,
 									ISettings settings,
 									IStringResources stringResources,
-									ISoundService soundService)
+									ISoundService soundService,
+									IFormsManager formsManager)
 		{
 			_quoteService = quoteService;
 			_messagingService = messagingService;
@@ -36,6 +39,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 			_settings = settings;
 			_stringResources = stringResources;
 			_soundService = soundService;
+			_formsManager = formsManager;
 		}
 
 		public void RegisterForm(IQuoteForm quoteForm)
@@ -45,21 +49,21 @@ namespace Quoter.App.FormsControllers.QuoteController
 			_messagingService.Subscribe(this);
 		}
 
-		public void RegisterForm(IQuoteForm form, QuoteFormOptions quoteModel)
+		public void RegisterForm(IQuoteForm form, QuoteFormOptions quoteFormOptions)
 		{
 			_form = form;
-			_quoteModel = quoteModel;
+			_quoteFormOptions = quoteFormOptions;
 			_form.SetTheme(_themeService.GetCurrentTheme());
 			_messagingService.Subscribe(this);
-			_form.SetQuote(quoteModel);
+			_form.SetQuote(quoteFormOptions);
 		}
 
 		public async Task EventFormLoadedAsync()
 		{
-			if (_quoteModel == null)
+			if (_quoteFormOptions == null)
 			{
 				_soundService.Play(_settings.NotificationSound);
-				await GetRandomQuote();
+				await GetRandomQuoteAsync();
 			}
 		}
 
@@ -85,7 +89,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 			if (message == Event.NotificationTimerElapsed || message == Event.ShowQuoteButtonEvent)
 			{
 				_soundService.Play(_settings.NotificationSound);
-				await GetRandomQuote();
+				await GetRandomQuoteAsync();
 			}
 			if (message == Event.ThemeChanged)
 			{
@@ -94,61 +98,74 @@ namespace Quoter.App.FormsControllers.QuoteController
 			}
 		}
 
-		public async Task GetRandomQuote()
+		public async Task GetRandomQuoteAsync()
 		{
 			EnumLanguage language = EnumLanguage.None;
 			if (_settings.ShowCollectionsBasedOnLanguage)
 			{
 				language = LanguageHelper.GetEnumLanguageFromString(_settings.Language);
 			}
-			Quote? quote = await _quoteService.GetRandomQuote(language);
+			Quote? quote = await _quoteService.GetRandQuoteFromFavsAsync(language);
 			if (quote != null)
 			{
-				_quoteModel = GetQuoteModel(quote);
-				_form.SetQuote(_quoteModel);
+				_currentQuote = quote;
+				_quoteFormOptions = GetQuoteFormOptions(quote);
+				_form.SetQuote(_quoteFormOptions);
 			}
 			else
 			{
-				_quoteModel = new QuoteFormOptions()
+				_quoteFormOptions = new QuoteFormOptions()
 				{
 					Title = "",
 					Body = _stringResources["NoQuotes"],
 					Footer = ""
 				};
-				_form.SetQuote(_quoteModel);
+				_form.SetQuote(_quoteFormOptions);
 			}
 		}
 
-		public async Task GetNextQuote()
+		public async Task GetNextQuoteAsync()
 		{
-			if (_quoteModel != null)
+			if (_quoteFormOptions != null)
 			{
-				
-				Quote? nextQuote = await _quoteService.GetNextQuote(_quoteModel.QuoteId);
+				Quote? nextQuote = await _quoteService.GetNextQuoteAsync(_quoteFormOptions.QuoteId);
 				if (nextQuote != null)
 				{
-					_quoteModel = GetQuoteModel(nextQuote);
-					_form.SetQuote(_quoteModel);
+					_currentQuote = nextQuote;
+					_quoteFormOptions = GetQuoteFormOptions(nextQuote);
+					_form.SetQuote(_quoteFormOptions);
 				}
 			}
 
 		}
 
-		public async Task GetPreviousQuote()
+		public async Task GetPreviousQuoteAsync()
 		{
-			if (_quoteModel != null)
+			if (_quoteFormOptions != null)
 			{
-				
-				Quote? previousQuote = await _quoteService.GetPreviousQuote(_quoteModel.QuoteId);
+				Quote? previousQuote = await _quoteService.GetPreviousQuoteAsync(_quoteFormOptions.QuoteId);
 				if (previousQuote != null)
 				{
-					_quoteModel = GetQuoteModel(previousQuote);
-					_form.SetQuote(_quoteModel);
+					_currentQuote = previousQuote;
+					_quoteFormOptions = GetQuoteFormOptions(previousQuote);
+					_form.SetQuote(_quoteFormOptions);
 				}
 			}
 		}
 
-		private QuoteFormOptions GetQuoteModel(Quote quote)
+		public async Task OpenReaderForm()
+		{
+			ReaderFormOptions options = new ReaderFormOptions()
+			{
+				CollectionId = _currentQuote.CollectionId,
+				BookId = _currentQuote.BookId,
+				ChapterId = _currentQuote.ChapterId,
+				QuoteId = _currentQuote.QuoteId,
+			};
+			_formsManager.ShowAndCloseOthers<ReaderForm>(options);
+		}
+
+		private QuoteFormOptions GetQuoteFormOptions(Quote quote)
 		{
 			string title;
 			string footer = "";

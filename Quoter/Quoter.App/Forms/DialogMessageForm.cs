@@ -7,6 +7,9 @@ using Quoter.Framework.Enums;
 
 namespace Quoter.App.Forms
 {
+	/// <summary>
+	/// Dialog form to show errors or simple choices. Expects a <see cref="DialogMessageFormOptions"/>
+	/// </summary>
 	public partial class DialogMessageForm : Form, IDialogReturnable
 	{
 		private readonly IFormsManager _formsManager;
@@ -17,7 +20,7 @@ namespace Quoter.App.Forms
 							   IFormPositioningService formPositioningService,
 							   IStringResources stringResources,
 							   IThemeService themeService,
-							   DialogModel dialogModel)
+							   DialogMessageFormOptions options)
 		{
 			InitializeComponent();
 			_formsManager = formsManager;
@@ -25,15 +28,15 @@ namespace Quoter.App.Forms
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 			
 			// if default color get color from theme instead, else show the color set in dialogModal
-			pnlTitle.BackColor = dialogModel.TitleColor != Const.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
-			lblTopBar.Text = dialogModel.Title;
-			txtMessage.Text = dialogModel.Message;
+			pnlTitle.BackColor = options.TitleColor != Const.ColorDefault ? options.TitleColor : themeService.GetCurrentTheme().TitleColor;
+			lblTopBar.Text = options.Title;
+			txtMessage.Text = options.Message;
 			txtMessage.TabStop = false; // Stop text from being selected
 			btnOk.Text = stringResources["OK"];
 			btnCancel.Text = stringResources["Cancel"];
 			this.Text = stringResources["Quoter"];
 
-			if (dialogModel.MessageBoxButtons == EnumDialogButtons.Ok)
+			if (options.MessageBoxButtons == EnumDialogButtons.Ok)
 			{
 				btnOk.Location = new Point(btnCancel.Location.X, btnCancel.Location.Y);
 				btnCancel.Visible = false;

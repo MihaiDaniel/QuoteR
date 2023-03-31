@@ -836,7 +836,7 @@
 			tabPage2.Location = new Point(4, 25);
 			tabPage2.Name = "tabPage2";
 			tabPage2.Padding = new Padding(3);
-			tabPage2.Size = new Size(790, 395);
+			tabPage2.Size = new Size(790, 403);
 			tabPage2.TabIndex = 3;
 			tabPage2.Text = "Quotes collection";
 			// 
@@ -1086,7 +1086,7 @@
 			tabPage3.Location = new Point(4, 25);
 			tabPage3.Name = "tabPage3";
 			tabPage3.Padding = new Padding(3);
-			tabPage3.Size = new Size(790, 395);
+			tabPage3.Size = new Size(790, 403);
 			tabPage3.TabIndex = 4;
 			tabPage3.Text = "Settings";
 			// 
@@ -1682,7 +1682,6 @@
 			// 
 			// txtStatus
 			// 
-			txtStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			txtStatus.BackColor = Color.WhiteSmoke;
 			txtStatus.BorderStyle = BorderStyle.None;
 			txtStatus.ForeColor = Color.Green;
@@ -1800,6 +1799,8 @@
 			// 
 			// panel9
 			// 
+			panel9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			panel9.BackColor = Color.Transparent;
 			panel9.Controls.Add(txtStatus);
 			panel9.Location = new Point(4, 498);
 			panel9.Name = "panel9";

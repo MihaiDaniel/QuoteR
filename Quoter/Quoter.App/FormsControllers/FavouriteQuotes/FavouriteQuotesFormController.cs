@@ -313,7 +313,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				if (!Collections.Any(c => c.IsFavourite == true))
 				{
-					DialogModel dialogModel = new DialogModel()
+					DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 					{
 						Title = _stringResources["ErrCantExport"],
 						TitleColor = Color.Red,
@@ -334,7 +334,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			string dirPath = Path.GetDirectoryName(fileName);
 			if (!Directory.Exists(dirPath) || string.IsNullOrWhiteSpace(Path.GetFileName(fileName)))
 			{
-				DialogModel dialogModel = new DialogModel()
+				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 				{
 					Title = _stringResources["ErrCantExport"],
 					TitleColor = Color.Red,
@@ -345,7 +345,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			}
 			else
 			{
-				DialogModel dialogModel = new DialogModel()
+				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 				{
 					Title = _stringResources["Exporting"],
 					Message = _stringResources["ExportingInBackground"],
@@ -373,7 +373,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				if (string.IsNullOrWhiteSpace(fileName) || Path.GetExtension(fileName) != ".qter")
 				{
-					DialogModel dialogError = new DialogModel()
+					DialogMessageFormOptions dialogError = new DialogMessageFormOptions()
 					{
 						Title = _stringResources["ErrCantImport"],
 						TitleColor = Color.Red,
@@ -384,7 +384,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 					return;
 				}
 			}
-			DialogModel dialogModel = new DialogModel()
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 			{
 				Title = _stringResources["Importing"],
 				Message =  _stringResources["ImportingInBackground"],

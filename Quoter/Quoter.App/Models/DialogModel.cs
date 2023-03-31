@@ -3,7 +3,7 @@ using Quoter.Framework.Enums;
 
 namespace Quoter.App.Models
 {
-	public class DialogModel
+	public class DialogMessageFormOptions
 	{
 		public Color TitleColor { get; set; } = Const.ColorDefault;
 

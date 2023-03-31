@@ -7,8 +7,9 @@ namespace Quoter.App.FormsControllers.QuoteController
 	{
 		void RegisterForm(IQuoteForm form, QuoteFormOptions quoteModel);
 
-		Task GetRandomQuote();
-		Task GetNextQuote();
-		Task GetPreviousQuote();
+		Task GetRandomQuoteAsync();
+		Task GetNextQuoteAsync();
+		Task GetPreviousQuoteAsync();
+		Task OpenReaderForm();
 	}
 }

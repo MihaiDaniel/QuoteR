@@ -1,4 +1,5 @@
-﻿using Quoter.App.Forms;
+﻿using Microsoft.Extensions.Options;
+using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
@@ -96,7 +97,7 @@ namespace Quoter.App
 			}
 			if(!_settings.IsSetupFinished)
 			{
-				_formsManager.Show<WelcomeForm>();
+				_formsManager.ShowAndCloseOthers<WelcomeForm>();
 			}
 		}
 
@@ -192,7 +193,7 @@ namespace Quoter.App
 
 		private void ShowDialog(string title, string message, bool isError)
 		{
-			DialogModel dialogModel = new DialogModel()
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 			{
 				Title = title,
 				TitleColor = isError ? Const.ColorError : Const.ColorDefault,
@@ -248,6 +249,7 @@ namespace Quoter.App
 					autoCloseSec = _settings.AutoCloseNotificationSeconds;
 				}
 				_formsManager.ShowDialog<QuoteForm>(autoCloseSec);
+				//_formsManager.ShowDialog<QuoteForm>(5); // UNDO This
 			}
 			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 			{
@@ -270,16 +272,16 @@ namespace Quoter.App
 
 		private void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.EditQuotes });
+			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.EditQuotes });
 		}
 		private void EventHandlerOpenFavourties(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.FavouriteQuotes });
+			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.FavouriteQuotes });
 		}
 
 		private void EventHandlerOpenSettings(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
+			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
 		}
 
 		private void ShowQuoteEventHandler(object? sender, EventArgs e)
@@ -303,12 +305,12 @@ namespace Quoter.App
 
 		private void WelcomeEventHandler(object? sender, EventArgs e)
 		{
-			_formsManager.Show<WelcomeForm>();
+			_formsManager.ShowAndCloseOthers<WelcomeForm>();
 		}
 
 		private void ReaderEventHandler(object? sender, EventArgs e)
 		{
-			_formsManager.Show<ReaderForm>();
+			_formsManager.ShowAndCloseOthers<ReaderForm>();
 		}
 
 		private ContextMenuStrip GetContextMenuStrip()

@@ -94,7 +94,7 @@ namespace Quoter.App.FormsControllers.Welcome
 			{
 				return true;
 			}
-			DialogModel dialogModel = new DialogModel()
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 			{
 				Title = _stringResources["Quoter"],
 				Message = _stringResources["ConfirmExit"],
@@ -150,7 +150,7 @@ namespace Quoter.App.FormsControllers.Welcome
 					List<CollectionFileModel> lstCollectionFiles = _form.GetSelectedCollections();
 					if (lstCollectionFiles.Count == 0)
 					{
-						DialogModel dialogModel = new DialogModel()
+						DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 						{
 							Title = "Error",
 							Message = "Please choose at least 1 collection",

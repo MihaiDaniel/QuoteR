@@ -103,7 +103,7 @@ namespace Quoter.App
 			if (string.IsNullOrEmpty(connectionString))
 			{
 				string dbFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.db");
+				connectionString = "Data Source=" + Path.Combine(dbFolderPath,"Quoter.App", "quoter.db");
 				Properties.Settings.Default[Const.Setting.ConnectionString] = connectionString;
 				Properties.Settings.Default.Save();
 			}

@@ -28,142 +28,144 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.btnClose = new System.Windows.Forms.Button();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.txtBody = new System.Windows.Forms.TextBox();
-			this.txtFooter = new System.Windows.Forms.TextBox();
-			this.btnNextQuote = new System.Windows.Forms.Button();
-			this.btnPreviousQuote = new System.Windows.Forms.Button();
-			this.pnlTitle.SuspendLayout();
-			this.SuspendLayout();
+			pnlTitle = new Panel();
+			btnClose = new Button();
+			lblTitle = new Label();
+			txtBody = new TextBox();
+			txtFooter = new TextBox();
+			btnNextQuote = new Button();
+			btnPreviousQuote = new Button();
+			pnlTitle.SuspendLayout();
+			SuspendLayout();
 			// 
 			// pnlTitle
 			// 
-			this.pnlTitle.BackColor = System.Drawing.Color.SlateGray;
-			this.pnlTitle.Controls.Add(this.btnClose);
-			this.pnlTitle.Controls.Add(this.lblTitle);
-			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(380, 30);
-			this.pnlTitle.TabIndex = 0;
+			pnlTitle.BackColor = Color.SlateGray;
+			pnlTitle.Controls.Add(btnClose);
+			pnlTitle.Controls.Add(lblTitle);
+			pnlTitle.Location = new Point(0, 0);
+			pnlTitle.Name = "pnlTitle";
+			pnlTitle.Size = new Size(380, 30);
+			pnlTitle.TabIndex = 0;
 			// 
 			// btnClose
 			// 
-			this.btnClose.BackColor = System.Drawing.Color.Transparent;
-			this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-			this.btnClose.FlatAppearance.BorderSize = 0;
-			this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-			this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnClose.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.btnClose.ForeColor = System.Drawing.Color.White;
-			this.btnClose.Location = new System.Drawing.Point(330, 0);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(50, 30);
-			this.btnClose.TabIndex = 2;
-			this.btnClose.Text = "X";
-			this.btnClose.UseVisualStyleBackColor = false;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			btnClose.BackColor = Color.Transparent;
+			btnClose.BackgroundImageLayout = ImageLayout.None;
+			btnClose.FlatAppearance.BorderColor = Color.Black;
+			btnClose.FlatAppearance.BorderSize = 0;
+			btnClose.FlatAppearance.MouseDownBackColor = Color.FromArgb(225, 40, 40);
+			btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(225, 80, 80);
+			btnClose.FlatStyle = FlatStyle.Flat;
+			btnClose.Font = new Font("Lucida Console", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+			btnClose.ForeColor = Color.White;
+			btnClose.Location = new Point(330, 0);
+			btnClose.Name = "btnClose";
+			btnClose.Size = new Size(50, 30);
+			btnClose.TabIndex = 2;
+			btnClose.Text = "X";
+			btnClose.UseVisualStyleBackColor = false;
+			btnClose.Click += btnClose_Click;
 			// 
 			// lblTitle
 			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.lblTitle.ForeColor = System.Drawing.Color.White;
-			this.lblTitle.Location = new System.Drawing.Point(11, 6);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(329, 19);
-			this.lblTitle.TabIndex = 0;
-			this.lblTitle.Text = "1234567890123456789012345678901234567890";
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			lblTitle.ForeColor = Color.White;
+			lblTitle.Location = new Point(11, 6);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new Size(329, 19);
+			lblTitle.TabIndex = 0;
+			lblTitle.Text = "1234567890123456789012345678901234567890";
 			// 
 			// txtBody
 			// 
-			this.txtBody.BackColor = System.Drawing.Color.White;
-			this.txtBody.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtBody.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtBody.Location = new System.Drawing.Point(11, 36);
-			this.txtBody.Multiline = true;
-			this.txtBody.Name = "txtBody";
-			this.txtBody.ReadOnly = true;
-			this.txtBody.Size = new System.Drawing.Size(357, 94);
-			this.txtBody.TabIndex = 1;
-			this.txtBody.Text = "012345678900123456789001234567890012345678900123456789001234567890012345678900123" +
-    "4567890";
-			this.txtBody.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtBody.BackColor = Color.White;
+			txtBody.BorderStyle = BorderStyle.None;
+			txtBody.Font = new Font("Calibri", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBody.Location = new Point(11, 36);
+			txtBody.Multiline = true;
+			txtBody.Name = "txtBody";
+			txtBody.ReadOnly = true;
+			txtBody.Size = new Size(357, 94);
+			txtBody.TabIndex = 1;
+			txtBody.Text = "0123456789001234567890012345678900123456789001234567890012345678900123456789001234567890";
+			txtBody.TextAlign = HorizontalAlignment.Center;
 			// 
 			// txtFooter
 			// 
-			this.txtFooter.BackColor = System.Drawing.Color.White;
-			this.txtFooter.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtFooter.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.txtFooter.Location = new System.Drawing.Point(12, 135);
-			this.txtFooter.Name = "txtFooter";
-			this.txtFooter.ReadOnly = true;
-			this.txtFooter.Size = new System.Drawing.Size(356, 20);
-			this.txtFooter.TabIndex = 2;
-			this.txtFooter.Text = "123456789012345678901234567890123456789012345678901234567890";
-			this.txtFooter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtFooter.BackColor = Color.White;
+			txtFooter.BorderStyle = BorderStyle.None;
+			txtFooter.Cursor = Cursors.Hand;
+			txtFooter.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			txtFooter.Location = new Point(12, 135);
+			txtFooter.Name = "txtFooter";
+			txtFooter.ReadOnly = true;
+			txtFooter.Size = new Size(356, 20);
+			txtFooter.TabIndex = 2;
+			txtFooter.Text = "123456789012345678901234567890123456789012345678901234567890";
+			txtFooter.TextAlign = HorizontalAlignment.Center;
+			txtFooter.Click += txtFooter_Click;
+			txtFooter.MouseEnter += txtFooter_MouseEnter;
+			txtFooter.MouseLeave += txtFooter_MouseLeave;
 			// 
 			// btnNextQuote
 			// 
-			this.btnNextQuote.BackColor = System.Drawing.Color.Transparent;
-			this.btnNextQuote.FlatAppearance.BorderSize = 0;
-			this.btnNextQuote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnNextQuote.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnNextQuote.ForeColor = System.Drawing.Color.Silver;
-			this.btnNextQuote.Location = new System.Drawing.Point(364, 36);
-			this.btnNextQuote.Name = "btnNextQuote";
-			this.btnNextQuote.Size = new System.Drawing.Size(17, 94);
-			this.btnNextQuote.TabIndex = 3;
-			this.btnNextQuote.Text = "▶ ";
-			this.btnNextQuote.UseVisualStyleBackColor = false;
-			this.btnNextQuote.Click += new System.EventHandler(this.btnNextQuote_Click);
+			btnNextQuote.BackColor = Color.Transparent;
+			btnNextQuote.FlatAppearance.BorderSize = 0;
+			btnNextQuote.FlatStyle = FlatStyle.Flat;
+			btnNextQuote.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			btnNextQuote.ForeColor = Color.Silver;
+			btnNextQuote.Location = new Point(364, 36);
+			btnNextQuote.Name = "btnNextQuote";
+			btnNextQuote.Size = new Size(17, 94);
+			btnNextQuote.TabIndex = 3;
+			btnNextQuote.Text = "▶ ";
+			btnNextQuote.UseVisualStyleBackColor = false;
+			btnNextQuote.Click += btnNextQuote_Click;
 			// 
 			// btnPreviousQuote
 			// 
-			this.btnPreviousQuote.BackColor = System.Drawing.Color.Transparent;
-			this.btnPreviousQuote.FlatAppearance.BorderSize = 0;
-			this.btnPreviousQuote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnPreviousQuote.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnPreviousQuote.ForeColor = System.Drawing.Color.Silver;
-			this.btnPreviousQuote.Location = new System.Drawing.Point(-2, 36);
-			this.btnPreviousQuote.Name = "btnPreviousQuote";
-			this.btnPreviousQuote.Size = new System.Drawing.Size(17, 94);
-			this.btnPreviousQuote.TabIndex = 4;
-			this.btnPreviousQuote.Text = "◀ ";
-			this.btnPreviousQuote.UseVisualStyleBackColor = false;
-			this.btnPreviousQuote.Click += new System.EventHandler(this.btnPreviousQuote_Click);
+			btnPreviousQuote.BackColor = Color.Transparent;
+			btnPreviousQuote.FlatAppearance.BorderSize = 0;
+			btnPreviousQuote.FlatStyle = FlatStyle.Flat;
+			btnPreviousQuote.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			btnPreviousQuote.ForeColor = Color.Silver;
+			btnPreviousQuote.Location = new Point(-2, 36);
+			btnPreviousQuote.Name = "btnPreviousQuote";
+			btnPreviousQuote.Size = new Size(17, 94);
+			btnPreviousQuote.TabIndex = 4;
+			btnPreviousQuote.Text = "◀ ";
+			btnPreviousQuote.UseVisualStyleBackColor = false;
+			btnPreviousQuote.Click += btnPreviousQuote_Click;
 			// 
 			// QuoteForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.White;
-			this.ClientSize = new System.Drawing.Size(380, 160);
-			this.ControlBox = false;
-			this.Controls.Add(this.btnPreviousQuote);
-			this.Controls.Add(this.btnNextQuote);
-			this.Controls.Add(this.txtFooter);
-			this.Controls.Add(this.txtBody);
-			this.Controls.Add(this.pnlTitle);
-			this.DoubleBuffered = true;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.MaximizeBox = false;
-			this.MdiChildrenMinimizedAnchorBottom = false;
-			this.MinimizeBox = false;
-			this.Name = "QuoteForm";
-			this.ShowIcon = false;
-			this.ShowInTaskbar = false;
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.Text = "MessageForm";
-			this.Load += new System.EventHandler(this.MessageForm_Load);
-			this.pnlTitle.ResumeLayout(false);
-			this.pnlTitle.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.White;
+			ClientSize = new Size(380, 160);
+			ControlBox = false;
+			Controls.Add(btnPreviousQuote);
+			Controls.Add(btnNextQuote);
+			Controls.Add(txtFooter);
+			Controls.Add(txtBody);
+			Controls.Add(pnlTitle);
+			DoubleBuffered = true;
+			FormBorderStyle = FormBorderStyle.None;
+			MaximizeBox = false;
+			MdiChildrenMinimizedAnchorBottom = false;
+			MinimizeBox = false;
+			Name = "QuoteForm";
+			ShowIcon = false;
+			ShowInTaskbar = false;
+			SizeGripStyle = SizeGripStyle.Hide;
+			Text = "MessageForm";
+			Load += MessageForm_Load;
+			pnlTitle.ResumeLayout(false);
+			pnlTitle.PerformLayout();
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

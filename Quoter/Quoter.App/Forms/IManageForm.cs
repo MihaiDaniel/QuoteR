@@ -2,11 +2,9 @@
 
 namespace Quoter.App.Forms
 {
-	public interface IManageForm
+	public interface IManageForm : IResizableForm
 	{
 		Task SetSelectedTab(EnumTab tab);
-
-		void SetSize(Size size);
 
 		void SetBackgroundTask(bool inProgress, string message);
 	}

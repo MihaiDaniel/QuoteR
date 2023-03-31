@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace Quoter.Framework.Services
 {
@@ -14,6 +10,6 @@ namespace Quoter.Framework.Services
 
 		void Info(string message);
 
-		void Debug(string message);
+		void Debug(string message, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "");
 	}
 }
