@@ -1,18 +1,16 @@
-﻿using Quoter.App.Helpers;
-using Quoter.Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.Framework.Models;
 
 namespace Quoter.App.Forms
 {
-	public interface IQuoteForm
+	/// <summary>
+	/// Interface for the Quote form.
+	/// Implementation: <see cref="QuoteForm"/>
+	/// </summary>
+	public interface IQuoteForm : IForm
 	{
 		void Close();
 		Form GetForm();
 		void SetQuote(QuoteFormOptions quoteModel);
-		void SetTheme(Theme theme);
+
 	}
 }

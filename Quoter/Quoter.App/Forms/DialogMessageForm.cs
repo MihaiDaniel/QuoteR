@@ -4,6 +4,7 @@ using Quoter.App.Services;
 using Quoter.App.Helpers;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
+using Quoter.App.Controls;
 
 namespace Quoter.App.Forms
 {
@@ -23,10 +24,11 @@ namespace Quoter.App.Forms
 							   DialogMessageFormOptions options)
 		{
 			InitializeComponent();
+			DropShadow.ApplyShadows(this);
 			_formsManager = formsManager;
 
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
-			
+
 			// if default color get color from theme instead, else show the color set in dialogModal
 			pnlTitle.BackColor = options.TitleColor != Const.ColorDefault ? options.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTopBar.Text = options.Title;
@@ -40,7 +42,7 @@ namespace Quoter.App.Forms
 			{
 				btnOk.Location = new Point(btnCancel.Location.X, btnCancel.Location.Y);
 				btnCancel.Visible = false;
-				btnCancel.Enabled= false;
+				btnCancel.Enabled = false;
 			}
 			StringResult = string.Empty;
 		}

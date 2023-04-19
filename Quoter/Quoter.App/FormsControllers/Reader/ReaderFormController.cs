@@ -1,22 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
-using Quoter.App.Models;
+using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Enums;
 using Quoter.Framework.Helpers;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers.Reader
 {
@@ -28,6 +21,7 @@ namespace Quoter.App.FormsControllers.Reader
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
 		private readonly ILogger _logger;
+		private readonly IThemeService _themeService;
 
 		private IReaderForm _form;
 
@@ -65,7 +59,8 @@ namespace Quoter.App.FormsControllers.Reader
 									IQuoteService quoteService,
 									IFormsManager formsManager,
 									IStringResources stringResources,
-									ISettings settings)
+									ISettings settings,
+									IThemeService themeService)
 		{
 			_context = context;
 			_logger = logger;
@@ -73,57 +68,42 @@ namespace Quoter.App.FormsControllers.Reader
 			_formsManager = formsManager;
 			_stringResources = stringResources;
 			_settings = settings;
-			
-
+			_themeService = themeService;
 		}
 
 		public void RegisterForm(IReaderForm form)
 		{
 			_form = form;
+			_form.SetSize(_settings.ManageWindowSize);
+			_form.SetTheme(_themeService.GetCurrentTheme());
+		}
+
+		public void RegisterOptions(ReaderFormOptions options)
+		{
+			_options = options;
 		}
 
 		public async Task EventFormLoadedAsync()
 		{
-			_form.SetSize(_settings.ManageWindowSize);
-
-			Collection? collection = await _context.Collections
-											.Include(c => c.LstBooks)
-												.ThenInclude(c => c.LstChapters)
-											.FirstOrDefaultAsync(c => c.CollectionId == _options.CollectionId);
-
-			if (collection == null)
+			try
 			{
-				// Handle this with error (ex: quote is shown, user deletes collection then presses the link on quote form)
-				DialogMessageFormOptions options = new DialogMessageFormOptions()
-				{
-					Message = "Collection does not exist", // _stringResources[""]
-					Title = "Error",
-					TitleColor = Color.Red,
-					MessageBoxButtons = EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(options);
-				_form.SetQuotesContent(string.Empty);
-			}
-			else
-			{
-				SelectedCollectionId = _options.CollectionId;
-				SelectedBookId = _options.BookId;
-				SelectedChapterId = _options.ChapterId;
+				Collection? collection = await _context.Collections
+															.Include(c => c.LstBooks)
+																.ThenInclude(c => c.LstChapters)
+															.FirstOrDefaultAsync(c => c.CollectionId == _options.CollectionId);
 
-				if(_options.QuoteId != null)
+				if (collection == null)
 				{
-					await LoadQuotesAndSetInForm(_options.CollectionId, _options.BookId, _options.ChapterId);
-					string quoteContent = await _context.Quotes.Where(q => q.QuoteId == _options.QuoteId).Select(q => q.Content).FirstAsync();
-					_form.ScrollToQuote(quoteContent);
+					ShowWarningNoCollectionFound();
 				}
 				else
 				{
-					await LoadQuotesAndSetInForm(_options.CollectionId, _options.BookId, _options.ChapterId);
+					await LoadCollectionAsync(collection);
 				}
-
-				
-
-				_form.BuildTreeNavigation(collection);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex);
 			}
 		}
 
@@ -132,65 +112,117 @@ namespace Quoter.App.FormsControllers.Reader
 			// Nothing to do
 		}
 
-		public void SetFormOptions(ReaderFormOptions options)
-		{
-			_options = options;
-		}
-
 		public async Task SetNextChapterAsync()
 		{
-			bool isNextChapterSet = false;
+			try
+			{
+				bool isNextChapterSet = false;
 
-			if(SelectedChapterId.HasValue)
-			{
-				isNextChapterSet = await TrySetNextChapter(SelectedChapterId.Value);
+				if (SelectedChapterId.HasValue)
+				{
+					isNextChapterSet = await TrySetNextChapter(SelectedChapterId.Value);
+				}
+				if (!isNextChapterSet && SelectedBookId != null)
+				{
+					await TrySetNextChapterFromNextBookAsync(SelectedBookId.Value);
+				}
 			}
-			if(!isNextChapterSet && SelectedBookId != null)
+			catch (Exception ex)
 			{
-				await TrySetNextChapterFromNextBookAsync(SelectedBookId.Value);
+				_logger.Error(ex);
 			}
+
 		}
 
 		public async Task SetPreviousChapterAsync()
 		{
-			bool iPreviousChapterSet = false;
+			try
+			{
+				bool iPreviousChapterSet = false;
 
-			if (SelectedChapterId.HasValue)
-			{
-				iPreviousChapterSet = await TrySetPreviousChapterAsync(SelectedChapterId.Value);
+				if (SelectedChapterId.HasValue)
+				{
+					iPreviousChapterSet = await TrySetPreviousChapterAsync(SelectedChapterId.Value);
+				}
+				if (!iPreviousChapterSet && SelectedBookId != null)
+				{
+					await TrySetNextChapterFromPreviousBookAsync(SelectedBookId.Value);
+				}
 			}
-			if(!iPreviousChapterSet && SelectedBookId != null)
+			catch (Exception ex)
 			{
-				await TrySetNextChapterFromPreviousBookAsync(SelectedBookId.Value);
+				_logger.Error(ex);
 			}
 		}
 
 		public async Task SetSelectedBookAsync(Book book)
 		{
-			SelectedBookId = book.BookId;
+			try
+			{
+				SelectedBookId = book.BookId;
 
-			if (book.LstChapters.Any())
-			{
-				Chapter chapterToSelect = book.LstChapters.First();
-				SelectedChapterId = chapterToSelect.ChapterId;
-				await SetSelectedChapterAsync(book.LstChapters.First());
+				if (book.LstChapters.Any())
+				{
+					Chapter chapterToSelect = book.LstChapters.First();
+					SelectedChapterId = chapterToSelect.ChapterId;
+					await SetSelectedChapterAsync(book.LstChapters.First());
+				}
+				else
+				{
+					SelectedChapterId = null;
+					await LoadQuotesAndSetInForm(SelectedCollectionId, SelectedBookId, SelectedChapterId);
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				SelectedChapterId = null;
-				await LoadQuotesAndSetInForm(SelectedCollectionId, SelectedBookId, SelectedChapterId);
+				_logger.Error(ex);
 			}
 		}
 
 		public async Task SetSelectedChapterAsync(Chapter chapter)
 		{
-			SelectedChapterId = chapter.ChapterId;
-			SelectedBookId = chapter.BookId;
+			try
+			{
+				SelectedChapterId = chapter.ChapterId;
+				SelectedBookId = chapter.BookId;
 
-			await LoadQuotesAndSetInForm(SelectedCollectionId, SelectedBookId, SelectedChapterId);
+				await LoadQuotesAndSetInForm(SelectedCollectionId, SelectedBookId, SelectedChapterId);
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex);
+			}
 		}
 
 		#region Private
+
+		private void ShowWarningNoCollectionFound()
+		{
+			DialogHelper.ShowWarning(_formsManager, _stringResources["WarnReaderNoCollection"], _stringResources["WarnReaderNoCollectionMsg"]);
+			_form.SetQuotesContent(string.Empty);
+			_form.SetLocationInCollection(string.Empty);
+			_form.BuildTreeNavigation(new Collection());
+		}
+
+		private async Task LoadCollectionAsync(Collection collection)
+		{
+			SelectedCollectionId = _options.CollectionId;
+			SelectedBookId = _options.BookId;
+			SelectedChapterId = _options.ChapterId;
+
+			if (_options.QuoteId != null)
+			{
+				await LoadQuotesAndSetInForm(_options.CollectionId, _options.BookId, _options.ChapterId);
+				string quoteContent = await _context.Quotes.Where(q => q.QuoteId == _options.QuoteId).Select(q => q.Content).FirstAsync();
+				_form.ScrollToQuote(quoteContent);
+			}
+			else
+			{
+				_form.SetQuotesContent("");
+				_form.SetLocationInCollection("");
+			}
+			_form.BuildTreeNavigation(collection);
+		}
 
 		private async Task LoadQuotesAndSetInForm(int collectionId, int? bookId, int? chapterId)
 		{

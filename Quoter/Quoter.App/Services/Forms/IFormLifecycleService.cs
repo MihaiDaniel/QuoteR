@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quoter.App.Services.Forms
+﻿namespace Quoter.App.Services.Forms
 {
 	/// <summary>
-	/// Interface for handling the lifecycle of forms
+	/// Interface for handling the lifecycle of forms, it is used to automatically close a form
+	/// after a period of time
 	/// </summary>
 	public interface IFormLifecycleService : IFormMonitor
 	{

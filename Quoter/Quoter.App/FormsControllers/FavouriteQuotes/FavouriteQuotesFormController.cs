@@ -112,6 +112,29 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			_form.SetChecksFavourites();
 		}
 
+		public void ReadCollection(Collection? selectedCollection)
+		{
+			if(selectedCollection == null || selectedCollection.CollectionId == IdSelectAllItems)
+			{
+				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+				{
+					Title = _stringResources["NoCollection"],
+					TitleColor = Const.ColorWarn,
+					Message = _stringResources["PleaseSelectACollection"],
+					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
+				};
+				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			}
+			else
+			{
+				ReaderFormOptions options = new ReaderFormOptions()
+				{
+					CollectionId = selectedCollection.CollectionId
+				};
+				_formsManager.ShowAndCloseOthers<ReaderForm>(options);
+			}
+		}
+
 		public void CollectionSelected(Collection collection)
 		{
 			if (collection.CollectionId == IdSelectAllItems)
@@ -259,7 +282,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		public void ChapterSelected(Chapter chapter)
 		{
-			//throw new NotImplementedException();
+			// Nothing to do
 		}
 
 		private int BookIsFavouriteChapterCount(Book book)
@@ -316,7 +339,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 					DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 					{
 						Title = _stringResources["ErrCantExport"],
-						TitleColor = Color.Red,
+						TitleColor = Const.ColorError,
 						Message = _stringResources["ErrCantExportMsg"],
 						MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
 					};
@@ -337,7 +360,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 				{
 					Title = _stringResources["ErrCantExport"],
-					TitleColor = Color.Red,
+					TitleColor = Const.ColorError,
 					Message = _stringResources["ErrCantExportMsgBadFileName"],
 					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
 				};
@@ -376,7 +399,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 					DialogMessageFormOptions dialogError = new DialogMessageFormOptions()
 					{
 						Title = _stringResources["ErrCantImport"],
-						TitleColor = Color.Red,
+						TitleColor = Const.ColorError,
 						Message = _stringResources["ErrCantImportMsgBadFileName"],
 						MessageBoxButtons = EnumDialogButtons.Ok
 					};

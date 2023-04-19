@@ -7,6 +7,7 @@ using Quoter.App.FormsControllers.Reader;
 using Quoter.App.Forms.Common;
 using Quoter.App.Helpers;
 using Quoter.Framework.Entities;
+using Quoter.App.Controls;
 
 namespace Quoter.App.Forms
 {
@@ -20,7 +21,8 @@ namespace Quoter.App.Forms
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IStringResources _stringResources;
 		private readonly IReaderFormController _controller;
-		private readonly IThemeService _themeService;
+		//private readonly IThemeService _themeService;
+		private readonly ILogger _logger;
 		private readonly ReaderFormOptions _options;
 
 		public ReaderForm(IFormsManager formsManager,
@@ -28,42 +30,45 @@ namespace Quoter.App.Forms
 							IFormAnimationService formAnimationService,
 							IStringResources stringResources,
 							IReaderFormController readerFormController,
-							IThemeService themeService,
+							//IThemeService themeService,
 							ILogger logger,
 							ReaderFormOptions options)
 		{
 			InitializeComponent();
+			CreateResizePictureBox();
+			DropShadow.ApplyShadows(this);
 
 			_formsManager = formsManager;
 			_formAnimationService = formAnimationService;
 			_stringResources = stringResources;
 			_controller = readerFormController;
-			_themeService = themeService;
+			//_themeService = themeService;
+			_logger = logger;
 			_options = options;
 
 			_controller.RegisterForm(this);
-			_controller.SetFormOptions(options);
+			_controller.RegisterOptions(options);
 
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 			formPositioningService.RegisterFormDragableByControl(this, lblTitle);
 
 			tvCollection.Nodes.Clear(); // Clear any nodes created in the Designer
 			LocalizeControls();
+
+			// Clear values used for testing UI
+			rtbQuotes.Text = string.Empty;
+			lblLocationInCollection.Text = string.Empty;
+			lblTitle.Text = string.Empty;
+			tvCollection.Nodes.Clear();
 		}
 
 		private void LocalizeControls()
 		{
-			//rtbQuotes.DataBindings.Add("Text", _controller, nameof(_controller.Quotes));
+			btnBackToManage.Text = _stringResources["Back"];
 		}
 
-		void IForm.SetStatus(string message, Color color)
+		void IForm.SetTheme(Theme theme)
 		{
-			throw new NotImplementedException();
-		}
-
-		void IForm.SetTheme()
-		{
-			Theme theme = _themeService.GetCurrentTheme();
 			this.BackColor = theme.BodyColor;
 			pnlTitle.BackColor = theme.TitleColor;
 		}
@@ -75,39 +80,48 @@ namespace Quoter.App.Forms
 
 		void IReaderForm.BuildTreeNavigation(Collection collection)
 		{
-			lblTitle.Text = collection.Name;
-
-			tvCollection.BeginUpdate();
-			tvCollection.Nodes.Clear();
-
-			List<TreeNode> lstBookNodes = new List<TreeNode>();
-			foreach (Book book in collection.LstBooks)
+			try
 			{
-				if (book.LstChapters.Any())
+				lblTitle.Text = collection.Name;
+				this.Text = collection.Name;
+				tvCollection.BeginUpdate();
+				tvCollection.Nodes.Clear();
+
+				List<TreeNode> lstBookNodes = new List<TreeNode>();
+				foreach (Book book in collection.LstBooks)
 				{
-					List<TreeNode> lstChapterNodes = new List<TreeNode>();
-					foreach (Chapter chapter in book.LstChapters)
+					if (book.LstChapters.Any())
 					{
-						TreeNode chapterNode = new TreeNode(chapter.Name);
-						chapterNode.Tag = chapter;
-						lstChapterNodes.Add(chapterNode);
+						List<TreeNode> lstChapterNodes = new List<TreeNode>();
+						foreach (Chapter chapter in book.LstChapters)
+						{
+							TreeNode chapterNode = new TreeNode(chapter.Name);
+							chapterNode.Tag = chapter;
+							lstChapterNodes.Add(chapterNode);
+						}
+						TreeNode bookNode = new TreeNode(book.Name, lstChapterNodes.ToArray());
+						bookNode.Tag = book;
+						lstBookNodes.Add(bookNode);
 					}
-					TreeNode bookNode = new TreeNode(book.Name, lstChapterNodes.ToArray());
-					bookNode.Tag = book;
-					lstBookNodes.Add(bookNode);
+					else
+					{
+						TreeNode bookNode = new TreeNode(book.Name);
+						bookNode.Tag = book;
+						lstBookNodes.Add(bookNode);
+					}
 				}
-				else
+				if (lstBookNodes.Any())
 				{
-					TreeNode bookNode = new TreeNode(book.Name);
-					bookNode.Tag = book;
-					lstBookNodes.Add(bookNode);
+					tvCollection.Nodes.AddRange(lstBookNodes.ToArray());
 				}
+				tvCollection.EndUpdate();
 			}
-			tvCollection.Nodes.AddRange(lstBookNodes.ToArray());
-			tvCollection.EndUpdate();
+			catch (Exception ex)
+			{
+				_logger.Error(ex);
+				lblTitle.Text = _stringResources["Quoter"];
+			}
 		}
-		// TODO: Expand ALL
-		// TODO: Collapse ALL
 
 		void IReaderForm.SetQuotesContent(string content)
 		{
@@ -157,9 +171,6 @@ namespace Quoter.App.Forms
 		private async void btnPrevious_Click(object sender, EventArgs e)
 		{
 			await _controller.SetPreviousChapterAsync();
-
-			//rtbQuotes.SelectionStart = rtbQuotes.TextLength;
-			//rtbQuotes.ScrollToCaret();
 		}
 
 		private async void tvCollection_AfterSelect(object sender, TreeViewEventArgs e)
@@ -184,6 +195,9 @@ namespace Quoter.App.Forms
 			await _controller.EventFormClosingAsync();
 		}
 
-
+		private void btnMinimize_Click(object sender, EventArgs e)
+		{
+			this.WindowState = FormWindowState.Minimized;
+		}
 	}
 }

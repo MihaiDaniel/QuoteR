@@ -525,4 +525,16 @@
   <data name="OptionReplaceChars" xml:space="preserve">
     <value>Înlocuiește cu:</value>
   </data>
+  <data name="WarnReaderNoCollection" xml:space="preserve">
+    <value>Colecția nu există</value>
+  </data>
+  <data name="WarnReaderNoCollectionMsg" xml:space="preserve">
+    <value>Colecția pe care ați ales-o nu există.</value>
+  </data>
+  <data name="PleaseSelectACollection" xml:space="preserve">
+    <value>Alegeți una dintre colecții</value>
+  </data>
+  <data name="NoCollection" xml:space="preserve">
+    <value>Nici o colecție aleasă</value>
+  </data>
 </root>

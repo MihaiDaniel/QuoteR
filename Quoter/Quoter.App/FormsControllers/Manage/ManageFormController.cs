@@ -1,5 +1,6 @@
 ﻿using Quoter.App.Forms;
 using Quoter.App.Services;
+using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services.Messaging;
 
@@ -10,13 +11,18 @@ namespace Quoter.App.FormsControllers.Manage
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
+		private readonly IThemeService _themeService;
 		private IManageForm _form;
 
-		public ManageFormController(IMessagingService messagingService, IStringResources stringResources, ISettings settings)
+		public ManageFormController(IMessagingService messagingService, 
+									IStringResources stringResources, 
+									ISettings settings,
+									IThemeService themeService)
 		{
 			_messagingService = messagingService;
 			_stringResources = stringResources;
 			_settings = settings;
+			_themeService = themeService;
 		}
 
 		public Task EventFormClosingAsync()
@@ -27,7 +33,6 @@ namespace Quoter.App.FormsControllers.Manage
 
 		public Task EventFormLoadedAsync()
 		{
-			
 			_messagingService.Subscribe(this);
 			bool isAnnouncementImport = _messagingService.ExistsAnnouncement(Event.ImportInProgress);
 			if(isAnnouncementImport)
@@ -47,6 +52,8 @@ namespace Quoter.App.FormsControllers.Manage
 			_form = form;
 			// Set the size as soon as the form is intialized.
 			_form.SetSize(_settings.ManageWindowSize);
+			// Also set the theme
+			_form.SetTheme(_themeService.GetCurrentTheme());
 		}
 
 		public void OnMessageEvent(string message, object? argument)
@@ -62,6 +69,10 @@ namespace Quoter.App.FormsControllers.Manage
 						_form.SetSelectedTab(manageFormOptions.Tab);
 					}
 				}
+			}
+			if(message == Event.ThemeChanged)
+			{
+				_form.SetTheme(_themeService.GetCurrentTheme());
 			}
 			if(message == Event.ImportInProgress)
 			{

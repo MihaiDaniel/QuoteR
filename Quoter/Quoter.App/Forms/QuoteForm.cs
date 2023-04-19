@@ -1,4 +1,5 @@
-﻿using Quoter.App.Forms;
+﻿using Quoter.App.Controls;
+using Quoter.App.Forms;
 using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
@@ -13,7 +14,6 @@ namespace Quoter.App.Views
 	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
-		//private const int BodyMaxChars = 310; // at 10 font size
 		private const int FooterMaxChars = 40;
 
 		private readonly IFormsManager _formsManager;
@@ -23,8 +23,6 @@ namespace Quoter.App.Views
 		private readonly IThemeService _themeService;
 		private readonly IQuoteFormController _controller;
 
-		private List<IFormMonitor> _lstFormMonitors;
-
 		public QuoteForm(IFormsManager formsManager,
 							ISettings settings,
 							IFormPositioningService positioningService,
@@ -33,6 +31,7 @@ namespace Quoter.App.Views
 							IQuoteFormController formController)
 		{
 			InitializeComponent();
+			DropShadow.ApplyShadows(this);
 			_formsManager = formsManager;
 			_settings = settings;
 			_formAnimationService = animationService;
@@ -40,8 +39,6 @@ namespace Quoter.App.Views
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
 			_controller = formController;
-
-			_lstFormMonitors = new List<IFormMonitor>();
 
 			_controller.RegisterForm(this);
 		}
@@ -55,6 +52,8 @@ namespace Quoter.App.Views
 							QuoteFormOptions quoteModel)
 		{
 			InitializeComponent();
+			DropShadow.ApplyShadows(this);
+
 			_formsManager = formsManager;
 			_settings = settings;
 			_formAnimationService = animationService;
@@ -62,8 +61,6 @@ namespace Quoter.App.Views
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 			_themeService = themeService;
 			_controller = formController;
-
-			_lstFormMonitors = new List<IFormMonitor>();
 
 			_controller.RegisterForm(this, quoteModel);
 		}
@@ -73,7 +70,6 @@ namespace Quoter.App.Views
 			Theme theme = _themeService.GetCurrentTheme();
 			await _controller.EventFormLoadedAsync();
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
-
 		}
 
 		public Form GetForm()
@@ -150,12 +146,7 @@ namespace Quoter.App.Views
 			return fontSize;
 		}
 
-		public void RegisterFormMonitor(IFormMonitor formMonitor)
-		{
-			_lstFormMonitors.Add(formMonitor);
-		}
-
-		public EnumFormCloseState IsClosable()
+		EnumFormCloseState IMonitoredForm.IsClosable()
 		{
 			bool keepOpen = _settings.KeepNotificationOpenOnMouseOver;
 			if (this.IsDisposed)
@@ -167,9 +158,12 @@ namespace Quoter.App.Views
 			{
 				return this.InvokeIfRequiredReturn<EnumFormCloseState>(() =>
 				{
-					if (ClientRectangle.Contains(PointToClient(Control.MousePosition)))
+					if (!this.IsDisposed)
 					{
-						return EnumFormCloseState.NotClosable;
+						if (ClientRectangle.Contains(PointToClient(Control.MousePosition)))
+						{
+							return EnumFormCloseState.NotClosable;
+						}
 					}
 					return EnumFormCloseState.IsClosable;
 				});
@@ -178,14 +172,15 @@ namespace Quoter.App.Views
 
 		}
 
+		void IMonitoredForm.Close()
+		{
+			Close();
+		}
+
 		public async new void Close()
 		{
-			foreach (IFormMonitor formMonitor in _lstFormMonitors)
-			{
-				formMonitor.EventFormClosing(this);
-			}
 			await _formAnimationService.AnimateAsync(this, EnumAnimation.FadeOut);
-			_formsManager.Close(this);
+			this.InvokeIfRequired(() => base.Close());
 		}
 
 		#region ShowWithoutStealingFocus
@@ -252,5 +247,6 @@ namespace Quoter.App.Views
 			btnClose_Click(sender, e);
 			await _controller.OpenReaderForm();
 		}
+
 	}
 }

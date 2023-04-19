@@ -15,6 +15,7 @@ namespace Quoter.App.Services.Forms
 
 		/// <summary>
 		/// Shows a form modally as a dialog. Allows for opening of multiple forms of same type.
+		/// Use this method if you expect a return result
 		/// </summary>
 		/// <typeparam name="TForm">Type of form to show</typeparam>
 		/// <param name="arrParameters">Optional parameters to pass to the form's constructor if needed</param>

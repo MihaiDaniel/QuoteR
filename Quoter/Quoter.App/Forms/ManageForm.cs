@@ -1,4 +1,5 @@
-﻿using Quoter.App.Forms.Common;
+﻿using Quoter.App.Controls;
+using Quoter.App.Forms.Common;
 using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
@@ -22,9 +23,6 @@ namespace Quoter.App.Forms
 	/// </summary>
 	public partial class ManageForm : ResizableForm, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
 	{
-		//private const int WM_NCHITTEST = 0x0084;
-		//private const int HTBOTTOMRIGHT = 17;
-
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IStringResources _stringResources;
@@ -61,7 +59,11 @@ namespace Quoter.App.Forms
 							ManageFormOptions options)
 		{
 			InitializeComponent();
+			CreateResizePictureBox();
+			DropShadow.ApplyShadows(this);
+
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
+			formPositioningService.RegisterFormDragableByControl(this, lblTitle);
 
 			_formsManager = formsManager;
 			_formAnimationService = formAnimationService;
@@ -103,45 +105,7 @@ namespace Quoter.App.Forms
 			btnQuickAdd.Visible = false;
 #endif
 
-			SetTheme();
 			pnlQuotesOptions.Visible = false;
-		}
-
-		/// <summary>
-		/// Used to make the form resizable considering the fact it does not have any borders
-		/// </summary>
-		//protected override void WndProc(ref Message m)
-		//{
-		//	base.WndProc(ref m);
-
-		//	if (m.Msg == WM_NCHITTEST)
-		//	{
-		//		Point p = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-		//		if (p.X >= this.ClientSize.Width - 16 && p.Y >= this.ClientSize.Height - 16)
-		//		{
-		//			m.Result = (IntPtr)HTBOTTOMRIGHT;
-		//		}
-		//	}
-		//}
-
-		// Can use this as alternative for bad flickering. Stops drawing while resizing
-		//protected override void OnResizeBegin(EventArgs e)
-		//{
-		//	SuspendLayout();
-		//	base.OnResizeBegin(e);
-		//}
-		//protected override void OnResizeEnd(EventArgs e)
-		//{
-		//	ResumeLayout();
-		//	base.OnResizeEnd(e);
-		//}
-
-		public void SetTheme()
-		{
-			Theme theme = _themeService.GetCurrentTheme();
-			this.BackColor = theme.BodyColor;
-			pnlTitle.BackColor = theme.TitleColor;
-			pnlSelectedTab.BackColor = theme.TitleColor;
 		}
 
 		public void LocalizeControls()
@@ -405,9 +369,12 @@ namespace Quoter.App.Forms
 			_settingsController.SetWindowSize(this.Size);
 		}
 
-		void IForm.SetStatus(string message, Color color)
+
+		void IForm.SetTheme(Theme theme)
 		{
-			SetStatus(message, color);
+			this.BackColor = theme.BodyColor;
+			pnlTitle.BackColor = theme.TitleColor;
+			pnlSelectedTab.BackColor = theme.TitleColor;
 		}
 
 		void IResizableForm.SetSize(Size size)
@@ -426,6 +393,12 @@ namespace Quoter.App.Forms
 		{
 			SetBackgroundTask(inProgress, message);
 		}
+
+		async Task IManageForm.SetStatus(string message, Color color)
+		{
+			await SetStatus(message, color);
+		}
+
 
 		#endregion IManageForm
 
@@ -1144,6 +1117,12 @@ namespace Quoter.App.Forms
 			await _favouriteQuotesController.LoadCollections();
 		}
 
+		private void btnReadCollection_Click(object sender, EventArgs e)
+		{
+			Collection? selectedCollection = clbCollections.SelectedItem as Collection;
+			_favouriteQuotesController.ReadCollection(selectedCollection);
+		}
+
 		#endregion Events Favourites tab
 
 		private async void btnTabPage1_Click(object sender, EventArgs e)
@@ -1168,6 +1147,24 @@ namespace Quoter.App.Forms
 			{
 				await SetSelectedTab(EnumTab.Settings);
 			}
+		}
+
+		private void btnMaximize_Click(object sender, EventArgs e)
+		{
+			if (this.WindowState == FormWindowState.Maximized)
+			{
+				this.WindowState = FormWindowState.Normal;
+			}
+			else
+			{
+				this.WindowState = FormWindowState.Maximized;
+			}
+			ManageForm_ResizeEnd(this, null);
+		}
+
+		private void btnMinimize_Click(object sender, EventArgs e)
+		{
+			this.WindowState = FormWindowState.Minimized;
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
@@ -1206,14 +1203,14 @@ namespace Quoter.App.Forms
 					await _settingsController.EventFormLoadedAsync();
 					break;
 			}
-			SetStatus("", Const.ColorDefault);
+			await SetStatus("", Const.ColorDefault);
 		}
 
 		private void SetSelectedTabHighlight(Button button)
 		{
 			// Location.X of the button is relative to the form, but the Y is relative to the tableLayout parent
 			// for some reason, that's why use constant for Y
-			pnlSelectedTab.Location = new Point(button.Location.X, 70);
+			pnlSelectedTab.Location = new Point(button.Location.X, 60);
 			pnlSelectedTab.Size = new Size(button.Size.Width, 2);
 
 			// this is hidden in as default, so check if it's visible after setting position

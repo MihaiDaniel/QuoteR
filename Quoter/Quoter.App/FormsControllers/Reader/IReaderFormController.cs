@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers.Reader
 {
-	public interface IReaderFormController : IFormController<IReaderForm>
+	public interface IReaderFormController : IFormControllerWithOptions<IReaderForm, ReaderFormOptions>
 	{
-
-		void SetFormOptions(ReaderFormOptions options);
-
 		string Quotes { get; set; }
 
 		Task SetNextChapterAsync();

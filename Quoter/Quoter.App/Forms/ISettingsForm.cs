@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.Forms
 {
-	public interface ISettingsForm : IForm
+	public interface ISettingsForm : IManageForm
 	{
 		void LocalizeControls();
 

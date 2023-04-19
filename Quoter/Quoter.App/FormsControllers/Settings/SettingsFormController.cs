@@ -224,8 +224,8 @@ namespace Quoter.App.FormsControllers.Settings
 		public void SetTheme(EnumTheme theme)
 		{
 			_settings.Theme = theme;
-			_form.SetTheme();
-			_messagingService.SendMessage(Event.ThemeChanged);
+			// theme will be set on ManageFormController
+			_messagingService.SendMessage(Event.ThemeChanged); 
 		}
 
 		public void SetOpacity(double opacity)

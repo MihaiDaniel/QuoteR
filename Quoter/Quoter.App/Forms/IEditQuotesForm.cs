@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.Forms
 {
-	public interface IEditQuotesForm : IForm
+	public interface IEditQuotesForm : IManageForm
 	{
 		void SetBooksControlsState(EnumCrudStates state);
 

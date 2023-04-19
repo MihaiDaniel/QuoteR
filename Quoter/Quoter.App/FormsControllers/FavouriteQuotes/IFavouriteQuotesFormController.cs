@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-    public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
-    {
+	public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
+	{
 
 		BindingList<Collection> Collections { get; }
 
@@ -28,8 +28,11 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		Task LoadCollections();
 
+		void ReadCollection(Collection? selectedCollection);
+
 		void Export(bool isExportOnlyFavourites);
 
 		void Import(bool isImportMerge, bool isImportIgnoreLang);
+		
 	}
 }

@@ -1,14 +1,13 @@
 ﻿namespace Quoter.App.FormsControllers
 {
-	public interface IFormController<in IForm>
+	public interface IFormController<in TForm>
 	{
 		/// <summary>
 		/// Mandatory step before using other methods.
 		/// Due to DI we would have a circular dependency between the 
 		/// controller and the form, so we use this method to avoid this.
 		/// </summary>
-		void RegisterForm(IForm form);
-		// void RegisterForm<TOptions>(IForm form, TOptions? options = null) where TOptions : class; // specify options directly?
+		void RegisterForm(TForm form);
 
 		/// <summary>
 		/// Event that should fire when the form is loaded

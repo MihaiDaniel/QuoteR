@@ -29,128 +29,116 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogInputForm));
-			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.txtInput = new System.Windows.Forms.TextBox();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.btnOk = new System.Windows.Forms.Button();
-			this.txtMessage = new System.Windows.Forms.TextBox();
-			this.txtStatus = new System.Windows.Forms.TextBox();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.pnlTitle.SuspendLayout();
-			this.SuspendLayout();
+			pnlTitle = new Panel();
+			lblTitle = new Label();
+			txtInput = new TextBox();
+			btnCancel = new Button();
+			btnOk = new Button();
+			txtMessage = new TextBox();
+			panel1 = new Panel();
+			pnlTitle.SuspendLayout();
+			panel1.SuspendLayout();
+			SuspendLayout();
 			// 
 			// pnlTitle
 			// 
-			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlTitle.BackColor = System.Drawing.Color.SlateGray;
-			this.pnlTitle.Controls.Add(this.lblTitle);
-			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(341, 40);
-			this.pnlTitle.TabIndex = 3;
+			pnlTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			pnlTitle.BackColor = Color.SlateGray;
+			pnlTitle.Controls.Add(lblTitle);
+			pnlTitle.Location = new Point(0, 0);
+			pnlTitle.Name = "pnlTitle";
+			pnlTitle.Size = new Size(341, 30);
+			pnlTitle.TabIndex = 3;
 			// 
 			// lblTitle
 			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTitle.ForeColor = System.Drawing.Color.White;
-			this.lblTitle.Location = new System.Drawing.Point(12, 7);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(144, 26);
-			this.lblTitle.TabIndex = 2;
-			this.lblTitle.Text = "Manage quotes";
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTitle.ForeColor = Color.White;
+			lblTitle.Location = new Point(4, 3);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new Size(129, 23);
+			lblTitle.TabIndex = 2;
+			lblTitle.Text = "Manage quotes";
 			// 
 			// txtInput
 			// 
-			this.txtInput.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtInput.Location = new System.Drawing.Point(12, 84);
-			this.txtInput.Name = "txtInput";
-			this.txtInput.Size = new System.Drawing.Size(316, 27);
-			this.txtInput.TabIndex = 1;
-			this.txtInput.Text = "123456789012345678901234567890123456789\r\n";
-			this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
-			this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
+			txtInput.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtInput.Location = new Point(10, 43);
+			txtInput.Name = "txtInput";
+			txtInput.Size = new Size(316, 27);
+			txtInput.TabIndex = 1;
+			txtInput.Text = "123\r\n";
+			txtInput.TextChanged += txtInput_TextChanged;
+			txtInput.KeyDown += txtInput_KeyDown;
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnCancel.Location = new System.Drawing.Point(238, 131);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(90, 30);
-			this.btnCancel.TabIndex = 3;
-			this.btnCancel.Text = "Cancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			btnCancel.FlatAppearance.BorderColor = Color.DimGray;
+			btnCancel.FlatStyle = FlatStyle.Flat;
+			btnCancel.Location = new Point(238, 131);
+			btnCancel.Name = "btnCancel";
+			btnCancel.Size = new Size(90, 30);
+			btnCancel.TabIndex = 3;
+			btnCancel.Text = "Cancel";
+			btnCancel.UseVisualStyleBackColor = true;
+			btnCancel.Click += btnCancel_Click;
 			// 
 			// btnOk
 			// 
-			this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-			this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnOk.Location = new System.Drawing.Point(142, 131);
-			this.btnOk.Name = "btnOk";
-			this.btnOk.Size = new System.Drawing.Size(90, 30);
-			this.btnOk.TabIndex = 2;
-			this.btnOk.Text = "Ok";
-			this.btnOk.UseVisualStyleBackColor = true;
-			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+			btnOk.FlatAppearance.BorderColor = Color.DimGray;
+			btnOk.FlatStyle = FlatStyle.Flat;
+			btnOk.Location = new Point(142, 131);
+			btnOk.Name = "btnOk";
+			btnOk.Size = new Size(90, 30);
+			btnOk.TabIndex = 2;
+			btnOk.Text = "Ok";
+			btnOk.UseVisualStyleBackColor = true;
+			btnOk.Click += btnOk_Click;
 			// 
 			// txtMessage
 			// 
-			this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtMessage.Location = new System.Drawing.Point(12, 46);
-			this.txtMessage.Multiline = true;
-			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.Size = new System.Drawing.Size(316, 32);
-			this.txtMessage.TabIndex = 8;
-			this.txtMessage.Text = "Introduceti mai jos ceva nume ca sa stim ce facem mai departe";
-			// 
-			// txtStatus
-			// 
-			this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtStatus.ForeColor = System.Drawing.Color.Red;
-			this.txtStatus.Location = new System.Drawing.Point(14, 113);
-			this.txtStatus.Name = "txtStatus";
-			this.txtStatus.Size = new System.Drawing.Size(300, 16);
-			this.txtStatus.TabIndex = 9;
-			this.txtStatus.Text = "Valoare invalidă";
+			txtMessage.BorderStyle = BorderStyle.None;
+			txtMessage.Location = new Point(10, 5);
+			txtMessage.Multiline = true;
+			txtMessage.Name = "txtMessage";
+			txtMessage.Size = new Size(316, 32);
+			txtMessage.TabIndex = 8;
+			txtMessage.Text = "Introduceti mai jos ceva nume ca sa stim ce facem mai departe";
 			// 
 			// panel1
 			// 
-			this.panel1.BackColor = System.Drawing.Color.White;
-			this.panel1.Location = new System.Drawing.Point(2, 35);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(336, 133);
-			this.panel1.TabIndex = 10;
+			panel1.BackColor = Color.White;
+			panel1.Controls.Add(txtMessage);
+			panel1.Controls.Add(txtInput);
+			panel1.Location = new Point(2, 31);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(336, 137);
+			panel1.TabIndex = 10;
 			// 
 			// DialogInputForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.ClientSize = new System.Drawing.Size(340, 170);
-			this.ControlBox = false;
-			this.Controls.Add(this.txtStatus);
-			this.Controls.Add(this.txtMessage);
-			this.Controls.Add(this.btnOk);
-			this.Controls.Add(this.btnCancel);
-			this.Controls.Add(this.txtInput);
-			this.Controls.Add(this.pnlTitle);
-			this.Controls.Add(this.panel1);
-			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "DialogInputForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "DialogInputForm";
-			this.TopMost = true;
-			this.pnlTitle.ResumeLayout(false);
-			this.pnlTitle.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.WhiteSmoke;
+			ClientSize = new Size(340, 170);
+			ControlBox = false;
+			Controls.Add(btnOk);
+			Controls.Add(btnCancel);
+			Controls.Add(pnlTitle);
+			Controls.Add(panel1);
+			Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			FormBorderStyle = FormBorderStyle.None;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Name = "DialogInputForm";
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "DialogInputForm";
+			TopMost = true;
+			pnlTitle.ResumeLayout(false);
+			pnlTitle.PerformLayout();
+			panel1.ResumeLayout(false);
+			panel1.PerformLayout();
+			ResumeLayout(false);
 		}
 
 		#endregion
@@ -161,7 +149,6 @@
 		private Button btnCancel;
 		private Button btnOk;
 		private TextBox txtMessage;
-		private TextBox txtStatus;
 		private Panel panel1;
 	}
 }

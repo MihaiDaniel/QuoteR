@@ -29,112 +29,110 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogMessageForm));
-			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.lblTopBar = new System.Windows.Forms.Label();
-			this.btnOk = new System.Windows.Forms.Button();
-			this.txtMessage = new System.Windows.Forms.TextBox();
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnCancel = new System.Windows.Forms.Button();
-			this.pnlTitle.SuspendLayout();
-			this.panel1.SuspendLayout();
-			this.SuspendLayout();
+			pnlTitle = new Panel();
+			lblTopBar = new Label();
+			btnOk = new Button();
+			txtMessage = new TextBox();
+			panel1 = new Panel();
+			btnCancel = new Button();
+			pnlTitle.SuspendLayout();
+			panel1.SuspendLayout();
+			SuspendLayout();
 			// 
 			// pnlTitle
 			// 
-			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlTitle.BackColor = System.Drawing.Color.DarkOrange;
-			this.pnlTitle.Controls.Add(this.lblTopBar);
-			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(340, 40);
-			this.pnlTitle.TabIndex = 2;
+			pnlTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			pnlTitle.BackColor = Color.DarkOrange;
+			pnlTitle.Controls.Add(lblTopBar);
+			pnlTitle.Location = new Point(0, 0);
+			pnlTitle.Name = "pnlTitle";
+			pnlTitle.Size = new Size(340, 30);
+			pnlTitle.TabIndex = 2;
 			// 
 			// lblTopBar
 			// 
-			this.lblTopBar.AutoSize = true;
-			this.lblTopBar.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTopBar.ForeColor = System.Drawing.Color.White;
-			this.lblTopBar.Location = new System.Drawing.Point(12, 7);
-			this.lblTopBar.Name = "lblTopBar";
-			this.lblTopBar.Size = new System.Drawing.Size(144, 26);
-			this.lblTopBar.TabIndex = 5;
-			this.lblTopBar.Text = "Manage quotes";
+			lblTopBar.AutoSize = true;
+			lblTopBar.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTopBar.ForeColor = Color.White;
+			lblTopBar.Location = new Point(6, 4);
+			lblTopBar.Name = "lblTopBar";
+			lblTopBar.Size = new Size(129, 23);
+			lblTopBar.TabIndex = 5;
+			lblTopBar.Text = "Manage quotes";
 			// 
 			// btnOk
 			// 
-			this.btnOk.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-			this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnOk.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnOk.Location = new System.Drawing.Point(86, 92);
-			this.btnOk.Name = "btnOk";
-			this.btnOk.Size = new System.Drawing.Size(114, 31);
-			this.btnOk.TabIndex = 1;
-			this.btnOk.Text = "ok";
-			this.btnOk.UseVisualStyleBackColor = true;
-			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-			this.btnOk.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnOk_KeyDown);
+			btnOk.FlatAppearance.BorderColor = Color.DimGray;
+			btnOk.FlatStyle = FlatStyle.Flat;
+			btnOk.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			btnOk.Location = new Point(94, 101);
+			btnOk.Name = "btnOk";
+			btnOk.Size = new Size(114, 31);
+			btnOk.TabIndex = 1;
+			btnOk.Text = "ok";
+			btnOk.UseVisualStyleBackColor = true;
+			btnOk.Click += btnOk_Click;
+			btnOk.KeyDown += btnOk_KeyDown;
 			// 
 			// txtMessage
 			// 
-			this.txtMessage.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtMessage.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtMessage.Location = new System.Drawing.Point(12, 46);
-			this.txtMessage.Multiline = true;
-			this.txtMessage.Name = "txtMessage";
-			this.txtMessage.Size = new System.Drawing.Size(312, 75);
-			this.txtMessage.TabIndex = 4;
-			this.txtMessage.TabStop = false;
-			this.txtMessage.Text = "A aparut un mesaj de atentionare ca sa stii ca s-a intamplat ceva anume";
+			txtMessage.BackColor = Color.WhiteSmoke;
+			txtMessage.BorderStyle = BorderStyle.None;
+			txtMessage.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			txtMessage.Location = new Point(12, 46);
+			txtMessage.Multiline = true;
+			txtMessage.Name = "txtMessage";
+			txtMessage.Size = new Size(312, 75);
+			txtMessage.TabIndex = 4;
+			txtMessage.TabStop = false;
+			txtMessage.Text = "A aparut un mesaj de atentionare ca sa stii ca s-a intamplat ceva anume";
 			// 
 			// panel1
 			// 
-			this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.panel1.Controls.Add(this.btnOk);
-			this.panel1.Controls.Add(this.btnCancel);
-			this.panel1.Location = new System.Drawing.Point(4, 35);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(331, 131);
-			this.panel1.TabIndex = 5;
+			panel1.BackColor = Color.WhiteSmoke;
+			panel1.Controls.Add(btnOk);
+			panel1.Controls.Add(btnCancel);
+			panel1.Location = new Point(4, 31);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(331, 135);
+			panel1.TabIndex = 5;
 			// 
 			// btnCancel
 			// 
-			this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
-			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnCancel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.btnCancel.Location = new System.Drawing.Point(206, 92);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(114, 31);
-			this.btnCancel.TabIndex = 2;
-			this.btnCancel.Text = "cancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-			this.btnCancel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnCancel_KeyDown);
+			btnCancel.FlatAppearance.BorderColor = Color.DimGray;
+			btnCancel.FlatStyle = FlatStyle.Flat;
+			btnCancel.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			btnCancel.Location = new Point(214, 101);
+			btnCancel.Name = "btnCancel";
+			btnCancel.Size = new Size(114, 31);
+			btnCancel.TabIndex = 2;
+			btnCancel.Text = "cancel";
+			btnCancel.UseVisualStyleBackColor = true;
+			btnCancel.Click += btnCancel_Click;
+			btnCancel.KeyDown += btnCancel_KeyDown;
 			// 
 			// DialogMessageForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.ClientSize = new System.Drawing.Size(340, 170);
-			this.ControlBox = false;
-			this.Controls.Add(this.pnlTitle);
-			this.Controls.Add(this.txtMessage);
-			this.Controls.Add(this.panel1);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "DialogMessageForm";
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "DialogForm";
-			this.TopMost = true;
-			this.pnlTitle.ResumeLayout(false);
-			this.pnlTitle.PerformLayout();
-			this.panel1.ResumeLayout(false);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.WhiteSmoke;
+			ClientSize = new Size(340, 170);
+			ControlBox = false;
+			Controls.Add(pnlTitle);
+			Controls.Add(txtMessage);
+			Controls.Add(panel1);
+			FormBorderStyle = FormBorderStyle.None;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Name = "DialogMessageForm";
+			SizeGripStyle = SizeGripStyle.Hide;
+			StartPosition = FormStartPosition.CenterParent;
+			Text = "DialogForm";
+			TopMost = true;
+			pnlTitle.ResumeLayout(false);
+			pnlTitle.PerformLayout();
+			panel1.ResumeLayout(false);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

@@ -13,6 +13,8 @@ namespace Quoter.App.Models
 
 		public string Value { get; set; }
 
+		public int ValueMaxLength { get; set; } = 50;
+
 		public EnumDialogButtons MessageBoxButtons { get; set; } = EnumDialogButtons.Ok;
 	}
 }

@@ -40,5 +40,60 @@ namespace Quoter.App.Helpers.Extensions
 				action();
 			}
 		}
+
+		/// <summary>
+		/// Create a label below the control with red text. If the label does not exist it's created.
+		/// If the label exists but error is empty it's hidden.
+		/// </summary>
+		/// <param name="control">The control for which the label message is created</param>
+		/// <param name="error">The error message</param>
+		public static void SetValidationError(this Control control, string error)
+		{
+			Label validationLabel = GetControlValidationLabel(control);
+			SetValidationLabelError(validationLabel, error);
+		}
+
+		private static Label GetControlValidationLabel(Control control)
+		{
+			string validationLabelName = $"{control.Name}ValidationLabelMessage";
+			Control[] arrExistingValidationControls = control.Parent.Controls.Find(validationLabelName, true);
+			foreach (Control existingValidationControl in arrExistingValidationControls)
+			{
+				if (existingValidationControl.Name == validationLabelName && existingValidationControl is Label)
+				{
+					return existingValidationControl as Label;
+				}
+			}
+			return CreateValidationLabelError(control, validationLabelName);
+		}
+
+		private static Label CreateValidationLabelError(Control control,string name)
+		{
+			Label label = new Label();
+			label.Name = name;
+			label.Visible = true;
+			label.Font = new Font(label.Font.FontFamily, 9, FontStyle.Regular);
+			label.ForeColor = Color.Red;
+			label.Location = new Point(control.Location.X, control.Location.Y + control.Size.Height + 1);
+			label.Size = new Size(control.Size.Width, 20);
+			control.Parent.Controls.Add(label);
+			return label;
+		}
+
+		private static void SetValidationLabelError(Label label, string error)
+		{
+			if (string.IsNullOrWhiteSpace(error))
+			{
+				label.Visible = false;
+			}
+			else
+			{
+				if (!label.Visible)
+				{
+					label.Visible = true;
+				}
+				label.Text = error;
+			}
+		}
 	}
 }

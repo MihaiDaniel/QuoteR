@@ -304,7 +304,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					SelectedCollection = newCollection;
 					await LoadCollectionBooksOrQuotes();
 
-					_form.SetStatus(_stringResources["CollectionCreated", newCollection.Name], Const.ColorOk);
+					await _form.SetStatus(_stringResources["CollectionCreated", newCollection.Name], Const.ColorOk);
 				}
 			}
 		}
@@ -423,7 +423,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				await LoadBookChaptersOrQuotes();
 
 				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
-				_form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
+				await _form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
 			}
 		}
 
@@ -564,7 +564,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					SelectedChapter = newChapter;
 					await LoadQuotes();
 
-					_form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
+					await _form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
 					_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
 				}
 			}
@@ -723,7 +723,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				await _context.SaveChangesAsync();
 				await LoadQuotes();
 
-				_form.SetStatus(_stringResources["QuotesSaved"], Const.ColorOk);
+				await _form.SetStatus(_stringResources["QuotesSaved"], Const.ColorOk);
 			}
 		}
 

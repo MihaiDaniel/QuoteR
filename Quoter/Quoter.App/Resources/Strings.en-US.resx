@@ -525,4 +525,16 @@
   <data name="OptionReplaceChars" xml:space="preserve">
     <value>Replace with:</value>
   </data>
+  <data name="WarnReaderNoCollection" xml:space="preserve">
+    <value>Collection does not exist</value>
+  </data>
+  <data name="WarnReaderNoCollectionMsg" xml:space="preserve">
+    <value>The collection you selected to read does not exist.</value>
+  </data>
+  <data name="NoCollection" xml:space="preserve">
+    <value>No collection chosen</value>
+  </data>
+  <data name="PleaseSelectACollection" xml:space="preserve">
+    <value>Please select a collection first</value>
+  </data>
 </root>

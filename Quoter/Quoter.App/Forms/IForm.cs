@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Quoter.App.Helpers;
 
 namespace Quoter.App.Forms
 {
+	/// <summary>
+	/// Contains base form methods for updating UI
+	/// </summary>
 	public interface IForm
 	{
-		void SetTheme();
-		void SetStatus(string message, Color color);
+		/// <summary>
+		/// Set the theme on the form
+		/// </summary>
+		void SetTheme(Theme theme);
+
 	}
 }

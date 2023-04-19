@@ -1,4 +1,6 @@
-﻿using Quoter.App.Helpers;
+﻿using Quoter.App.Controls;
+using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
@@ -9,12 +11,13 @@ namespace Quoter.App.Forms
 {
 	public partial class DialogInputForm : Form, IDialogReturnable
 	{
-		private const int MaxLength = 50;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
 		private readonly Regex _regexInput;
 
 		public string StringResult { get; private set; }
+
+		private int MaxLength;
 
 		public DialogInputForm(IFormsManager formsManager,
 							   IFormPositioningService formPositioningService,
@@ -23,6 +26,7 @@ namespace Quoter.App.Forms
 							   DialogMessageFormOptions dialogModel)
 		{
 			InitializeComponent();
+			DropShadow.ApplyShadows(this);
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 
 			_formsManager = formsManager;
@@ -35,11 +39,13 @@ namespace Quoter.App.Forms
 			pnlTitle.BackColor = dialogModel.TitleColor != Const.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTitle.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
+			MaxLength = dialogModel.ValueMaxLength;
+			txtInput.Text = dialogModel.Value;
+
 			btnCancel.Text = _stringResources["Cancel"];
 			btnOk.Text = _stringResources["OK"];
-			txtInput.Text = dialogModel.Value;
-			txtStatus.Text = string.Empty;
 			this.Text = _stringResources["Quoter"];
+
 			StringResult = string.Empty;
 			DialogResult = DialogResult.None;
 		}
@@ -63,7 +69,7 @@ namespace Quoter.App.Forms
 		{
 			if (string.IsNullOrWhiteSpace(txtInput.Text))
 			{
-				SetStatus(_stringResources["ErrPleaseInputValue"], Color.Red);
+				txtInput.SetValidationError(_stringResources["ErrPleaseInputValue"]);
 			}
 			else
 			{
@@ -84,25 +90,21 @@ namespace Quoter.App.Forms
 			if (txtInput.Text.Length > MaxLength)
 			{
 				txtInput.Text = txtInput.Text.Substring(0, MaxLength);
-				SetStatus(_stringResources["ErrTextTooLong"], Color.Red);
+				txtInput.SetValidationError(_stringResources["ErrTextTooLong"]);
+				txtInput.SelectionStart = txtInput.Text.Length;
+				txtInput.SelectionLength = 0;
 			}
 			else if (txtInput.Text.Length > 0 && !_regexInput.IsMatch(txtInput.Text))
 			{
 				txtInput.Text = txtInput.Text.Substring(0, txtInput.Text.Length - 1);
-				SetStatus(_stringResources["ErrTextInvalidChars"], Color.Red);
+				txtInput.SetValidationError(_stringResources["ErrTextInvalidChars"]);
 				txtInput.SelectionStart = txtInput.Text.Length;
 				txtInput.SelectionLength = 0;
 			}
 			else
 			{
-				SetStatus(string.Empty, Color.Red);
+				txtInput.SetValidationError(string.Empty);
 			}
-		}
-
-		private void SetStatus(string message, Color color)
-		{
-			txtStatus.Text = message;
-			txtStatus.ForeColor = color;
 		}
 
 		private void txtInput_KeyDown(object sender, KeyEventArgs e)

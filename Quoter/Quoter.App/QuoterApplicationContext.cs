@@ -14,6 +14,9 @@ using System.Media;
 
 namespace Quoter.App
 {
+	/// <summary>
+	/// Main application running context
+	/// </summary>
 	public class QuoterApplicationContext : ApplicationContext, IMessagingSubscriber
 	{
 		private readonly NotifyIcon _trayIcon;
@@ -249,7 +252,6 @@ namespace Quoter.App
 					autoCloseSec = _settings.AutoCloseNotificationSeconds;
 				}
 				_formsManager.ShowDialog<QuoteForm>(autoCloseSec);
-				//_formsManager.ShowDialog<QuoteForm>(5); // UNDO This
 			}
 			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 			{

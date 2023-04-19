@@ -30,6 +30,8 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageForm));
 			pnlTitle = new Panel();
+			pictureBox1 = new PictureBox();
+			btnMinimize = new Button();
 			lblTitle = new Label();
 			btnClose = new Button();
 			tabControl = new TabControl();
@@ -87,6 +89,7 @@
 			btnExportCollection = new Button();
 			tableLayoutPanelFavourites = new TableLayoutPanel();
 			panel6 = new Panel();
+			btnReadCollection = new Button();
 			btnRefreshFavouriteCollections = new Button();
 			lblFavouriteCollections = new Label();
 			clbCollections = new CheckedListBox();
@@ -154,9 +157,9 @@
 			pbBackgroundTask = new PictureBox();
 			lblBackgroundTask = new Label();
 			tableLayoutPanel3 = new TableLayoutPanel();
-			pictureBox1 = new PictureBox();
 			panel9 = new Panel();
 			pnlTitle.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			tabControl.SuspendLayout();
 			tabPage1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
@@ -188,7 +191,6 @@
 			gbLanguageSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			panel9.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -196,6 +198,8 @@
 			// 
 			pnlTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			pnlTitle.BackColor = Color.SteelBlue;
+			pnlTitle.Controls.Add(pictureBox1);
+			pnlTitle.Controls.Add(btnMinimize);
 			pnlTitle.Controls.Add(lblTitle);
 			pnlTitle.Controls.Add(btnClose);
 			pnlTitle.Location = new Point(0, 0);
@@ -203,14 +207,45 @@
 			pnlTitle.Size = new Size(800, 30);
 			pnlTitle.TabIndex = 1;
 			// 
+			// pictureBox1
+			// 
+			pictureBox1.BackColor = Color.Transparent;
+			pictureBox1.BackgroundImage = Resources.Resources.book_96;
+			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+			pictureBox1.Location = new Point(5, 5);
+			pictureBox1.Name = "pictureBox1";
+			pictureBox1.Size = new Size(25, 20);
+			pictureBox1.TabIndex = 5;
+			pictureBox1.TabStop = false;
+			// 
+			// btnMinimize
+			// 
+			btnMinimize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnMinimize.BackColor = Color.Transparent;
+			btnMinimize.BackgroundImageLayout = ImageLayout.Zoom;
+			btnMinimize.FlatAppearance.BorderColor = Color.Silver;
+			btnMinimize.FlatAppearance.BorderSize = 0;
+			btnMinimize.FlatAppearance.MouseDownBackColor = Color.FromArgb(210, 210, 210);
+			btnMinimize.FlatAppearance.MouseOverBackColor = SystemColors.ButtonFace;
+			btnMinimize.FlatStyle = FlatStyle.Flat;
+			btnMinimize.Font = new Font("Lucida Console", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			btnMinimize.ForeColor = Color.White;
+			btnMinimize.Location = new Point(717, -9);
+			btnMinimize.Name = "btnMinimize";
+			btnMinimize.Size = new Size(40, 40);
+			btnMinimize.TabIndex = 3;
+			btnMinimize.Text = "_";
+			btnMinimize.UseVisualStyleBackColor = false;
+			btnMinimize.Click += btnMinimize_Click;
+			// 
 			// lblTitle
 			// 
 			lblTitle.AutoSize = true;
-			lblTitle.Font = new Font("Calibri Light", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTitle.Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
 			lblTitle.ForeColor = Color.White;
-			lblTitle.Location = new Point(12, 2);
+			lblTitle.Location = new Point(32, 6);
 			lblTitle.Name = "lblTitle";
-			lblTitle.Size = new Size(144, 26);
+			lblTitle.Size = new Size(110, 19);
 			lblTitle.TabIndex = 2;
 			lblTitle.Text = "Manage quotes";
 			// 
@@ -224,13 +259,13 @@
 			btnClose.FlatAppearance.MouseDownBackColor = Color.FromArgb(225, 40, 40);
 			btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(225, 80, 80);
 			btnClose.FlatStyle = FlatStyle.Flat;
-			btnClose.Font = new Font("Lucida Console", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			btnClose.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
 			btnClose.ForeColor = Color.White;
-			btnClose.Location = new Point(754, 0);
+			btnClose.Location = new Point(760, 0);
 			btnClose.Name = "btnClose";
-			btnClose.Size = new Size(46, 30);
+			btnClose.Size = new Size(40, 30);
 			btnClose.TabIndex = 1;
-			btnClose.Text = "X";
+			btnClose.Text = "✕";
 			btnClose.UseVisualStyleBackColor = false;
 			btnClose.Click += btnClose_Click;
 			// 
@@ -942,6 +977,7 @@
 			// panel6
 			// 
 			panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			panel6.Controls.Add(btnReadCollection);
 			panel6.Controls.Add(btnRefreshFavouriteCollections);
 			panel6.Controls.Add(lblFavouriteCollections);
 			panel6.Controls.Add(clbCollections);
@@ -949,6 +985,21 @@
 			panel6.Name = "panel6";
 			panel6.Size = new Size(255, 268);
 			panel6.TabIndex = 0;
+			// 
+			// btnReadCollection
+			// 
+			btnReadCollection.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnReadCollection.BackgroundImage = Resources.Resources.book_open_64;
+			btnReadCollection.BackgroundImageLayout = ImageLayout.Zoom;
+			btnReadCollection.FlatAppearance.BorderColor = Color.Gray;
+			btnReadCollection.FlatStyle = FlatStyle.Flat;
+			btnReadCollection.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnReadCollection.Location = new Point(4, 3);
+			btnReadCollection.Name = "btnReadCollection";
+			btnReadCollection.Size = new Size(24, 24);
+			btnReadCollection.TabIndex = 15;
+			btnReadCollection.UseVisualStyleBackColor = true;
+			btnReadCollection.Click += btnReadCollection_Click;
 			// 
 			// btnRefreshFavouriteCollections
 			// 
@@ -1739,7 +1790,7 @@
 			// 
 			pnlSelectedTab.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			pnlSelectedTab.BackColor = Color.SlateGray;
-			pnlSelectedTab.Location = new Point(534, 68);
+			pnlSelectedTab.Location = new Point(534, 61);
 			pnlSelectedTab.Name = "pnlSelectedTab";
 			pnlSelectedTab.Size = new Size(71, 2);
 			pnlSelectedTab.TabIndex = 16;
@@ -1785,18 +1836,6 @@
 			tableLayoutPanel3.Size = new Size(799, 33);
 			tableLayoutPanel3.TabIndex = 19;
 			// 
-			// pictureBox1
-			// 
-			pictureBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			pictureBox1.Cursor = Cursors.SizeNWSE;
-			pictureBox1.Enabled = false;
-			pictureBox1.Image = Resources.Resources.resize_12;
-			pictureBox1.Location = new Point(787, 511);
-			pictureBox1.Name = "pictureBox1";
-			pictureBox1.Size = new Size(12, 12);
-			pictureBox1.TabIndex = 20;
-			pictureBox1.TabStop = false;
-			// 
 			// panel9
 			// 
 			panel9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -1815,7 +1854,6 @@
 			ClientSize = new Size(800, 524);
 			ControlBox = false;
 			Controls.Add(panel9);
-			Controls.Add(pictureBox1);
 			Controls.Add(pnlSelectedTab);
 			Controls.Add(tableLayoutPanel3);
 			Controls.Add(lblBackgroundTask);
@@ -1839,6 +1877,7 @@
 			KeyDown += ManageForm_KeyDown;
 			pnlTitle.ResumeLayout(false);
 			pnlTitle.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			tabControl.ResumeLayout(false);
 			tabPage1.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
@@ -1876,7 +1915,6 @@
 			gbLanguageSettings.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			panel9.ResumeLayout(false);
 			panel9.PerformLayout();
 			ResumeLayout(false);
@@ -2006,11 +2044,13 @@
 		private Panel panel4;
 		private Panel panel5;
 		private TableLayoutPanel tableLayoutPanel3;
-		private PictureBox pictureBox1;
 		private TableLayoutPanel tableLayoutPanelFavourites;
 		private Panel panel6;
 		private Panel panel7;
 		private Panel panel8;
 		private Panel panel9;
+		private Button btnMinimize;
+		private Button btnReadCollection;
+		private PictureBox pictureBox1;
 	}
 }

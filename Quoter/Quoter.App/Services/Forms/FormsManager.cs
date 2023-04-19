@@ -35,7 +35,6 @@ namespace Quoter.App.Services.Forms
 		public void ShowAndCloseOthers<TForm>(params object[] arrParameters) where TForm : Form
 		{
 			_logger.Debug(typeof(TForm).ToString());
-
 			try
 			{
 				Type formType = typeof(TForm);
@@ -43,21 +42,23 @@ namespace Quoter.App.Services.Forms
 
 				if (formState is null)
 				{
-					// Close current opened non-modal form if any
 					FormStateModel? currentForm = _lstOpenedForms.FirstOrDefault(f => !f.IsModal);
+
+					// Open the new form
+					Form newForm = _diContainer.GetService<TForm>(arrParameters);
+					_lstOpenedForms.Add(new FormStateModel(formType, newForm, isModal: false));
+					newForm.FormClosing += EventFormClosing;
+					newForm.Show();
+
+					// Close previous opened non-modal form if any
 					if (currentForm is not null)
 					{
 						Close(currentForm.Form);
 					}
-
-					// Open the new form
-					Form form = _diContainer.GetService<TForm>(arrParameters);
-					_lstOpenedForms.Add(new FormStateModel(formType, form, isModal: false));
-					form.Show();
 				}
 				else
 				{
-					formState.Form.TopMost = true;
+					formState.Form.InvokeIfRequired(() => formState.Form.TopMost = true);
 				}
 				FormsManagerOptions options = new FormsManagerOptions()
 				{
@@ -80,6 +81,7 @@ namespace Quoter.App.Services.Forms
 			{
 				Form form = _diContainer.GetService<TForm>(arrParameters);
 				_lstOpenedForms.Add(new FormStateModel(typeof(TForm), form, true));
+				form.FormClosing += EventFormClosing;
 				form.ShowDialog();
 
 				IDialogReturnable dialogReturnable = form as IDialogReturnable;
@@ -101,7 +103,6 @@ namespace Quoter.App.Services.Forms
 		public void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
 		{
 			_logger.Debug($"{typeof(TForm)}, autoClose: {autoCloseSeconds}");
-
 			try
 			{
 				Form form = _diContainer.GetService<TForm>(arrParameters);
@@ -111,6 +112,7 @@ namespace Quoter.App.Services.Forms
 				{
 					_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
 				}
+				form.FormClosing += EventFormClosing;
 				form.ShowDialog();
 
 				if (!form.IsDisposed)
@@ -135,9 +137,11 @@ namespace Quoter.App.Services.Forms
 				{
 					form.InvokeIfRequired(() =>
 					{
-						form.Close();
+						if (!form.IsDisposed)
+						{
+							form.Close();
+						}
 					});
-					_lstOpenedForms.Remove(formState);
 				}
 				else
 				{
@@ -155,6 +159,26 @@ namespace Quoter.App.Services.Forms
 		public bool IsOpen<TForm>() where TForm : Form
 		{
 			return _lstOpenedForms.Any(f => f.Type == typeof(TForm));
+		}
+
+		/// <summary>
+		/// Event handler that should be registered to the Form's close event, so we can remove
+		/// it from the opened forms list
+		/// </summary>
+		private void EventFormClosing(object? sender, FormClosingEventArgs e)
+		{
+			if (sender is Form)
+			{
+				FormStateModel? formState = _lstOpenedForms.FirstOrDefault(f => f.Form == sender);
+				if (formState != null)
+				{
+					_lstOpenedForms.Remove(formState);
+				}
+			}
+			if(sender is IMonitoredForm)
+			{
+				_lifecycleService.EventFormClosing(sender as IMonitoredForm);
+			}
 		}
 
 	}
