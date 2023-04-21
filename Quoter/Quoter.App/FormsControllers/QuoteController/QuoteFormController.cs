@@ -163,6 +163,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 				ChapterId = _currentQuote.ChapterId,
 				QuoteId = _currentQuote.QuoteId,
 			};
+			await Task.Delay(1); // Try to release callstack see if this helps with ReaderForm hanging
 			_formsManager.ShowAndCloseOthers<ReaderForm>(options);
 		}
 

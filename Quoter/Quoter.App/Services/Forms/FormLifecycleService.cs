@@ -47,7 +47,7 @@ namespace Quoter.App.Services.Forms
 
 		public void EventFormClosing(IMonitoredForm form)
 		{
-			_logger.Debug($"Form is closing");
+			_logger.Debug($"{form.GetType()}");
 
 			MonitoredForm? monitoredForm = _monitoredForms.FirstOrDefault(m => m.Form == form);
 			if (monitoredForm != null)

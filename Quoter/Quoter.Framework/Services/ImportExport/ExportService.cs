@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
+using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using System.Reflection;
@@ -43,7 +44,7 @@ namespace Quoter.Framework.Services.ImportExport
 		}
 
 		/// <inheritdoc/>
-		public void QueueExportJob(bool isExportOnlyFavourites, string filePath)
+		public void QueueExportJob(ExportParameters exportParameters)
 		{
 			Task.Run(async () =>
 			{
@@ -51,11 +52,11 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					await Task.Delay(1000);
 				}
-				await BeginExport(isExportOnlyFavourites, filePath);
+				await BeginExport(exportParameters);
 			}).ConfigureAwait(false);
 		}
 
-		private async Task BeginExport(bool isExportOnlyFavourites, string filePath)
+		private async Task BeginExport(ExportParameters exportParameters)
 		{
 			PostedAnnouncement announcement = _messagingService.PostAnnouncement<string>(Event.ExportInProgress, "");
 			try
@@ -68,9 +69,13 @@ namespace Quoter.Framework.Services.ImportExport
 							.ThenInclude(c => c.LstChapters)
 								.ThenInclude(c => c.LstQuotes)
 						.AsQueryable();
-				if (isExportOnlyFavourites)
+				if (exportParameters.IsExportOnlyFavouriteCollections)
 				{
 					queryCollections = queryCollections.Where(c => c.IsFavourite == true);
+				}
+				if(exportParameters.Language != null)
+				{
+					queryCollections = queryCollections.Where(c => c.Language == exportParameters.Language);
 				}
 
 				// Execute & get export models
@@ -79,10 +84,10 @@ namespace Quoter.Framework.Services.ImportExport
 
 				// Serialize & write
 				string content = JsonSerializer.Serialize(exportModel);
-				await File.WriteAllTextAsync(filePath, content);
+				await File.WriteAllTextAsync(exportParameters.ExportFilePath, content);
 
 				announcement.Remove();
-				_messagingService.SendMessage(Event.ExportSucessfull, filePath);
+				_messagingService.SendMessage(Event.ExportSucessfull, exportParameters.ExportFilePath);
 			}
 			catch (Exception ex)
 			{

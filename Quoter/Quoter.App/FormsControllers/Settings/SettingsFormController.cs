@@ -13,6 +13,9 @@ using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Settings
 {
+	/// <summary>
+	/// Controller for the Settings Tab of the <see cref="ManageForm"/>
+	/// </summary>
 	public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
 	{
 		private readonly ISettings _settings;

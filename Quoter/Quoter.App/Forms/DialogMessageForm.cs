@@ -93,5 +93,10 @@ namespace Quoter.App.Forms
 				btnCancel_Click(sender, e);
 			}
 		}
+
+		private void DialogMessageForm_Load(object sender, EventArgs e)
+		{
+			System.Media.SystemSounds.Asterisk.Play();
+		}
 	}
 }

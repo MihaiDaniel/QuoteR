@@ -21,7 +21,6 @@ namespace Quoter.App.Forms
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IStringResources _stringResources;
 		private readonly IReaderFormController _controller;
-		//private readonly IThemeService _themeService;
 		private readonly ILogger _logger;
 		private readonly ReaderFormOptions _options;
 
@@ -30,7 +29,6 @@ namespace Quoter.App.Forms
 							IFormAnimationService formAnimationService,
 							IStringResources stringResources,
 							IReaderFormController readerFormController,
-							//IThemeService themeService,
 							ILogger logger,
 							ReaderFormOptions options)
 		{
@@ -42,7 +40,6 @@ namespace Quoter.App.Forms
 			_formAnimationService = formAnimationService;
 			_stringResources = stringResources;
 			_controller = readerFormController;
-			//_themeService = themeService;
 			_logger = logger;
 			_options = options;
 
@@ -52,14 +49,13 @@ namespace Quoter.App.Forms
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 			formPositioningService.RegisterFormDragableByControl(this, lblTitle);
 
-			tvCollection.Nodes.Clear(); // Clear any nodes created in the Designer
 			LocalizeControls();
 
 			// Clear values used for testing UI
 			rtbQuotes.Text = string.Empty;
 			lblLocationInCollection.Text = string.Empty;
 			lblTitle.Text = string.Empty;
-			tvCollection.Nodes.Clear();
+			tvCollection.Nodes.Clear(); 
 		}
 
 		private void LocalizeControls()

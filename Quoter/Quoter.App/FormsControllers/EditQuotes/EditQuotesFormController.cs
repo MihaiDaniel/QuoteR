@@ -17,6 +17,9 @@ using System.Xml.Linq;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
+	/// <summary>
+	/// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
+	/// </summary>
 	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;

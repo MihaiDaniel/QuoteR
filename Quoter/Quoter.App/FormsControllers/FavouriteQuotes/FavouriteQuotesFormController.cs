@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
 using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
@@ -10,11 +11,12 @@ using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services.ImportExport;
 using System.ComponentModel;
-using System.Text.Json;
-using System.Windows.Forms;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
+	/// <summary>
+	/// Controller for the Favourite Tab of the <see cref="ManageForm"/>
+	/// </summary>
 	public class FavouriteQuotesFormController : IFavouriteQuotesFormController
 	{
 		/// <summary>
@@ -334,16 +336,10 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 			if (isExportOnlyFavourites)
 			{
+				// Show error message if no favourite collection is set
 				if (!Collections.Any(c => c.IsFavourite == true))
 				{
-					DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
-					{
-						Title = _stringResources["ErrCantExport"],
-						TitleColor = Const.ColorError,
-						Message = _stringResources["ErrCantExportMsg"],
-						MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
-					};
-					_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+					_formsManager.ShowDialogErr(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsg"]);
 					return;
 				}
 			}
@@ -357,27 +353,29 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			string dirPath = Path.GetDirectoryName(fileName);
 			if (!Directory.Exists(dirPath) || string.IsNullOrWhiteSpace(Path.GetFileName(fileName)))
 			{
-				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
-				{
-					Title = _stringResources["ErrCantExport"],
-					TitleColor = Const.ColorError,
-					Message = _stringResources["ErrCantExportMsgBadFileName"],
-					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
-				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+				// Show error if path is invalid
+				_formsManager.ShowDialogErr(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsgBadFileName"]);
 			}
 			else
 			{
-				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+				_formsManager.ShowDialogOk(_stringResources["Exporting"], _stringResources["ExportingInBackground"]);
+				ExportParameters exportParameters = new ExportParameters()
 				{
-					Title = _stringResources["Exporting"],
-					Message = _stringResources["ExportingInBackground"],
-					MessageBoxButtons = EnumDialogButtons.Ok
+					IsExportOnlyFavouriteCollections = isExportOnlyFavourites,
+					ExportFilePath = fileName,
+					Language = TryGetExportLanguage()
 				};
-				_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
-				_exportService.QueueExportJob(isExportOnlyFavourites, fileName);
+				_exportService.QueueExportJob(exportParameters);
 			}
+		}
 
+		private EnumLanguage? TryGetExportLanguage()
+		{
+			if (_settings.ShowCollectionsBasedOnLanguage)
+			{
+				return LanguageHelper.GetEnumLanguageFromString(_settings.Language);
+			}
+			return null;
 		}
 
 		public void Import(bool isImportMerge, bool isImportIgnoreLang)
@@ -396,24 +394,11 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				if (string.IsNullOrWhiteSpace(fileName) || Path.GetExtension(fileName) != ".qter")
 				{
-					DialogMessageFormOptions dialogError = new DialogMessageFormOptions()
-					{
-						Title = _stringResources["ErrCantImport"],
-						TitleColor = Const.ColorError,
-						Message = _stringResources["ErrCantImportMsgBadFileName"],
-						MessageBoxButtons = EnumDialogButtons.Ok
-					};
-					_formsManager.ShowDialog<DialogMessageForm>(dialogError);
+					_formsManager.ShowDialogErr(_stringResources["ErrCantImport"], _stringResources["ErrCantImportMsgBadFileName"]);
 					return;
 				}
 			}
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
-			{
-				Title = _stringResources["Importing"],
-				Message =  _stringResources["ImportingInBackground"],
-				MessageBoxButtons = EnumDialogButtons.Ok
-			};
-			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+			_formsManager.ShowDialogOk(_stringResources["Importing"], _stringResources["ImportingInBackground"]);
 
 			ImportParameters importParameters = new ImportParameters()
 			{

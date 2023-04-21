@@ -128,6 +128,7 @@
 			StartPosition = FormStartPosition.CenterParent;
 			Text = "DialogForm";
 			TopMost = true;
+			Load += DialogMessageForm_Load;
 			pnlTitle.ResumeLayout(false);
 			pnlTitle.PerformLayout();
 			panel1.ResumeLayout(false);

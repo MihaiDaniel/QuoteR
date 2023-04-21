@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Quoter.App.Forms;
+using Quoter.App.Models;
+using Quoter.App.Services.Forms;
+using Quoter.Framework.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -94,6 +98,29 @@ namespace Quoter.App.Helpers.Extensions
 				}
 				label.Text = error;
 			}
+		}
+
+		public static void ShowDialogOk(this IFormsManager formsManager, string title, string message)
+		{
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			{
+				Title = title,
+				Message = message,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+		}
+
+		public static void ShowDialogErr(this IFormsManager formsManager, string title, string message)
+		{
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			{
+				Title = title,
+				TitleColor = Const.ColorError,
+				Message = message,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 		}
 	}
 }

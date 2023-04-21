@@ -106,7 +106,7 @@ namespace Quoter.App
 
 		private static string GetContextConnectionString()
 		{
-			string? connectionString = Properties.Settings.Default[Const.Setting.ConnectionString] as string;
+			string? connectionString = Properties.Settings.Default["ConnectionString"] as string;
 			if (string.IsNullOrEmpty(connectionString))
 			{
 				string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -116,7 +116,7 @@ namespace Quoter.App
 					Directory.CreateDirectory(dbFolderPath);
 				}
 				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.db");
-				Properties.Settings.Default[Const.Setting.ConnectionString] = connectionString;
+				Properties.Settings.Default["ConnectionString"] = connectionString;
 				Properties.Settings.Default.Save();
 			}
 			return connectionString;
