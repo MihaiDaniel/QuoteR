@@ -29,21 +29,28 @@ namespace Quoter.App
 		[STAThread]
 		static void Main()
 		{
-			// To customize application configuration such as set high DPI settings or default font,
-			// see https://aka.ms/applicationconfiguration.
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
-			ApplicationConfiguration.Initialize();
+			try
+			{
+				// To customize application configuration such as set high DPI settings or default font,
+				// see https://aka.ms/applicationconfiguration.
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
+				ApplicationConfiguration.Initialize();
 
-			DependencyInjectionContainer diContainer = SetupDependencyInjection();
+				DependencyInjectionContainer diContainer = SetupDependencyInjection();
 
-			// Apply migrations
-			QuoterContext context = diContainer.GetService<QuoterContext>();
-			context.Database.Migrate();
+				// Apply migrations
+				QuoterContext context = diContainer.GetService<QuoterContext>();
+				context.Database.Migrate();
 
-			QuoterApplicationContext appContext = diContainer.GetService<QuoterApplicationContext>();
-			Application.Run(appContext);
+				QuoterApplicationContext appContext = diContainer.GetService<QuoterApplicationContext>();
+				Application.Run(appContext);
+			}
+			catch(Exception ex)
+			{
+				File.WriteAllText("Log.txt", ex.ToString());
+			}
 		}
 
 		static DependencyInjectionContainer SetupDependencyInjection()
@@ -102,8 +109,13 @@ namespace Quoter.App
 			string? connectionString = Properties.Settings.Default[Const.Setting.ConnectionString] as string;
 			if (string.IsNullOrEmpty(connectionString))
 			{
-				string dbFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-				connectionString = "Data Source=" + Path.Combine(dbFolderPath,"Quoter.App", "quoter.db");
+				string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				string dbFolderPath = Path.Combine(specialFolderPath, "Quoter");
+				if (!Directory.Exists(dbFolderPath))
+				{
+					Directory.CreateDirectory(dbFolderPath);
+				}
+				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.db");
 				Properties.Settings.Default[Const.Setting.ConnectionString] = connectionString;
 				Properties.Settings.Default.Save();
 			}
