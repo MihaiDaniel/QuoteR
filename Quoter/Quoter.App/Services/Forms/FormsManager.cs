@@ -9,6 +9,7 @@ using Quoter.Framework.Services.Messaging;
 namespace Quoter.App.Services.Forms
 {
 	/// <summary>
+	/// Handles opening and closing of forms. All forms should be opened using this class.
 	/// Default implementation of <see cref="IFormsManager"/>
 	/// </summary>
 	public class FormsManager : IFormsManager
@@ -60,12 +61,12 @@ namespace Quoter.App.Services.Forms
 				{
 					formState.Form.InvokeIfRequired(() => formState.Form.TopMost = true);
 				}
-				FormsManagerOptions options = new FormsManagerOptions()
+				OpeningFormArgs openingFormArgs = new OpeningFormArgs()
 				{
 					Type= formType,
 					Parameters = arrParameters
 				};
-				_messagingService.SendMessage(Event.OpeningForm, options);
+				_messagingService.SendMessage(Event.OpeningForm, openingFormArgs);
 			}
 			catch(Exception ex)
 			{
@@ -152,7 +153,6 @@ namespace Quoter.App.Services.Forms
 			{
 				_logger.Error(ex);
 			}
-			
 		}
 
 		/// <inheritdoc/>

@@ -85,8 +85,9 @@ namespace Quoter.App.FormsControllers.QuoteController
 				}
 				_form.Close();
 				_messagingService.Unsubscribe(this);
+				return; // Don't process other messages
 			}
-			if (message == Event.NotificationTimerElapsed || message == Event.ShowQuoteButtonEvent)
+			if (message == Event.RequestDisplayNewQuote)
 			{
 				_soundService.Play(_settings.NotificationSound);
 				await GetRandomQuoteAsync();

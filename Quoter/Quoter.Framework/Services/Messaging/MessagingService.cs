@@ -30,7 +30,7 @@ namespace Quoter.Framework.Services.Messaging
 				bool gotValue = _dicPostedAnnouncements.TryGetValue(message, out object oldValue);
 				if (gotValue)
 				{
-					_dicPostedAnnouncements.TryUpdate(message, value , oldValue);
+					_dicPostedAnnouncements.TryUpdate(message, value, oldValue);
 				}
 			}
 			SendMessage(message, value);
@@ -64,7 +64,6 @@ namespace Quoter.Framework.Services.Messaging
 			return _dicPostedAnnouncements.ContainsKey(message);
 		}
 
-
 		/// <inheritdoc/>
 		public void SendMessage(string message, object? argument)
 		{
@@ -79,14 +78,14 @@ namespace Quoter.Framework.Services.Messaging
 					lstAction.Add(() => { subscriber.OnMessageEvent(message, argument); });
 				}
 			}
-			
-			foreach(Action action in lstAction)
+
+			foreach (Action action in lstAction)
 			{
 				try
 				{
 					action.Invoke();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					_logger.Error(ex);
 				}
@@ -96,10 +95,10 @@ namespace Quoter.Framework.Services.Messaging
 		/// <inheritdoc/>
 		public void Subscribe(IMessagingSubscriber subscriber)
 		{
-			IMessagingSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s == subscriber);
-			if (existingSubscriber == null)
+			lock (_lock)
 			{
-				lock (_lock)
+				IMessagingSubscriber? existingSubscriber = _lstSubscribers.FirstOrDefault(s => s == subscriber);
+				if (existingSubscriber == null)
 				{
 					_lstSubscribers.Add(subscriber);
 				}
@@ -109,9 +108,9 @@ namespace Quoter.Framework.Services.Messaging
 		/// <inheritdoc/>
 		public void Unsubscribe(IMessagingSubscriber subscriber)
 		{
-			if (_lstSubscribers.Contains(subscriber))
+			lock (_lock)
 			{
-				lock (_lock)
+				if (_lstSubscribers.Contains(subscriber))
 				{
 					_lstSubscribers.Remove(subscriber);
 				}

@@ -11,6 +11,9 @@ using Quoter.Framework.Models;
 
 namespace Quoter.App.Views
 {
+	/// <summary>
+	/// Form used to display quotes as notifications.
+	/// </summary>
 	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;

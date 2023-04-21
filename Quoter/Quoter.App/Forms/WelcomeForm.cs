@@ -1,6 +1,6 @@
-﻿using Quoter.App.FormsControllers.Welcome;
+﻿using Quoter.App.Controls;
+using Quoter.App.FormsControllers.Welcome;
 using Quoter.App.Helpers;
-using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
@@ -9,6 +9,9 @@ using Quoter.Framework.Models.ImportExport;
 
 namespace Quoter.App.Forms
 {
+	/// <summary>
+	/// Form shown when starting the app for the first time to setup some collections and settings.
+	/// </summary>
 	public partial class WelcomeForm : Form, IWelcomeForm
 	{
 		private readonly IWelcomeFormController _controller;
@@ -24,6 +27,7 @@ namespace Quoter.App.Forms
 							IFormPositioningService positioningService)
 		{
 			InitializeComponent();
+			DropShadow.ApplyShadows(this);
 			_controller = controller;
 			_formsManager = formsManager;
 			_stringResources = stringResources;
@@ -62,22 +66,22 @@ namespace Quoter.App.Forms
 			_positioningService.RegisterFormDragableByControl(this, pnlTitle);
 		}
 
-		private async void btnTab1Next_Click(object sender, EventArgs e)
+		private void btnTab1Next_Click(object sender, EventArgs e)
 		{
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
 		}
 
-		private async void btnTab2Back_Click(object sender, EventArgs e)
+		private void btnTab2Back_Click(object sender, EventArgs e)
 		{
 			_controller.SetSelectedTab(EnumWelcomeTab.SetLanguage);
 		}
 
-		private async void btnTab2Next_Click(object sender, EventArgs e)
+		private void btnTab2Next_Click(object sender, EventArgs e)
 		{
 			_controller.SetSelectedTab(EnumWelcomeTab.SetNotificationSettings);
 		}
 
-		private async void btnTab3Back_Click(object sender, EventArgs e)
+		private void btnTab3Back_Click(object sender, EventArgs e)
 		{
 			_controller.SetSelectedTab(EnumWelcomeTab.SelectCollections);
 		}

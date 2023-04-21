@@ -6,6 +6,9 @@ using Quoter.Framework.Services.Messaging;
 
 namespace Quoter.App.FormsControllers.Manage
 {
+	/// <summary>
+	/// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
+	/// </summary>
 	public class ManageFormController : IManageFormController, IMessagingSubscriber
 	{
 		private readonly IMessagingService _messagingService;
@@ -58,9 +61,11 @@ namespace Quoter.App.FormsControllers.Manage
 
 		public void OnMessageEvent(string message, object? argument)
 		{
-			if (message == Event.OpeningForm && argument is FormsManagerOptions)
+			// If Manage form is already open and user tries to open one of the tabs
+			// from the tray menu, just switch the current tab to the one the user pressed
+			if (message == Event.OpeningForm && argument is OpeningFormArgs)
 			{
-				FormsManagerOptions formsManagerOptions = (FormsManagerOptions)argument;
+				OpeningFormArgs formsManagerOptions = (OpeningFormArgs)argument;
 				if(formsManagerOptions.Type == typeof(ManageForm))
 				{
 					ManageFormOptions manageFormOptions = (ManageFormOptions)formsManagerOptions.Parameters[0];

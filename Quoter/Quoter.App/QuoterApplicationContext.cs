@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Microsoft.Win32;
 using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
@@ -27,6 +28,8 @@ namespace Quoter.App
 		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
 
+		private bool _isUserLoggedOff;
+
 		private System.Timers.Timer _timerShowNotifications;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
@@ -42,9 +45,10 @@ namespace Quoter.App
 			_messagingService = messagingService;
 			_soundService = soundService;
 			_logger = logger;
+			_isUserLoggedOff = false;
 			InitializeApplication();
 			InitializeBackgroundTimers();
-
+			
 			_trayIcon = new NotifyIcon()
 			{
 				Icon = Resources.Resources.icon_book_black,
@@ -53,7 +57,7 @@ namespace Quoter.App
 				Visible = true
 			};
 			SetContextMenuStripIsWorkInBackground(false);
-			ShowWelcomeMessage();
+			SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
 		}
 
 		private void InitializeApplication()
@@ -97,6 +101,9 @@ namespace Quoter.App
 				// Set language
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(_settings.Language);
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
+
+				// Show welcome message
+				ShowWelcomeMessage();
 			}
 			if(!_settings.IsSetupFinished)
 			{
@@ -106,10 +113,26 @@ namespace Quoter.App
 
 		private void InitializeBackgroundTimers()
 		{
-			int miliseconds = _settings.NotificationIntervalSeconds * 1000;
-			_timerShowNotifications = new(miliseconds);
+			_timerShowNotifications = new(GetNotificationsIntervalMiliseconds());
 			_timerShowNotifications.Elapsed += (sender, e) => ElapsedTimerEventShowNotifications();
 			_timerShowNotifications.Start();
+		}
+
+		/// <summary>
+		/// Event used to track when the user logs off or locks the scrren, to know
+		/// whether to suspend showing notifications when this happens
+		/// </summary>
+		private void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+		{
+			if (e.Reason == SessionSwitchReason.SessionLock
+				|| e.Reason == SessionSwitchReason.SessionLogoff)
+			{
+				_isUserLoggedOff = true;
+			}
+			else
+			{
+				_isUserLoggedOff = false;
+			}
 		}
 
 		private void ShowWelcomeMessage()
@@ -210,8 +233,11 @@ namespace Quoter.App
 		{
 			try
 			{
-				bool isPaused = _settings.IsPaused;
-				if (isPaused)
+				if (_isUserLoggedOff)
+				{
+					return;
+				}
+				if (_settings.IsPaused)
 				{
 					// Lower the interval untill unpaused
 					_timerShowNotifications.Interval = 10000; // 10 sec
@@ -220,18 +246,9 @@ namespace Quoter.App
 				else
 				{
 					// Reset the interval if it was on pause
-					double miliseconds = _settings.NotificationIntervalSeconds * 1000;
-					_timerShowNotifications.Interval = miliseconds;
+					_timerShowNotifications.Interval = GetNotificationsIntervalMiliseconds();
 				}
-
-				if (_settings.NotificationType == EnumNotificationType.Popup)
-				{
-					ShowQuoteNotification();
-				}
-				else
-				{
-					_messagingService.SendMessage(Event.NotificationTimerElapsed);
-				}
+				ShowQuoteNotification();
 			}
 			catch (Exception ex)
 			{
@@ -241,23 +258,16 @@ namespace Quoter.App
 
 		private void ShowQuoteNotification()
 		{
-			
 			if (_settings.NotificationType == EnumNotificationType.Popup)
 			{
 				_messagingService.SendMessage(Event.OpeningQuoteWindow);
-
-				int autoCloseSec = 0;
-				if (_settings.NotificationType == EnumNotificationType.Popup)
-				{
-					autoCloseSec = _settings.AutoCloseNotificationSeconds;
-				}
-				_formsManager.ShowDialog<QuoteForm>(autoCloseSec);
+				_formsManager.ShowDialog<QuoteForm>(_settings.AutoCloseNotificationSeconds);
 			}
 			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 			{
 				if (_formsManager.IsOpen<QuoteForm>())
 				{
-					_messagingService.SendMessage(Event.ShowQuoteButtonEvent);
+					_messagingService.SendMessage(Event.RequestDisplayNewQuote);
 				}
 				else
 				{
@@ -402,6 +412,11 @@ namespace Quoter.App
 			_trayIcon.ContextMenuStrip.Items[8].Text = _stringResources["Settings"];
 
 			_trayIcon.ContextMenuStrip.Items[10].Text = _stringResources["Exit"];
+		}
+
+		private double GetNotificationsIntervalMiliseconds()
+		{
+			return _settings.NotificationIntervalSeconds * 1000;
 		}
 	}
 }

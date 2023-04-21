@@ -29,463 +29,464 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeForm));
-			this.pnlTitle = new System.Windows.Forms.Panel();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.btnClose = new System.Windows.Forms.Button();
-			this.tabControl = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.btnLanguageFr = new System.Windows.Forms.Button();
-			this.btnLanguageRo = new System.Windows.Forms.Button();
-			this.btnLanguageEn = new System.Windows.Forms.Button();
-			this.btnTab1Next = new System.Windows.Forms.Button();
-			this.txtTab1WelcomeMsg = new System.Windows.Forms.TextBox();
-			this.lblTab1Welcome = new System.Windows.Forms.Label();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.btnTab2Back = new System.Windows.Forms.Button();
-			this.clbTab2ImportCollections = new System.Windows.Forms.CheckedListBox();
-			this.lblTab2 = new System.Windows.Forms.Label();
-			this.btnTab2Next = new System.Windows.Forms.Button();
-			this.txtTab2Msg = new System.Windows.Forms.TextBox();
-			this.tabPage3 = new System.Windows.Forms.TabPage();
-			this.btnTab3Back = new System.Windows.Forms.Button();
-			this.btnTab3Often = new System.Windows.Forms.Button();
-			this.btnTab3Rare = new System.Windows.Forms.Button();
-			this.btnTab3Normal = new System.Windows.Forms.Button();
-			this.btnTab3Next = new System.Windows.Forms.Button();
-			this.lblTab3 = new System.Windows.Forms.Label();
-			this.txtTab3Extra = new System.Windows.Forms.TextBox();
-			this.txtTab3NotificationInterval = new System.Windows.Forms.TextBox();
-			this.tabPage4 = new System.Windows.Forms.TabPage();
-			this.lblTab4 = new System.Windows.Forms.Label();
-			this.btnTab4Finish = new System.Windows.Forms.Button();
-			this.txtTab4Msg = new System.Windows.Forms.TextBox();
-			this.pnlTitle.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-			this.tabControl.SuspendLayout();
-			this.tabPage1.SuspendLayout();
-			this.tabPage2.SuspendLayout();
-			this.tabPage3.SuspendLayout();
-			this.tabPage4.SuspendLayout();
-			this.SuspendLayout();
+			pnlTitle = new Panel();
+			pictureBox1 = new PictureBox();
+			lblTitle = new Label();
+			btnClose = new Button();
+			tabControl = new TabControl();
+			tabPage1 = new TabPage();
+			btnLanguageFr = new Button();
+			btnLanguageRo = new Button();
+			btnLanguageEn = new Button();
+			btnTab1Next = new Button();
+			txtTab1WelcomeMsg = new TextBox();
+			lblTab1Welcome = new Label();
+			tabPage2 = new TabPage();
+			btnTab2Back = new Button();
+			clbTab2ImportCollections = new CheckedListBox();
+			lblTab2 = new Label();
+			btnTab2Next = new Button();
+			txtTab2Msg = new TextBox();
+			tabPage3 = new TabPage();
+			btnTab3Back = new Button();
+			btnTab3Often = new Button();
+			btnTab3Rare = new Button();
+			btnTab3Normal = new Button();
+			btnTab3Next = new Button();
+			lblTab3 = new Label();
+			txtTab3Extra = new TextBox();
+			txtTab3NotificationInterval = new TextBox();
+			tabPage4 = new TabPage();
+			lblTab4 = new Label();
+			btnTab4Finish = new Button();
+			txtTab4Msg = new TextBox();
+			pnlTitle.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			tabControl.SuspendLayout();
+			tabPage1.SuspendLayout();
+			tabPage2.SuspendLayout();
+			tabPage3.SuspendLayout();
+			tabPage4.SuspendLayout();
+			SuspendLayout();
 			// 
 			// pnlTitle
 			// 
-			this.pnlTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.pnlTitle.BackColor = System.Drawing.Color.SlateGray;
-			this.pnlTitle.Controls.Add(this.pictureBox1);
-			this.pnlTitle.Controls.Add(this.lblTitle);
-			this.pnlTitle.Controls.Add(this.btnClose);
-			this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-			this.pnlTitle.Name = "pnlTitle";
-			this.pnlTitle.Size = new System.Drawing.Size(683, 40);
-			this.pnlTitle.TabIndex = 1;
+			pnlTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			pnlTitle.BackColor = Color.SlateGray;
+			pnlTitle.Controls.Add(pictureBox1);
+			pnlTitle.Controls.Add(lblTitle);
+			pnlTitle.Controls.Add(btnClose);
+			pnlTitle.Location = new Point(0, 0);
+			pnlTitle.Name = "pnlTitle";
+			pnlTitle.Size = new Size(683, 30);
+			pnlTitle.TabIndex = 1;
 			// 
 			// pictureBox1
 			// 
-			this.pictureBox1.BackgroundImage = global::Quoter.App.Resources.Resources.book_96;
-			this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.pictureBox1.Location = new System.Drawing.Point(9, 6);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(31, 28);
-			this.pictureBox1.TabIndex = 3;
-			this.pictureBox1.TabStop = false;
+			pictureBox1.BackgroundImage = Resources.Resources.book_96;
+			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+			pictureBox1.Location = new Point(9, 6);
+			pictureBox1.Name = "pictureBox1";
+			pictureBox1.Size = new Size(25, 20);
+			pictureBox1.TabIndex = 3;
+			pictureBox1.TabStop = false;
 			// 
 			// lblTitle
 			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Calibri Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTitle.ForeColor = System.Drawing.Color.White;
-			this.lblTitle.Location = new System.Drawing.Point(48, 7);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(72, 26);
-			this.lblTitle.TabIndex = 2;
-			this.lblTitle.Text = "Quoter";
+			lblTitle.AutoSize = true;
+			lblTitle.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTitle.ForeColor = Color.White;
+			lblTitle.Location = new Point(40, 7);
+			lblTitle.Name = "lblTitle";
+			lblTitle.Size = new Size(54, 19);
+			lblTitle.TabIndex = 2;
+			lblTitle.Text = "Quoter";
 			// 
 			// btnClose
 			// 
-			this.btnClose.BackColor = System.Drawing.Color.Transparent;
-			this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnClose.FlatAppearance.BorderSize = 0;
-			this.btnClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-			this.btnClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-			this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnClose.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.btnClose.ForeColor = System.Drawing.Color.White;
-			this.btnClose.Location = new System.Drawing.Point(637, 0);
-			this.btnClose.Name = "btnClose";
-			this.btnClose.Size = new System.Drawing.Size(46, 40);
-			this.btnClose.TabIndex = 1;
-			this.btnClose.Text = "X";
-			this.btnClose.UseVisualStyleBackColor = false;
-			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+			btnClose.BackColor = Color.Transparent;
+			btnClose.BackgroundImageLayout = ImageLayout.Zoom;
+			btnClose.FlatAppearance.BorderSize = 0;
+			btnClose.FlatAppearance.MouseDownBackColor = Color.FromArgb(225, 40, 40);
+			btnClose.FlatAppearance.MouseOverBackColor = Color.FromArgb(225, 80, 80);
+			btnClose.FlatStyle = FlatStyle.Flat;
+			btnClose.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			btnClose.ForeColor = Color.White;
+			btnClose.Location = new Point(637, 0);
+			btnClose.Name = "btnClose";
+			btnClose.Size = new Size(46, 34);
+			btnClose.TabIndex = 1;
+			btnClose.Text = "✕";
+			btnClose.UseVisualStyleBackColor = false;
+			btnClose.Click += btnClose_Click;
 			// 
 			// tabControl
 			// 
-			this.tabControl.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-			this.tabControl.Controls.Add(this.tabPage1);
-			this.tabControl.Controls.Add(this.tabPage2);
-			this.tabControl.Controls.Add(this.tabPage3);
-			this.tabControl.Controls.Add(this.tabPage4);
-			this.tabControl.ItemSize = new System.Drawing.Size(50, 20);
-			this.tabControl.Location = new System.Drawing.Point(0, 46);
-			this.tabControl.Name = "tabControl";
-			this.tabControl.Padding = new System.Drawing.Point(0, 0);
-			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(683, 360);
-			this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-			this.tabControl.TabIndex = 4;
-			this.tabControl.TabStop = false;
+			tabControl.Appearance = TabAppearance.FlatButtons;
+			tabControl.Controls.Add(tabPage1);
+			tabControl.Controls.Add(tabPage2);
+			tabControl.Controls.Add(tabPage3);
+			tabControl.Controls.Add(tabPage4);
+			tabControl.ItemSize = new Size(50, 20);
+			tabControl.Location = new Point(0, 46);
+			tabControl.Name = "tabControl";
+			tabControl.Padding = new Point(0, 0);
+			tabControl.SelectedIndex = 0;
+			tabControl.Size = new Size(683, 360);
+			tabControl.SizeMode = TabSizeMode.Fixed;
+			tabControl.TabIndex = 4;
+			tabControl.TabStop = false;
 			// 
 			// tabPage1
 			// 
-			this.tabPage1.BackColor = System.Drawing.Color.White;
-			this.tabPage1.Controls.Add(this.btnLanguageFr);
-			this.tabPage1.Controls.Add(this.btnLanguageRo);
-			this.tabPage1.Controls.Add(this.btnLanguageEn);
-			this.tabPage1.Controls.Add(this.btnTab1Next);
-			this.tabPage1.Controls.Add(this.txtTab1WelcomeMsg);
-			this.tabPage1.Controls.Add(this.lblTab1Welcome);
-			this.tabPage1.Location = new System.Drawing.Point(4, 24);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(675, 332);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
+			tabPage1.BackColor = Color.WhiteSmoke;
+			tabPage1.Controls.Add(btnLanguageFr);
+			tabPage1.Controls.Add(btnLanguageRo);
+			tabPage1.Controls.Add(btnLanguageEn);
+			tabPage1.Controls.Add(btnTab1Next);
+			tabPage1.Controls.Add(txtTab1WelcomeMsg);
+			tabPage1.Controls.Add(lblTab1Welcome);
+			tabPage1.Location = new Point(4, 24);
+			tabPage1.Name = "tabPage1";
+			tabPage1.Padding = new Padding(3);
+			tabPage1.Size = new Size(675, 332);
+			tabPage1.TabIndex = 0;
+			tabPage1.Text = "tabPage1";
 			// 
 			// btnLanguageFr
 			// 
-			this.btnLanguageFr.BackgroundImage = global::Quoter.App.Resources.Resources.flag_france_64;
-			this.btnLanguageFr.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageFr.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageFr.FlatAppearance.BorderSize = 2;
-			this.btnLanguageFr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageFr.Location = new System.Drawing.Point(365, 214);
-			this.btnLanguageFr.Name = "btnLanguageFr";
-			this.btnLanguageFr.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageFr.TabIndex = 21;
-			this.btnLanguageFr.UseVisualStyleBackColor = true;
-			this.btnLanguageFr.Click += new System.EventHandler(this.btnLanguageFr_Click);
+			btnLanguageFr.BackgroundImage = Resources.Resources.flag_france_64;
+			btnLanguageFr.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageFr.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageFr.FlatAppearance.BorderSize = 2;
+			btnLanguageFr.FlatStyle = FlatStyle.Flat;
+			btnLanguageFr.Location = new Point(365, 214);
+			btnLanguageFr.Name = "btnLanguageFr";
+			btnLanguageFr.Size = new Size(50, 35);
+			btnLanguageFr.TabIndex = 21;
+			btnLanguageFr.UseVisualStyleBackColor = true;
+			btnLanguageFr.Click += btnLanguageFr_Click;
 			// 
 			// btnLanguageRo
 			// 
-			this.btnLanguageRo.BackgroundImage = global::Quoter.App.Resources.Resources.flag_romania_64;
-			this.btnLanguageRo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageRo.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageRo.FlatAppearance.BorderSize = 2;
-			this.btnLanguageRo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageRo.Location = new System.Drawing.Point(309, 214);
-			this.btnLanguageRo.Name = "btnLanguageRo";
-			this.btnLanguageRo.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageRo.TabIndex = 20;
-			this.btnLanguageRo.UseVisualStyleBackColor = true;
-			this.btnLanguageRo.Click += new System.EventHandler(this.btnLanguageRo_Click);
+			btnLanguageRo.BackgroundImage = Resources.Resources.flag_romania_64;
+			btnLanguageRo.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageRo.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageRo.FlatAppearance.BorderSize = 2;
+			btnLanguageRo.FlatStyle = FlatStyle.Flat;
+			btnLanguageRo.Location = new Point(309, 214);
+			btnLanguageRo.Name = "btnLanguageRo";
+			btnLanguageRo.Size = new Size(50, 35);
+			btnLanguageRo.TabIndex = 20;
+			btnLanguageRo.UseVisualStyleBackColor = true;
+			btnLanguageRo.Click += btnLanguageRo_Click;
 			// 
 			// btnLanguageEn
 			// 
-			this.btnLanguageEn.BackgroundImage = global::Quoter.App.Resources.Resources.flag_uk_64;
-			this.btnLanguageEn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.btnLanguageEn.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke;
-			this.btnLanguageEn.FlatAppearance.BorderSize = 2;
-			this.btnLanguageEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnLanguageEn.Location = new System.Drawing.Point(253, 214);
-			this.btnLanguageEn.Name = "btnLanguageEn";
-			this.btnLanguageEn.Size = new System.Drawing.Size(50, 35);
-			this.btnLanguageEn.TabIndex = 19;
-			this.btnLanguageEn.UseVisualStyleBackColor = true;
-			this.btnLanguageEn.Click += new System.EventHandler(this.btnLanguageEn_Click);
+			btnLanguageEn.BackgroundImage = Resources.Resources.flag_uk_64;
+			btnLanguageEn.BackgroundImageLayout = ImageLayout.Zoom;
+			btnLanguageEn.FlatAppearance.BorderColor = Color.WhiteSmoke;
+			btnLanguageEn.FlatAppearance.BorderSize = 2;
+			btnLanguageEn.FlatStyle = FlatStyle.Flat;
+			btnLanguageEn.Location = new Point(253, 214);
+			btnLanguageEn.Name = "btnLanguageEn";
+			btnLanguageEn.Size = new Size(50, 35);
+			btnLanguageEn.TabIndex = 19;
+			btnLanguageEn.UseVisualStyleBackColor = true;
+			btnLanguageEn.Click += btnLanguageEn_Click;
 			// 
 			// btnTab1Next
 			// 
-			this.btnTab1Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab1Next.Location = new System.Drawing.Point(560, 289);
-			this.btnTab1Next.Name = "btnTab1Next";
-			this.btnTab1Next.Size = new System.Drawing.Size(106, 41);
-			this.btnTab1Next.TabIndex = 6;
-			this.btnTab1Next.Text = "Next";
-			this.btnTab1Next.UseVisualStyleBackColor = true;
-			this.btnTab1Next.Click += new System.EventHandler(this.btnTab1Next_Click);
+			btnTab1Next.FlatStyle = FlatStyle.Flat;
+			btnTab1Next.Location = new Point(560, 289);
+			btnTab1Next.Name = "btnTab1Next";
+			btnTab1Next.Size = new Size(100, 30);
+			btnTab1Next.TabIndex = 6;
+			btnTab1Next.Text = "Next";
+			btnTab1Next.UseVisualStyleBackColor = true;
+			btnTab1Next.Click += btnTab1Next_Click;
 			// 
 			// txtTab1WelcomeMsg
 			// 
-			this.txtTab1WelcomeMsg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTab1WelcomeMsg.Location = new System.Drawing.Point(118, 74);
-			this.txtTab1WelcomeMsg.Multiline = true;
-			this.txtTab1WelcomeMsg.Name = "txtTab1WelcomeMsg";
-			this.txtTab1WelcomeMsg.Size = new System.Drawing.Size(434, 134);
-			this.txtTab1WelcomeMsg.TabIndex = 5;
-			this.txtTab1WelcomeMsg.Text = "Reminder allows you to receive\r\nnotifications about your favourite\r\nwritings. To " +
-    "setup the application\r\npress continue below.";
-			this.txtTab1WelcomeMsg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtTab1WelcomeMsg.BackColor = Color.WhiteSmoke;
+			txtTab1WelcomeMsg.BorderStyle = BorderStyle.None;
+			txtTab1WelcomeMsg.Location = new Point(118, 74);
+			txtTab1WelcomeMsg.Multiline = true;
+			txtTab1WelcomeMsg.Name = "txtTab1WelcomeMsg";
+			txtTab1WelcomeMsg.Size = new Size(434, 134);
+			txtTab1WelcomeMsg.TabIndex = 5;
+			txtTab1WelcomeMsg.Text = "Reminder allows you to receive\r\nnotifications about your favourite\r\nwritings. To setup the application\r\npress continue below.";
+			txtTab1WelcomeMsg.TextAlign = HorizontalAlignment.Center;
 			// 
 			// lblTab1Welcome
 			// 
-			this.lblTab1Welcome.Font = new System.Drawing.Font("Calibri Light", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTab1Welcome.Location = new System.Drawing.Point(144, 3);
-			this.lblTab1Welcome.Name = "lblTab1Welcome";
-			this.lblTab1Welcome.Size = new System.Drawing.Size(388, 54);
-			this.lblTab1Welcome.TabIndex = 2;
-			this.lblTab1Welcome.Text = "Welcome";
-			this.lblTab1Welcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblTab1Welcome.Font = new Font("Calibri Light", 26F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTab1Welcome.Location = new Point(144, 3);
+			lblTab1Welcome.Name = "lblTab1Welcome";
+			lblTab1Welcome.Size = new Size(388, 54);
+			lblTab1Welcome.TabIndex = 2;
+			lblTab1Welcome.Text = "Welcome";
+			lblTab1Welcome.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// tabPage2
 			// 
-			this.tabPage2.BackColor = System.Drawing.Color.White;
-			this.tabPage2.Controls.Add(this.btnTab2Back);
-			this.tabPage2.Controls.Add(this.clbTab2ImportCollections);
-			this.tabPage2.Controls.Add(this.lblTab2);
-			this.tabPage2.Controls.Add(this.btnTab2Next);
-			this.tabPage2.Controls.Add(this.txtTab2Msg);
-			this.tabPage2.Location = new System.Drawing.Point(4, 24);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(675, 332);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
+			tabPage2.BackColor = Color.WhiteSmoke;
+			tabPage2.Controls.Add(btnTab2Back);
+			tabPage2.Controls.Add(clbTab2ImportCollections);
+			tabPage2.Controls.Add(lblTab2);
+			tabPage2.Controls.Add(btnTab2Next);
+			tabPage2.Controls.Add(txtTab2Msg);
+			tabPage2.Location = new Point(4, 24);
+			tabPage2.Name = "tabPage2";
+			tabPage2.Padding = new Padding(3);
+			tabPage2.Size = new Size(675, 332);
+			tabPage2.TabIndex = 1;
+			tabPage2.Text = "tabPage2";
 			// 
 			// btnTab2Back
 			// 
-			this.btnTab2Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab2Back.Location = new System.Drawing.Point(448, 289);
-			this.btnTab2Back.Name = "btnTab2Back";
-			this.btnTab2Back.Size = new System.Drawing.Size(106, 41);
-			this.btnTab2Back.TabIndex = 12;
-			this.btnTab2Back.Text = "Back";
-			this.btnTab2Back.UseVisualStyleBackColor = true;
-			this.btnTab2Back.Click += new System.EventHandler(this.btnTab2Back_Click);
+			btnTab2Back.FlatStyle = FlatStyle.Flat;
+			btnTab2Back.Location = new Point(448, 289);
+			btnTab2Back.Name = "btnTab2Back";
+			btnTab2Back.Size = new Size(100, 30);
+			btnTab2Back.TabIndex = 12;
+			btnTab2Back.Text = "Back";
+			btnTab2Back.UseVisualStyleBackColor = true;
+			btnTab2Back.Click += btnTab2Back_Click;
 			// 
 			// clbTab2ImportCollections
 			// 
-			this.clbTab2ImportCollections.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.clbTab2ImportCollections.FormattingEnabled = true;
-			this.clbTab2ImportCollections.Items.AddRange(new object[] {
-            "The New Testament - The NKJV Translation"});
-			this.clbTab2ImportCollections.Location = new System.Drawing.Point(125, 127);
-			this.clbTab2ImportCollections.Name = "clbTab2ImportCollections";
-			this.clbTab2ImportCollections.Size = new System.Drawing.Size(419, 108);
-			this.clbTab2ImportCollections.TabIndex = 11;
+			clbTab2ImportCollections.Font = new Font("Calibri", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			clbTab2ImportCollections.FormattingEnabled = true;
+			clbTab2ImportCollections.Items.AddRange(new object[] { "The New Testament - The NKJV Translation" });
+			clbTab2ImportCollections.Location = new Point(125, 127);
+			clbTab2ImportCollections.Name = "clbTab2ImportCollections";
+			clbTab2ImportCollections.Size = new Size(419, 108);
+			clbTab2ImportCollections.TabIndex = 11;
 			// 
 			// lblTab2
 			// 
-			this.lblTab2.Font = new System.Drawing.Font("Calibri Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTab2.Location = new System.Drawing.Point(143, 5);
-			this.lblTab2.Name = "lblTab2";
-			this.lblTab2.Size = new System.Drawing.Size(388, 45);
-			this.lblTab2.TabIndex = 10;
-			this.lblTab2.Text = "Welcome";
-			this.lblTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblTab2.Font = new Font("Calibri Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTab2.Location = new Point(143, 5);
+			lblTab2.Name = "lblTab2";
+			lblTab2.Size = new Size(388, 45);
+			lblTab2.TabIndex = 10;
+			lblTab2.Text = "Welcome";
+			lblTab2.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// btnTab2Next
 			// 
-			this.btnTab2Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab2Next.Location = new System.Drawing.Point(560, 289);
-			this.btnTab2Next.Name = "btnTab2Next";
-			this.btnTab2Next.Size = new System.Drawing.Size(106, 41);
-			this.btnTab2Next.TabIndex = 9;
-			this.btnTab2Next.Text = "Next";
-			this.btnTab2Next.UseVisualStyleBackColor = true;
-			this.btnTab2Next.Click += new System.EventHandler(this.btnTab2Next_Click);
+			btnTab2Next.FlatStyle = FlatStyle.Flat;
+			btnTab2Next.Location = new Point(560, 289);
+			btnTab2Next.Name = "btnTab2Next";
+			btnTab2Next.Size = new Size(100, 30);
+			btnTab2Next.TabIndex = 9;
+			btnTab2Next.Text = "Next";
+			btnTab2Next.UseVisualStyleBackColor = true;
+			btnTab2Next.Click += btnTab2Next_Click;
 			// 
 			// txtTab2Msg
 			// 
-			this.txtTab2Msg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTab2Msg.Location = new System.Drawing.Point(73, 53);
-			this.txtTab2Msg.Multiline = true;
-			this.txtTab2Msg.Name = "txtTab2Msg";
-			this.txtTab2Msg.Size = new System.Drawing.Size(523, 63);
-			this.txtTab2Msg.TabIndex = 8;
-			this.txtTab2Msg.Text = resources.GetString("txtTab2Msg.Text");
-			this.txtTab2Msg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtTab2Msg.BackColor = Color.WhiteSmoke;
+			txtTab2Msg.BorderStyle = BorderStyle.None;
+			txtTab2Msg.Location = new Point(73, 53);
+			txtTab2Msg.Multiline = true;
+			txtTab2Msg.Name = "txtTab2Msg";
+			txtTab2Msg.Size = new Size(523, 63);
+			txtTab2Msg.TabIndex = 8;
+			txtTab2Msg.Text = resources.GetString("txtTab2Msg.Text");
+			txtTab2Msg.TextAlign = HorizontalAlignment.Center;
 			// 
 			// tabPage3
 			// 
-			this.tabPage3.BackColor = System.Drawing.Color.White;
-			this.tabPage3.Controls.Add(this.btnTab3Back);
-			this.tabPage3.Controls.Add(this.btnTab3Often);
-			this.tabPage3.Controls.Add(this.btnTab3Rare);
-			this.tabPage3.Controls.Add(this.btnTab3Normal);
-			this.tabPage3.Controls.Add(this.btnTab3Next);
-			this.tabPage3.Controls.Add(this.lblTab3);
-			this.tabPage3.Controls.Add(this.txtTab3Extra);
-			this.tabPage3.Controls.Add(this.txtTab3NotificationInterval);
-			this.tabPage3.Location = new System.Drawing.Point(4, 24);
-			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(675, 332);
-			this.tabPage3.TabIndex = 2;
-			this.tabPage3.Text = "tabPage3";
+			tabPage3.BackColor = Color.WhiteSmoke;
+			tabPage3.Controls.Add(btnTab3Back);
+			tabPage3.Controls.Add(btnTab3Often);
+			tabPage3.Controls.Add(btnTab3Rare);
+			tabPage3.Controls.Add(btnTab3Normal);
+			tabPage3.Controls.Add(btnTab3Next);
+			tabPage3.Controls.Add(lblTab3);
+			tabPage3.Controls.Add(txtTab3Extra);
+			tabPage3.Controls.Add(txtTab3NotificationInterval);
+			tabPage3.Location = new Point(4, 24);
+			tabPage3.Name = "tabPage3";
+			tabPage3.Padding = new Padding(3);
+			tabPage3.Size = new Size(675, 332);
+			tabPage3.TabIndex = 2;
+			tabPage3.Text = "tabPage3";
 			// 
 			// btnTab3Back
 			// 
-			this.btnTab3Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab3Back.Location = new System.Drawing.Point(448, 289);
-			this.btnTab3Back.Name = "btnTab3Back";
-			this.btnTab3Back.Size = new System.Drawing.Size(106, 41);
-			this.btnTab3Back.TabIndex = 23;
-			this.btnTab3Back.Text = "Back";
-			this.btnTab3Back.UseVisualStyleBackColor = true;
-			this.btnTab3Back.Click += new System.EventHandler(this.btnTab3Back_Click);
+			btnTab3Back.FlatStyle = FlatStyle.Flat;
+			btnTab3Back.Location = new Point(448, 289);
+			btnTab3Back.Name = "btnTab3Back";
+			btnTab3Back.Size = new Size(100, 30);
+			btnTab3Back.TabIndex = 23;
+			btnTab3Back.Text = "Back";
+			btnTab3Back.UseVisualStyleBackColor = true;
+			btnTab3Back.Click += btnTab3Back_Click;
 			// 
 			// btnTab3Often
 			// 
-			this.btnTab3Often.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-			this.btnTab3Often.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab3Often.Location = new System.Drawing.Point(77, 87);
-			this.btnTab3Often.Name = "btnTab3Often";
-			this.btnTab3Often.Size = new System.Drawing.Size(169, 54);
-			this.btnTab3Often.TabIndex = 22;
-			this.btnTab3Often.Text = "Often\r\n(every 15 mins)";
-			this.btnTab3Often.UseVisualStyleBackColor = true;
-			this.btnTab3Often.Click += new System.EventHandler(this.btnTab3Often_Click);
+			btnTab3Often.FlatAppearance.BorderColor = Color.LightGray;
+			btnTab3Often.FlatStyle = FlatStyle.Flat;
+			btnTab3Often.Location = new Point(77, 87);
+			btnTab3Often.Name = "btnTab3Often";
+			btnTab3Often.Size = new Size(169, 54);
+			btnTab3Often.TabIndex = 22;
+			btnTab3Often.Text = "Often\r\n(every 15 mins)";
+			btnTab3Often.UseVisualStyleBackColor = true;
+			btnTab3Often.Click += btnTab3Often_Click;
 			// 
 			// btnTab3Rare
 			// 
-			this.btnTab3Rare.FlatAppearance.BorderColor = System.Drawing.Color.LightGray;
-			this.btnTab3Rare.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab3Rare.Location = new System.Drawing.Point(427, 87);
-			this.btnTab3Rare.Name = "btnTab3Rare";
-			this.btnTab3Rare.Size = new System.Drawing.Size(169, 54);
-			this.btnTab3Rare.TabIndex = 21;
-			this.btnTab3Rare.Text = "Rare\r\n(every 15 mins)";
-			this.btnTab3Rare.UseVisualStyleBackColor = true;
-			this.btnTab3Rare.Click += new System.EventHandler(this.btnTab3Rare_Click);
+			btnTab3Rare.FlatAppearance.BorderColor = Color.LightGray;
+			btnTab3Rare.FlatStyle = FlatStyle.Flat;
+			btnTab3Rare.Location = new Point(427, 87);
+			btnTab3Rare.Name = "btnTab3Rare";
+			btnTab3Rare.Size = new Size(169, 54);
+			btnTab3Rare.TabIndex = 21;
+			btnTab3Rare.Text = "Rare\r\n(every 15 mins)";
+			btnTab3Rare.UseVisualStyleBackColor = true;
+			btnTab3Rare.Click += btnTab3Rare_Click;
 			// 
 			// btnTab3Normal
 			// 
-			this.btnTab3Normal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab3Normal.Location = new System.Drawing.Point(252, 87);
-			this.btnTab3Normal.Name = "btnTab3Normal";
-			this.btnTab3Normal.Size = new System.Drawing.Size(169, 54);
-			this.btnTab3Normal.TabIndex = 20;
-			this.btnTab3Normal.Text = "Regular\r\n(every 15 mins)";
-			this.btnTab3Normal.UseVisualStyleBackColor = true;
-			this.btnTab3Normal.Click += new System.EventHandler(this.btnTab3Normal_Click);
+			btnTab3Normal.FlatStyle = FlatStyle.Flat;
+			btnTab3Normal.Location = new Point(252, 87);
+			btnTab3Normal.Name = "btnTab3Normal";
+			btnTab3Normal.Size = new Size(169, 54);
+			btnTab3Normal.TabIndex = 20;
+			btnTab3Normal.Text = "Regular\r\n(every 15 mins)";
+			btnTab3Normal.UseVisualStyleBackColor = true;
+			btnTab3Normal.Click += btnTab3Normal_Click;
 			// 
 			// btnTab3Next
 			// 
-			this.btnTab3Next.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab3Next.Location = new System.Drawing.Point(560, 289);
-			this.btnTab3Next.Name = "btnTab3Next";
-			this.btnTab3Next.Size = new System.Drawing.Size(106, 41);
-			this.btnTab3Next.TabIndex = 18;
-			this.btnTab3Next.Text = "Next";
-			this.btnTab3Next.UseVisualStyleBackColor = true;
-			this.btnTab3Next.Click += new System.EventHandler(this.btnTab3Next_Click);
+			btnTab3Next.FlatStyle = FlatStyle.Flat;
+			btnTab3Next.Location = new Point(560, 289);
+			btnTab3Next.Name = "btnTab3Next";
+			btnTab3Next.Size = new Size(100, 30);
+			btnTab3Next.TabIndex = 18;
+			btnTab3Next.Text = "Next";
+			btnTab3Next.UseVisualStyleBackColor = true;
+			btnTab3Next.Click += btnTab3Next_Click;
 			// 
 			// lblTab3
 			// 
-			this.lblTab3.Font = new System.Drawing.Font("Calibri Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTab3.Location = new System.Drawing.Point(143, 5);
-			this.lblTab3.Name = "lblTab3";
-			this.lblTab3.Size = new System.Drawing.Size(388, 45);
-			this.lblTab3.TabIndex = 17;
-			this.lblTab3.Text = "Welcome";
-			this.lblTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblTab3.Font = new Font("Calibri Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTab3.Location = new Point(143, 5);
+			lblTab3.Name = "lblTab3";
+			lblTab3.Size = new Size(388, 45);
+			lblTab3.TabIndex = 17;
+			lblTab3.Text = "Welcome";
+			lblTab3.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// txtTab3Extra
 			// 
-			this.txtTab3Extra.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTab3Extra.Font = new System.Drawing.Font("Calibri Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.txtTab3Extra.Location = new System.Drawing.Point(77, 147);
-			this.txtTab3Extra.Multiline = true;
-			this.txtTab3Extra.Name = "txtTab3Extra";
-			this.txtTab3Extra.Size = new System.Drawing.Size(528, 28);
-			this.txtTab3Extra.TabIndex = 16;
-			this.txtTab3Extra.Text = "You can customize this setting later from the settings menu.\r\n";
-			this.txtTab3Extra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtTab3Extra.BackColor = Color.WhiteSmoke;
+			txtTab3Extra.BorderStyle = BorderStyle.None;
+			txtTab3Extra.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
+			txtTab3Extra.Location = new Point(77, 147);
+			txtTab3Extra.Multiline = true;
+			txtTab3Extra.Name = "txtTab3Extra";
+			txtTab3Extra.Size = new Size(528, 28);
+			txtTab3Extra.TabIndex = 16;
+			txtTab3Extra.Text = "You can customize this setting later from the settings menu.\r\n";
+			txtTab3Extra.TextAlign = HorizontalAlignment.Center;
 			// 
 			// txtTab3NotificationInterval
 			// 
-			this.txtTab3NotificationInterval.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTab3NotificationInterval.Location = new System.Drawing.Point(70, 53);
-			this.txtTab3NotificationInterval.Multiline = true;
-			this.txtTab3NotificationInterval.Name = "txtTab3NotificationInterval";
-			this.txtTab3NotificationInterval.Size = new System.Drawing.Size(528, 28);
-			this.txtTab3NotificationInterval.TabIndex = 15;
-			this.txtTab3NotificationInterval.Text = "How often would you like the notifications to appear?\r\n";
-			this.txtTab3NotificationInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtTab3NotificationInterval.BackColor = Color.WhiteSmoke;
+			txtTab3NotificationInterval.BorderStyle = BorderStyle.None;
+			txtTab3NotificationInterval.Location = new Point(70, 53);
+			txtTab3NotificationInterval.Multiline = true;
+			txtTab3NotificationInterval.Name = "txtTab3NotificationInterval";
+			txtTab3NotificationInterval.Size = new Size(528, 28);
+			txtTab3NotificationInterval.TabIndex = 15;
+			txtTab3NotificationInterval.Text = "How often would you like the notifications to appear?\r\n";
+			txtTab3NotificationInterval.TextAlign = HorizontalAlignment.Center;
 			// 
 			// tabPage4
 			// 
-			this.tabPage4.BackColor = System.Drawing.Color.White;
-			this.tabPage4.Controls.Add(this.lblTab4);
-			this.tabPage4.Controls.Add(this.btnTab4Finish);
-			this.tabPage4.Controls.Add(this.txtTab4Msg);
-			this.tabPage4.Location = new System.Drawing.Point(4, 24);
-			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(675, 332);
-			this.tabPage4.TabIndex = 3;
-			this.tabPage4.Text = "tabPage4";
+			tabPage4.BackColor = Color.WhiteSmoke;
+			tabPage4.Controls.Add(lblTab4);
+			tabPage4.Controls.Add(btnTab4Finish);
+			tabPage4.Controls.Add(txtTab4Msg);
+			tabPage4.Location = new Point(4, 24);
+			tabPage4.Name = "tabPage4";
+			tabPage4.Padding = new Padding(3);
+			tabPage4.Size = new Size(675, 332);
+			tabPage4.TabIndex = 3;
+			tabPage4.Text = "tabPage4";
 			// 
 			// lblTab4
 			// 
-			this.lblTab4.Font = new System.Drawing.Font("Calibri Light", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.lblTab4.Location = new System.Drawing.Point(143, 5);
-			this.lblTab4.Name = "lblTab4";
-			this.lblTab4.Size = new System.Drawing.Size(388, 45);
-			this.lblTab4.TabIndex = 20;
-			this.lblTab4.Text = "Welcome";
-			this.lblTab4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			lblTab4.Font = new Font("Calibri Light", 20F, FontStyle.Regular, GraphicsUnit.Point);
+			lblTab4.Location = new Point(143, 5);
+			lblTab4.Name = "lblTab4";
+			lblTab4.Size = new Size(388, 45);
+			lblTab4.TabIndex = 20;
+			lblTab4.Text = "Welcome";
+			lblTab4.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// btnTab4Finish
 			// 
-			this.btnTab4Finish.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnTab4Finish.Location = new System.Drawing.Point(560, 289);
-			this.btnTab4Finish.Name = "btnTab4Finish";
-			this.btnTab4Finish.Size = new System.Drawing.Size(106, 41);
-			this.btnTab4Finish.TabIndex = 19;
-			this.btnTab4Finish.Text = "Finish";
-			this.btnTab4Finish.UseVisualStyleBackColor = true;
-			this.btnTab4Finish.Click += new System.EventHandler(this.btnTab4Finish_Click);
+			btnTab4Finish.FlatStyle = FlatStyle.Flat;
+			btnTab4Finish.Location = new Point(560, 289);
+			btnTab4Finish.Name = "btnTab4Finish";
+			btnTab4Finish.Size = new Size(100, 30);
+			btnTab4Finish.TabIndex = 19;
+			btnTab4Finish.Text = "Finish";
+			btnTab4Finish.UseVisualStyleBackColor = true;
+			btnTab4Finish.Click += btnTab4Finish_Click;
 			// 
 			// txtTab4Msg
 			// 
-			this.txtTab4Msg.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTab4Msg.Location = new System.Drawing.Point(73, 66);
-			this.txtTab4Msg.Multiline = true;
-			this.txtTab4Msg.Name = "txtTab4Msg";
-			this.txtTab4Msg.Size = new System.Drawing.Size(528, 94);
-			this.txtTab4Msg.TabIndex = 16;
-			this.txtTab4Msg.Text = resources.GetString("txtTab4Msg.Text");
-			this.txtTab4Msg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			txtTab4Msg.BackColor = Color.WhiteSmoke;
+			txtTab4Msg.BorderStyle = BorderStyle.None;
+			txtTab4Msg.Location = new Point(73, 66);
+			txtTab4Msg.Multiline = true;
+			txtTab4Msg.Name = "txtTab4Msg";
+			txtTab4Msg.Size = new Size(528, 94);
+			txtTab4Msg.TabIndex = 16;
+			txtTab4Msg.Text = resources.GetString("txtTab4Msg.Text");
+			txtTab4Msg.TextAlign = HorizontalAlignment.Center;
 			// 
 			// WelcomeForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.Color.WhiteSmoke;
-			this.ClientSize = new System.Drawing.Size(682, 406);
-			this.ControlBox = false;
-			this.Controls.Add(this.tabControl);
-			this.Controls.Add(this.pnlTitle);
-			this.Font = new System.Drawing.Font("Calibri Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "WelcomeForm";
-			this.ShowIcon = false;
-			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Reminder";
-			this.Load += new System.EventHandler(this.WelcomeForm_Load);
-			this.pnlTitle.ResumeLayout(false);
-			this.pnlTitle.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-			this.tabControl.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
-			this.tabPage2.ResumeLayout(false);
-			this.tabPage2.PerformLayout();
-			this.tabPage3.ResumeLayout(false);
-			this.tabPage3.PerformLayout();
-			this.tabPage4.ResumeLayout(false);
-			this.tabPage4.PerformLayout();
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new SizeF(8F, 19F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.WhiteSmoke;
+			ClientSize = new Size(682, 406);
+			ControlBox = false;
+			Controls.Add(tabControl);
+			Controls.Add(pnlTitle);
+			Font = new Font("Calibri Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			FormBorderStyle = FormBorderStyle.None;
+			Icon = (Icon)resources.GetObject("$this.Icon");
+			Margin = new Padding(3, 4, 3, 4);
+			MaximizeBox = false;
+			MinimizeBox = false;
+			Name = "WelcomeForm";
+			ShowIcon = false;
+			SizeGripStyle = SizeGripStyle.Hide;
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "Reminder";
+			Load += WelcomeForm_Load;
+			pnlTitle.ResumeLayout(false);
+			pnlTitle.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+			tabControl.ResumeLayout(false);
+			tabPage1.ResumeLayout(false);
+			tabPage1.PerformLayout();
+			tabPage2.ResumeLayout(false);
+			tabPage2.PerformLayout();
+			tabPage3.ResumeLayout(false);
+			tabPage3.PerformLayout();
+			tabPage4.ResumeLayout(false);
+			tabPage4.PerformLayout();
+			ResumeLayout(false);
 		}
 
 		#endregion

@@ -11,15 +11,11 @@
 		public const string LanguageChanged = "LanguageChanged";
 		public const string NotificationIntervalChanged = "NotificationIntervalChanged";
 		public const string ShowCollectionsBasedOnLanguageChanged = "ShowCollectionsBasedOnLanguage";
+		/// <summary>
+		/// Event that signals that the notification type was changed from (AlwaysOn/Popup).
+		/// </summary>
 		public const string NotificationTypeChanged = "NotificationTypeChanged";
 		public const string ThemeChanged = "ThemeChanged";
-		/// <summary>
-		/// Event that signals that the show notification quote timer has elapsed.
-		/// For a popup type notification, it should show a popup notification.
-		/// For a alwaysOn type notification it should signal the opened quote form
-		/// to change the quote, or open it if it was closed
-		/// </summary>
-		public const string NotificationTimerElapsed = "NotificationTimerElapsed";
 		/// <summary>
 		/// Event that signals the user requested a quote, or a new quote window must be opened.
 		/// Any other quote window opened should close when such event occurs, to prevent having
@@ -27,11 +23,11 @@
 		/// </summary>
 		public const string OpeningQuoteWindow = "OpeningQuoteWindow";
 		/// <summary>
-		/// Event that signals the user requested a quote. This should normally be send, when
-		/// there is already a quote window opened in alwaysOn notification type.
+		/// Event that signals the user requested a quote or that the notification timer has elapsed
+		/// This should normally be send, when there is already a quote window opened in alwaysOn notification type.
 		/// It would signal the opened quote window to change quotes.
 		/// </summary>
-		public const string ShowQuoteButtonEvent = "ShowQuoteButtonEvent";
+		public const string RequestDisplayNewQuote = "RequestDisplayNewQuote";
 
 		public const string ExportSucessfull = "ExportSucessfull";
 
