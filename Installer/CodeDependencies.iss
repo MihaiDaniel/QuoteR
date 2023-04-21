@@ -639,48 +639,48 @@ end;
 #ifndef Dependency_NoExampleSetup
 
 ; comment out dependency defines to disable installing them
-#define UseDotNet35
-#define UseDotNet40
-#define UseDotNet45
-#define UseDotNet46
-#define UseDotNet47
-#define UseDotNet48
+;#define UseDotNet35
+;#define UseDotNet40
+;#define UseDotNet45
+;#define UseDotNet46
+;#define UseDotNet47
+;#define UseDotNet48
 
 ; requires netcorecheck.exe and netcorecheck_x64.exe (see download link below)
 #define UseNetCoreCheck
 #ifdef UseNetCoreCheck
-  #define UseNetCore31
-  #define UseNetCore31Asp
-  #define UseNetCore31Desktop
-  #define UseDotNet50
-  #define UseDotNet50Asp
-  #define UseDotNet50Desktop
-  #define UseDotNet60
-  #define UseDotNet60Asp
+  ;#define UseNetCore31
+  ;#define UseNetCore31Asp
+  ;#define UseNetCore31Desktop
+  ;#define UseDotNet50
+  ;#define UseDotNet50Asp
+  ;#define UseDotNet50Desktop
+  ;#define UseDotNet60
+  ;#define UseDotNet60Asp
   #define UseDotNet60Desktop
-  #define UseDotNet70
-  #define UseDotNet70Asp
-  #define UseDotNet70Desktop
+  ;#define UseDotNet70
+  ;#define UseDotNet70Asp
+  ;#define UseDotNet70Desktop
 #endif
 
-#define UseVC2005
-#define UseVC2008
-#define UseVC2010
-#define UseVC2012
-#define UseVC2013
-#define UseVC2015To2022
+;#define UseVC2005
+;#define UseVC2008
+;#define UseVC2010
+;#define UseVC2012
+;#define UseVC2013
+;#define UseVC2015To2022
 
 ; requires dxwebsetup.exe (see download link below)
 ;#define UseDirectX
 
-#define UseSql2008Express
-#define UseSql2012Express
-#define UseSql2014Express
-#define UseSql2016Express
-#define UseSql2017Express
-#define UseSql2019Express
+;#define UseSql2008Express
+;#define UseSql2012Express
+;#define UseSql2014Express
+;#define UseSql2016Express
+;#define UseSql2017Express
+;#define UseSql2019Express
 
-#define UseWebView2
+;#define UseWebView2
 
 #define MyAppSetupName 'MyProgram'
 #define MyAppVersion '1.0'
