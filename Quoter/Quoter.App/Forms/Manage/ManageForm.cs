@@ -353,6 +353,12 @@ namespace Quoter.App.Forms
 			// selected tab highlight just recalculate it at the end of the resize event
 			// and keep the panel hidden durint the resize
 			pnlSelectedTab.Visible = false;
+
+			// To reduce flickering just stop the control updates untill resize ends.
+			lbChapters.BeginUpdate();
+			clbCollections.BeginUpdate();
+			clbBooks.BeginUpdate();
+			clbChapters.BeginUpdate();
 		}
 
 		private void ManageForm_ResizeEnd(object sender, EventArgs e)
@@ -365,6 +371,10 @@ namespace Quoter.App.Forms
 				case 2: SetSelectedTabHighlight(btnTabPage3); break;
 			}
 			_settingsController.SetWindowSize(this.Size);
+			lbChapters.EndUpdate();
+			clbCollections.EndUpdate();
+			clbBooks.EndUpdate();
+			clbChapters.EndUpdate();
 		}
 
 
