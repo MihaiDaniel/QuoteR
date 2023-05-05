@@ -1,4 +1,5 @@
 ﻿using Quoter.App.Forms;
+using Quoter.App.Forms.Welcome;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
@@ -13,7 +14,7 @@ using System.Globalization;
 
 namespace Quoter.App.FormsControllers.Welcome
 {
-	public class WelcomeFormController : IWelcomeFormController
+    public class WelcomeFormController : IWelcomeFormController
 	{
 		private readonly QuoterContext _context;
 		private readonly ISettings _settings;

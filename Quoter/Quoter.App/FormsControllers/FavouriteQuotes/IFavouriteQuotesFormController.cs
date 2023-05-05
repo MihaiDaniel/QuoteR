@@ -1,4 +1,4 @@
-﻿using Quoter.App.Forms;
+﻿using Quoter.App.Forms.Manage;
 using Quoter.Framework.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-	public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
+    public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
 	{
 
 		BindingList<Collection> Collections { get; }

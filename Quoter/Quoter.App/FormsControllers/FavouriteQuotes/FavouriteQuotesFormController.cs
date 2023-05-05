@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
+using Quoter.App.Forms.Manage;
 using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
@@ -14,10 +15,10 @@ using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-	/// <summary>
-	/// Controller for the Favourite Tab of the <see cref="ManageForm"/>
-	/// </summary>
-	public class FavouriteQuotesFormController : IFavouriteQuotesFormController
+    /// <summary>
+    /// Controller for the Favourite Tab of the <see cref="ManageForm"/>
+    /// </summary>
+    public class FavouriteQuotesFormController : IFavouriteQuotesFormController
 	{
 		/// <summary>
 		/// Special item in the list boxes. If this is checked or unchecked it should check/uncheck

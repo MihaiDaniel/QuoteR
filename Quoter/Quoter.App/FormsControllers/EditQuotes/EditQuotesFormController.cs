@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
+using Quoter.App.Forms.Manage;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
@@ -17,10 +18,10 @@ using System.Xml.Linq;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-	/// <summary>
-	/// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
-	/// </summary>
-	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
+    /// <summary>
+    /// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
+    /// </summary>
+    public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;

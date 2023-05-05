@@ -5,12 +5,15 @@ using System.Text;
 
 namespace Quoter.Framework.Services
 {
+	/// <summary>
+	/// Just a simple logger, nothing fancy or complex
+	/// </summary>
 	public class Logger : ILogger
 	{
 		/// <summary>
 		/// Although this normally will be registered as transient, if we use it in a singleton instance,
 		/// we might have concurrency issues on dbContext. So to be safe we lock all the dbContext operations.
-		/// Update: No longer necessary, as dbContext is not transient, no longer singleton
+		/// Update: No longer necessary, as dbContext is transient, no longer singleton
 		/// </summary>
 		private static object _lock = new object();
 
@@ -95,13 +98,14 @@ namespace Quoter.Framework.Services
 
 		public void Debug(string message, [CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "")
 		{
+#if DEBUG
 			string callerFile = Path.GetFileNameWithoutExtension(callerFilePath);
 			string dateTime = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss,FFF");
 			string thread = Thread.CurrentThread.ManagedThreadId.ToString();
 
 			string fullMessage = $"{dateTime} Th:{thread} {callerFile}.{callerMemberName} {message}";
 			System.Diagnostics.Debug.WriteLine(fullMessage);
-#if DEBUG
+
 			lock (_lock)
 			{
 				_context.Logs.Add(new Log()

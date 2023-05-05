@@ -30,7 +30,8 @@ namespace Quoter.App
 
 		private bool _isUserLoggedOff;
 
-		private System.Timers.Timer _timerShowNotifications;
+		private System.Windows.Forms.Timer _timerShowNotifications;
+		private System.Windows.Forms.Timer _timerShowInitalNotification;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
 										ISettings settings,
@@ -56,7 +57,7 @@ namespace Quoter.App
 				Text = _stringResources["Quoter"],
 				Visible = true
 			};
-			SetContextMenuStripIsWorkInBackground(false);
+			SetTrayBusyMessage(false);
 			SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
 		}
 
@@ -103,7 +104,7 @@ namespace Quoter.App
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
 
 				// Show welcome message
-				ShowWelcomeMessage();
+				//ShowWelcomeMessage();
 			}
 			if(!_settings.IsSetupFinished)
 			{
@@ -113,9 +114,17 @@ namespace Quoter.App
 
 		private void InitializeBackgroundTimers()
 		{
-			_timerShowNotifications = new(GetNotificationsIntervalMiliseconds());
-			_timerShowNotifications.Elapsed += (sender, e) => ElapsedTimerEventShowNotifications();
+			// Main timer for showing notifications (quotes)
+			_timerShowNotifications = new();
+			_timerShowNotifications.Interval = GetNotificationsIntervalMiliseconds();
+			_timerShowNotifications.Tick += (sender, e) => ElapsedTimerEventShowNotifications();
 			_timerShowNotifications.Start();
+
+			// Timer to show a message at startup or open the quote form if is always on
+			_timerShowInitalNotification = new();
+			_timerShowInitalNotification.Interval = 5000;
+			_timerShowInitalNotification.Tick += (sender, e) => ElapsedTimerEventStartup();
+			_timerShowInitalNotification.Start();
 		}
 
 		/// <summary>
@@ -135,28 +144,91 @@ namespace Quoter.App
 			}
 		}
 
-		private void ShowWelcomeMessage()
+		//private void ShowWelcomeMessage()
+		//{
+		//	try
+		//	{
+		//		Task.Run(async () =>
+		//		{
+		//			if (_settings.ShowWelcomeNotification)
+		//			{
+		//				await Task.Delay(1000);
+		//				int autoHideWelcomeMessageSeconds = 7;
+		//				QuoteFormOptions messageModel = new()
+		//				{
+		//					Title = _stringResources["Welcome"],
+		//					Body = _stringResources["WelcomeStartupMessage"]
+		//				};
+		//				_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
+		//			}
+		//			if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
+		//			{
+		//				ShowQuoteNotification();
+		//			}
+		//		});
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		_logger.Error(ex);
+		//	}
+		//}
+
+		void IMessagingSubscriber.OnMessageEvent(string message, object? argument)
 		{
+			switch (message)
+			{
+				case Event.LanguageChanged:     // Reset the context strip with the new language
+					SetContextMenuStripTranslationsThreadSafe();
+					break;
+				case Event.NotificationIntervalChanged: // Stop the timer and set the new notification interval
+					_timerShowNotifications.Stop();
+					int miliseconds = _settings.NotificationIntervalSeconds * 1000;
+					_timerShowNotifications.Interval = miliseconds;
+					_timerShowNotifications.Start();
+					break;
+				case Event.ImportInProgress:
+				case Event.ExportInProgress:
+					SetTrayBusyMessage(true);
+					break;
+				case Event.ExportSucessfull:
+					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
+					ShowDialog(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()], false);
+					break;
+				case Event.ExportFailed:
+					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
+					ShowDialog(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()], true);
+					break;
+				case Event.ImportSuccesfull:
+					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
+					ShowDialog(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()], false);
+					break;
+				case Event.ImportFailed:
+					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
+					ShowDialog(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()], true);
+					break;
+			}
+		}
+
+		private void ElapsedTimerEventStartup()
+		{
+			_logger.Debug("");
 			try
 			{
-				Task.Run(async () =>
+				if (_settings.NotificationType == EnumNotificationType.AlwaysOn) 
 				{
-					if (_settings.ShowWelcomeNotification)
+					ShowQuoteNotification();
+				}
+				else if (_settings.ShowWelcomeNotification)
+				{
+					int autoHideWelcomeMessageSeconds = 7;
+					QuoteFormOptions messageModel = new()
 					{
-						await Task.Delay(1000);
-						int autoHideWelcomeMessageSeconds = 7;
-						QuoteFormOptions messageModel = new()
-						{
-							Title = _stringResources["Welcome"],
-							Body = _stringResources["WelcomeStartupMessage"]
-						};
-						_formsManager.ShowDialog<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
-					}
-					if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
-					{
-						ShowQuoteNotification();
-					}
-				}).ConfigureAwait(false);
+						Title = _stringResources["Welcome"],
+						Body = _stringResources["WelcomeStartupMessage"]
+					};
+					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
+				}
+				_timerShowInitalNotification.Enabled = false;
 			}
 			catch (Exception ex)
 			{
@@ -164,73 +236,9 @@ namespace Quoter.App
 			}
 		}
 
-		public void OnMessageEvent(string message, object? argument)
-		{
-			if (message == Event.LanguageChanged)
-			{
-				// Reset the context strip with the new language
-				SetContextMenuStripTranslationsThreadSafe();
-			}
-			if (message == Event.NotificationIntervalChanged)
-			{
-				// Stop the timer and set the new notification interval
-				_timerShowNotifications.Stop();
-				double miliseconds = _settings.NotificationIntervalSeconds * 1000;
-				_timerShowNotifications.Interval = miliseconds;
-				_timerShowNotifications.Start();
-			}
-			if (message == Event.ImportInProgress || message == Event.ExportInProgress)
-			{
-				SetContextMenuStripIsWorkInBackground(true);
-			}
-			if (message == Event.ExportSucessfull)
-			{
-				if (!_messagingService.ExistsAnnouncement(Event.ImportInProgress))
-				{
-					SetContextMenuStripIsWorkInBackground(false);
-				}
-				ShowDialog(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()], false);
-			}
-			if (message == Event.ExportFailed)
-			{
-				if (!_messagingService.ExistsAnnouncement(Event.ImportInProgress))
-				{
-					SetContextMenuStripIsWorkInBackground(false);
-				}
-				ShowDialog(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()], true);
-			}
-			if (message == Event.ImportSuccesfull)
-			{
-				if (!_messagingService.ExistsAnnouncement(Event.ExportInProgress))
-				{
-					SetContextMenuStripIsWorkInBackground(false);
-				}
-				ShowDialog(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()], false);
-			}
-			if (message == Event.ImportFailed)
-			{
-				if (!_messagingService.ExistsAnnouncement(Event.ExportInProgress))
-				{
-					SetContextMenuStripIsWorkInBackground(false);
-				}
-				ShowDialog(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()], true);
-			}
-		}
-
-		private void ShowDialog(string title, string message, bool isError)
-		{
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
-			{
-				Title = title,
-				TitleColor = isError ? Const.ColorError : Const.ColorDefault,
-				Message = message,
-				MessageBoxButtons = EnumDialogButtons.Ok
-			};
-			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
-		}
-
 		private void ElapsedTimerEventShowNotifications()
 		{
+			_logger.Debug("");
 			try
 			{
 				if (_isUserLoggedOff)
@@ -261,7 +269,7 @@ namespace Quoter.App
 			if (_settings.NotificationType == EnumNotificationType.Popup)
 			{
 				_messagingService.SendMessage(Event.OpeningQuoteWindow);
-				_formsManager.ShowDialog<QuoteForm>(_settings.AutoCloseNotificationSeconds);
+				_formsManager.Show<QuoteForm>(_settings.AutoCloseNotificationSeconds);
 			}
 			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 			{
@@ -271,7 +279,7 @@ namespace Quoter.App
 				}
 				else
 				{
-					_formsManager.ShowDialog<QuoteForm>(0);
+					_formsManager.Show<QuoteForm>(0);
 				}
 			}
 		}
@@ -325,6 +333,18 @@ namespace Quoter.App
 			_formsManager.ShowAndCloseOthers<ReaderForm>();
 		}
 
+		private void ShowDialog(string title, string message, bool isError)
+		{
+			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			{
+				Title = title,
+				TitleColor = isError ? Const.ColorError : Const.ColorDefault,
+				Message = message,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+		}
+
 		private ContextMenuStrip GetContextMenuStrip()
 		{
 			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
@@ -369,7 +389,15 @@ namespace Quoter.App
 			_trayIcon.ContextMenuStrip.Items[3].Image = pauseResumeImage;
 		}
 
-		private void SetContextMenuStripIsWorkInBackground(bool isWorkInBackground)
+		private void HideTrayBusyMsgIfAnnouncementNotExists(string eventName)
+		{
+			if (!_messagingService.ExistsAnnouncement(eventName))
+			{
+				SetTrayBusyMessage(false);
+			}
+		}
+
+		private void SetTrayBusyMessage(bool isWorkInBackground)
 		{
 			if (_trayIcon.ContextMenuStrip.InvokeRequired)
 			{
@@ -414,9 +442,9 @@ namespace Quoter.App
 			_trayIcon.ContextMenuStrip.Items[10].Text = _stringResources["Exit"];
 		}
 
-		private double GetNotificationsIntervalMiliseconds()
+		private int GetNotificationsIntervalMiliseconds()
 		{
-			return _settings.NotificationIntervalSeconds * 1000;
+			return _settings.NotificationIntervalSeconds * 300;
 		}
 	}
 }

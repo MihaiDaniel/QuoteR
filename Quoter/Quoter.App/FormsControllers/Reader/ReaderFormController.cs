@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.App.Forms;
+using Quoter.App.Forms.Reader;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Reader
 {
-	public class ReaderFormController : IReaderFormController, INotifyPropertyChanged
+    public class ReaderFormController : IReaderFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IQuoteService _quoteService;

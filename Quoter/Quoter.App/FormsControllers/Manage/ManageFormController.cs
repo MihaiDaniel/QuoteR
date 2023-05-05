@@ -1,4 +1,5 @@
 ﻿using Quoter.App.Forms;
+using Quoter.App.Forms.Manage;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
@@ -6,10 +7,10 @@ using Quoter.Framework.Services.Messaging;
 
 namespace Quoter.App.FormsControllers.Manage
 {
-	/// <summary>
-	/// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
-	/// </summary>
-	public class ManageFormController : IManageFormController, IMessagingSubscriber
+    /// <summary>
+    /// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
+    /// </summary>
+    public class ManageFormController : IManageFormController, IMessagingSubscriber
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;

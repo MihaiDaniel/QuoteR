@@ -1,18 +1,19 @@
 ﻿using Quoter.Framework.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quoter.App.Forms
+namespace Quoter.App.Forms.Manage
 {
+	/// <summary>
+	/// Handles the settings form
+	/// </summary>
+	/// <remarks>
+	/// This is actually a tab in the <see cref="ManageForm"/>
+	/// </remarks>
 	public interface ISettingsForm : IManageForm
 	{
 		void LocalizeControls();
 
 		void SetSelectedLanguage(EnumLanguage language);
-		
+
 		void SetSelectedCollectionByLanguage(bool isShowByLanguage);
 
 		void SetOpacitySlider(double opacity);

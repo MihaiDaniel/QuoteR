@@ -1,5 +1,6 @@
 ﻿using IWshRuntimeLibrary;
 using Quoter.App.Forms;
+using Quoter.App.Forms.Manage;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
@@ -13,10 +14,10 @@ using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Settings
 {
-	/// <summary>
-	/// Controller for the Settings Tab of the <see cref="ManageForm"/>
-	/// </summary>
-	public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
+    /// <summary>
+    /// Controller for the Settings Tab of the <see cref="ManageForm"/>
+    /// </summary>
+    public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
 	{
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
@@ -247,10 +248,10 @@ namespace Quoter.App.FormsControllers.Settings
 
 				if (type == EnumNotificationType.AlwaysOn)
 				{
-					Task.Run(() =>
-					{
-						_formsManager.ShowDialog<QuoteForm>(0);
-					});
+					//Task.Run(() =>
+					//{
+						_formsManager.Show<QuoteForm>(0);
+					//});
 				}
 			}
 		}

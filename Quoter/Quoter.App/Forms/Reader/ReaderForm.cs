@@ -8,14 +8,15 @@ using Quoter.App.Forms.Common;
 using Quoter.App.Helpers;
 using Quoter.Framework.Entities;
 using Quoter.App.Controls;
+using Quoter.App.Forms.Reader;
 
 namespace Quoter.App.Forms
 {
-	/// <summary>
-	/// In this form the user can read a collection's quotes. Navigation is possible between
-	/// the collection's books or chapters
-	/// </summary>
-	public partial class ReaderForm : ResizableForm, IReaderForm
+    /// <summary>
+    /// In this form the user can read a collection's quotes. Navigation is possible between
+    /// the collection's books or chapters
+    /// </summary>
+    public partial class ReaderForm : ResizableForm, IReaderForm
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;

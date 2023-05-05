@@ -1,11 +1,11 @@
-﻿using Quoter.App.Forms;
+﻿using Quoter.App.Forms.Manage;
 using Quoter.App.Models;
 using Quoter.Framework.Entities;
 using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-	public interface IEditQuotesFormController : IFormController<IEditQuotesForm>
+    public interface IEditQuotesFormController : IFormController<IEditQuotesForm>
 	{
 		Collection? SelectedCollection { get; set; }
 		BindingList<Collection> Collections { get; }

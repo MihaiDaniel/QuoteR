@@ -1,6 +1,7 @@
-﻿using Quoter.Framework.Enums;
+﻿using Quoter.App.Forms.Common;
+using Quoter.Framework.Enums;
 
-namespace Quoter.App.Forms
+namespace Quoter.App.Forms.Manage
 {
 	/// <summary>
 	/// Interface for the <see cref="ManageForm"/>

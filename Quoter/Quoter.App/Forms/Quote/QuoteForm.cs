@@ -1,5 +1,6 @@
 ﻿using Quoter.App.Controls;
 using Quoter.App.Forms;
+using Quoter.App.Forms.Quote;
 using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
@@ -75,12 +76,27 @@ namespace Quoter.App.Views
 			await _formAnimationService.AnimateAsync(this, theme.OpenNotificationAnimation);
 		}
 
-		public Form GetForm()
+		#region ShowWithoutStealingFocus
+
+		protected override bool ShowWithoutActivation
 		{
-			return this;
+			get { return true; }
 		}
 
-		public void SetTheme(Theme theme)
+		private const int WS_EX_TOPMOST = 0x00000008;
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				CreateParams createParams = base.CreateParams;
+				createParams.ExStyle |= WS_EX_TOPMOST;
+				return createParams;
+			}
+		}
+
+		#endregion ShowWithoutStealingFocus
+
+		void IForm.SetTheme(Theme theme)
 		{
 			this.InvokeIfRequired(() =>
 			{
@@ -96,7 +112,12 @@ namespace Quoter.App.Views
 			});
 		}
 
-		public void SetQuote(QuoteFormOptions quoteModel)
+		Form IQuoteForm.GetForm()
+		{
+			return this;
+		}
+
+		void IQuoteForm.SetQuote(QuoteFormOptions quoteModel)
 		{
 			this.InvokeIfRequired(() =>
 			{
@@ -119,34 +140,6 @@ namespace Quoter.App.Views
 					btnPreviousQuote.Visible = false;
 				}
 			});
-		}
-
-		/// <summary>
-		/// Adjusts the fontSize for a particular font so that the text can be fully displayed in the txtBody.
-		/// The minimum fontSize returned is 10.
-		/// </summary>
-		private float GetOptimalFontSize(string fontName, float fontSize)
-		{
-			int controllerWidth = txtBody.Width;
-			int controllerHeight = txtBody.Height;
-			SizeF size = TextRenderer.MeasureText(txtBody.Text, new Font(fontName, fontSize), new Size(controllerWidth, controllerHeight), TextFormatFlags.WordBreak);
-
-			int lines = (int)Math.Round(size.Width / controllerWidth, 0, MidpointRounding.ToPositiveInfinity);
-			int textHeightUsed = (int)(lines * size.Height);
-			if (textHeightUsed > controllerHeight)
-			{
-				if (fontSize <= 10f)
-				{
-					txtBody.ScrollBars = ScrollBars.Vertical; // Enable scrollbars
-					return 10; // Aprox 320 chars depending on font and word size
-				}
-				else
-				{
-					fontSize -= 1;
-					return GetOptimalFontSize(fontName, fontSize);
-				}
-			}
-			return fontSize;
 		}
 
 		EnumFormCloseState IMonitoredForm.IsClosable()
@@ -186,38 +179,6 @@ namespace Quoter.App.Views
 			this.InvokeIfRequired(() => base.Close());
 		}
 
-		#region ShowWithoutStealingFocus
-
-		protected override bool ShowWithoutActivation
-		{
-			get { return true; }
-		}
-
-		private const int WS_EX_TOPMOST = 0x00000008;
-		protected override CreateParams CreateParams
-		{
-			get
-			{
-				CreateParams createParams = base.CreateParams;
-				createParams.ExStyle |= WS_EX_TOPMOST;
-				return createParams;
-			}
-		}
-
-		#endregion ShowWithoutStealingFocus
-
-		private void SetControlText(Control control, string text, int maxChars)
-		{
-			if (text.Length > maxChars)
-			{
-				control.Text = text.Substring(0, TitleMaxChars);
-			}
-			else
-			{
-				control.Text = text;
-			}
-		}
-
 		private void btnClose_Click(object sender, EventArgs e)
 		{
 			_formsManager.Close(this);
@@ -247,9 +208,48 @@ namespace Quoter.App.Views
 
 		private async void txtFooter_Click(object sender, EventArgs e)
 		{
-			btnClose_Click(sender, e);
+			//btnClose_Click(sender, e);
 			await _controller.OpenReaderForm();
 		}
 
+		private void SetControlText(Control control, string text, int maxChars)
+		{
+			if (text.Length > maxChars)
+			{
+				control.Text = text.Substring(0, TitleMaxChars);
+			}
+			else
+			{
+				control.Text = text;
+			}
+		}
+
+		/// <summary>
+		/// Adjusts the fontSize for a particular font so that the text can be fully displayed in the txtBody.
+		/// The minimum fontSize returned is 10.
+		/// </summary>
+		private float GetOptimalFontSize(string fontName, float fontSize)
+		{
+			int controllerWidth = txtBody.Width;
+			int controllerHeight = txtBody.Height;
+			SizeF size = TextRenderer.MeasureText(txtBody.Text, new Font(fontName, fontSize), new Size(controllerWidth, controllerHeight), TextFormatFlags.WordBreak);
+
+			int lines = (int)Math.Round(size.Width / controllerWidth, 0, MidpointRounding.ToPositiveInfinity);
+			int textHeightUsed = (int)(lines * size.Height);
+			if (textHeightUsed > controllerHeight)
+			{
+				if (fontSize <= 10f)
+				{
+					txtBody.ScrollBars = ScrollBars.Vertical; // Enable scrollbars
+					return 10; // Aprox 320 chars depending on font and word size
+				}
+				else
+				{
+					fontSize -= 1;
+					return GetOptimalFontSize(fontName, fontSize);
+				}
+			}
+			return fontSize;
+		}
 	}
 }

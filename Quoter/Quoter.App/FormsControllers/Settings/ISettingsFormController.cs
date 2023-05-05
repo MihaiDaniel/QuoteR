@@ -1,10 +1,10 @@
-﻿using Quoter.App.Forms;
+﻿using Quoter.App.Forms.Manage;
 using Quoter.Framework.Enums;
 using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.Settings
 {
-	public interface ISettingsFormController : IFormController<ISettingsForm>
+    public interface ISettingsFormController : IFormController<ISettingsForm>
 	{
 
 		string NotificationsIntervalMinutes { get; set; }

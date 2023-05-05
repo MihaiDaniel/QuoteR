@@ -29,7 +29,7 @@ namespace Quoter.App.Services.Forms
 		/// <typeparam name="TForm">Type of form to show</typeparam>
 		/// <param name="autoCloseSeconds">Number of seconds to keep the form before closing automatically</param>
 		/// <param name="arrParameters">Optional parameters to pass to the form's constructor if needed</param>
-		void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm;
+		void Show<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm;
 
 		/// <summary>
 		/// Closes a form opened with the formsManager

@@ -5,7 +5,6 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.Messaging;
-
 namespace Quoter.App.Services.Forms
 {
 	/// <summary>
@@ -61,12 +60,7 @@ namespace Quoter.App.Services.Forms
 				{
 					formState.Form.InvokeIfRequired(() => formState.Form.TopMost = true);
 				}
-				OpeningFormArgs openingFormArgs = new OpeningFormArgs()
-				{
-					Type= formType,
-					Parameters = arrParameters
-				};
-				_messagingService.SendMessage(Event.OpeningForm, openingFormArgs);
+				SendMessageOpeningForm(formType, arrParameters);
 			}
 			catch(Exception ex)
 			{
@@ -89,6 +83,8 @@ namespace Quoter.App.Services.Forms
 				DialogReturnable result = new(dialogReturnable.DialogResult, dialogReturnable.StringResult);
 				if (!form.IsDisposed)
 				{
+					// Dialog forms are not disposed, so we have to dispose of it manually:
+					// see: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.form.showdialog?view=windowsdesktop-8.0#system-windows-forms-form-showdialog
 					form.Dispose();
 				}
 				return result;
@@ -101,7 +97,7 @@ namespace Quoter.App.Services.Forms
 		}
 
 		/// <inheritdoc/>
-		public void ShowDialog<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
+		public void Show<TForm>(int autoCloseSeconds, params object[] arrParameters) where TForm : Form, IMonitoredForm
 		{
 			_logger.Debug($"{typeof(TForm)}, autoClose: {autoCloseSeconds}");
 			try
@@ -114,12 +110,7 @@ namespace Quoter.App.Services.Forms
 					_lifecycleService.CloseDelayed((IMonitoredForm)form, autoCloseSeconds);
 				}
 				form.FormClosing += EventFormClosing;
-				form.ShowDialog();
-
-				if (!form.IsDisposed)
-				{
-					form.Dispose();
-				}
+				form.Show();
 			}
 			catch(Exception ex)
 			{
@@ -161,12 +152,23 @@ namespace Quoter.App.Services.Forms
 			return _lstOpenedForms.Any(f => f.Type == typeof(TForm));
 		}
 
+		private void SendMessageOpeningForm(Type formType, object[] arrParameters)
+		{
+			OpeningFormArgs openingFormArgs = new OpeningFormArgs()
+			{
+				Type = formType,
+				Parameters = arrParameters
+			};
+			_messagingService.SendMessage(Event.OpeningForm, openingFormArgs);
+		}
+
 		/// <summary>
 		/// Event handler that should be registered to the Form's close event, so we can remove
 		/// it from the opened forms list
 		/// </summary>
 		private void EventFormClosing(object? sender, FormClosingEventArgs e)
 		{
+			// Normally sender should always be Form. Remove from the opened forms list
 			if (sender is Form)
 			{
 				FormStateModel? formState = _lstOpenedForms.FirstOrDefault(f => f.Form == sender);

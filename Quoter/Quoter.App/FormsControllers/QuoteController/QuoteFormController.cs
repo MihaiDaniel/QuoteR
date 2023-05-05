@@ -1,4 +1,5 @@
 ﻿using Quoter.App.Forms;
+using Quoter.App.Forms.Quote;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
@@ -163,8 +164,9 @@ namespace Quoter.App.FormsControllers.QuoteController
 				ChapterId = _currentQuote.ChapterId,
 				QuoteId = _currentQuote.QuoteId,
 			};
-			await Task.Delay(1); // Try to release callstack see if this helps with ReaderForm hanging
+			//await Task.Delay(1); // Try to release callstack see if this helps with ReaderForm hanging
 			_formsManager.ShowAndCloseOthers<ReaderForm>(options);
+
 		}
 
 		private QuoteFormOptions GetQuoteFormOptions(Quote quote)

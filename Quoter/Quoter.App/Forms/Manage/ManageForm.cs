@@ -1,5 +1,6 @@
 ﻿using Quoter.App.Controls;
 using Quoter.App.Forms.Common;
+using Quoter.App.Forms.Manage;
 using Quoter.App.FormsControllers.EditQuotes;
 using Quoter.App.FormsControllers.FavouriteQuotes;
 using Quoter.App.FormsControllers.Manage;
@@ -29,7 +30,6 @@ namespace Quoter.App.Forms
 		private readonly IManageFormController _manageFormController;
 		private readonly IEditQuotesFormController _editQuotesController;
 		private readonly ISettingsFormController _settingsController;
-		private readonly IThemeService _themeService;
 		private readonly IFavouriteQuotesFormController _favouriteQuotesController;
 		private readonly ManageFormOptions _options;
 		ILogger _logger;
@@ -54,7 +54,6 @@ namespace Quoter.App.Forms
 							IEditQuotesFormController editQuotesController,
 							ISettingsFormController settingsController,
 							IFavouriteQuotesFormController favouriteQuotesController,
-							IThemeService themeService,
 							ILogger logger,
 							ManageFormOptions options)
 		{
@@ -72,7 +71,6 @@ namespace Quoter.App.Forms
 			_editQuotesController = editQuotesController;
 			_settingsController = settingsController;
 			_favouriteQuotesController = favouriteQuotesController;
-			_themeService = themeService;
 			_logger = logger;
 			_options = options;
 			LocalizeControls();
@@ -118,7 +116,7 @@ namespace Quoter.App.Forms
 			btnTabPage3.Text = _stringResources["Settings"];
 
 			// Edit quotes tab
-			lblTitle.Text = _stringResources["Manage"];
+			lblTitle.Text = _stringResources["Quoter"];
 			tabPage1.Text = _stringResources["CreateEditQuotes"];
 
 			gbCollections.Text = _stringResources["Collection"];

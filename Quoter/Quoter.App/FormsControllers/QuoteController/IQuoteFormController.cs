@@ -1,4 +1,4 @@
-﻿using Quoter.App.Forms;
+﻿using Quoter.App.Forms.Quote;
 using Quoter.Framework.Models;
 
 namespace Quoter.App.FormsControllers.QuoteController
