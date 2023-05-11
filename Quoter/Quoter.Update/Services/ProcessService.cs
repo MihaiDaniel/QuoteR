@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quoter.Update
+namespace Quoter.Update.Services
 {
-	public class ProcessHandler
+	public class ProcessService
 	{
 		public bool HasWriteRightOnFolder(string folder)
 		{
@@ -34,6 +29,8 @@ namespace Quoter.Update
 				Process[] arrProcess = Process.GetProcessesByName(processName);
 				foreach (Process process in arrProcess)
 				{
+					//process.CloseMainWindow(); // not working
+					//process.Close();			// not working
 					process.Kill();
 					process.WaitForExit();
 					process.Dispose();
@@ -56,7 +53,7 @@ namespace Quoter.Update
 
 		public void RestartProcessAsAdmin(string args)
 		{
-			System.Diagnostics.ProcessStartInfo StartInfo = new System.Diagnostics.ProcessStartInfo
+			ProcessStartInfo StartInfo = new ProcessStartInfo
 			{
 				UseShellExecute = true, //<- for elevation
 				Verb = "runas",  //<- for elevation
@@ -64,12 +61,8 @@ namespace Quoter.Update
 				FileName = "Quoter.Update.exe",
 				Arguments = args
 			};
-			System.Diagnostics.Process p = System.Diagnostics.Process.Start(StartInfo);
+			Process.Start(StartInfo);
 		}
-
-
-
-
 
 	}
 }
