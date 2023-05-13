@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Quoter.Update.Helpers;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 namespace Quoter.Update.Services
@@ -51,6 +52,10 @@ namespace Quoter.Update.Services
 				string[] arrCurrentVersionFilePaths = Directory.GetFiles(installationDir, "", SearchOption.AllDirectories);
 				foreach (string filePath in arrCurrentVersionFilePaths)
 				{
+					if(filePath.Contains(Const.DirToSkip))
+					{
+						continue; // Skip the directory containing the updater itself
+					}
 					string backupFilePath = GetFileBackupPath(filePath, _installDir, _backupDir);
 
 					Logger.Info($"Copying [{filePath}] to [{backupFilePath}]");
@@ -83,7 +88,7 @@ namespace Quoter.Update.Services
 
 			Logger.Info("Version of backup: " + currentVersion);
 
-			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter.Update", currentVersion);
+			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Const.BackupDir, currentVersion);
 		}
 
 		private string GetFileBackupPath(string filePath, string installDir, string backupDir)

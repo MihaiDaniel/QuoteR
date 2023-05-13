@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Quoter.Update.Helpers;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Quoter.Update.Services
@@ -51,14 +52,14 @@ namespace Quoter.Update.Services
 			}
 		}
 
-		public void RestartProcessAsAdmin(string args)
+		public void RestartUpdaterProcessAsAdmin(string args)
 		{
 			ProcessStartInfo StartInfo = new ProcessStartInfo
 			{
 				UseShellExecute = true, //<- for elevation
 				Verb = "runas",  //<- for elevation
 				WorkingDirectory = Environment.CurrentDirectory,
-				FileName = "Quoter.Update.exe",
+				FileName = Const.UpdaterExe,
 				Arguments = args
 			};
 			Process.Start(StartInfo);

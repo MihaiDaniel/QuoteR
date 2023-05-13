@@ -74,7 +74,7 @@ namespace Quoter.Update
 					}
 					else if (!IsRestartedAsAdmin)
 					{
-						_processHandler.RestartProcessAsAdmin($"-i {InstallFolderPath} -e {ApplicationExeName} -u {ZipUpdateFolderPath} -r true");
+						_processHandler.RestartUpdaterProcessAsAdmin($"-i {InstallFolderPath} -e {ApplicationExeName} -u {ZipUpdateFolderPath} -r true");
 					}
 					else
 					{
