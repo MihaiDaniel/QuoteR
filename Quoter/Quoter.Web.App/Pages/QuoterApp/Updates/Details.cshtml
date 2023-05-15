@@ -1,0 +1,68 @@
+﻿@page "{id:Guid?}"
+@model Quoter.Web.App.Pages.QuoterApp.Updates.DetailsModel
+@{
+}
+
+<h1>Details</h1>
+<!-- Name is required so having no name means the id is not valid -->
+@if(Model.Name != null)
+{
+    <div class="container">
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Version)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Version)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Path)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Path)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+        </dl>
+    </div>
+}
+else
+{
+    <div>
+        <p>Update entry does not exist</p>
+        <a class="btn btn-primary" asp-area="" asp-page="/QuoterApp/Updates/List" role="button">Go back to list</a>
+    </div>
+    
+}
