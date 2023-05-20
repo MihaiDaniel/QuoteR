@@ -26,15 +26,23 @@ namespace Quoter.App.Services
 				{
 					throw new ArgumentNullException(nameof(name));
 				}
-				string returnValue = _resourceManager.GetString(name);
-				if(returnValue == null)
+				string? localizedString = null;
+				try
+				{
+					localizedString = _resourceManager.GetString(name);
+				}
+				catch 
+				{
+					// we log below if no value is found
+				}
+				if(localizedString == null)
 				{
 					_logger.Warn($"No translation found for: {name}");
 					return "! " + name;
 				}
 				else
 				{
-					return returnValue;
+					return localizedString;
 				}
 			}
 		}
@@ -48,8 +56,16 @@ namespace Quoter.App.Services
 				{
 					throw new ArgumentNullException(nameof(name));
 				}
-				string? localizedString = _resourceManager.GetString(name);
-				if(localizedString == null)
+				string? localizedString = null;
+				try
+				{
+					localizedString = _resourceManager.GetString(name);
+				}
+				catch
+				{
+					// we log below if no value is found
+				}
+				if (localizedString == null)
 				{
 					_logger.Warn($"No translation found for: {name}");
 					return "! " + name;
