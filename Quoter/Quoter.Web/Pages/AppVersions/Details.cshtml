@@ -1,0 +1,55 @@
+﻿@page
+@model Quoter.Web.Pages.AppVersions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AppVersion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.Version)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.Version)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.Os)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.Os)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.Path)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.Path)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppVersion.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppVersion.CreationDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.AppVersion?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

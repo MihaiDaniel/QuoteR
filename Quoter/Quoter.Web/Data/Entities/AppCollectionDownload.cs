@@ -19,9 +19,9 @@ namespace Quoter.Web.Data.Entities
 
 		public AppCollection? AppCollection { get; set; }
 
-		public DateTime DownloadDateTime { get; set; }
-
 		#endregion FK
+
+		public DateTime DownloadDateTime { get; set; }
 
 		public AppCollectionDownload()
 		{

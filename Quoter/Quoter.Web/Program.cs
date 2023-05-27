@@ -6,6 +6,7 @@ using Quoter.Web.Extensions;
 using Quoter.Web.Models.Configuration;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using Quoter.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
+
+builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
 
 var app = builder.Build();
 // Migrate the database if needed
