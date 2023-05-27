@@ -15,6 +15,7 @@ using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
+using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms
 {

@@ -21,4 +21,8 @@
     <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Quoter.Shared\Quoter.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

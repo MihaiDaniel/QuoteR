@@ -8,6 +8,7 @@ using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Shared.Enums;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;

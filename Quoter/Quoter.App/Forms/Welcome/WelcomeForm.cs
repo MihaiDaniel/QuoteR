@@ -7,6 +7,7 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models.ImportExport;
+using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms
 {

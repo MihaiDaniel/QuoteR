@@ -8,6 +8,7 @@ using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Shared.Enums;
 using System.Media;
 
 namespace Quoter.App.FormsControllers.QuoteController

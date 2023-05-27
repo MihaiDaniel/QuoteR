@@ -1,4 +1,4 @@
-﻿using Quoter.Framework.Enums;
+﻿using Quoter.Shared.Enums;
 
 namespace Quoter.Framework.Entities
 {

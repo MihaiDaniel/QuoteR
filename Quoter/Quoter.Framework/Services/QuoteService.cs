@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Enums;
+using Quoter.Shared.Enums;
 using Quoter.Framework.Models;
 using System.Text;
 

@@ -7,7 +7,7 @@ using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Enums;
+using Quoter.Shared.Enums;
 using Quoter.Framework.Helpers;
 using Quoter.Framework.Services;
 using System.ComponentModel;
@@ -15,6 +15,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Quoter.Framework.Enums;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {

@@ -1,5 +1,5 @@
 ﻿using Quoter.Framework.Entities;
-using Quoter.Framework.Enums;
+using Quoter.Shared.Enums;
 
 namespace Quoter.Framework.Services
 {

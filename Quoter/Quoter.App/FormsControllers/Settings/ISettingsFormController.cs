@@ -1,6 +1,6 @@
 ﻿using Quoter.App.Forms.Manage;
 using Quoter.Framework.Enums;
-using System.ComponentModel;
+using Quoter.Shared.Enums;
 
 namespace Quoter.App.FormsControllers.Settings
 {
