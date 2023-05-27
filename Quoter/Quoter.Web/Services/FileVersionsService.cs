@@ -1,4 +1,7 @@
-﻿namespace Quoter.Web.Services
+﻿using Quoter.Web.Data.Entities;
+using Quoter.Web.Models;
+
+namespace Quoter.Web.Services
 {
 	public class FileVersionsService : IFileVersionsService
 	{
@@ -10,9 +13,14 @@
 			_environment = environment;
 		}
 
-		public async Task<IFormFile> GetFileVersionAsync(string path)
+		public async Task<VersionFile> GetVersionFileAsync(AppVersion appVersion)
 		{
-			throw new NotImplementedException();
+			VersionFile versionFile = new();
+			versionFile.Version = appVersion.Version;
+			versionFile.FileName = Path.GetFileName(appVersion.Path);
+			versionFile.Content = await File.ReadAllBytesAsync(appVersion.Path);
+
+			return versionFile;
 		}
 
 		public async Task<string> SaveFileVersionAsync(IFormFile file, string? name = null)

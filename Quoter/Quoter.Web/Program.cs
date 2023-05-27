@@ -1,17 +1,17 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
 using Quoter.Web.Extensions;
 using Quoter.Web.Models.Configuration;
-using System.Configuration;
-using Microsoft.Extensions.Configuration;
 using Quoter.Web.Services;
+using Microsoft.AspNetCore.HttpOverrides;
+using Quoter.Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
 // Setup the database
@@ -37,6 +37,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	})
 	.AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddSwaggerGen(c =>
+{
+	c.OperationFilter<SwaggerRegistrationHeaderParameter>();
+});
+
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
 
 builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
@@ -51,6 +56,8 @@ app.SeedDatabase(builder.Configuration).Wait();
 if (app.Environment.IsDevelopment())
 {
 	app.UseMigrationsEndPoint();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 else
 {
@@ -58,6 +65,12 @@ else
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+	ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+	ForwardedHeaders.XForwardedProto
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -68,5 +81,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
+
 
 app.Run();

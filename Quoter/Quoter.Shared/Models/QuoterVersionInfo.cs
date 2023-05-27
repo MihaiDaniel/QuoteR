@@ -1,9 +1,12 @@
 ﻿using Quoter.Shared.Enums;
+using System;
 
 namespace Quoter.Shared.Models
 {
-	public class Version
+	public class QuoterVersionInfo
 	{
+		public Guid Id { get; set; }
+
 		public int Major { get; private set; }
 
 		public int Minor { get; private set; }
@@ -12,8 +15,9 @@ namespace Quoter.Shared.Models
 
 		public int Revision { get; private set; }
 
-		public Version(string version)
+		public QuoterVersionInfo(Guid id, string version)
 		{
+			Id = id;
 			string[] component = version.Split('.');
 			Major = int.Parse(component[0]);
 			Minor = int.Parse(component[1]);
@@ -26,7 +30,7 @@ namespace Quoter.Shared.Models
 		/// Returns a value indicating how this version is in comparison.
 		/// Is it Older/Newer/Equal in regards to the one to compare 
 		/// </summary>
-		public EnumVersionCompare CompareWith(Version version)
+		public EnumVersionCompare CompareWith(QuoterVersionInfo version)
 		{
 			if(Major == version.Major 
 				&& Minor == version.Minor 
