@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
@@ -23,9 +24,14 @@ namespace Quoter.Web.Controllers
 		{
 			try
 			{
-				if(identifier == null || string.IsNullOrEmpty(identifier.ToString())) 
+				if (identifier == null || string.IsNullOrEmpty(identifier.ToString()))
 				{
-					return BadRequest();
+					return BadRequest("Identifier provided is not valid");
+				}
+				Guid? existingRegId = await _context.AppRegistrations.Where(r => r.Identifier == identifier.ToString()).Select(r => r.Id).FirstOrDefaultAsync();
+				if (existingRegId != null && existingRegId != Guid.Empty)
+				{
+					return Ok(existingRegId);
 				}
 
 				string? clientIpAddress = HttpContext.Connection?.RemoteIpAddress?.ToString();
@@ -45,7 +51,7 @@ namespace Quoter.Web.Controllers
 			{
 				return GetInternalServerErrorResponse();
 			}
-			
+
 		}
 
 	}

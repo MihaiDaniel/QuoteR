@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Quoter.Web.Services;
 
 namespace Quoter.Web.Pages.AppVersions
 {
+	[Authorize]
 	public class CreateModel : PageModel
 	{
 		private readonly IFileVersionsService _fileVersionsService;

@@ -12,14 +12,14 @@ using Quoter.Web.Data;
 namespace Quoter.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230521190927_Initial")]
+    [Migration("20230527181651_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.15")
+                .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -473,7 +473,7 @@ namespace Quoter.Web.Migrations
                         .HasForeignKey("AppRegistrationId");
 
                     b.HasOne("Quoter.Web.Data.Entities.AppVersion", "AppVersion")
-                        .WithMany("AppVersionDownloads")
+                        .WithMany("LstAppVersionDownloads")
                         .HasForeignKey("AppVersionId");
 
                     b.Navigation("AppRegistration");
@@ -493,7 +493,7 @@ namespace Quoter.Web.Migrations
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.AppVersion", b =>
                 {
-                    b.Navigation("AppVersionDownloads");
+                    b.Navigation("LstAppVersionDownloads");
                 });
 #pragma warning restore 612, 618
         }

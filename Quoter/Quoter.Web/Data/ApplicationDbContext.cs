@@ -24,5 +24,34 @@ namespace Quoter.Web.Data
 		public DbSet<AppVersion> AppVersions { get; set; }
 
 		public DbSet<AppVersionDownload> AppVersionDownloads { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<AppRegistration>(entity =>
+			{
+				entity
+					.HasMany(e => e.LstUpdateDownloads)
+					.WithOne(e => e.AppRegistration)
+					.OnDelete(DeleteBehavior.ClientSetNull);
+			});
+
+			modelBuilder.Entity<AppVersion>(entity =>
+			{
+				entity
+					.HasMany(e => e.LstAppVersionDownloads)
+					.WithOne(e => e.AppVersion)
+					.OnDelete(DeleteBehavior.ClientSetNull);
+			});
+
+			modelBuilder.Entity<AppVersionDownload>(entity =>
+			{
+				entity
+					.HasOne(e => e.AppVersion)
+					.WithMany(e => e.LstAppVersionDownloads)
+					.OnDelete(DeleteBehavior.ClientSetNull);
+			});
+		}
 	}
 }

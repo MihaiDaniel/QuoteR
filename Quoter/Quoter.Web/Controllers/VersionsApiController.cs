@@ -75,6 +75,17 @@ namespace Quoter.Web.Controllers
 
 				if (appVersion != null)
 				{
+					// Log a new version download by the client
+					AppVersionDownload appVersionDownload = new()
+					{
+						AppRegistrationId = GetRequestRegistrationId(),
+						AppVersionId = appVersion.Id,
+						DownloadDateTime = DateTime.UtcNow,
+					};
+					_context.AppVersionDownloads.Add(appVersionDownload);
+					await _context.SaveChangesAsync();
+
+					// Get from cache or by reading from file the content
 					VersionFile file = await _memoryCache.GetOrCreateAsync(appVersion.Version,
 						async entry =>
 						{

@@ -33,7 +33,7 @@ namespace Quoter.Web.Data.Entities
 
 		#region FK
 
-		public List<AppVersionDownload> AppVersionDownloads { get; set; }
+		public List<AppVersionDownload> LstAppVersionDownloads { get; set; }
 
 		#endregion FK
 

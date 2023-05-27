@@ -11,45 +11,57 @@
     <h4>AppVersion</h4>
     <hr />
     <dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.ViewModel.Id)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.ViewModel.Id)
+		</dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.Name)
+            @Html.DisplayNameFor(model => model.ViewModel.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.Name)
+			@Html.DisplayFor(model => model.ViewModel.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.Version)
+			@Html.DisplayNameFor(model => model.ViewModel.Version)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.Version)
+			@Html.DisplayFor(model => model.ViewModel.Version)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.Description)
+			@Html.DisplayNameFor(model => model.ViewModel.Description)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.Description)
+			@Html.DisplayFor(model => model.ViewModel.Description)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.Os)
+			@Html.DisplayNameFor(model => model.ViewModel.Os)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.Os)
+			@Html.DisplayFor(model => model.ViewModel.Os)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.Path)
+			@Html.DisplayNameFor(model => model.ViewModel.Path)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.Path)
+			@Html.DisplayFor(model => model.ViewModel.Path)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppVersion.CreationDate)
+			@Html.DisplayNameFor(model => model.ViewModel.CreationDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppVersion.CreationDate)
+			@Html.DisplayFor(model => model.ViewModel.CreationDate)
         </dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.ViewModel.VersionDownloads)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.ViewModel.VersionDownloads)
+		</dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.AppVersion?.Id">Edit</a> |
+	<a asp-page="./Edit" asp-route-id="@Model.ViewModel?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
