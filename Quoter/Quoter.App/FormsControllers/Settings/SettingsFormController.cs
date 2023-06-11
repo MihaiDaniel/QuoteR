@@ -324,7 +324,7 @@ namespace Quoter.App.FormsControllers.Settings
 
 		public void SetWindowSize(Size size)
 		{
-			_settings.ManageWindowSize = size;
+			_settings.WindowSize = size;
 		}
 
 		private string GetOpacityValuePercent(double opacity)

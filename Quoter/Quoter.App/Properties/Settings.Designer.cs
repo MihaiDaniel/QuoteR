@@ -266,12 +266,48 @@ namespace Quoter.App.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("800, 524")]
-        public global::System.Drawing.Size ManageWindowSize {
+        public global::System.Drawing.Size WindowSize {
             get {
-                return ((global::System.Drawing.Size)(this["ManageWindowSize"]));
+                return ((global::System.Drawing.Size)(this["WindowSize"]));
             }
             set {
-                this["ManageWindowSize"] = value;
+                this["WindowSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int AutoUpdate {
+            get {
+                return ((int)(this["AutoUpdate"]));
+            }
+            set {
+                this["AutoUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://localhost:7277")]
+        public string WebApiDomainUrl {
+            get {
+                return ((string)(this["WebApiDomainUrl"]));
+            }
+            set {
+                this["WebApiDomainUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid RegistrationId {
+            get {
+                return ((global::System.Guid)(this["RegistrationId"]));
+            }
+            set {
+                this["RegistrationId"] = value;
             }
         }
     }

@@ -8,6 +8,7 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
@@ -15,7 +16,7 @@ using System.Globalization;
 
 namespace Quoter.App.FormsControllers.Welcome
 {
-    public class WelcomeFormController : IWelcomeFormController
+	public class WelcomeFormController : IWelcomeFormController
 	{
 		private readonly QuoterContext _context;
 		private readonly ISettings _settings;
@@ -29,9 +30,9 @@ namespace Quoter.App.FormsControllers.Welcome
 		private List<CollectionFileModel> _importableCollections;
 
 		public WelcomeFormController(QuoterContext context,
-									ISettings settings, 
-									IMessagingService messagingService, 
-									IFormsManager formsManager, 
+									ISettings settings,
+									IMessagingService messagingService,
+									IFormsManager formsManager,
 									IImportService importService,
 									IStringResources stringResources)
 		{
@@ -168,8 +169,8 @@ namespace Quoter.App.FormsControllers.Welcome
 						ImportParameters importParameters = new ImportParameters()
 						{
 							Files = filesToImport,
-							IsFavourite = true,			// Set the imported collections by default as favourites
-							IsMergeCollections = true	// In case the user goes back and forth, we don't want to duplicate the import
+							IsFavourite = true,         // Set the imported collections by default as favourites
+							IsMergeCollections = true   // In case the user goes back and forth, we don't want to duplicate the import
 						};
 						_importService.QueueImportJob(importParameters);
 						_form.SetTab(tab);

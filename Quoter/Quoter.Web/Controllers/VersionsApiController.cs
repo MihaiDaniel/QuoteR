@@ -46,7 +46,7 @@ namespace Quoter.Web.Controllers
 							latest = quoterVersion;
 						}
 					}
-					return Ok(latest);
+					return Ok(new LatestVersionInfoGetResponse(latest.Id, latest.ToString()));
 				}
 				else
 				{

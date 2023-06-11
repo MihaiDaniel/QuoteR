@@ -25,6 +25,15 @@ namespace Quoter.Shared.Models
 			Revision = int.Parse(component[3]);
 		}
 
+		public QuoterVersionInfo(string version)
+		{
+			string[] component = version.Split('.');
+			Major = int.Parse(component[0]);
+			Minor = int.Parse(component[1]);
+			Build = int.Parse(component[2]);
+			Revision = int.Parse(component[3]);
+		}
+
 		/// <summary>
 		/// Compares the current version with <paramref name="version"/>. 
 		/// Returns a value indicating how this version is in comparison.
@@ -62,6 +71,11 @@ namespace Quoter.Shared.Models
 				}
 			}
 			return EnumVersionCompare.Older;
+		}
+
+		public override string ToString()
+		{
+			return $"{Major}.{Minor}.{Build}.{Revision}";
 		}
 	}
 }

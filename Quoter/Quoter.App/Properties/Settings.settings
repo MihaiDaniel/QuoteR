@@ -62,8 +62,17 @@
     <Setting Name="IsSetupFinished" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ManageWindowSize" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="WindowSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">800, 524</Value>
+    </Setting>
+    <Setting Name="AutoUpdate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="WebApiDomainUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://localhost:7277</Value>
+    </Setting>
+    <Setting Name="RegistrationId" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

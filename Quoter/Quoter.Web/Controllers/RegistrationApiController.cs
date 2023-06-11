@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Quoter.Shared.Models;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
 using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
@@ -20,24 +21,24 @@ namespace Quoter.Web.Controllers
 
 		[Route("register")]
 		[HttpPost]
-		public async Task<IActionResult> Register([FromQuery] Guid? identifier)
+		public async Task<IActionResult> Register(RegisterPostRequestModel requestModel)
 		{
 			try
 			{
-				if (identifier == null || string.IsNullOrEmpty(identifier.ToString()))
+				if (string.IsNullOrEmpty(requestModel.InstallId))
 				{
 					return BadRequest("Identifier provided is not valid");
 				}
-				Guid? existingRegId = await _context.AppRegistrations.Where(r => r.Identifier == identifier.ToString()).Select(r => r.Id).FirstOrDefaultAsync();
+				Guid? existingRegId = await _context.AppRegistrations.Where(r => r.Identifier == requestModel.InstallId).Select(r => r.Id).FirstOrDefaultAsync();
 				if (existingRegId != null && existingRegId != Guid.Empty)
 				{
-					return Ok(existingRegId);
+					return Ok(new RegisterPostResponseModel(existingRegId.Value));
 				}
 
 				string? clientIpAddress = HttpContext.Connection?.RemoteIpAddress?.ToString();
 				AppRegistration appRegistration = new()
 				{
-					Identifier = identifier.ToString(),
+					Identifier = requestModel.InstallId.ToString(),
 					IpAddress = clientIpAddress,
 					RegisteredDateTime = DateTime.UtcNow,
 				};
@@ -45,7 +46,7 @@ namespace Quoter.Web.Controllers
 				_context.AppRegistrations.Add(appRegistration);
 				await _context.SaveChangesAsync();
 
-				return Ok(appRegistration.Id);
+				return Ok(new RegisterPostResponseModel(appRegistration.Id));
 			}
 			catch (Exception ex)
 			{

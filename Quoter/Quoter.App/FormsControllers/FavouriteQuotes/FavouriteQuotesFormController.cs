@@ -9,16 +9,17 @@ using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Shared.Enums;
 using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-    /// <summary>
-    /// Controller for the Favourite Tab of the <see cref="ManageForm"/>
-    /// </summary>
-    public class FavouriteQuotesFormController : IFavouriteQuotesFormController
+	/// <summary>
+	/// Controller for the Favourite Tab of the <see cref="ManageForm"/>
+	/// </summary>
+	public class FavouriteQuotesFormController : IFavouriteQuotesFormController
 	{
 		/// <summary>
 		/// Special item in the list boxes. If this is checked or unchecked it should check/uncheck
@@ -117,7 +118,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		public void ReadCollection(Collection? selectedCollection)
 		{
-			if(selectedCollection == null || selectedCollection.CollectionId == IdSelectAllItems)
+			if (selectedCollection == null || selectedCollection.CollectionId == IdSelectAllItems)
 			{
 				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 				{

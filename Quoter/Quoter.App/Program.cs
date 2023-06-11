@@ -9,11 +9,13 @@ using Quoter.App.FormsControllers.Settings;
 using Quoter.App.FormsControllers.Welcome;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
+using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Data;
 using Quoter.Framework.Services;
+using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
@@ -97,6 +99,10 @@ namespace Quoter.App
 
 			serviceCollection.AddTransient<IQuoteService, QuoteService>();
 			serviceCollection.AddTransient<ILogger, Logger>();
+			serviceCollection.AddTransient<IWebApiService, WebApiService>();
+			serviceCollection.AddTransient<IRegistrationService, RegistrationService>();
+			serviceCollection.AddTransient<IUpdateService, UpdateService>();
+			serviceCollection.AddTransient<IBackgroundJobsFormsService, BackgroundJobsFormsService>();
 
 			// Database
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());

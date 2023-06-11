@@ -1,4 +1,5 @@
 ﻿using Quoter.Framework.Enums;
+using Quoter.Framework.Services;
 
 namespace Quoter.App.Services
 {
@@ -15,6 +16,18 @@ namespace Quoter.App.Services
 			set
 			{
 				Set<bool>(nameof(IsFirstStart), value);
+			}
+		}
+
+		public string InstallId
+		{
+			get
+			{
+				return Get<string>(nameof(InstallId));
+			}
+			set
+			{
+				Set<string>(nameof(InstallId), value);
 			}
 		}
 
@@ -138,6 +151,43 @@ namespace Quoter.App.Services
 			}
 		}
 
+		
+		public EnumAutoUpdate AutoUpdate
+		{
+			get
+			{
+				return (EnumAutoUpdate)Get<int>(nameof(AutoUpdate));
+			}
+			set
+			{
+				Set<int>(nameof(AutoUpdate), (int)value);
+			}
+		}
+
+		public string WebApiDomainUrl
+		{
+			get
+			{
+				return Get<string>(nameof(WebApiDomainUrl));
+			}
+			set
+			{
+				Set<string>(nameof(WebApiDomainUrl), value);
+			}
+		}
+
+		public Guid RegistrationId
+		{
+			get
+			{
+				return Get<Guid>(nameof(RegistrationId));
+			}
+			set
+			{
+				Set<Guid>(nameof(RegistrationId), value);
+			}
+		}
+
 		public string Language
 		{
 			get
@@ -233,15 +283,15 @@ namespace Quoter.App.Services
 			}
 		}
 
-		public Size ManageWindowSize
+		public Size WindowSize
 		{
 			get
 			{
-				return Get<Size>(nameof(ManageWindowSize));
+				return Get<Size>(nameof(WindowSize));
 			}
 			set
 			{
-				Set<Size>(nameof(ManageWindowSize), value);
+				Set<Size>(nameof(WindowSize), value);
 			}
 		}
 

@@ -4,11 +4,13 @@ using Quoter.App.Forms;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
+using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
+using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
 using System.Globalization;
 using System.Media;
@@ -27,18 +29,24 @@ namespace Quoter.App
 		private readonly IMessagingService _messagingService;
 		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
+		private readonly IRegistrationService _registrationService;
+		private readonly IUpdateService _updateService;
+		private readonly IBackgroundJobsFormsService _backgroundJobsService;
 
 		private bool _isUserLoggedOff;
 
 		private System.Windows.Forms.Timer _timerShowNotifications;
-		private System.Windows.Forms.Timer _timerShowInitalNotification;
+		private System.Windows.Forms.Timer _timerStartup;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
 										ISettings settings,
 										IStringResources stringResources,
 										IMessagingService messagingService,
 										ISoundService soundService,
-										ILogger logger)
+										ILogger logger,
+										IRegistrationService registrationService,
+										IUpdateService updateService,
+										IBackgroundJobsFormsService backgroundJobsService)
 		{
 			_formsManager = formsManager;
 			_settings = settings;
@@ -46,6 +54,10 @@ namespace Quoter.App
 			_messagingService = messagingService;
 			_soundService = soundService;
 			_logger = logger;
+			_registrationService = registrationService;
+			_updateService = updateService;
+			_backgroundJobsService = backgroundJobsService;
+
 			_isUserLoggedOff = false;
 			InitializeApplication();
 			InitializeBackgroundTimers();
@@ -68,6 +80,8 @@ namespace Quoter.App
 
 			if (_settings.IsFirstStart)
 			{
+				_settings.InstallId = Guid.NewGuid().ToString();
+
 				_settings.NotificationIntervalSeconds = Const.SettingDefault.NotificationIntervalSeconds;
 				_settings.AutoCloseNotificationSeconds = Const.SettingDefault.AutoCloseNotificationSeconds;
 				_settings.ShowWelcomeNotification = Const.SettingDefault.ShowWelcomeNotification;
@@ -121,10 +135,10 @@ namespace Quoter.App
 			_timerShowNotifications.Start();
 
 			// Timer to show a message at startup or open the quote form if is always on
-			_timerShowInitalNotification = new();
-			_timerShowInitalNotification.Interval = 5000;
-			_timerShowInitalNotification.Tick += (sender, e) => ElapsedTimerEventStartup();
-			_timerShowInitalNotification.Start();
+			_timerStartup = new();
+			_timerStartup.Interval = 5000;
+			_timerStartup.Tick += (sender, e) => ElapsedTimerEventStartup();
+			_timerStartup.Start();
 		}
 
 		/// <summary>
@@ -143,35 +157,6 @@ namespace Quoter.App
 				_isUserLoggedOff = false;
 			}
 		}
-
-		//private void ShowWelcomeMessage()
-		//{
-		//	try
-		//	{
-		//		Task.Run(async () =>
-		//		{
-		//			if (_settings.ShowWelcomeNotification)
-		//			{
-		//				await Task.Delay(1000);
-		//				int autoHideWelcomeMessageSeconds = 7;
-		//				QuoteFormOptions messageModel = new()
-		//				{
-		//					Title = _stringResources["Welcome"],
-		//					Body = _stringResources["WelcomeStartupMessage"]
-		//				};
-		//				_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
-		//			}
-		//			if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
-		//			{
-		//				ShowQuoteNotification();
-		//			}
-		//		});
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		_logger.Error(ex);
-		//	}
-		//}
 
 		void IMessagingSubscriber.OnMessageEvent(string message, object? argument)
 		{
@@ -209,11 +194,12 @@ namespace Quoter.App
 			}
 		}
 
-		private void ElapsedTimerEventStartup()
+		private async void ElapsedTimerEventStartup()
 		{
 			_logger.Debug("");
 			try
 			{
+				// Display the quotes form or the welcome message if option is set
 				if (_settings.NotificationType == EnumNotificationType.AlwaysOn) 
 				{
 					ShowQuoteNotification();
@@ -228,7 +214,40 @@ namespace Quoter.App
 					};
 					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 				}
-				_timerShowInitalNotification.Enabled = false;
+				_timerStartup.Enabled = false;
+
+				// Enqueue background job for registering the application
+				_backgroundJobsService.Enqueue(async () =>
+				{
+					if (_settings.RegistrationId == Guid.Empty)
+					{
+						await _registrationService.GetRegistrationId();
+					}
+				}, "RegisterApp");
+
+				// Enqueue background job for updating the application if necessary
+				_backgroundJobsService.Enqueue(async () =>
+				{
+					if(_settings.AutoUpdate == EnumAutoUpdate.Auto)
+					{
+						await _updateService.TryUpdate();
+					}
+					else if(_settings.AutoUpdate == EnumAutoUpdate.AskFirst)
+					{
+						bool isUpdateAvailable = await _updateService.IsNewVersionAvailable();
+						if (isUpdateAvailable)
+						{
+							// Ask user to update
+						}
+					}
+					else
+					{
+						// Do not do any updates
+					}
+				}, "TryUpdate");
+
+				// Start the background jobs service
+				_backgroundJobsService.Start();
 			}
 			catch (Exception ex)
 			{

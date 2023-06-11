@@ -74,7 +74,7 @@ namespace Quoter.App.FormsControllers.Reader
 		public void RegisterForm(IReaderForm form)
 		{
 			_form = form;
-			_form.SetSize(_settings.ManageWindowSize);
+			_form.SetSize(_settings.WindowSize);
 			_form.SetTheme(_themeService.GetCurrentTheme());
 		}
 

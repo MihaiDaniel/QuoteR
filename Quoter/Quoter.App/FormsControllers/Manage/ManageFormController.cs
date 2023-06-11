@@ -3,14 +3,15 @@ using Quoter.App.Forms.Manage;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
 
 namespace Quoter.App.FormsControllers.Manage
 {
-    /// <summary>
-    /// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
-    /// </summary>
-    public class ManageFormController : IManageFormController, IMessagingSubscriber
+	/// <summary>
+	/// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
+	/// </summary>
+	public class ManageFormController : IManageFormController, IMessagingSubscriber
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
@@ -18,8 +19,8 @@ namespace Quoter.App.FormsControllers.Manage
 		private readonly IThemeService _themeService;
 		private IManageForm _form;
 
-		public ManageFormController(IMessagingService messagingService, 
-									IStringResources stringResources, 
+		public ManageFormController(IMessagingService messagingService,
+									IStringResources stringResources,
 									ISettings settings,
 									IThemeService themeService)
 		{
@@ -39,7 +40,7 @@ namespace Quoter.App.FormsControllers.Manage
 		{
 			_messagingService.Subscribe(this);
 			bool isAnnouncementImport = _messagingService.ExistsAnnouncement(Event.ImportInProgress);
-			if(isAnnouncementImport)
+			if (isAnnouncementImport)
 			{
 				_form.SetBackgroundTask(true, _stringResources["ImportingInProgress"]);
 			}
@@ -55,7 +56,7 @@ namespace Quoter.App.FormsControllers.Manage
 		{
 			_form = form;
 			// Set the size as soon as the form is intialized.
-			_form.SetSize(_settings.ManageWindowSize);
+			_form.SetSize(_settings.WindowSize);
 			// Also set the theme
 			_form.SetTheme(_themeService.GetCurrentTheme());
 		}
@@ -67,25 +68,25 @@ namespace Quoter.App.FormsControllers.Manage
 			if (message == Event.OpeningForm && argument is OpeningFormArgs)
 			{
 				OpeningFormArgs formsManagerOptions = (OpeningFormArgs)argument;
-				if(formsManagerOptions.Type == typeof(ManageForm))
+				if (formsManagerOptions.Type == typeof(ManageForm))
 				{
 					ManageFormOptions manageFormOptions = (ManageFormOptions)formsManagerOptions.Parameters[0];
-					if(manageFormOptions != null)
+					if (manageFormOptions != null)
 					{
 						_form.SetSelectedTab(manageFormOptions.Tab);
 					}
 				}
 			}
-			if(message == Event.ThemeChanged)
+			if (message == Event.ThemeChanged)
 			{
 				_form.SetTheme(_themeService.GetCurrentTheme());
 			}
-			if(message == Event.ImportInProgress)
+			if (message == Event.ImportInProgress)
 			{
 				_form.SetBackgroundTask(true, _stringResources["ImportingInProgress"]);
 			}
-			
-			if(message == Event.ExportInProgress)
+
+			if (message == Event.ExportInProgress)
 			{
 				_form.SetBackgroundTask(true, _stringResources["ExportingInProgress"]);
 			}

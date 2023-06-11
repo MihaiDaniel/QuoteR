@@ -19,10 +19,10 @@ using Quoter.Framework.Enums;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-    /// <summary>
-    /// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
-    /// </summary>
-    public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
+	/// <summary>
+	/// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
+	/// </summary>
+	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;
@@ -330,7 +330,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			if (result.DialogResult == DialogResult.OK)
 			{
 				string newCollectionName = result.StringResult;
-				if(Collections.Any(c => c.Name == newCollectionName && c.Name != SelectedCollection.Name))
+				if (Collections.Any(c => c.Name == newCollectionName && c.Name != SelectedCollection.Name))
 				{
 					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["CollectionAlreadyExists"]);
 					await EditCollection();
@@ -474,7 +474,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			if (result.DialogResult == DialogResult.OK)
 			{
 				string newBookName = result.StringResult;
-				if(Books.Any(b => b.Name == newBookName && b.Name != SelectedBook.Name))
+				if (Books.Any(b => b.Name == newBookName && b.Name != SelectedBook.Name))
 				{
 					ShowDialogWarn(_stringResources["NameAlreadyTaken"], _stringResources["BookAlreadyExists"]);
 					await EditBook();
@@ -645,7 +645,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				}
 				SelectedChapter = Chapters.First(c => c.Name == selectedName);
 				await LoadQuotes();
-				
+
 			}
 		}
 
@@ -811,7 +811,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				string[] replacebleChars = saveOptions.ReplaceChars.Split(",", StringSplitOptions.None).ToArray();
 				string[] replacements = saveOptions.ReplacedCharsReplacement.Split(",", StringSplitOptions.None).ToArray();
 
-				if(replacebleChars.Length != replacements.Length)
+				if (replacebleChars.Length != replacements.Length)
 				{
 					_logger.Warn($"{nameof(ApplyQuoteSaveOptions)} Can't apply replacements! No valid replacements for all strings!");
 				}
@@ -836,7 +836,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			// If it only has numbers and symbols it might not be a valid quote so don't apply appends and just return.
 			if (_regexQuote.IsMatch(newQuoteContent))
 			{
-				return newQuoteContent; 
+				return newQuoteContent;
 			}
 
 			// Apply append to start and end
