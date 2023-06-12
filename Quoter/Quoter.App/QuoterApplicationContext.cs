@@ -78,16 +78,19 @@ namespace Quoter.App
 			_messagingService.Subscribe(this);
 			_soundService.LoadSoundsAsync();
 
+			if(string.IsNullOrEmpty(_settings.InstallId)) // TODO: Remove
+				_settings.InstallId = Guid.NewGuid().ToString();
+
 			if (_settings.IsFirstStart)
 			{
 				_settings.InstallId = Guid.NewGuid().ToString();
 
-				_settings.NotificationIntervalSeconds = Const.SettingDefault.NotificationIntervalSeconds;
-				_settings.AutoCloseNotificationSeconds = Const.SettingDefault.AutoCloseNotificationSeconds;
-				_settings.ShowWelcomeNotification = Const.SettingDefault.ShowWelcomeNotification;
-				_settings.KeepNotificationOpenOnMouseOver = Const.SettingDefault.KeepNotificationOpenOnMouseOver;
-				_settings.ShowCollectionsBasedOnLanguage = Const.SettingDefault.ShowCollectionsBasedOnLanguage;
-				_settings.NotificationType = Const.SettingDefault.NotificationType;
+				_settings.NotificationIntervalSeconds = Constants.SettingDefault.NotificationIntervalSeconds;
+				_settings.AutoCloseNotificationSeconds = Constants.SettingDefault.AutoCloseNotificationSeconds;
+				_settings.ShowWelcomeNotification = Constants.SettingDefault.ShowWelcomeNotification;
+				_settings.KeepNotificationOpenOnMouseOver = Constants.SettingDefault.KeepNotificationOpenOnMouseOver;
+				_settings.ShowCollectionsBasedOnLanguage = Constants.SettingDefault.ShowCollectionsBasedOnLanguage;
+				_settings.NotificationType = Constants.SettingDefault.NotificationType;
 				_settings.NotificationSound = EnumSound.Click;
 
 				CultureInfo ci = CultureInfo.CurrentUICulture;
@@ -116,9 +119,6 @@ namespace Quoter.App
 				// Set language
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(_settings.Language);
 				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
-
-				// Show welcome message
-				//ShowWelcomeMessage();
 			}
 			if(!_settings.IsSetupFinished)
 			{
@@ -225,19 +225,37 @@ namespace Quoter.App
 					}
 				}, "RegisterApp");
 
+				_backgroundJobsService.Enqueue(async () =>
+				{
+					await _updateService.VerifyIfUpdateApplied();
+				}, "VerifyUpdate");
+
 				// Enqueue background job for updating the application if necessary
 				_backgroundJobsService.Enqueue(async () =>
 				{
+					_logger.Debug("Beginning auto update job");
 					if(_settings.AutoUpdate == EnumAutoUpdate.Auto)
 					{
+						_logger.Debug("Auto updating");
 						await _updateService.TryUpdate();
 					}
 					else if(_settings.AutoUpdate == EnumAutoUpdate.AskFirst)
 					{
-						bool isUpdateAvailable = await _updateService.IsNewVersionAvailable();
+						_logger.Debug("Asking user for update");
+						bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
 						if (isUpdateAvailable)
 						{
-							// Ask user to update
+							DialogMessageFormOptions options = new()
+							{
+								MessageBoxButtons = EnumDialogButtons.YesNo,
+								Title = "Quoter",
+								Message = "A new update is available. Do you want to download and install the update now?"
+							};
+							IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(options);
+							if(result.DialogResult == DialogResult.OK)
+							{
+								await _updateService.TryUpdate();
+							}
 						}
 					}
 					else
@@ -357,7 +375,7 @@ namespace Quoter.App
 			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 			{
 				Title = title,
-				TitleColor = isError ? Const.ColorError : Const.ColorDefault,
+				TitleColor = isError ? Constants.ColorError : Constants.ColorDefault,
 				Message = message,
 				MessageBoxButtons = EnumDialogButtons.Ok
 			};

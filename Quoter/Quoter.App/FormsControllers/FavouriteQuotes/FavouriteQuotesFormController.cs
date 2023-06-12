@@ -123,7 +123,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 				{
 					Title = _stringResources["NoCollection"],
-					TitleColor = Const.ColorWarn,
+					TitleColor = Constants.ColorWarn,
 					Message = _stringResources["PleaseSelectACollection"],
 					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
 				};

@@ -5,7 +5,7 @@ namespace Quoter.App.Models
 {
 	public class DialogMessageFormOptions
 	{
-		public Color TitleColor { get; set; } = Const.ColorDefault;
+		public Color TitleColor { get; set; } = Constants.ColorDefault;
 
 		public string Title { get; set; }
 

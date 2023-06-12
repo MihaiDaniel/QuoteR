@@ -45,5 +45,9 @@
 
 		public const string ExportInProgress = "ExportInProgress";
 
+		/// <summary>
+		/// Announcement for a new version that is available
+		/// </summary>
+		public const string NewVersionAvailable = "NewVersionAvailable";
 	}
 }

@@ -1,21 +1,22 @@
 ﻿using Quoter.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services.Api
 {
 	public interface IWebApiService
 	{
 		/// <summary>
-		/// Register the application and get back an registrationId as a Guid
+		/// Register the application and get back an registrationId as a Guid from the web server
 		/// </summary>
 		Task<Guid> RegisterAsync(string installId);
 
+		/// <summary>
+		/// Request the info about the latest version of the application from the web server
+		/// </summary>
 		Task<QuoterVersionInfo> GetLatestVersion();
 
-		Task<bool> DownloadVersionAsync(Guid versionId);
+		/// <summary>
+		/// Downloads a specific version file from the web server locally.
+		/// </summary>
+		Task<ActionResult> DownloadVersionAsync(Guid versionId);
 	}
 }

@@ -18,6 +18,8 @@ namespace Quoter.Framework.Data
 
 		public DbSet<Log> Logs { get; set; }
 
+		public DbSet<AppVersion> AppVersions { get; set; }
+
 		/// <summary>
 		/// Default constructor needed for ef tools migrations to intialize the context
 		/// </summary>

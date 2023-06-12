@@ -18,7 +18,7 @@ namespace Quoter.App.Helpers
 			{
 				Message = message,
 				Title = title,
-				TitleColor = Const.ColorWarn,
+				TitleColor = Constants.ColorWarn,
 				MessageBoxButtons = EnumDialogButtons.Ok
 			};
 			formsManager.ShowDialog<DialogMessageForm>(options);

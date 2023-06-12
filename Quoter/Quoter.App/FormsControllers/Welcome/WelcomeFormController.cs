@@ -101,7 +101,7 @@ namespace Quoter.App.FormsControllers.Welcome
 			{
 				Title = _stringResources["Quoter"],
 				Message = _stringResources["ConfirmExit"],
-				TitleColor = Const.ColorWarn,
+				TitleColor = Constants.ColorWarn,
 				MessageBoxButtons = EnumDialogButtons.OkCancel
 			};
 			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
@@ -157,7 +157,7 @@ namespace Quoter.App.FormsControllers.Welcome
 						{
 							Title = "Error",
 							Message = "Please choose at least 1 collection",
-							TitleColor = Const.ColorWarn,
+							TitleColor = Constants.ColorWarn,
 							MessageBoxButtons = EnumDialogButtons.Ok
 						};
 						_formsManager.ShowDialog<DialogMessageForm>(dialogModel);

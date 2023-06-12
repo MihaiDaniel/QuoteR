@@ -44,7 +44,7 @@ namespace Quoter.App.FormsControllers.Settings
 					if (isValidInput && intValue > 0)
 					{
 						_settings.NotificationIntervalSeconds = intValue * 60;
-						_form.SetStatus("", Const.ColorDefault);
+						_form.SetStatus("", Constants.ColorDefault);
 
 						_messagingService.SendMessage(Event.NotificationIntervalChanged);
 					}
@@ -69,7 +69,7 @@ namespace Quoter.App.FormsControllers.Settings
 				if (isValidInput && intValue > 0)
 				{
 					_settings.AutoCloseNotificationSeconds = intValue;
-					_form.SetStatus("", Const.ColorDefault);
+					_form.SetStatus("", Constants.ColorDefault);
 				}
 				else
 				{

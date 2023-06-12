@@ -1,11 +1,11 @@
-﻿using Quoter.Shared.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using Quoter.Framework.Data;
+using Quoter.Framework.Entities;
+using Quoter.Framework.Services.Messaging;
+using Quoter.Shared.Enums;
 using Quoter.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services.Api
 {
@@ -14,40 +14,140 @@ namespace Quoter.Framework.Services.Api
 		private readonly ILogger _logger;
 		private readonly IRegistrationService _registrationService;
 		private readonly IWebApiService _webApiService;
+		private readonly QuoterContext _context;
 
 		public UpdateService(ILogger logger,
 							IRegistrationService registrationService,
-							IWebApiService webApiService)
+							IWebApiService webApiService,
+							QuoterContext context)
 		{
 			_logger = logger;
 			_registrationService = registrationService;
 			_webApiService = webApiService;
+			_context = context;
 		}
 
-		public Task<bool> IsNewVersionAvailable()
+		public async Task<bool> VerifyIfNewVersionAvailable()
 		{
-			throw new NotImplementedException();
+			try
+			{
+				if (!_registrationService.IsRegistered())
+				{
+					_logger.Warn("Can't check if new version is available because application is not registered.");
+					return false;
+				}
+				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
+				QuoterVersionInfo currentVersion = GetCurrentVersion();
+
+				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
+				{
+					return true;
+				}
+			}
+			catch(Exception ex)
+			{
+				_logger.Error(ex, "An error occured while checking IsNewVersionAvailable");
+			}
+			return false;
+		}
+
+		public async Task VerifyIfUpdateApplied()
+		{
+			QuoterVersionInfo currentVersion = GetCurrentVersion();
+			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
+			if (appVersion != null)
+			{
+				if (!appVersion.IsApplied)
+				{
+					_logger.Info($"Update applied - {appVersion.Version}");
+					appVersion.IsApplied = true;
+					await _context.SaveChangesAsync();
+				}
+			}
+			// Ideea verify if an update was not applied and maybe retry?
 		}
 
 		public async Task TryUpdate()
 		{
 			try
 			{
-				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
-				Version? version = Assembly.GetExecutingAssembly().GetName().Version;
-				QuoterVersionInfo currentVersion = new(version.ToString());
-
-				if(currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
+				if (!_registrationService.IsRegistered())
 				{
-					// Update application
+					_logger.Warn("Can't update because application is not registered.");
+					return;
 				}
+				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
+				QuoterVersionInfo currentVersion = GetCurrentVersion();
 
+				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
+				{
+					ActionResult result = await DownloadVersionAsync(latestVersion);
+					if(result.IsSuccess)
+					{
+						_logger.Info("Downloaded update file. Starting updater...");
+						string updaterExePath = GetUpdaterAppExePath();
+						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>());
+						Process.Start(updaterExePath, updaterArgs); // Try like this, Updater should close the app automatically
+					}
+				}
 			}
 			catch (Exception ex)
 			{
 				_logger.Error(ex);
 			}
-
 		}
+
+		private QuoterVersionInfo GetCurrentVersion()
+		{
+			Version? version = Assembly.GetExecutingAssembly().GetName().Version;
+			QuoterVersionInfo currentVersion = new(version.ToString());
+			return currentVersion;
+		}
+
+		private async Task<ActionResult> DownloadVersionAsync(QuoterVersionInfo latestVersion)
+		{
+			ActionResult result = await _webApiService.DownloadVersionAsync(latestVersion.Id);
+			if (result.IsSuccess)
+			{
+				string filePath = result.GetValue<string>();
+				AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.VersionId == latestVersion.Id);
+				if (appVersion == null)
+				{
+					appVersion = new()
+					{
+						VersionId = latestVersion.Id,
+						Version = latestVersion.ToString(),
+						FilePath = filePath,
+						IsApplied = false
+					};
+					_context.AppVersions.Add(appVersion);
+				}
+				else
+				{
+					// If same version was re-downloaded just re-update the file path in case something changed like version number
+					appVersion.FilePath = filePath;
+				}
+				await _context.SaveChangesAsync();
+				return ActionResult.Success(appVersion);
+			}
+			return ActionResult.Fail();
+		}
+
+		private string GetUpdaterAppExePath()
+		{
+			string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			return Path.Combine(currentDir, "Updater", "Quoter.Update.exe");
+		}
+
+		private string GetUpdaterArgs(AppVersion appVersion)
+		{
+			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 3 -r false
+			string appExePath = Assembly.GetExecutingAssembly().Location;
+			string appExe = Path.GetFileName(appExePath);
+			string installDir = Path.GetDirectoryName(appExePath);
+
+			return $"-i {installDir} -e {appExe} -u {appVersion.FilePath} -uid {appVersion.Id} -r false";
+		}
+
 	}
 }

@@ -8,6 +8,7 @@ namespace Quoter.Framework.Services.Api
 {
 	public interface IRegistrationService
 	{
+		bool IsRegistered();
 		Task<Guid> GetRegistrationId();
 	}
 }

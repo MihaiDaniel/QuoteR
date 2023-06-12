@@ -309,7 +309,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					SelectedCollection = newCollection;
 					await LoadCollectionBooksOrQuotes();
 
-					await _form.SetStatus(_stringResources["CollectionCreated", newCollection.Name], Const.ColorOk);
+					await _form.SetStatus(_stringResources["CollectionCreated", newCollection.Name], Constants.ColorOk);
 				}
 			}
 		}
@@ -428,7 +428,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				await LoadBookChaptersOrQuotes();
 
 				_form.SetBooksControlsState(EnumCrudStates.ViewAddEditDelete);
-				await _form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Const.ColorOk);
+				await _form.SetStatus(_stringResources["BookCreated", newBook.Name, SelectedCollection.Name], Constants.ColorOk);
 			}
 		}
 
@@ -453,7 +453,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				{
 					Title = _stringResources["QuotesAddedToBook"],
 					Message = _stringResources["QuotesAddedToBookMsg", book.Name],
-					TitleColor = Const.ColorDefault,
+					TitleColor = Constants.ColorDefault,
 				});
 			}
 		}
@@ -569,7 +569,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 					SelectedChapter = newChapter;
 					await LoadQuotes();
 
-					await _form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Const.ColorOk);
+					await _form.SetStatus(_stringResources["ChapterCreated", newChapter.Name, SelectedBook.Name], Constants.ColorOk);
 					_form.SetChaptersControlsState(EnumCrudStates.ViewAddEditDelete);
 				}
 			}
@@ -596,7 +596,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				{
 					Title = _stringResources["QuotesAddedToChapter"],
 					Message = _stringResources["QuotesAddedToChapterMsg", SelectedBook.Name, newChapter.Name],
-					TitleColor = Const.ColorDefault,
+					TitleColor = Constants.ColorDefault,
 				});
 			}
 		}
@@ -728,7 +728,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				await _context.SaveChangesAsync();
 				await LoadQuotes();
 
-				await _form.SetStatus(_stringResources["QuotesSaved"], Const.ColorOk);
+				await _form.SetStatus(_stringResources["QuotesSaved"], Constants.ColorOk);
 			}
 		}
 
@@ -859,7 +859,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				Title = title,
 				Message = message,
-				TitleColor = Const.ColorWarn,
+				TitleColor = Constants.ColorWarn,
 			});
 		}
 	}

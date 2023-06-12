@@ -36,7 +36,7 @@ namespace Quoter.App.Forms
 			_regexInput = new Regex(@"^[\w\-. ]+$");
 
 			// if default color get color from theme instead, else show the color set in dialogModal
-			pnlTitle.BackColor = dialogModel.TitleColor != Const.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
+			pnlTitle.BackColor = dialogModel.TitleColor != Constants.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTitle.Text = dialogModel.Title;
 			txtMessage.Text = dialogModel.Message;
 			MaxLength = dialogModel.ValueMaxLength;

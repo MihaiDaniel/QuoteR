@@ -11,6 +11,15 @@
 			_webApiService = webApiService;
 		}
 
+		public bool IsRegistered()
+		{
+			if (_settings.RegistrationId == Guid.Empty)
+			{
+				return false;
+			}
+			return true;
+		}
+
 		public async Task<Guid> GetRegistrationId()
 		{
 			if (_settings.RegistrationId == Guid.Empty)

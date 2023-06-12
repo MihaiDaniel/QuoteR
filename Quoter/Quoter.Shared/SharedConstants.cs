@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quoter.Framework.Enums
+namespace Quoter.Shared
 {
-	public enum EnumDialogButtons
+	public class SharedConstants
 	{
-		Ok,
-		OkCancel,
-		YesNo
 	}
 }

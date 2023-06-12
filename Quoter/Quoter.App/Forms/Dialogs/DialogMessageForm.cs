@@ -30,7 +30,7 @@ namespace Quoter.App.Forms
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 
 			// if default color get color from theme instead, else show the color set in dialogModal
-			pnlTitle.BackColor = options.TitleColor != Const.ColorDefault ? options.TitleColor : themeService.GetCurrentTheme().TitleColor;
+			pnlTitle.BackColor = options.TitleColor != Constants.ColorDefault ? options.TitleColor : themeService.GetCurrentTheme().TitleColor;
 			lblTopBar.Text = options.Title;
 			txtMessage.Text = options.Message;
 			txtMessage.TabStop = false; // Stop text from being selected
@@ -43,6 +43,11 @@ namespace Quoter.App.Forms
 				btnOk.Location = new Point(btnCancel.Location.X, btnCancel.Location.Y);
 				btnCancel.Visible = false;
 				btnCancel.Enabled = false;
+			}
+			else if(options.MessageBoxButtons == EnumDialogButtons.YesNo)
+			{
+				btnOk.Text = stringResources["Yes"];
+				btnCancel.Text = stringResources["No"];
 			}
 			StringResult = string.Empty;
 		}

@@ -22,6 +22,8 @@ Example:
 -u = update zip path. The full path to the .zip file containing the update. This zip will be unzipped
 	in the install directory
 
+-uid = the id of the update as is in the application Quoter database. Not used at the moment
+
 -r = is restarted. Indicates if updater was restarted. Normally if the updater needs admin privileges to unzip the
 	update it will restart with this as "true". This should be used only by updater, or if you do not want to restart
 	the updater for some reason.

@@ -116,7 +116,7 @@ namespace Quoter.App.Helpers.Extensions
 			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
 			{
 				Title = title,
-				TitleColor = Const.ColorError,
+				TitleColor = Constants.ColorError,
 				Message = message,
 				MessageBoxButtons = EnumDialogButtons.Ok
 			};

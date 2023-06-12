@@ -10,6 +10,7 @@ namespace Quoter.Update
 
 		private string InstallFolderPath;
 		private string ApplicationExeName;
+		private string UpdateId;
 		private string ZipUpdateFolderPath;
 		private bool IsRestartedAsAdmin;
 
@@ -65,11 +66,11 @@ namespace Quoter.Update
 						bool isUpdateSuccesfull = _updateHandler.TryUpdate(InstallFolderPath, ApplicationExeName, ZipUpdateFolderPath);
 						if (isUpdateSuccesfull)
 						{
-							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "-u=success");
+							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "");
 						}
 						else
 						{
-							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "-u=fail");
+							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "");
 						}
 					}
 					else if (!IsRestartedAsAdmin)
@@ -113,12 +114,13 @@ namespace Quoter.Update
 				sb.Append(" ");
 			}
 			//0123456789
-			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -r false
+			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 4 -r false
 			string str = sb.ToString().Trim();
 
 			InstallFolderPath = str.Substring(str.IndexOf("-i") + 2, str.IndexOf("-e") - 2).Trim();
 			ApplicationExeName = str.Substring(str.IndexOf("-e") + 2, str.IndexOf("-u") - str.IndexOf("-e") - 3).Trim();
-			ZipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-r") - str.IndexOf("-u") - 3).Trim();
+			ZipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-uid") - str.IndexOf("-u") - 3).Trim();
+			UpdateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-r") - str.IndexOf("-uid") - 5).Trim();
 			IsRestartedAsAdmin = str.Substring(str.IndexOf("-r") + 2, str.Length - str.IndexOf("-r") - 2).Trim().ToLower() == "true";
 
 			Logger.Info("Starting arguments: ");

@@ -49,9 +49,10 @@ namespace Quoter.Framework.Services.Api
 			{
 				using (HttpClient client = new())
 				{
-					string reqUri = $"{_settings.WebApiDomainUrl}/api/versions/getLatestVersionInfo";
+					string reqUrl = $"{_settings.WebApiDomainUrl}/api/versions/getLatestVersionInfo";
 
 					HttpRequestMessage requestMessage = new();
+					requestMessage.RequestUri = new Uri(reqUrl);
 					requestMessage.Method = HttpMethod.Get;
 					requestMessage.Headers.Add("Registration", _settings.RegistrationId.ToString());
 
@@ -59,8 +60,8 @@ namespace Quoter.Framework.Services.Api
 					if (response.StatusCode == System.Net.HttpStatusCode.OK)
 					{
 						string content = await response.Content.ReadAsStringAsync();
-						QuoterVersionInfo responseModel = JsonConvert.DeserializeObject<QuoterVersionInfo>(content);
-						return responseModel;
+						LatestVersionInfoGetResponse responseModel = JsonConvert.DeserializeObject<LatestVersionInfoGetResponse>(content);
+						return new QuoterVersionInfo(responseModel.Id, responseModel.Version);
 					}
 				}
 			}
@@ -71,9 +72,55 @@ namespace Quoter.Framework.Services.Api
 			return versionInfo;
 		}
 
-		public Task<bool> DownloadVersionAsync(Guid versionId)
+		public async Task<ActionResult> DownloadVersionAsync(Guid versionId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				using (HttpClient client = new())
+				{
+					string reqUrl = $"{_settings.WebApiDomainUrl}/api/versions/downloadVersion?versionId={versionId}";
+					client.DefaultRequestHeaders.Add("Registration", _settings.RegistrationId.ToString());
+					using HttpResponseMessage response = await client.GetAsync(reqUrl);
+					response.EnsureSuccessStatusCode();
+					
+					using HttpContent httpContent = response.Content;
+					using Stream stream = await httpContent.ReadAsStreamAsync();
+					string downloadFilePath = Path.Combine(GetDownloadFolderPath(), GetFileNameFromResponse(response, versionId));
+					using FileStream fileStream = File.Create(downloadFilePath);
+					await stream.CopyToAsync(fileStream);
+					return ActionResult.Success(downloadFilePath);
+				}
+			}
+			catch(Exception ex)
+			{
+				_logger.Error(ex, "Failed to download the latest version file");
+				return ActionResult.Fail();
+			}
+		}
+
+		private string GetFileNameFromResponse(HttpResponseMessage response, Guid versionId)
+		{
+			string? fileName = null;
+			if (response.Content.Headers.ContentDisposition != null)
+			{
+				string? disposition = response.Content.Headers.ContentDisposition.FileName;
+				if (!string.IsNullOrEmpty(disposition))
+				{
+					fileName = disposition.Trim('"');
+				}
+			}
+			return fileName ?? "ver_" + versionId.ToString();
+		}
+
+		private string GetDownloadFolderPath()
+		{
+			string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			string downloadFolderPath = Path.Combine(specialFolderPath, "Quoter");
+			if (!Directory.Exists(downloadFolderPath))
+			{
+				Directory.CreateDirectory(downloadFolderPath);
+			}
+			return downloadFolderPath;
 		}
 	}
 }

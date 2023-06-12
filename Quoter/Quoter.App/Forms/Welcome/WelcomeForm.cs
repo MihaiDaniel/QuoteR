@@ -189,19 +189,19 @@ namespace Quoter.App.Forms
 			if (language == EnumLanguage.English)
 			{
 				btnLanguageEn.FlatAppearance.BorderColor = Color.Black;
-				btnLanguageRo.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
-				btnLanguageFr.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageRo.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
+				btnLanguageFr.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
 			}
 			else if (language == EnumLanguage.Romanian)
 			{
-				btnLanguageEn.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageEn.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
 				btnLanguageRo.FlatAppearance.BorderColor = Color.Black;
-				btnLanguageFr.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageFr.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
 			}
 			else if (language == EnumLanguage.French)
 			{
-				btnLanguageEn.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
-				btnLanguageRo.FlatAppearance.BorderColor = Const.AppColor.ColorWindow;
+				btnLanguageEn.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
+				btnLanguageRo.FlatAppearance.BorderColor = Constants.AppColor.ColorWindow;
 				btnLanguageFr.FlatAppearance.BorderColor = Color.Black;
 			}
 			btnLanguageEn.Invalidate();
