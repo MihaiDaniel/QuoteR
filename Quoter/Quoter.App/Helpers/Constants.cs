@@ -7,6 +7,14 @@ namespace Quoter.App.Helpers
 	/// </summary>
 	public static class Constants
 	{
+		public static class Colors
+		{
+			public static readonly Color Error = Color.Red;
+			public static readonly Color Warn = Color.DarkOrange;
+			public static readonly Color Ok = Color.Green;
+			public static readonly Color Default = Color.SlateGray;
+		}
+
 
 		public static readonly Color ColorError = Color.Red;
 		public static readonly Color ColorWarn = Color.DarkOrange;

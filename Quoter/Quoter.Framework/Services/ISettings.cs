@@ -44,5 +44,7 @@ namespace Quoter.Framework.Services
 		bool IsStartWithWindows { get; set; }
 		bool IsSetupFinished { get; set; }
 		Size WindowSize { get; set; }
+
+		void SetDefaults();
 	}
 }

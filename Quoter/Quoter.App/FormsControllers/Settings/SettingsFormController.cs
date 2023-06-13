@@ -2,9 +2,11 @@
 using Quoter.App.Forms;
 using Quoter.App.Forms.Manage;
 using Quoter.App.Helpers;
+using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
+using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
@@ -106,6 +108,23 @@ namespace Quoter.App.FormsControllers.Settings
 			}
 		}
 
+		public BindingList<UpdateModeModel> UpdateModes { get; set; }
+
+		private UpdateModeModel? _selectedUpdateMode;
+		public UpdateModeModel? SelectedUpdateMode
+		{
+			get => _selectedUpdateMode;
+			set
+			{
+				if (_selectedUpdateMode != value)
+				{
+					_selectedUpdateMode = value;
+					OnPropertyChanged();
+				}
+				_logger.Debug($"SelectedUpdateMode:{SelectedUpdateMode.DisplayName}");
+			}
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -127,6 +146,7 @@ namespace Quoter.App.FormsControllers.Settings
 			_formsManager = formsManager;
 			_soundService = soundService;
 			_logger = logger;
+			UpdateModes = new BindingList<UpdateModeModel>();
 		}
 
 		public void RegisterForm(ISettingsForm form)
@@ -179,6 +199,12 @@ namespace Quoter.App.FormsControllers.Settings
 				case EnumSound.Bell:
 					SelectedNotificationSound = "Bell"; break;
 			}
+
+			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.Auto, DisplayName = _stringResources["UpdateAuto"] });
+			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.AskFirst, DisplayName = _stringResources["UpdateAsk"] });
+			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.None, DisplayName = _stringResources["UpdateNever"] });
+			SelectedUpdateMode = UpdateModes.First(um => um.UpdateMode == _settings.AutoUpdate);
+
 			return Task.CompletedTask;
 		}
 
@@ -352,6 +378,11 @@ namespace Quoter.App.FormsControllers.Settings
 				return new(true, 0);
 			}
 			return new(false, 0);
+		}
+
+		public void SetSelectedUpdateMode(EnumAutoUpdate updateMode)
+		{
+			_settings.AutoUpdate = updateMode;
 		}
 	}
 }

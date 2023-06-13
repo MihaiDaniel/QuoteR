@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Quoter.App.Forms;
 using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.BackgroundJobs;
@@ -12,8 +12,7 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
-using System.Globalization;
-using System.Media;
+using Quoter.Shared.Models;
 
 namespace Quoter.App
 {
@@ -78,37 +77,11 @@ namespace Quoter.App
 			_messagingService.Subscribe(this);
 			_soundService.LoadSoundsAsync();
 
-			if(string.IsNullOrEmpty(_settings.InstallId)) // TODO: Remove
-				_settings.InstallId = Guid.NewGuid().ToString();
-
 			if (_settings.IsFirstStart)
 			{
+				_settings.SetDefaults();
 				_settings.InstallId = Guid.NewGuid().ToString();
-
-				_settings.NotificationIntervalSeconds = Constants.SettingDefault.NotificationIntervalSeconds;
-				_settings.AutoCloseNotificationSeconds = Constants.SettingDefault.AutoCloseNotificationSeconds;
-				_settings.ShowWelcomeNotification = Constants.SettingDefault.ShowWelcomeNotification;
-				_settings.KeepNotificationOpenOnMouseOver = Constants.SettingDefault.KeepNotificationOpenOnMouseOver;
-				_settings.ShowCollectionsBasedOnLanguage = Constants.SettingDefault.ShowCollectionsBasedOnLanguage;
-				_settings.NotificationType = Constants.SettingDefault.NotificationType;
-				_settings.NotificationSound = EnumSound.Click;
-
-				CultureInfo ci = CultureInfo.CurrentUICulture;
-				switch (ci.Name)
-				{
-					case "ro-RO":
-						_settings.Language = "ro-RO";
-						Thread.CurrentThread.CurrentUICulture = new CultureInfo("ro-RO");
-						break;
-					case "fr-FR":
-						_settings.Language = "fr-FR";
-						Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
-						break;
-					default:
-						_settings.Language = "en-US";
-						Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-						break;
-				}
+				_settings.Language = LanguageHelper.SetCurrentUICultureForCurrentThread();
 				_settings.IsFirstStart = false;
 			}
 			else
@@ -117,8 +90,7 @@ namespace Quoter.App
 				_settings.IsPaused = false;
 
 				// Set language
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo(_settings.Language);
-				Thread.CurrentThread.CurrentCulture = new CultureInfo(_settings.Language);
+				LanguageHelper.SetCurrentThreadCulture(_settings.Language);
 			}
 			if(!_settings.IsSetupFinished)
 			{
@@ -136,7 +108,7 @@ namespace Quoter.App
 
 			// Timer to show a message at startup or open the quote form if is always on
 			_timerStartup = new();
-			_timerStartup.Interval = 5000;
+			_timerStartup.Interval = 3000;
 			_timerStartup.Tick += (sender, e) => ElapsedTimerEventStartup();
 			_timerStartup.Start();
 		}
@@ -177,19 +149,19 @@ namespace Quoter.App
 					break;
 				case Event.ExportSucessfull:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
-					ShowDialog(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()], false);
+					_formsManager.ShowDialogOk(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()]);
 					break;
 				case Event.ExportFailed:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
-					ShowDialog(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()], true);
+					_formsManager.ShowDialogError(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()]);
 					break;
 				case Event.ImportSuccesfull:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
-					ShowDialog(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()], false);
+					_formsManager.ShowDialogOk(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()]);
 					break;
 				case Event.ImportFailed:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
-					ShowDialog(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()], true);
+					_formsManager.ShowDialogError(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()]);
 					break;
 			}
 		}
@@ -199,6 +171,8 @@ namespace Quoter.App
 			_logger.Debug("");
 			try
 			{
+				_timerStartup.Enabled = false;
+
 				// Display the quotes form or the welcome message if option is set
 				if (_settings.NotificationType == EnumNotificationType.AlwaysOn) 
 				{
@@ -214,8 +188,7 @@ namespace Quoter.App
 					};
 					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 				}
-				_timerStartup.Enabled = false;
-
+				
 				// Enqueue background job for registering the application
 				_backgroundJobsService.Enqueue(async () =>
 				{
@@ -225,44 +198,62 @@ namespace Quoter.App
 					}
 				}, "RegisterApp");
 
-				_backgroundJobsService.Enqueue(async () =>
+				// Enqueue updating only if setup is finished (so we don't try to update the app imediatly on first start
+				if(_settings.IsSetupFinished)
 				{
-					await _updateService.VerifyIfUpdateApplied();
-				}, "VerifyUpdate");
-
-				// Enqueue background job for updating the application if necessary
-				_backgroundJobsService.Enqueue(async () =>
-				{
-					_logger.Debug("Beginning auto update job");
-					if(_settings.AutoUpdate == EnumAutoUpdate.Auto)
+					_backgroundJobsService.Enqueue(async () =>
 					{
-						_logger.Debug("Auto updating");
-						await _updateService.TryUpdate();
-					}
-					else if(_settings.AutoUpdate == EnumAutoUpdate.AskFirst)
-					{
-						_logger.Debug("Asking user for update");
-						bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
-						if (isUpdateAvailable)
+						ActionResult result = await _updateService.VerifyIfUpdateApplied();
+						if (result.IsSuccess)
 						{
-							DialogMessageFormOptions options = new()
+							QuoteFormOptions messageModel = new()
 							{
-								MessageBoxButtons = EnumDialogButtons.YesNo,
-								Title = "Quoter",
-								Message = "A new update is available. Do you want to download and install the update now?"
+								Title = _stringResources["UpdateApplied"],
+								Body = _stringResources["UpdateAppliedMessage", result.GetValue<string>()]
 							};
-							IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(options);
-							if(result.DialogResult == DialogResult.OK)
+							_formsManager.Show<QuoteForm>(10, messageModel);
+						}
+					}, "VerifyUpdate");
+
+					// Enqueue background job for updating the application if necessary
+					_backgroundJobsService.Enqueue(async () =>
+					{
+						_logger.Debug("Beginning auto update job");
+						if (_settings.AutoUpdate == EnumAutoUpdate.Auto)
+						{
+							_logger.Debug("Auto updating");
+							await _updateService.TryUpdate(isSilent: true);
+						}
+						else if (_settings.AutoUpdate == EnumAutoUpdate.AskFirst)
+						{
+							_logger.Debug("Asking user for update");
+							bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
+							if (isUpdateAvailable)
 							{
-								await _updateService.TryUpdate();
+								DialogOptions options = new()
+								{
+									MessageBoxButtons = EnumDialogButtons.YesLater,
+									Title = _stringResources["Quoter"],
+									Message = _stringResources["NewUpdateAvailableMsg"],
+									DialogSound = Enums.DialogOptionsSound.Default,
+									DialogTheme = Enums.DialogOptionsTheme.Default,
+									OpenAnimation = EnumAnimation.FadeInFromBottomRight,
+								};
+								IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(options);
+								if (result.DialogResult == DialogResult.OK)
+								{
+									await _updateService.TryUpdate(isSilent: false);
+								}
 							}
 						}
-					}
-					else
-					{
-						// Do not do any updates
-					}
-				}, "TryUpdate");
+						else
+						{
+							// Do not do any updates
+						}
+					}, "TryUpdate");
+				}
+
+				
 
 				// Start the background jobs service
 				_backgroundJobsService.Start();
@@ -370,17 +361,6 @@ namespace Quoter.App
 			_formsManager.ShowAndCloseOthers<ReaderForm>();
 		}
 
-		private void ShowDialog(string title, string message, bool isError)
-		{
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
-			{
-				Title = title,
-				TitleColor = isError ? Constants.ColorError : Constants.ColorDefault,
-				Message = message,
-				MessageBoxButtons = EnumDialogButtons.Ok
-			};
-			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
-		}
 
 		private ContextMenuStrip GetContextMenuStrip()
 		{
@@ -481,7 +461,7 @@ namespace Quoter.App
 
 		private int GetNotificationsIntervalMiliseconds()
 		{
-			return _settings.NotificationIntervalSeconds * 300;
+			return _settings.NotificationIntervalSeconds * 1000;
 		}
 	}
 }

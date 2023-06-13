@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms.Reader;
 using Quoter.App.Helpers;
+using Quoter.App.Helpers.Extensions;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
@@ -198,7 +199,7 @@ namespace Quoter.App.FormsControllers.Reader
 
 		private void ShowWarningNoCollectionFound()
 		{
-			DialogHelper.ShowWarning(_formsManager, _stringResources["WarnReaderNoCollection"], _stringResources["WarnReaderNoCollectionMsg"]);
+			_formsManager.ShowDialogWarning(_stringResources["WarnReaderNoCollection"], _stringResources["WarnReaderNoCollectionMsg"]);
 			_form.SetQuotesContent(string.Empty);
 			_form.SetLocationInCollection(string.Empty);
 			_form.BuildTreeNavigation(new Collection());

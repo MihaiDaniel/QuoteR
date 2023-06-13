@@ -126,6 +126,8 @@
 			btnPopupNotifications = new Button();
 			lblNotificationType = new Label();
 			gbOtherSettings = new GroupBox();
+			lblUpdateMode = new Label();
+			cbUpdateMode = new ComboBox();
 			btnStartWithWindowsNo = new Button();
 			btnStartWithWindowsYes = new Button();
 			lblStartWithWindows = new Label();
@@ -1429,6 +1431,8 @@
 			// gbOtherSettings
 			// 
 			gbOtherSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			gbOtherSettings.Controls.Add(lblUpdateMode);
+			gbOtherSettings.Controls.Add(cbUpdateMode);
 			gbOtherSettings.Controls.Add(btnStartWithWindowsNo);
 			gbOtherSettings.Controls.Add(btnStartWithWindowsYes);
 			gbOtherSettings.Controls.Add(lblStartWithWindows);
@@ -1438,10 +1442,31 @@
 			gbOtherSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
 			gbOtherSettings.Location = new Point(6, 240);
 			gbOtherSettings.Name = "gbOtherSettings";
-			gbOtherSettings.Size = new Size(362, 123);
+			gbOtherSettings.Size = new Size(362, 135);
 			gbOtherSettings.TabIndex = 21;
 			gbOtherSettings.TabStop = false;
 			gbOtherSettings.Text = "Other";
+			// 
+			// lblUpdateMode
+			// 
+			lblUpdateMode.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblUpdateMode.Location = new Point(6, 96);
+			lblUpdateMode.Name = "lblUpdateMode";
+			lblUpdateMode.Size = new Size(112, 18);
+			lblUpdateMode.TabIndex = 36;
+			lblUpdateMode.Text = "Updates";
+			lblUpdateMode.TextAlign = ContentAlignment.MiddleLeft;
+			// 
+			// cbUpdateMode
+			// 
+			cbUpdateMode.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbUpdateMode.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			cbUpdateMode.FormattingEnabled = true;
+			cbUpdateMode.Location = new Point(140, 92);
+			cbUpdateMode.Name = "cbUpdateMode";
+			cbUpdateMode.Size = new Size(216, 27);
+			cbUpdateMode.TabIndex = 36;
+			cbUpdateMode.SelectedValueChanged += cbUpdateMode_SelectedValueChanged;
 			// 
 			// btnStartWithWindowsNo
 			// 
@@ -2052,5 +2077,7 @@
 		private Button btnMinimize;
 		private Button btnReadCollection;
 		private PictureBox pictureBox1;
+		private Label lblUpdateMode;
+		private ComboBox cbUpdateMode;
 	}
 }

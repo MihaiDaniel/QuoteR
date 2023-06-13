@@ -537,4 +537,31 @@
   <data name="NoCollection" xml:space="preserve">
     <value>Nici o colecție aleasă</value>
   </data>
+  <data name="Later" xml:space="preserve">
+    <value>Mai târziu</value>
+  </data>
+  <data name="NewUpdateAvailableMsg" xml:space="preserve">
+    <value>O nouă versiune a aplicației este disponibilă. Doriți să o descărcați și instalați acum?</value>
+  </data>
+  <data name="UpdateAuto" xml:space="preserve">
+    <value>Actualizează automat</value>
+  </data>
+  <data name="UpdateAsk" xml:space="preserve">
+    <value>Întreabă înainte de a actualiza</value>
+  </data>
+  <data name="UpdateNever" xml:space="preserve">
+    <value>Nu actualizează</value>
+  </data>
+  <data name="UpdateMode" xml:space="preserve">
+    <value>Mod actualizare</value>
+  </data>
+  <data name="ErrSelectOneCollection" xml:space="preserve">
+    <value>Alegeți cel puțin o colecție pentru a continua.</value>
+  </data>
+  <data name="UpdateApplied" xml:space="preserve">
+    <value>Aplicația a fost actualizată</value>
+  </data>
+  <data name="UpdateAppliedMessage" xml:space="preserve">
+    <value>Aplicația a fost actualizată cu succes la versiunea {0}</value>
+  </data>
 </root>

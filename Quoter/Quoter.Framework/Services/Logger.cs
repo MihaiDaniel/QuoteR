@@ -53,7 +53,7 @@ namespace Quoter.Framework.Services
 		{
 			if (ex.InnerException != null)
 			{
-				_stringBuilder.Append(GetExceptionContent(ex));
+				_stringBuilder.Append(GetExceptionContent(ex.InnerException));
 			}
 			_stringBuilder.Append(ex.Message);
 			_stringBuilder.Append(Environment.NewLine);

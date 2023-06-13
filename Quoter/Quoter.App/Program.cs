@@ -40,6 +40,7 @@ namespace Quoter.App
 				Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
 				ApplicationConfiguration.Initialize();
 
+				Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
 				DependencyInjectionContainer diContainer = SetupDependencyInjection();
 
 				// Apply migrations
@@ -116,7 +117,7 @@ namespace Quoter.App
 			if (string.IsNullOrEmpty(connectionString))
 			{
 				string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-				string dbFolderPath = Path.Combine(specialFolderPath, "Quoter");
+				string dbFolderPath = Path.Combine(specialFolderPath, "Quoter.App");
 				if (!Directory.Exists(dbFolderPath))
 				{
 					Directory.CreateDirectory(dbFolderPath);

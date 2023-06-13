@@ -23,7 +23,7 @@ namespace Quoter.App.Forms
 							   IFormPositioningService formPositioningService,
 							   IStringResources stringResources,
 							   IThemeService themeService,
-							   DialogMessageFormOptions dialogModel)
+							   DialogOptions dialogOptions)
 		{
 			InitializeComponent();
 			DropShadow.ApplyShadows(this);
@@ -35,12 +35,24 @@ namespace Quoter.App.Forms
 			// Allow characters valid for file names a-zA-Z0-9
 			_regexInput = new Regex(@"^[\w\-. ]+$");
 
-			// if default color get color from theme instead, else show the color set in dialogModal
-			pnlTitle.BackColor = dialogModel.TitleColor != Constants.ColorDefault ? dialogModel.TitleColor : themeService.GetCurrentTheme().TitleColor;
-			lblTitle.Text = dialogModel.Title;
-			txtMessage.Text = dialogModel.Message;
-			MaxLength = dialogModel.ValueMaxLength;
-			txtInput.Text = dialogModel.Value;
+
+			switch (dialogOptions.DialogTheme)
+			{
+				case Enums.DialogOptionsTheme.Default:
+					pnlTitle.BackColor = themeService.GetCurrentTheme().TitleColor;
+					break;
+				case Enums.DialogOptionsTheme.Warning:
+					pnlTitle.BackColor = Constants.Colors.Warn;
+					break;
+				case Enums.DialogOptionsTheme.Error:
+					pnlTitle.BackColor = Constants.Colors.Error;
+					break;
+			}
+			
+			lblTitle.Text = dialogOptions.Title;
+			txtMessage.Text = dialogOptions.Message;
+			MaxLength = dialogOptions.ValueMaxLength;
+			txtInput.Text = dialogOptions.Value;
 
 			btnCancel.Text = _stringResources["Cancel"];
 			btnOk.Text = _stringResources["OK"];

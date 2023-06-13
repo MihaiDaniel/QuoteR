@@ -187,6 +187,8 @@ namespace Quoter.App.Forms
 			btnStartWithWindowsYes.Text = _stringResources["Yes"];
 			btnStartWithWindowsNo.Text = _stringResources["No"];
 
+			lblUpdateMode.Text = _stringResources["UpdateMode"];
+
 			lblNotificationLocation.Text = _stringResources["NotificationLocation"];
 			lblNotificationFont.Text = _stringResources["NotificationFont"];
 			btnNotificationFont.Text = _stringResources["Change"];
@@ -231,6 +233,13 @@ namespace Quoter.App.Forms
 			lblOpacityPercent.DataBindings.Add("Text", _settingsController, nameof(ISettingsFormController.OpacityValue));
 
 			cbNotificationSound.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedNotificationSound), false, DataSourceUpdateMode.Never);
+
+			BindingSource bindingSourceUpdateModes = new();
+			bindingSourceUpdateModes.DataSource = _settingsController.UpdateModes;
+			cbUpdateMode.DataSource = bindingSourceUpdateModes;
+			cbUpdateMode.DisplayMember = nameof(UpdateModeModel.DisplayName);
+			cbUpdateMode.ValueMember = nameof(UpdateModeModel.UpdateMode);
+			cbUpdateMode.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedUpdateMode), false, DataSourceUpdateMode.Never);
 		}
 
 		private void BindFavouriteQuotesControls()
@@ -1035,6 +1044,16 @@ namespace Quoter.App.Forms
 				_settingsController.SetSelectedNotificationSound((EnumSound)cbNotificationSound.SelectedIndex);
 			}
 		}
+
+		private void cbUpdateMode_SelectedValueChanged(object sender, EventArgs e)
+		{
+			if (cbUpdateMode.SelectedItem != null && cbUpdateMode.SelectedItem as UpdateModeModel != _settingsController.SelectedUpdateMode)
+			{
+				_logger.Debug($"cbUpdateMode_SelectedValueChanged {cbUpdateMode.SelectedIndex} {((UpdateModeModel)cbUpdateMode.SelectedItem)?.DisplayName}");
+				_settingsController.SetSelectedUpdateMode((cbUpdateMode.SelectedItem as UpdateModeModel).UpdateMode);
+			}
+		}
+
 
 		private void btnPlayNotificationSound_Click(object sender, EventArgs e)
 		{

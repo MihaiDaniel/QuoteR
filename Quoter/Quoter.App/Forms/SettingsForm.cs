@@ -49,9 +49,9 @@ namespace Quoter.App
 			//	Body = "Acesta este un text lung care vorbeste despre un citat asa ca sa vedem ceva mai lung textul foarte bine!",
 			//	Footer = "Acesta este un footer"
 			//};
-			DialogMessageFormOptions dialogModel = new()
+			DialogOptions dialogModel = new()
 			{
-				TitleColor= Color.Red,
+				DialogTheme = Enums.DialogOptionsTheme.Error,
 				Message = "Acesta este un mesaj",
 				Title = "Acesta este un titlu"
 			};

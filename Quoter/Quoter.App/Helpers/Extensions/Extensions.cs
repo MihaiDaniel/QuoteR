@@ -102,7 +102,7 @@ namespace Quoter.App.Helpers.Extensions
 
 		public static void ShowDialogOk(this IFormsManager formsManager, string title, string message)
 		{
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			DialogOptions dialogModel = new DialogOptions()
 			{
 				Title = title,
 				Message = message,
@@ -111,12 +111,24 @@ namespace Quoter.App.Helpers.Extensions
 			formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 		}
 
-		public static void ShowDialogErr(this IFormsManager formsManager, string title, string message)
+		public static void ShowDialogWarning(this IFormsManager formsManager, string title, string message)
 		{
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			DialogOptions options = new DialogOptions()
+			{
+				Message = message,
+				Title = title,
+				DialogTheme = Enums.DialogOptionsTheme.Warning,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			formsManager.ShowDialog<DialogMessageForm>(options);
+		}
+
+		public static void ShowDialogError(this IFormsManager formsManager, string title, string message)
+		{
+			DialogOptions dialogModel = new DialogOptions()
 			{
 				Title = title,
-				TitleColor = Constants.ColorError,
+				DialogTheme = Enums.DialogOptionsTheme.Error,
 				Message = message,
 				MessageBoxButtons = EnumDialogButtons.Ok
 			};

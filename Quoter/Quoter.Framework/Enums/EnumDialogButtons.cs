@@ -10,6 +10,7 @@ namespace Quoter.Framework.Enums
 	{
 		Ok,
 		OkCancel,
-		YesNo
+		YesNo,
+		YesLater
 	}
 }

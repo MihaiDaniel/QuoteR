@@ -97,11 +97,11 @@ namespace Quoter.App.FormsControllers.Welcome
 			{
 				return true;
 			}
-			DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+			DialogOptions dialogModel = new DialogOptions()
 			{
 				Title = _stringResources["Quoter"],
 				Message = _stringResources["ConfirmExit"],
-				TitleColor = Constants.ColorWarn,
+				DialogTheme = Enums.DialogOptionsTheme.Warning,
 				MessageBoxButtons = EnumDialogButtons.OkCancel
 			};
 			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
@@ -153,11 +153,11 @@ namespace Quoter.App.FormsControllers.Welcome
 					List<CollectionFileModel> lstCollectionFiles = _form.GetSelectedCollections();
 					if (lstCollectionFiles.Count == 0)
 					{
-						DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+						DialogOptions dialogModel = new DialogOptions()
 						{
-							Title = "Error",
-							Message = "Please choose at least 1 collection",
-							TitleColor = Constants.ColorWarn,
+							Title = _stringResources["error"],
+							Message = _stringResources["ErrSelectOneCollection"],
+							DialogTheme = Enums.DialogOptionsTheme.Warning,
 							MessageBoxButtons = EnumDialogButtons.Ok
 						};
 						_formsManager.ShowDialog<DialogMessageForm>(dialogModel);

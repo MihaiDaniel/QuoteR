@@ -2,6 +2,7 @@
 {
 	public enum EnumAnimation
 	{
+		None = 0,
 		FadeIn = 1,
 		FadeOut = 2,
 		FadeInFromTopLeft = 3,

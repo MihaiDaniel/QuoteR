@@ -8,12 +8,14 @@ namespace Quoter.Framework.Services
 	{
 		private readonly Dictionary<EnumSound, SoundPlayer> _dicSoundPlayers;
 		private readonly Assembly _entryAssembly;
+		private readonly ISettings _settings;
 		private bool _isLoaded;
 
-		public SoundService()
+		public SoundService(ISettings settings)
 		{
 			_dicSoundPlayers = new Dictionary<EnumSound, SoundPlayer>();
 			_entryAssembly = Assembly.GetEntryAssembly();
+			_settings = settings;
 			_isLoaded = false;
 		}
 
@@ -24,6 +26,16 @@ namespace Quoter.Framework.Services
 			LoadSound(EnumSound.Arpeggio, "Quoter.App.Resources.snd-arpeggio-467.wav");
 			LoadSound(EnumSound.Bell, "Quoter.App.Resources.snd-appointed-529.wav");
 			_isLoaded = true;
+		}
+
+		public void PlayNotificationSound()
+		{
+			Play(_settings.NotificationSound);
+		}
+
+		public void PlayWarningSound()
+		{
+			SystemSounds.Asterisk.Play();
 		}
 
 		public void Play(EnumSound sound)

@@ -120,10 +120,10 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		{
 			if (selectedCollection == null || selectedCollection.CollectionId == IdSelectAllItems)
 			{
-				DialogMessageFormOptions dialogModel = new DialogMessageFormOptions()
+				DialogOptions dialogModel = new DialogOptions()
 				{
 					Title = _stringResources["NoCollection"],
-					TitleColor = Constants.ColorWarn,
+					DialogTheme = Enums.DialogOptionsTheme.Warning,
 					Message = _stringResources["PleaseSelectACollection"],
 					MessageBoxButtons = Framework.Enums.EnumDialogButtons.Ok
 				};
@@ -341,7 +341,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				// Show error message if no favourite collection is set
 				if (!Collections.Any(c => c.IsFavourite == true))
 				{
-					_formsManager.ShowDialogErr(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsg"]);
+					_formsManager.ShowDialogError(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsg"]);
 					return;
 				}
 			}
@@ -356,7 +356,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			if (!Directory.Exists(dirPath) || string.IsNullOrWhiteSpace(Path.GetFileName(fileName)))
 			{
 				// Show error if path is invalid
-				_formsManager.ShowDialogErr(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsgBadFileName"]);
+				_formsManager.ShowDialogError(_stringResources["ErrCantExport"], _stringResources["ErrCantExportMsgBadFileName"]);
 			}
 			else
 			{
@@ -396,7 +396,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			{
 				if (string.IsNullOrWhiteSpace(fileName) || Path.GetExtension(fileName) != ".qter")
 				{
-					_formsManager.ShowDialogErr(_stringResources["ErrCantImport"], _stringResources["ErrCantImportMsgBadFileName"]);
+					_formsManager.ShowDialogError(_stringResources["ErrCantImport"], _stringResources["ErrCantImportMsgBadFileName"]);
 					return;
 				}
 			}

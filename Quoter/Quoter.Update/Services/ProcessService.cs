@@ -24,6 +24,7 @@ namespace Quoter.Update.Services
 
 		public void KillProcessIfRunning(string processName)
 		{
+			Logger.Info($"Trying to find is the processName exists: {processName}");
 			if (Process.GetProcessesByName(processName).Length > 0)
 			{
 				Logger.Info("Shutting down process: " + processName);
@@ -36,6 +37,10 @@ namespace Quoter.Update.Services
 					process.WaitForExit();
 					process.Dispose();
 				}
+			}
+			else
+			{
+				Logger.Info($"Process is not running: {processName}");
 			}
 		}
 

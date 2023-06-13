@@ -537,4 +537,31 @@
   <data name="PleaseSelectACollection" xml:space="preserve">
     <value>Please select a collection first</value>
   </data>
+  <data name="Later" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="NewUpdateAvailableMsg" xml:space="preserve">
+    <value>A new update is available. Do you want to download and install it now?</value>
+  </data>
+  <data name="UpdateAuto" xml:space="preserve">
+    <value>Update automatically</value>
+  </data>
+  <data name="UpdateAsk" xml:space="preserve">
+    <value>Ask to update</value>
+  </data>
+  <data name="UpdateNever" xml:space="preserve">
+    <value>Never update</value>
+  </data>
+  <data name="UpdateMode" xml:space="preserve">
+    <value>Update mode</value>
+  </data>
+  <data name="ErrSelectOneCollection" xml:space="preserve">
+    <value>Please choose at least one collection to continue.</value>
+  </data>
+  <data name="UpdateApplied" xml:space="preserve">
+    <value>Application updated</value>
+  </data>
+  <data name="UpdateAppliedMessage" xml:space="preserve">
+    <value>Application was updated successfully to version {0}</value>
+  </data>
 </root>

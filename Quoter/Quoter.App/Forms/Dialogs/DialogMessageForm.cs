@@ -5,51 +5,89 @@ using Quoter.App.Helpers;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.App.Controls;
+using Quoter.Framework.Services;
 
 namespace Quoter.App.Forms
 {
 	/// <summary>
-	/// Dialog form to show errors or simple choices. Expects a <see cref="DialogMessageFormOptions"/>
+	/// Dialog form to show errors or simple choices. Expects a <see cref="Dialog_options"/>
 	/// </summary>
 	public partial class DialogMessageForm : Form, IDialogReturnable
 	{
 		private readonly IFormsManager _formsManager;
+		private readonly IFormAnimationService _formAnimationService;
+		private readonly IStringResources _stringResources;
+		private readonly IThemeService _themeService;
+		private readonly ISoundService _soundService;
+		private readonly DialogOptions _options;
 
-		public string StringResult { get; private set; }
+		public string StringResult { get; private set; } = string.Empty;
 
 		public DialogMessageForm(IFormsManager formsManager,
 							   IFormPositioningService formPositioningService,
+							   IFormAnimationService formAnimationService,
 							   IStringResources stringResources,
 							   IThemeService themeService,
-							   DialogMessageFormOptions options)
+							   ISoundService soundService,
+							   DialogOptions options)
 		{
 			InitializeComponent();
 			DropShadow.ApplyShadows(this);
 			_formsManager = formsManager;
+			_formAnimationService = formAnimationService;
+			_stringResources = stringResources;
+			_themeService = themeService;
+			_soundService = soundService;
+			_options = options;
 
 			formPositioningService.RegisterFormDragableByControl(this, pnlTitle);
 
-			// if default color get color from theme instead, else show the color set in dialogModal
-			pnlTitle.BackColor = options.TitleColor != Constants.ColorDefault ? options.TitleColor : themeService.GetCurrentTheme().TitleColor;
-			lblTopBar.Text = options.Title;
-			txtMessage.Text = options.Message;
-			txtMessage.TabStop = false; // Stop text from being selected
-			btnOk.Text = stringResources["OK"];
-			btnCancel.Text = stringResources["Cancel"];
-			this.Text = stringResources["Quoter"];
+			InitializeDialog();
+		}
 
-			if (options.MessageBoxButtons == EnumDialogButtons.Ok)
+		private void InitializeDialog()
+		{
+			// if default color get color from theme instead, else show the color set in dialogModal
+			switch (_options.DialogTheme)
 			{
-				btnOk.Location = new Point(btnCancel.Location.X, btnCancel.Location.Y);
-				btnCancel.Visible = false;
-				btnCancel.Enabled = false;
+				case Enums.DialogOptionsTheme.Default:
+					pnlTitle.BackColor = _themeService.GetCurrentTheme().TitleColor;
+					break;
+				case Enums.DialogOptionsTheme.Warning:
+					pnlTitle.BackColor = Constants.Colors.Warn;
+					break;
+				case Enums.DialogOptionsTheme.Error:
+					pnlTitle.BackColor = Constants.Colors.Error;
+					break;
 			}
-			else if(options.MessageBoxButtons == EnumDialogButtons.YesNo)
+
+			lblTopBar.Text = _options.Title;
+			txtMessage.Text = _options.Message;
+			txtMessage.TabStop = false; // Stop text from being selected
+
+			this.Text = _stringResources["Quoter"];
+
+			switch (_options.MessageBoxButtons)
 			{
-				btnOk.Text = stringResources["Yes"];
-				btnCancel.Text = stringResources["No"];
+				case EnumDialogButtons.Ok:
+					btnOk.Location = new Point(btnCancel.Location.X, btnCancel.Location.Y); // move to the right in place of the cancel button
+					btnOk.Text = _stringResources["OK"];
+					btnCancel.Visible = false;
+					btnCancel.Enabled = false;
+					break;
+				case EnumDialogButtons.OkCancel:
+					btnOk.Text = _stringResources["OK"];
+					btnCancel.Text = _stringResources["Cancel"];
+					break;
+				case EnumDialogButtons.YesNo:
+					btnOk.Text = _stringResources["Yes"];
+					btnCancel.Text = _stringResources["No"];
+					break;
+				case EnumDialogButtons.YesLater:
+					btnOk.Text = _stringResources["Yes"];
+					btnCancel.Text = _stringResources["Later"];
+					break;
 			}
-			StringResult = string.Empty;
 		}
 
 		#region Show on top
@@ -66,6 +104,23 @@ namespace Quoter.App.Forms
 		}
 
 		#endregion Show on top
+
+		private async void DialogMessageForm_Load(object sender, EventArgs e)
+		{
+			switch (_options.DialogSound)
+			{
+				case Enums.DialogOptionsSound.Default:
+					_soundService.PlayNotificationSound();
+					break;
+				case Enums.DialogOptionsSound.Warning:
+					_soundService.PlayWarningSound();
+					break;
+			}
+			if (_options.OpenAnimation != EnumAnimation.None)
+			{
+				await _formAnimationService.AnimateAsync(this, _options.OpenAnimation);
+			}
+		}
 
 		private void btnOk_Click(object sender, EventArgs e)
 		{
@@ -99,9 +154,5 @@ namespace Quoter.App.Forms
 			}
 		}
 
-		private void DialogMessageForm_Load(object sender, EventArgs e)
-		{
-			System.Media.SystemSounds.Asterisk.Play();
-		}
 	}
 }

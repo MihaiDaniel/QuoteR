@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
 using Quoter.Shared.Models;
 using System.Diagnostics;
@@ -51,7 +50,7 @@ namespace Quoter.Framework.Services.Api
 			return false;
 		}
 
-		public async Task VerifyIfUpdateApplied()
+		public async Task<ActionResult> VerifyIfUpdateApplied()
 		{
 			QuoterVersionInfo currentVersion = GetCurrentVersion();
 			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
@@ -62,12 +61,14 @@ namespace Quoter.Framework.Services.Api
 					_logger.Info($"Update applied - {appVersion.Version}");
 					appVersion.IsApplied = true;
 					await _context.SaveChangesAsync();
+					return ActionResult.Success(appVersion.Version);
 				}
 			}
+			return ActionResult.Fail();
 			// Ideea verify if an update was not applied and maybe retry?
 		}
 
-		public async Task TryUpdate()
+		public async Task TryUpdate(bool isSilent)
 		{
 			try
 			{
@@ -86,7 +87,7 @@ namespace Quoter.Framework.Services.Api
 					{
 						_logger.Info("Downloaded update file. Starting updater...");
 						string updaterExePath = GetUpdaterAppExePath();
-						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>());
+						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>(), isSilent);
 						Process.Start(updaterExePath, updaterArgs); // Try like this, Updater should close the app automatically
 					}
 				}
@@ -99,7 +100,7 @@ namespace Quoter.Framework.Services.Api
 
 		private QuoterVersionInfo GetCurrentVersion()
 		{
-			Version? version = Assembly.GetExecutingAssembly().GetName().Version;
+			Version? version = Assembly.GetEntryAssembly().GetName().Version;
 			QuoterVersionInfo currentVersion = new(version.ToString());
 			return currentVersion;
 		}
@@ -139,14 +140,22 @@ namespace Quoter.Framework.Services.Api
 			return Path.Combine(currentDir, "Updater", "Quoter.Update.exe");
 		}
 
-		private string GetUpdaterArgs(AppVersion appVersion)
+		/// <remarks>
+		/// -i = install dir path
+		/// -e = quoter exe name
+		/// -u = update file path
+		/// -uid = update id (as in quoter local db)
+		/// -s = silent update (true/false, if true the updater form is not visible)
+		/// -r = is restarted (used by updater, should always be false)
+		/// </remarks>
+		private string GetUpdaterArgs(AppVersion appVersion, bool isSilent)
 		{
-			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 3 -r false
-			string appExePath = Assembly.GetExecutingAssembly().Location;
+			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 3 -s false -r false
+			string appExePath = Assembly.GetEntryAssembly().Location;
 			string appExe = Path.GetFileName(appExePath);
 			string installDir = Path.GetDirectoryName(appExePath);
 
-			return $"-i {installDir} -e {appExe} -u {appVersion.FilePath} -uid {appVersion.Id} -r false";
+			return $"-i {installDir} -e {appExe} -u {appVersion.FilePath} -uid {appVersion.Id} -s {isSilent} -r false";
 		}
 
 	}

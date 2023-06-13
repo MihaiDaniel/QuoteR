@@ -1,4 +1,5 @@
-﻿using Quoter.Framework.Enums;
+﻿using Quoter.App.Helpers;
+using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
 
 namespace Quoter.App.Services
@@ -293,6 +294,17 @@ namespace Quoter.App.Services
 			{
 				Set<Size>(nameof(WindowSize), value);
 			}
+		}
+
+		public void SetDefaults()
+		{
+			NotificationIntervalSeconds = Constants.SettingDefault.NotificationIntervalSeconds;
+			AutoCloseNotificationSeconds = Constants.SettingDefault.AutoCloseNotificationSeconds;
+			ShowWelcomeNotification = Constants.SettingDefault.ShowWelcomeNotification;
+			KeepNotificationOpenOnMouseOver = Constants.SettingDefault.KeepNotificationOpenOnMouseOver;
+			ShowCollectionsBasedOnLanguage = Constants.SettingDefault.ShowCollectionsBasedOnLanguage;
+			NotificationType = Constants.SettingDefault.NotificationType;
+			NotificationSound = EnumSound.Click;
 		}
 
 		/// <summary>

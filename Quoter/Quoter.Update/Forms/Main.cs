@@ -12,6 +12,7 @@ namespace Quoter.Update
 		private string ApplicationExeName;
 		private string UpdateId;
 		private string ZipUpdateFolderPath;
+		private bool IsSilent;
 		private bool IsRestartedAsAdmin;
 
 		private string[] _args;
@@ -59,6 +60,20 @@ namespace Quoter.Update
 			try
 			{
 				SetupArguments();
+				if (this.InvokeRequired)
+				{
+					this.Invoke(new Action(() =>
+					{
+						if(IsSilent)
+						{
+							this.Visible = false;
+						}
+						else
+						{
+							this.Visible = true;
+						}
+					}));
+				}
 				if (VerifyArguments())
 				{
 					if (_processHandler.HasWriteRightOnFolder(InstallFolderPath))
@@ -75,7 +90,8 @@ namespace Quoter.Update
 					}
 					else if (!IsRestartedAsAdmin)
 					{
-						_processHandler.RestartUpdaterProcessAsAdmin($"-i {InstallFolderPath} -e {ApplicationExeName} -u {ZipUpdateFolderPath} -r true");
+						string restarArgs = $"-i {InstallFolderPath} -e {ApplicationExeName} -u {ZipUpdateFolderPath} -uid {UpdateId} -s {IsSilent} -r true";
+						_processHandler.RestartUpdaterProcessAsAdmin(restarArgs);
 					}
 					else
 					{
@@ -87,7 +103,7 @@ namespace Quoter.Update
 					Logger.Error("Arguments are not valid, closing.");
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Logger.Error(ex, "General error.");
 			}
@@ -108,20 +124,23 @@ namespace Quoter.Update
 		private void SetupArguments()
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach(string? arg in _args)
+			foreach (string? arg in _args)
 			{
 				sb.Append(arg);
 				sb.Append(" ");
 			}
 			//0123456789
-			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 4 -r false
+			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 4 -s false -r false
 			string str = sb.ToString().Trim();
 
 			InstallFolderPath = str.Substring(str.IndexOf("-i") + 2, str.IndexOf("-e") - 2).Trim();
 			ApplicationExeName = str.Substring(str.IndexOf("-e") + 2, str.IndexOf("-u") - str.IndexOf("-e") - 3).Trim();
 			ZipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-uid") - str.IndexOf("-u") - 3).Trim();
-			UpdateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-r") - str.IndexOf("-uid") - 5).Trim();
+			UpdateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-s") - str.IndexOf("-uid") - 5).Trim();
+			IsSilent = str.Substring(str.IndexOf("-s") + 4, str.IndexOf("-r") - str.IndexOf("-s") - 3).Trim().ToLower() == "true";
 			IsRestartedAsAdmin = str.Substring(str.IndexOf("-r") + 2, str.Length - str.IndexOf("-r") - 2).Trim().ToLower() == "true";
+
+			ApplicationExeName = ApplicationExeName.Replace(".dll", ".exe"); // Just in case we receive the dll name instead of the actual exe
 
 			Logger.Info("Starting arguments: ");
 			Logger.Info(InstallFolderPath);
