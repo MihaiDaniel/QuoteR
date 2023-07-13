@@ -160,6 +160,7 @@
 			lblBackgroundTask = new Label();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			panel9 = new Panel();
+			lblVersion = new Label();
 			pnlTitle.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			tabControl.SuspendLayout();
@@ -1761,10 +1762,10 @@
 			txtStatus.BackColor = Color.WhiteSmoke;
 			txtStatus.BorderStyle = BorderStyle.None;
 			txtStatus.ForeColor = Color.Green;
-			txtStatus.Location = new Point(3, 1);
+			txtStatus.Location = new Point(54, 1);
 			txtStatus.Multiline = true;
 			txtStatus.Name = "txtStatus";
-			txtStatus.Size = new Size(566, 17);
+			txtStatus.Size = new Size(515, 17);
 			txtStatus.TabIndex = 15;
 			txtStatus.Text = "Status acesta este un status ca s-a facut ceva corect bravo tie mai ce sa zicem";
 			// 
@@ -1865,11 +1866,23 @@
 			// 
 			panel9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			panel9.BackColor = Color.Transparent;
+			panel9.Controls.Add(lblVersion);
 			panel9.Controls.Add(txtStatus);
 			panel9.Location = new Point(4, 498);
 			panel9.Name = "panel9";
 			panel9.Size = new Size(576, 21);
 			panel9.TabIndex = 21;
+			// 
+			// lblVersion
+			// 
+			lblVersion.AutoSize = true;
+			lblVersion.BackColor = Color.Transparent;
+			lblVersion.ForeColor = SystemColors.ControlDarkDark;
+			lblVersion.Location = new Point(3, 3);
+			lblVersion.Name = "lblVersion";
+			lblVersion.Size = new Size(44, 15);
+			lblVersion.TabIndex = 6;
+			lblVersion.Text = "1.0.0.0";
 			// 
 			// ManageForm
 			// 
@@ -2079,5 +2092,6 @@
 		private PictureBox pictureBox1;
 		private Label lblUpdateMode;
 		private ComboBox cbUpdateMode;
+		private Label lblVersion;
 	}
 }

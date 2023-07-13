@@ -1,7 +1,13 @@
 ﻿using Quoter.Shared.Models;
 
-namespace Quoter.Framework.Services.Api
+namespace Quoter.Framework.Services.Versioning
 {
+	/// <summary>
+	/// Interface for service responible for updating the application
+	/// </summary>
+	/// <remarks>
+	/// <see cref="UpdateService"/>
+	/// </remarks>
 	public interface IUpdateService
 	{
 		/// <summary>

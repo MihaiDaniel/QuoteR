@@ -15,8 +15,8 @@ namespace Quoter.App.FormsControllers.Settings
 
 		string SelectedNotificationSound { get; set; }
 
-		BindingList<UpdateModeModel> UpdateModes { get; set; }
-		UpdateModeModel SelectedUpdateMode { get; set; }
+		BindingList<UpdateModeItem> UpdateModes { get; set; }
+		UpdateModeItem SelectedUpdateMode { get; set; }
 
 		string OpacityValue { get; set; }
 

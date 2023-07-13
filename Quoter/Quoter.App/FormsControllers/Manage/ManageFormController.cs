@@ -5,29 +5,53 @@ using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.Versioning;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Manage
 {
 	/// <summary>
 	/// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
 	/// </summary>
-	public class ManageFormController : IManageFormController, IMessagingSubscriber
+	public class ManageFormController : IManageFormController, IMessagingSubscriber, INotifyPropertyChanged
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly ISettings _settings;
 		private readonly IThemeService _themeService;
+		private readonly IVersionService _versionService;
 		private IManageForm _form;
+
+		private string _version;
+		public string Version
+		{
+			get => _version;
+			set
+			{
+				_version = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 
 		public ManageFormController(IMessagingService messagingService,
 									IStringResources stringResources,
 									ISettings settings,
-									IThemeService themeService)
+									IThemeService themeService,
+									IVersionService versionService)
 		{
 			_messagingService = messagingService;
 			_stringResources = stringResources;
 			_settings = settings;
 			_themeService = themeService;
+			_versionService = versionService;
 		}
 
 		public Task EventFormClosingAsync()
@@ -49,6 +73,7 @@ namespace Quoter.App.FormsControllers.Manage
 			{
 				_form.SetBackgroundTask(true, _stringResources["ExportingInProgress"]);
 			}
+			Version = _versionService.GetCurrentQuoterVersionInfo().ToString();
 			return Task.CompletedTask;
 		}
 

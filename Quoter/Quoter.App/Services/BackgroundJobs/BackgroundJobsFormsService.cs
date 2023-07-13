@@ -7,6 +7,9 @@ namespace Quoter.App.Services.BackgroundJobs
 	/// so we can update the UI if needed when a job finishes. Will periodically run and execute all jobs 
 	/// that are currently in queue.
 	/// </summary>
+	/// <remarks>
+	/// This uses the <see cref="System.Windows.Forms.Timer"/> for periodically running jobs
+	/// </remarks>
 	public class BackgroundJobsFormsService : IBackgroundJobsFormsService
 	{
 		private readonly ILogger _logger;
@@ -50,10 +53,10 @@ namespace Quoter.App.Services.BackgroundJobs
 			try
 			{
 				_isRunningJobs = true;
-				int maxJobs = 10; // Just for safety to have a counter so we can exist the while.
+				int maxJobsThisRun = 10; // Just for safety to have a counter so we can exist the while.
 				while(_queueJobs.Any())
 				{
-					if (IsMaxJobsExceeded(ref maxJobs))
+					if (IsMaxJobsExceededForCurrentRun(ref maxJobsThisRun))
 					{
 						break;
 					}
@@ -89,15 +92,15 @@ namespace Quoter.App.Services.BackgroundJobs
 			}
 		}
 
-		private bool IsMaxJobsExceeded(ref int maxTasks)
+		private bool IsMaxJobsExceededForCurrentRun(ref int maxJobsThisRun)
 		{
-			if (maxTasks == 0)
+			if (maxJobsThisRun == 0)
 			{
 				return true;
 			}
 			else
 			{
-				maxTasks--;
+				maxJobsThisRun--;
 				return false;
 			}
 		}

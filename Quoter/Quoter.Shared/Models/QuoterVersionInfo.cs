@@ -3,8 +3,17 @@ using System;
 
 namespace Quoter.Shared.Models
 {
+	/// <summary>
+	/// This helper class holds version information of the QuoterApplication
+	/// </summary>
+	/// <remarks>
+	/// Id, Major, Minor, Build, Revision
+	/// </remarks>
 	public class QuoterVersionInfo
 	{
+		/// <summary>
+		/// Unique id of the version as is on the update server.
+		/// </summary>
 		public Guid Id { get; set; }
 
 		public int Major { get; private set; }
@@ -39,6 +48,11 @@ namespace Quoter.Shared.Models
 		/// Returns a value indicating how this version is in comparison.
 		/// Is it Older/Newer/Equal in regards to the one to compare 
 		/// </summary>
+		/// <remarks>
+		/// If this version is newer than <paramref name="version"/> it returns <see cref="EnumVersionCompare.Newer"/>
+		/// If this version is older than <paramref name="version"/> it returns <see cref="EnumVersionCompare.Older"/>
+		/// If they are equal it returns <see cref="EnumVersionCompare.Equal"/>
+		/// </remarks>
 		public EnumVersionCompare CompareWith(QuoterVersionInfo version)
 		{
 			if(Major == version.Major 
@@ -73,6 +87,9 @@ namespace Quoter.Shared.Models
 			return EnumVersionCompare.Older;
 		}
 
+		/// <summary>
+		/// Returns the version as Major.Minor.Build.Revision
+		/// </summary>
 		public override string ToString()
 		{
 			return $"{Major}.{Minor}.{Build}.{Revision}";

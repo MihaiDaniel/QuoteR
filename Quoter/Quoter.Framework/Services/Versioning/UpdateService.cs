@@ -1,28 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
+using Quoter.Framework.Services.Api;
 using Quoter.Shared.Enums;
 using Quoter.Shared.Models;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Quoter.Framework.Services.Api
+namespace Quoter.Framework.Services.Versioning
 {
 	public class UpdateService : IUpdateService
 	{
 		private readonly ILogger _logger;
 		private readonly IRegistrationService _registrationService;
 		private readonly IWebApiService _webApiService;
+		private readonly IVersionService _versionService;
 		private readonly QuoterContext _context;
 
 		public UpdateService(ILogger logger,
 							IRegistrationService registrationService,
 							IWebApiService webApiService,
+							IVersionService versionService,
 							QuoterContext context)
 		{
 			_logger = logger;
 			_registrationService = registrationService;
 			_webApiService = webApiService;
+			_versionService = versionService;
 			_context = context;
 		}
 
@@ -36,14 +40,14 @@ namespace Quoter.Framework.Services.Api
 					return false;
 				}
 				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
-				QuoterVersionInfo currentVersion = GetCurrentVersion();
+				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 
 				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
 				{
 					return true;
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_logger.Error(ex, "An error occured while checking IsNewVersionAvailable");
 			}
@@ -52,7 +56,7 @@ namespace Quoter.Framework.Services.Api
 
 		public async Task<ActionResult> VerifyIfUpdateApplied()
 		{
-			QuoterVersionInfo currentVersion = GetCurrentVersion();
+			QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
 			if (appVersion != null)
 			{
@@ -65,7 +69,7 @@ namespace Quoter.Framework.Services.Api
 				}
 			}
 			return ActionResult.Fail();
-			// Ideea verify if an update was not applied and maybe retry?
+			// Ideea: verify if an update was not applied and maybe retry?
 		}
 
 		public async Task TryUpdate(bool isSilent)
@@ -78,12 +82,12 @@ namespace Quoter.Framework.Services.Api
 					return;
 				}
 				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
-				QuoterVersionInfo currentVersion = GetCurrentVersion();
+				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 
 				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
 				{
 					ActionResult result = await DownloadVersionAsync(latestVersion);
-					if(result.IsSuccess)
+					if (result.IsSuccess)
 					{
 						_logger.Info("Downloaded update file. Starting updater...");
 						string updaterExePath = GetUpdaterAppExePath();
@@ -96,13 +100,6 @@ namespace Quoter.Framework.Services.Api
 			{
 				_logger.Error(ex);
 			}
-		}
-
-		private QuoterVersionInfo GetCurrentVersion()
-		{
-			Version? version = Assembly.GetEntryAssembly().GetName().Version;
-			QuoterVersionInfo currentVersion = new(version.ToString());
-			return currentVersion;
 		}
 
 		private async Task<ActionResult> DownloadVersionAsync(QuoterVersionInfo latestVersion)

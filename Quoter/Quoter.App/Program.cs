@@ -7,7 +7,6 @@ using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.FormsControllers.Reader;
 using Quoter.App.FormsControllers.Settings;
 using Quoter.App.FormsControllers.Welcome;
-using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.FormAnimation;
@@ -19,6 +18,7 @@ using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.Versioning;
 using System.Resources;
 
 namespace Quoter.App
@@ -50,7 +50,7 @@ namespace Quoter.App
 				QuoterApplicationContext appContext = diContainer.GetService<QuoterApplicationContext>();
 				Application.Run(appContext);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				File.WriteAllText("Log.txt", ex.ToString());
 			}
@@ -102,6 +102,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<ILogger, Logger>();
 			serviceCollection.AddTransient<IWebApiService, WebApiService>();
 			serviceCollection.AddTransient<IRegistrationService, RegistrationService>();
+			serviceCollection.AddTransient<IVersionService, VersionService>();
 			serviceCollection.AddTransient<IUpdateService, UpdateService>();
 			serviceCollection.AddTransient<IBackgroundJobsFormsService, BackgroundJobsFormsService>();
 

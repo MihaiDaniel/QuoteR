@@ -108,10 +108,10 @@ namespace Quoter.App.FormsControllers.Settings
 			}
 		}
 
-		public BindingList<UpdateModeModel> UpdateModes { get; set; }
+		public BindingList<UpdateModeItem> UpdateModes { get; set; }
 
-		private UpdateModeModel? _selectedUpdateMode;
-		public UpdateModeModel? SelectedUpdateMode
+		private UpdateModeItem? _selectedUpdateMode;
+		public UpdateModeItem? SelectedUpdateMode
 		{
 			get => _selectedUpdateMode;
 			set
@@ -146,7 +146,7 @@ namespace Quoter.App.FormsControllers.Settings
 			_formsManager = formsManager;
 			_soundService = soundService;
 			_logger = logger;
-			UpdateModes = new BindingList<UpdateModeModel>();
+			UpdateModes = new BindingList<UpdateModeItem>();
 		}
 
 		public void RegisterForm(ISettingsForm form)
@@ -200,9 +200,9 @@ namespace Quoter.App.FormsControllers.Settings
 					SelectedNotificationSound = "Bell"; break;
 			}
 
-			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.Auto, DisplayName = _stringResources["UpdateAuto"] });
-			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.AskFirst, DisplayName = _stringResources["UpdateAsk"] });
-			UpdateModes.Add(new UpdateModeModel() { UpdateMode = EnumAutoUpdate.None, DisplayName = _stringResources["UpdateNever"] });
+			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.Auto, DisplayName = _stringResources["UpdateAuto"] });
+			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.AskFirst, DisplayName = _stringResources["UpdateAsk"] });
+			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.None, DisplayName = _stringResources["UpdateNever"] });
 			SelectedUpdateMode = UpdateModes.First(um => um.UpdateMode == _settings.AutoUpdate);
 
 			return Task.CompletedTask;

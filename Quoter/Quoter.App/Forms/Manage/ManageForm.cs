@@ -77,6 +77,7 @@ namespace Quoter.App.Forms
 			LocalizeControls();
 
 			//Bind ui to controllers and register controllers
+			BindManageControls();
 			BindEditQuotesControls();
 			BindFavouriteQuotesControls();
 			BindSettingsControls();
@@ -196,6 +197,11 @@ namespace Quoter.App.Forms
 			lblNotificationSound.Text = _stringResources["NotificationSound"];
 		}
 
+		private void BindManageControls()
+		{
+			lblVersion.DataBindings.Add("Text", _manageFormController, nameof(_manageFormController.Version));
+		}
+
 		private void BindEditQuotesControls()
 		{
 			// Collections
@@ -237,8 +243,8 @@ namespace Quoter.App.Forms
 			BindingSource bindingSourceUpdateModes = new();
 			bindingSourceUpdateModes.DataSource = _settingsController.UpdateModes;
 			cbUpdateMode.DataSource = bindingSourceUpdateModes;
-			cbUpdateMode.DisplayMember = nameof(UpdateModeModel.DisplayName);
-			cbUpdateMode.ValueMember = nameof(UpdateModeModel.UpdateMode);
+			cbUpdateMode.DisplayMember = nameof(UpdateModeItem.DisplayName);
+			cbUpdateMode.ValueMember = nameof(UpdateModeItem.UpdateMode);
 			cbUpdateMode.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedUpdateMode), false, DataSourceUpdateMode.Never);
 		}
 
@@ -1047,10 +1053,10 @@ namespace Quoter.App.Forms
 
 		private void cbUpdateMode_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cbUpdateMode.SelectedItem != null && cbUpdateMode.SelectedItem as UpdateModeModel != _settingsController.SelectedUpdateMode)
+			if (cbUpdateMode.SelectedItem != null && cbUpdateMode.SelectedItem as UpdateModeItem != _settingsController.SelectedUpdateMode)
 			{
-				_logger.Debug($"cbUpdateMode_SelectedValueChanged {cbUpdateMode.SelectedIndex} {((UpdateModeModel)cbUpdateMode.SelectedItem)?.DisplayName}");
-				_settingsController.SetSelectedUpdateMode((cbUpdateMode.SelectedItem as UpdateModeModel).UpdateMode);
+				_logger.Debug($"cbUpdateMode_SelectedValueChanged {cbUpdateMode.SelectedIndex} {((UpdateModeItem)cbUpdateMode.SelectedItem)?.DisplayName}");
+				_settingsController.SetSelectedUpdateMode((cbUpdateMode.SelectedItem as UpdateModeItem).UpdateMode);
 			}
 		}
 

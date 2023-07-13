@@ -12,6 +12,7 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.Versioning;
 using Quoter.Shared.Models;
 
 namespace Quoter.App
@@ -60,7 +61,7 @@ namespace Quoter.App
 			_isUserLoggedOff = false;
 			InitializeApplication();
 			InitializeBackgroundTimers();
-			
+
 			_trayIcon = new NotifyIcon()
 			{
 				Icon = Resources.Resources.icon_book_black,
@@ -92,7 +93,7 @@ namespace Quoter.App
 				// Set language
 				LanguageHelper.SetCurrentThreadCulture(_settings.Language);
 			}
-			if(!_settings.IsSetupFinished)
+			if (!_settings.IsSetupFinished)
 			{
 				_formsManager.ShowAndCloseOthers<WelcomeForm>();
 			}
@@ -174,7 +175,7 @@ namespace Quoter.App
 				_timerStartup.Enabled = false;
 
 				// Display the quotes form or the welcome message if option is set
-				if (_settings.NotificationType == EnumNotificationType.AlwaysOn) 
+				if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 				{
 					ShowQuoteNotification();
 				}
@@ -188,7 +189,7 @@ namespace Quoter.App
 					};
 					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 				}
-				
+
 				// Enqueue background job for registering the application
 				_backgroundJobsService.Enqueue(async () =>
 				{
@@ -199,7 +200,7 @@ namespace Quoter.App
 				}, "RegisterApp");
 
 				// Enqueue updating only if setup is finished (so we don't try to update the app imediatly on first start
-				if(_settings.IsSetupFinished)
+				if (_settings.IsSetupFinished)
 				{
 					_backgroundJobsService.Enqueue(async () =>
 					{
@@ -253,7 +254,7 @@ namespace Quoter.App
 					}, "TryUpdate");
 				}
 
-				
+
 
 				// Start the background jobs service
 				_backgroundJobsService.Start();
