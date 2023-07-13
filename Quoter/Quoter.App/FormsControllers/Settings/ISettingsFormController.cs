@@ -2,20 +2,17 @@
 using Quoter.App.Models;
 using Quoter.Framework.Enums;
 using Quoter.Shared.Enums;
-using System.ComponentModel;
 
 namespace Quoter.App.FormsControllers.Settings
 {
-    public interface ISettingsFormController : IFormController<ISettingsForm>
+	public interface ISettingsFormController : IFormController<ISettingsForm>
 	{
-
 		string NotificationsIntervalMinutes { get; set; }
 
 		string NotificationsAutoCloseSeconds { get; set; }
 
 		string SelectedNotificationSound { get; set; }
 
-		BindingList<UpdateModeItem> UpdateModes { get; set; }
 		UpdateModeItem SelectedUpdateMode { get; set; }
 
 		string OpacityValue { get; set; }
@@ -36,7 +33,7 @@ namespace Quoter.App.FormsControllers.Settings
 		void SelectNotificationFont();
 		void SetStartWithWindows(bool value);
 		void SetSelectedNotificationSound(EnumSound selectedSound);
-		void SetSelectedUpdateMode(EnumAutoUpdate updateMode);
+		void SetSelectedUpdateMode(UpdateModeItem updateModeItem);
 		void PlayCurrentNotificationSound();
 		void SetWindowSize(Size size);
 	}

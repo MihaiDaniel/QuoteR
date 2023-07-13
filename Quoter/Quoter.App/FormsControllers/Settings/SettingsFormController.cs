@@ -6,7 +6,6 @@ using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
-using Quoter.Framework.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
@@ -17,10 +16,10 @@ using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Settings
 {
-    /// <summary>
-    /// Controller for the Settings Tab of the <see cref="ManageForm"/>
-    /// </summary>
-    public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
+	/// <summary>
+	/// Controller for the Settings Tab of the <see cref="ManageForm"/>
+	/// </summary>
+	public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
 	{
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
@@ -42,7 +41,7 @@ namespace Quoter.App.FormsControllers.Settings
 					_notificationIntervalMinutes = value;
 					OnPropertyChanged();
 
-					(bool isValidInput, int intValue) = ValidateValidNumber(value);
+					(bool isValidInput, int intValue) = IsValidInteger(value);
 					if (isValidInput && intValue > 0)
 					{
 						_settings.NotificationIntervalSeconds = intValue * 60;
@@ -67,7 +66,7 @@ namespace Quoter.App.FormsControllers.Settings
 				_notificationsAutoCloseSeconds = value;
 				OnPropertyChanged();
 
-				(bool isValidInput, int intValue) = ValidateValidNumber(value);
+				(bool isValidInput, int intValue) = IsValidInteger(value);
 				if (isValidInput && intValue > 0)
 				{
 					_settings.AutoCloseNotificationSeconds = intValue;
@@ -108,8 +107,6 @@ namespace Quoter.App.FormsControllers.Settings
 			}
 		}
 
-		public BindingList<UpdateModeItem> UpdateModes { get; set; }
-
 		private UpdateModeItem? _selectedUpdateMode;
 		public UpdateModeItem? SelectedUpdateMode
 		{
@@ -132,7 +129,6 @@ namespace Quoter.App.FormsControllers.Settings
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-
 		public SettingsFormController(ISettings settings,
 										IMessagingService messagingService,
 										IStringResources stringResources,
@@ -146,7 +142,6 @@ namespace Quoter.App.FormsControllers.Settings
 			_formsManager = formsManager;
 			_soundService = soundService;
 			_logger = logger;
-			UpdateModes = new BindingList<UpdateModeItem>();
 		}
 
 		public void RegisterForm(ISettingsForm form)
@@ -200,10 +195,7 @@ namespace Quoter.App.FormsControllers.Settings
 					SelectedNotificationSound = "Bell"; break;
 			}
 
-			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.Auto, DisplayName = _stringResources["UpdateAuto"] });
-			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.AskFirst, DisplayName = _stringResources["UpdateAsk"] });
-			UpdateModes.Add(new UpdateModeItem() { UpdateMode = EnumAutoUpdate.None, DisplayName = _stringResources["UpdateNever"] });
-			SelectedUpdateMode = UpdateModes.First(um => um.UpdateMode == _settings.AutoUpdate);
+			SetUpdateModes();
 
 			return Task.CompletedTask;
 		}
@@ -238,6 +230,7 @@ namespace Quoter.App.FormsControllers.Settings
 					break;
 			}
 			_form.LocalizeControls();
+			SetUpdateModes();
 			_messagingService.SendMessage(Event.LanguageChanged);
 		}
 
@@ -256,7 +249,7 @@ namespace Quoter.App.FormsControllers.Settings
 		{
 			_settings.Theme = theme;
 			// theme will be set on ManageFormController
-			_messagingService.SendMessage(Event.ThemeChanged); 
+			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
 		public void SetOpacity(double opacity)
@@ -277,7 +270,7 @@ namespace Quoter.App.FormsControllers.Settings
 				{
 					//Task.Run(() =>
 					//{
-						_formsManager.Show<QuoteForm>(0);
+					_formsManager.Show<QuoteForm>(0);
 					//});
 				}
 			}
@@ -353,17 +346,24 @@ namespace Quoter.App.FormsControllers.Settings
 			_settings.WindowSize = size;
 		}
 
+		public void SetSelectedUpdateMode(UpdateModeItem updateModeItem)
+		{
+			_settings.AutoUpdate = updateModeItem.UpdateMode;
+			SelectedUpdateMode = updateModeItem;
+		}
+
 		private string GetOpacityValuePercent(double opacity)
 		{
 			return ((int)(opacity * 100)).ToString() + " %";
 		}
 
-		private Tuple<bool, int> ValidateValidNumber(string value)
+		private Tuple<bool, int> IsValidInteger(string value)
 		{
+			const int maxValue = 999;
 			bool isNumber = int.TryParse(value, out int intValue);
 			if (isNumber)
 			{
-				if (intValue > 0 || intValue < 999)
+				if (intValue > 0 || intValue < maxValue)
 				{
 					return new(true, intValue);
 				}
@@ -380,9 +380,21 @@ namespace Quoter.App.FormsControllers.Settings
 			return new(false, 0);
 		}
 
-		public void SetSelectedUpdateMode(EnumAutoUpdate updateMode)
+		private void SetUpdateModes()
 		{
-			_settings.AutoUpdate = updateMode;
+			List<UpdateModeItem> lstUpdateModeItems = GetUpdateModesLocalized();
+			_form.SetUpdateModes(lstUpdateModeItems);
+			SelectedUpdateMode = lstUpdateModeItems.First(ui => ui.UpdateMode == _settings.AutoUpdate);
+		}
+
+		private List<UpdateModeItem> GetUpdateModesLocalized()
+		{
+			return new List<UpdateModeItem>()
+			{
+				new UpdateModeItem() { UpdateMode = EnumAutoUpdate.Auto, DisplayName = _stringResources["UpdateAuto"] },
+				new UpdateModeItem() { UpdateMode = EnumAutoUpdate.AskFirst, DisplayName = _stringResources["UpdateAsk"] },
+				new UpdateModeItem() { UpdateMode = EnumAutoUpdate.None, DisplayName = _stringResources["UpdateNever"] }
+			};
 		}
 	}
 }

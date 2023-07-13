@@ -1,10 +1,11 @@
-﻿using Quoter.Framework.Enums;
+﻿using Quoter.App.Models;
+using Quoter.Framework.Enums;
 using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms.Manage
 {
 	/// <summary>
-	/// Handles the settings form
+	/// Interface for the settings form
 	/// </summary>
 	/// <remarks>
 	/// This is actually a tab in the <see cref="ManageForm"/>
@@ -30,5 +31,7 @@ namespace Quoter.App.Forms.Manage
 		void SetIsStartWithWindows(bool isStartWithWindows);
 
 		void SetNotificationSounds(List<string> notificationSounds);
+
+		void SetUpdateModes(List<UpdateModeItem> lstUpdateModeItems);
 	}
 }

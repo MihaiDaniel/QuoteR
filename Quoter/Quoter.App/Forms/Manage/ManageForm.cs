@@ -240,11 +240,11 @@ namespace Quoter.App.Forms
 
 			cbNotificationSound.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedNotificationSound), false, DataSourceUpdateMode.Never);
 
-			BindingSource bindingSourceUpdateModes = new();
-			bindingSourceUpdateModes.DataSource = _settingsController.UpdateModes;
-			cbUpdateMode.DataSource = bindingSourceUpdateModes;
-			cbUpdateMode.DisplayMember = nameof(UpdateModeItem.DisplayName);
-			cbUpdateMode.ValueMember = nameof(UpdateModeItem.UpdateMode);
+			//BindingSource bindingSourceUpdateModes = new();
+			//bindingSourceUpdateModes.DataSource = _settingsController.UpdateModes;
+			//cbUpdateMode.DataSource = bindingSourceUpdateModes;
+			//cbUpdateMode.DisplayMember = nameof(UpdateModeItem.DisplayName);
+			//cbUpdateMode.ValueMember = nameof(UpdateModeItem.UpdateMode);
 			cbUpdateMode.DataBindings.Add("SelectedItem", _settingsController, nameof(ISettingsFormController.SelectedUpdateMode), false, DataSourceUpdateMode.Never);
 		}
 
@@ -545,6 +545,19 @@ namespace Quoter.App.Forms
 			{
 				cbNotificationSound.Items.Add(item);
 			}
+		}
+
+		void ISettingsForm.SetUpdateModes(List<UpdateModeItem> lstUpdateModeItems)
+		{
+			cbUpdateMode.BeginUpdate();
+			cbUpdateMode.Items.Clear();
+			cbUpdateMode.DisplayMember = nameof(UpdateModeItem.DisplayName);
+			cbUpdateMode.ValueMember = nameof(UpdateModeItem.UpdateMode);
+			foreach (UpdateModeItem item in lstUpdateModeItems)
+			{
+				cbUpdateMode.Items.Add(item);
+			}
+			cbUpdateMode.EndUpdate();
 		}
 
 		#endregion ISettingsForm
@@ -1053,13 +1066,13 @@ namespace Quoter.App.Forms
 
 		private void cbUpdateMode_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cbUpdateMode.SelectedItem != null && cbUpdateMode.SelectedItem as UpdateModeItem != _settingsController.SelectedUpdateMode)
+			if (cbUpdateMode.SelectedItem != null 
+				&& ((UpdateModeItem)cbUpdateMode.SelectedItem).UpdateMode  != _settingsController.SelectedUpdateMode?.UpdateMode)
 			{
 				_logger.Debug($"cbUpdateMode_SelectedValueChanged {cbUpdateMode.SelectedIndex} {((UpdateModeItem)cbUpdateMode.SelectedItem)?.DisplayName}");
-				_settingsController.SetSelectedUpdateMode((cbUpdateMode.SelectedItem as UpdateModeItem).UpdateMode);
+				_settingsController.SetSelectedUpdateMode(cbUpdateMode.SelectedItem as UpdateModeItem);
 			}
 		}
-
 
 		private void btnPlayNotificationSound_Click(object sender, EventArgs e)
 		{
