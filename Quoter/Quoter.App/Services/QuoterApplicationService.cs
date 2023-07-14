@@ -134,6 +134,17 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public void ShowWelcomeNotificationWindow()
+		{
+			int autoHideWelcomeMessageSeconds = 7;
+			QuoteFormOptions messageModel = new()
+			{
+				Title = _stringResources["Welcome"],
+				Body = _stringResources["WelcomeStartupMessage"]
+			};
+			_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
+		}
+
 		private IDialogReturnable ShowDialogConfirmUpdate()
 		{
 			DialogOptions options = new()

@@ -33,5 +33,10 @@ namespace Quoter.App.Services
 		/// to show another quote if is already open)
 		/// </summary>
 		void ShowRandomQuoteInNotificationWindow();
+
+		/// <summary>
+		/// Displays a quote notification window with a welcome message
+		/// </summary>
+		void ShowWelcomeNotificationWindow();
 	}
 }

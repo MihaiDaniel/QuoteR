@@ -53,7 +53,10 @@ namespace Quoter.App
 			_quoterApplicationService = quoterApplicationService;
 
 			_isUserLoggedOff = false;
-			InitializeApplication();
+			_messagingService.Subscribe(this);
+			_soundService.LoadSoundsAsync();
+
+			InitializeApplicationSettings();
 			InitializeBackgroundTimers();
 
 			_trayIcon = new NotifyIcon()
@@ -67,11 +70,8 @@ namespace Quoter.App
 			SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
 		}
 
-		private void InitializeApplication()
+		private void InitializeApplicationSettings()
 		{
-			_messagingService.Subscribe(this);
-			_soundService.LoadSoundsAsync();
-
 			if (_settings.IsFirstStart)
 			{
 				_settings.SetDefaults();
@@ -87,10 +87,6 @@ namespace Quoter.App
 				// Set language
 				LanguageHelper.SetCurrentThreadCulture(_settings.Language);
 			}
-			if (!_settings.IsSetupFinished)
-			{
-				_formsManager.ShowAndCloseOthers<WelcomeForm>();
-			}
 		}
 
 		private void InitializeBackgroundTimers()
@@ -101,13 +97,56 @@ namespace Quoter.App
 			_timerShowNotifications.Tick += (sender, e) => ElapsedTimerEventShowNotifications();
 			_timerShowNotifications.Start();
 
-			// Timer to show a message at startup or open the quote form if is always on
+			// Timer to for startup intitializations. Should run only one time at startup.
+			// Used to delay intializations without using Task.Run inside constructor logic
 			_timerStartup = new();
-			_timerStartup.Interval = 3000;
+			_timerStartup.Interval = 1000;
 			_timerStartup.Tick += (sender, e) => ElapsedTimerEventStartup();
 			_timerStartup.Start();
 		}
 
+		private async void ElapsedTimerEventStartup()
+		{
+			_logger.Debug("");
+			try
+			{
+				_timerStartup.Enabled = false;
+
+				// Only start diplaying welcome message or quote window after completing the setup
+				if (_settings.IsSetupFinished)
+				{
+					// Display the quotes form if we have it set to AlwaysOn
+					if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
+					{
+						_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
+					}
+					else if (_settings.ShowWelcomeNotification)
+					{
+						_quoterApplicationService.ShowWelcomeNotificationWindow();
+					}
+				}
+				else
+				{
+					_formsManager.ShowAndCloseOthers<WelcomeForm>();
+				}
+
+				// Enqueue background jobs for the application
+				_quoterApplicationService.EnqueueBackgroundJobAppRegistration();
+
+				// Don't auto-update the application if the setup was not finished.
+				// This way we verify on next startup if update is available as normally 
+				// user should have already downloaded the latest version to install.
+				if (_settings.IsSetupFinished)
+				{
+					_quoterApplicationService.EnqueueBackgroundJobDisplayMessageIfAppWasUpdated();
+					_quoterApplicationService.EnqueueBackgroundJobAppUpdate();
+				}
+			}
+			catch (Exception ex)
+			{
+				_logger.Error(ex);
+			}
+		}
 		/// <summary>
 		/// Event used to track when the user logs off or locks the scrren, to know
 		/// whether to suspend showing notifications when this happens
@@ -124,6 +163,8 @@ namespace Quoter.App
 				_isUserLoggedOff = false;
 			}
 		}
+
+
 
 		void IMessagingSubscriber.OnMessageEvent(string message, object? argument)
 		{
@@ -158,40 +199,6 @@ namespace Quoter.App
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
 					_formsManager.ShowDialogError(_stringResources["ImportFailed"], _stringResources["ImportFailedMsg", argument?.ToString()]);
 					break;
-			}
-		}
-
-		private async void ElapsedTimerEventStartup()
-		{
-			_logger.Debug("");
-			try
-			{
-				_timerStartup.Enabled = false;
-
-				// Display the quotes form or the welcome message if option is set
-				if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
-				{
-					_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
-				}
-				else if (_settings.ShowWelcomeNotification)
-				{
-					int autoHideWelcomeMessageSeconds = 7;
-					QuoteFormOptions messageModel = new()
-					{
-						Title = _stringResources["Welcome"],
-						Body = _stringResources["WelcomeStartupMessage"]
-					};
-					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
-				}
-
-				// Enqueue background jobs for the application
-				_quoterApplicationService.EnqueueBackgroundJobAppRegistration();
-				_quoterApplicationService.EnqueueBackgroundJobDisplayMessageIfAppWasUpdated();
-				_quoterApplicationService.EnqueueBackgroundJobAppUpdate();
-			}
-			catch (Exception ex)
-			{
-				_logger.Error(ex);
 			}
 		}
 
