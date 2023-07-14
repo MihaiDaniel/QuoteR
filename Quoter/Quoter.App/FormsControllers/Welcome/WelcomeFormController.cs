@@ -3,10 +3,10 @@ using Quoter.App.Forms.Welcome;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
+using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
@@ -25,7 +25,6 @@ namespace Quoter.App.FormsControllers.Welcome
 		private readonly IImportService _importService;
 		private readonly IStringResources _stringResources;
 		private IWelcomeForm _form;
-
 
 		private List<CollectionFileModel> _importableCollections;
 
@@ -161,26 +160,11 @@ namespace Quoter.App.FormsControllers.Welcome
 					List<CollectionFileModel> lstCollectionFiles = _form.GetSelectedCollections();
 					if (lstCollectionFiles.Count == 0)
 					{
-						DialogOptions dialogModel = new DialogOptions()
-						{
-							Title = _stringResources["error"],
-							Message = _stringResources["ErrSelectOneCollection"],
-							DialogTheme = Enums.DialogOptionsTheme.Warning,
-							MessageBoxButtons = EnumDialogButtons.Ok
-						};
-						_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+						ShowDialogWarningNoCollectionChosen();
 					}
 					else
 					{
-						// Begin import of selected collections
-						string[] filesToImport = _form.GetSelectedCollections().Select(c => c.FilePath).ToArray();
-						ImportParameters importParameters = new ImportParameters()
-						{
-							Files = filesToImport,
-							IsFavourite = true,         // Set the imported collections by default as favourites
-							IsMergeCollections = true   // In case the user goes back and forth, we don't want to duplicate the import
-						};
-						_importService.QueueImportJob(importParameters);
+						BeginImportOfSelectedCollections();
 						_form.SetTab(tab);
 					}
 					break;
@@ -192,6 +176,34 @@ namespace Quoter.App.FormsControllers.Welcome
 					_form.SetTab(tab);
 					break;
 			}
+		}
+
+		private void ShowDialogWarningNoCollectionChosen()
+		{
+			DialogOptions dialogModel = new()
+			{
+				Title = _stringResources["error"],
+				Message = _stringResources["ErrSelectOneCollection"],
+				DialogTheme = Enums.DialogOptionsTheme.Warning,
+				MessageBoxButtons = EnumDialogButtons.Ok
+			};
+			_formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+		}
+
+		private void BeginImportOfSelectedCollections()
+		{
+			// Begin import of selected collections
+			string[] filesToImport = _form.GetSelectedCollections().Select(c => c.FilePath).ToArray();
+
+			ImportParameters importParameters = new()
+			{
+				Files = filesToImport,
+				IsFavourite = true,         // Set the imported collections by default as favourites
+				IsMergeCollections = true,  // In case the user goes back and forth, we don't want to duplicate the import
+				NotifyUser = false          // Don't notify the user when import finished
+			};
+			_importService.QueueImportJob(importParameters);
+
 		}
 	}
 }

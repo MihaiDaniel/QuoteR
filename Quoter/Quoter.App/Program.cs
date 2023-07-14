@@ -77,6 +77,7 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
 			serviceCollection.AddSingleton<ISoundService, SoundService>();
+			serviceCollection.AddSingleton<IBackgroundJobsFormsService, BackgroundJobsFormsService>();
 
 			// Main application context
 			serviceCollection.AddSingleton<QuoterApplicationContext>();
@@ -110,7 +111,6 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IRegistrationService, RegistrationService>();
 			serviceCollection.AddTransient<IVersionService, VersionService>();
 			serviceCollection.AddTransient<IUpdateService, UpdateService>();
-			serviceCollection.AddTransient<IBackgroundJobsFormsService, BackgroundJobsFormsService>();
 
 			// Database
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());

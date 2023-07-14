@@ -564,4 +564,7 @@
   <data name="UpdateAppliedMessage" xml:space="preserve">
     <value>Application was updated successfully to version {0}</value>
   </data>
+  <data name="ErrCantImportAlreadyInProgress" xml:space="preserve">
+    <value>Cannot import as an import is already in progress.</value>
+  </data>
 </root>

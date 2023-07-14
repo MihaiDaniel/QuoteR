@@ -208,6 +208,9 @@ namespace Quoter.App.Forms
 			btnLanguageRo.Invalidate();
 			btnLanguageFr.Invalidate();
 
+			lblTitle.Text = _stringResources["Quoter"];
+			this.Text = _stringResources["Quoter"];
+
 			// Tab 1
 			lblTab1Welcome.Text = _stringResources["Welcome"];
 			txtTab1WelcomeMsg.Text = _stringResources["QuoterIntroduction"];

@@ -523,7 +523,7 @@
 			ShowIcon = false;
 			SizeGripStyle = SizeGripStyle.Hide;
 			StartPosition = FormStartPosition.CenterScreen;
-			Text = "Reminder";
+			Text = "Quoter";
 			Load += WelcomeForm_Load;
 			pnlTitle.ResumeLayout(false);
 			pnlTitle.PerformLayout();

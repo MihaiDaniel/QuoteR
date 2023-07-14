@@ -5,12 +5,15 @@ using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
+using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models;
+using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
+using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
 using System.ComponentModel;
 
@@ -33,6 +36,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		private readonly IExportService _exportService;
 		private readonly IImportService _importService;
 		private readonly ISettings _settings;
+		private readonly IMessagingService _messagingService;
 		private IFavouriteQuotesForm _form;
 
 		public BindingList<Collection> Collections { get; private set; }
@@ -47,7 +51,8 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			IFormsManager formsManager,
 			ISettings settings,
 			IExportService exportService,
-			IImportService importService)
+			IImportService importService,
+			IMessagingService messagingService)
 		{
 			_context = context;
 			_stringResources = stringResources;
@@ -55,6 +60,8 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			_settings = settings;
 			_exportService = exportService;
 			_importService = importService;
+			_messagingService = messagingService;
+
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
@@ -382,7 +389,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 
 		public void Import(bool isImportMerge, bool isImportIgnoreLang)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
+			OpenFileDialog openFileDialog = new();
 			openFileDialog.Filter = "Quoter file (.qter) |*.qter";
 			openFileDialog.Multiselect = true;
 			openFileDialog.Title = _stringResources["ChooseImportFilename"];
@@ -400,8 +407,15 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 					return;
 				}
 			}
-			_formsManager.ShowDialogOk(_stringResources["Importing"], _stringResources["ImportingInBackground"]);
 
+			bool isImportAlreadyEnqueued = _messagingService.ExistsAnnouncement(Event.ImportInProgress);
+			if (isImportAlreadyEnqueued)
+			{
+				_formsManager.ShowDialogError(_stringResources["ErrCantImport"], _stringResources["ErrCantImportAlreadyInProgress"]);
+				return;
+			}
+
+			_formsManager.ShowDialogOk(_stringResources["Importing"], _stringResources["ImportingInBackground"]);
 			ImportParameters importParameters = new ImportParameters()
 			{
 				Files = fileNames,
@@ -410,6 +424,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				Language = LanguageHelper.GetEnumLanguageFromString(_settings.Language)
 			};
 			_importService.QueueImportJob(importParameters);
+
 		}
 
 	}

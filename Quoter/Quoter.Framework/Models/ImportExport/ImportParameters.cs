@@ -1,6 +1,6 @@
 ﻿using Quoter.Shared.Enums;
 
-namespace Quoter.Framework.Models
+namespace Quoter.Framework.Models.ImportExport
 {
 	/// <summary>
 	/// Import parameters used to know what and how to import
@@ -10,7 +10,7 @@ namespace Quoter.Framework.Models
 		/// <summary>
 		/// File paths of files to import
 		/// </summary>
-		public string[] Files { get; set; } 
+		public string[] Files { get; set; }
 
 		/// <summary>
 		/// Set the imported collections as favourite on import.
@@ -36,6 +36,11 @@ namespace Quoter.Framework.Models
 		/// be renamed)
 		/// </summary>
 		public bool IsMergeCollections { get; set; }
-	
+
+		/// <summary>
+		/// Indicates if the user should be notified or not of this import job
+		/// </summary>
+		public bool NotifyUser { get; set; } = true;
+
 	}
 }

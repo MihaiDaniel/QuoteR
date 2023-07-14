@@ -23,7 +23,7 @@ namespace Quoter.App.Services.BackgroundJobs
 		{
 			_logger = logger;
 			_queueJobs = new ConcurrentQueue<KeyValuePair<string, Func<Task>>>();
-			
+
 			_isRunningJobs = false;
 
 			_timerBackgroundJobs = new System.Windows.Forms.Timer();
@@ -60,6 +60,7 @@ namespace Quoter.App.Services.BackgroundJobs
 			catch(Exception ex)
 			{
 				_logger.Error(ex, $"An error occured while processing background jobs");
+				_queueJobs.Clear();
 			}
 			finally
 			{

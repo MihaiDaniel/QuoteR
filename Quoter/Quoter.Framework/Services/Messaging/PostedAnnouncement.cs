@@ -9,12 +9,12 @@ namespace Quoter.Framework.Services.Messaging
 	public class PostedAnnouncement
 	{
 		private readonly ConcurrentDictionary<string, object> _dic;
-		private readonly string _announcement;
+		private readonly string _announcementKey;
 
-		public PostedAnnouncement(ConcurrentDictionary<string, object> dic, string announcement)
+		public PostedAnnouncement(ConcurrentDictionary<string, object> dic, string announcementKey)
 		{
 			_dic = dic;
-			_announcement = announcement;
+			_announcementKey = announcementKey;
 		}
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace Quoter.Framework.Services.Messaging
 		/// </summary>
 		public bool Remove()
 		{
-			return _dic.Remove(_announcement, out object _);
+			return _dic.Remove(_announcementKey, out _);
 		}
 	}
 }

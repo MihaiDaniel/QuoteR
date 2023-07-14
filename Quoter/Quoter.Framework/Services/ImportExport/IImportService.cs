@@ -1,4 +1,4 @@
-﻿using Quoter.Framework.Models;
+﻿using Quoter.Framework.Models.ImportExport;
 
 namespace Quoter.Framework.Services.ImportExport
 {
@@ -12,5 +12,7 @@ namespace Quoter.Framework.Services.ImportExport
 		/// If there is another import job in progress this will be put on hold untill the other one finishes.
 		/// </summary>
 		void QueueImportJob(ImportParameters importParameters);
+
+		Task BeginImport(ImportParameters importParameters);
 	}
 }

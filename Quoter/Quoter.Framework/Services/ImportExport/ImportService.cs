@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
 {
-    public class ImportService : IImportService
+	/// <summary>
+	/// Service used to import collection of books,chapters,quotes
+	/// </summary>
+	public class ImportService : IImportService
 	{
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;
@@ -65,7 +68,7 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					// Something might be off, so reset the bool
 					// and reject the pending job
-					IsImportInProgress= false;
+					IsImportInProgress = false;
 					return false;
 				}
 				await Task.Delay(3000);
@@ -73,7 +76,7 @@ namespace Quoter.Framework.Services.ImportExport
 			return true;
 		}
 
-		private async Task BeginImport(ImportParameters importParameters)
+		public async Task BeginImport(ImportParameters importParameters)
 		{
 			PostedAnnouncement announcement = _messagingService.PostAnnouncement(Event.ImportInProgress, "");
 			try
@@ -84,8 +87,12 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					importedCollections += await ImportFile(file, importParameters);
 				}
-				announcement.Remove();
-				_messagingService.SendMessage(Event.ImportSuccesfull, importedCollections);
+
+				_messagingService.SendMessage(Event.ImportSuccesfull, new ImportResult()
+				{
+					ImportedFilesMessage = importedCollections,
+					NotifyUser = importParameters.NotifyUser
+				});
 			}
 			catch (Exception ex)
 			{
@@ -95,38 +102,58 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 			finally
 			{
+				announcement.Remove();
 				IsImportInProgress = false;
 			}
 		}
 
 		private async Task<string> ImportFile(string file, ImportParameters importParameters)
 		{
+			Stopwatch stopwatch = Stopwatch.StartNew();
+			_logger.Info($"Starting Import on file: {file}");
+			
 			string fileContent = await File.ReadAllTextAsync(file);
 			if (string.IsNullOrEmpty(fileContent))
 			{
 				return string.Empty;
 			}
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} FileRead");
+			stopwatch.Restart();
+
 			ExportModel importModel = JsonSerializer.Deserialize<ExportModel>(fileContent);
 			string importedCollections = string.Empty;
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} model deserialized");
+			stopwatch.Restart();
+
 
 			foreach (CollectionExportModel collectionModel in importModel.Collections)
 			{
 				await ImportCollection(collectionModel, importModel, importParameters);
-				importedCollections += collectionModel.Name + "; " + Environment.NewLine;
+				importedCollections += Environment.NewLine + collectionModel.Name + "; ";
 			}
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported collections");
+
 			foreach (BookExportModel bookExportModel in importModel.Books)
 			{
 				await ImportBook(bookExportModel, importModel, importParameters);
 			}
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported books");
+
 			foreach (ChapterExportModel chapterModel in importModel.Chapters)
 			{
 				await ImportChapter(chapterModel, importModel, importParameters);
 			}
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported chapters");
+
 			foreach (QuoteExportModel quoteModel in importModel.Quotes)
 			{
 				await ImportQuote(quoteModel, importParameters);
 			}
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported quotes");
+
 			await _context.SaveChangesAsync(); // For quotes, just save once at the end
+			_logger.Info($"{stopwatch.ElapsedMilliseconds} finished saving changes to database");
+
 			return importedCollections;
 		}
 
@@ -346,7 +373,7 @@ namespace Quoter.Framework.Services.ImportExport
 				.Select(q => q.QuoteIndex)
 				.ToListAsync();
 
-				if(indexes.Count > 0)
+				if (indexes.Count > 0)
 				{
 					quoteIndex = indexes.Max() + 1;
 				}

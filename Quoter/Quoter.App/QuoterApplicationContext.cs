@@ -9,6 +9,7 @@ using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
@@ -192,8 +193,12 @@ namespace Quoter.App
 					_formsManager.ShowDialogError(_stringResources["ExportFailed"], _stringResources["ExportFailedMsg", argument?.ToString()]);
 					break;
 				case Event.ImportSuccesfull:
+					ImportResult? result = argument as ImportResult;
+					if (result?.NotifyUser == true)
+					{
+						_formsManager.ShowDialogOk(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", result.ImportedFilesMessage]);
+					}
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
-					_formsManager.ShowDialogOk(_stringResources["ImportSuccessfull"], _stringResources["ImportSuccessfullMsg", argument?.ToString()]);
 					break;
 				case Event.ImportFailed:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ExportInProgress);
