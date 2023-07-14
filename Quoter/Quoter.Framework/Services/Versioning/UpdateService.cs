@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace Quoter.Framework.Services.Versioning
 {
+	/// <summary>
+	/// Service responible for updating the application
+	/// </summary>
 	public class UpdateService : IUpdateService
 	{
 		private readonly ILogger _logger;
@@ -76,6 +79,8 @@ namespace Quoter.Framework.Services.Versioning
 		{
 			try
 			{
+				_logger.Debug($"isSilent: {isSilent}");
+
 				if (!_registrationService.IsRegistered())
 				{
 					_logger.Warn("Can't update because application is not registered.");

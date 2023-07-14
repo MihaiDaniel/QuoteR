@@ -29,9 +29,7 @@ namespace Quoter.App
 		private readonly IMessagingService _messagingService;
 		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
-		private readonly IRegistrationService _registrationService;
-		private readonly IUpdateService _updateService;
-		private readonly IBackgroundJobsFormsService _backgroundJobsService;
+		private readonly IQuoterApplicationService _quoterApplicationService;
 
 		private bool _isUserLoggedOff;
 
@@ -44,9 +42,7 @@ namespace Quoter.App
 										IMessagingService messagingService,
 										ISoundService soundService,
 										ILogger logger,
-										IRegistrationService registrationService,
-										IUpdateService updateService,
-										IBackgroundJobsFormsService backgroundJobsService)
+										IQuoterApplicationService quoterApplicationService)
 		{
 			_formsManager = formsManager;
 			_settings = settings;
@@ -54,9 +50,7 @@ namespace Quoter.App
 			_messagingService = messagingService;
 			_soundService = soundService;
 			_logger = logger;
-			_registrationService = registrationService;
-			_updateService = updateService;
-			_backgroundJobsService = backgroundJobsService;
+			_quoterApplicationService = quoterApplicationService;
 
 			_isUserLoggedOff = false;
 			InitializeApplication();
@@ -177,7 +171,7 @@ namespace Quoter.App
 				// Display the quotes form or the welcome message if option is set
 				if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 				{
-					ShowQuoteNotification();
+					_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
 				}
 				else if (_settings.ShowWelcomeNotification)
 				{
@@ -190,74 +184,10 @@ namespace Quoter.App
 					_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 				}
 
-				// Enqueue background job for registering the application
-				_backgroundJobsService.Enqueue(async () =>
-				{
-					if (_settings.RegistrationId == Guid.Empty)
-					{
-						await _registrationService.GetRegistrationId();
-					}
-				}, "RegisterApp");
-
-				// Enqueue updating only if setup is finished (so we don't try to update the app imediatly on first start
-				if (_settings.IsSetupFinished)
-				{
-					_backgroundJobsService.Enqueue(async () =>
-					{
-						ActionResult result = await _updateService.VerifyIfUpdateApplied();
-						if (result.IsSuccess)
-						{
-							QuoteFormOptions messageModel = new()
-							{
-								Title = _stringResources["UpdateApplied"],
-								Body = _stringResources["UpdateAppliedMessage", result.GetValue<string>()]
-							};
-							_formsManager.Show<QuoteForm>(10, messageModel);
-						}
-					}, "VerifyUpdate");
-
-					// Enqueue background job for updating the application if necessary
-					_backgroundJobsService.Enqueue(async () =>
-					{
-						_logger.Debug("Beginning auto update job");
-						if (_settings.AutoUpdate == EnumAutoUpdate.Auto)
-						{
-							_logger.Debug("Auto updating");
-							await _updateService.TryUpdate(isSilent: true);
-						}
-						else if (_settings.AutoUpdate == EnumAutoUpdate.AskFirst)
-						{
-							_logger.Debug("Asking user for update");
-							bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
-							if (isUpdateAvailable)
-							{
-								DialogOptions options = new()
-								{
-									MessageBoxButtons = EnumDialogButtons.YesLater,
-									Title = _stringResources["Quoter"],
-									Message = _stringResources["NewUpdateAvailableMsg"],
-									DialogSound = Enums.DialogOptionsSound.Default,
-									DialogTheme = Enums.DialogOptionsTheme.Default,
-									OpenAnimation = EnumAnimation.FadeInFromBottomRight,
-								};
-								IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(options);
-								if (result.DialogResult == DialogResult.OK)
-								{
-									await _updateService.TryUpdate(isSilent: false);
-								}
-							}
-						}
-						else
-						{
-							// Do not do any updates
-						}
-					}, "TryUpdate");
-				}
-
-
-
-				// Start the background jobs service
-				_backgroundJobsService.Start();
+				// Enqueue background jobs for the application
+				_quoterApplicationService.EnqueueBackgroundJobAppRegistration();
+				_quoterApplicationService.EnqueueBackgroundJobDisplayMessageIfAppWasUpdated();
+				_quoterApplicationService.EnqueueBackgroundJobAppUpdate();
 			}
 			catch (Exception ex)
 			{
@@ -285,7 +215,7 @@ namespace Quoter.App
 					// Reset the interval if it was on pause
 					_timerShowNotifications.Interval = GetNotificationsIntervalMiliseconds();
 				}
-				ShowQuoteNotification();
+				_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
 			}
 			catch (Exception ex)
 			{
@@ -293,30 +223,15 @@ namespace Quoter.App
 			}
 		}
 
-		private void ShowQuoteNotification()
-		{
-			if (_settings.NotificationType == EnumNotificationType.Popup)
-			{
-				_messagingService.SendMessage(Event.OpeningQuoteWindow);
-				_formsManager.Show<QuoteForm>(_settings.AutoCloseNotificationSeconds);
-			}
-			else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
-			{
-				if (_formsManager.IsOpen<QuoteForm>())
-				{
-					_messagingService.SendMessage(Event.RequestDisplayNewQuote);
-				}
-				else
-				{
-					_formsManager.Show<QuoteForm>(0);
-				}
-			}
-		}
-
 		private void PauseOrResumeEventHandler(object? sender, EventArgs e)
 		{
 			_settings.IsPaused = !_settings.IsPaused;
 			SetContextMenuStripIsPaused();
+		}
+
+		private void EventHandlerShowQuoteOnUserRequest(object? sender, EventArgs e)
+		{
+			_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
 		}
 
 		private void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
@@ -333,35 +248,16 @@ namespace Quoter.App
 			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
 		}
 
-		private void ShowQuoteEventHandler(object? sender, EventArgs e)
+		private void EventHandlerExitApp(object? sender, EventArgs e)
 		{
-			try
-			{
-				ShowQuoteNotification();
-			}
-			catch (Exception ex)
-			{
-				_logger.Error(ex);
-			}
-		}
-
-		private void ExitEventHandler(object? sender, EventArgs e)
-		{
-			// Hide tray icon, otherwise it will remain shown until user mouses over it
-			_trayIcon.Visible = false;
+			_trayIcon.Visible = false; // Hide tray icon, otherwise it will remain shown until user mouses over it
 			Application.Exit();
 		}
 
-		private void WelcomeEventHandler(object? sender, EventArgs e)
+		private void EventHandlerShowWelcomeForm(object? sender, EventArgs e)
 		{
 			_formsManager.ShowAndCloseOthers<WelcomeForm>();
 		}
-
-		private void ReaderEventHandler(object? sender, EventArgs e)
-		{
-			_formsManager.ShowAndCloseOthers<ReaderForm>();
-		}
-
 
 		private ContextMenuStrip GetContextMenuStrip()
 		{
@@ -382,16 +278,15 @@ namespace Quoter.App
 
 					new ToolStripSeparator(),
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
-					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_32, new EventHandler(ShowQuoteEventHandler), "ShowAQuote"),
+					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_32, new EventHandler(EventHandlerShowQuoteOnUserRequest), "ShowAQuote"),
 					new ToolStripSeparator(),
 					new ToolStripMenuItem(_stringResources["Edit"], Resources.Resources.edit_32, new EventHandler(EventHandlerOpenEditQuotes), "Edit"),
 					new ToolStripMenuItem(_stringResources["Favourites"], Resources.Resources.star_32, new EventHandler(EventHandlerOpenFavourties), "Favourites"),
 					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_32, new EventHandler(EventHandlerOpenSettings), "Settings"),
 					new ToolStripSeparator(),
-					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(ExitEventHandler), "Exit"),
+					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(EventHandlerExitApp), "Exit"),
 #if DEBUG
-					new ToolStripMenuItem("Welcome", null, new EventHandler(WelcomeEventHandler), "Welcome"),
-					new ToolStripMenuItem("Reader", null, new EventHandler(ReaderEventHandler), "Reader")
+					new ToolStripMenuItem("Welcome", null, new EventHandler(EventHandlerShowWelcomeForm), "Welcome"),
 #endif
 				}
 			};

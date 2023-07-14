@@ -1,4 +1,5 @@
 ﻿using Quoter.Framework.Services;
+using System.Collections.Concurrent;
 
 namespace Quoter.App.Services.BackgroundJobs
 {
@@ -14,34 +15,26 @@ namespace Quoter.App.Services.BackgroundJobs
 	{
 		private readonly ILogger _logger;
 
-		private object _lock = new object();
 		private bool _isRunningJobs;
 		private System.Windows.Forms.Timer _timerBackgroundJobs;
-
-		private Queue<KeyValuePair<string, Func<Task>>> _queueJobs;
+		private ConcurrentQueue<KeyValuePair<string, Func<Task>>> _queueJobs;
 
 		public BackgroundJobsFormsService(ILogger logger)
 		{
 			_logger = logger;
+			_queueJobs = new ConcurrentQueue<KeyValuePair<string, Func<Task>>>();
+			
+			_isRunningJobs = false;
 
 			_timerBackgroundJobs = new System.Windows.Forms.Timer();
-			_timerBackgroundJobs.Interval = 10000; // 10 sec
+			_timerBackgroundJobs.Interval = 10000; // 10 sec by default
 			_timerBackgroundJobs.Tick += (sender, e) => EventBackgroundJobTimerTick(sender, e);
-			_queueJobs = new Queue<KeyValuePair<string, Func<Task>>>();
-			_isRunningJobs = false;
+			_timerBackgroundJobs.Start();
 		}
 
 		public void Enqueue(Func<Task> job, string jobName)
 		{
-			lock (_lock)
-			{
-				_queueJobs.Enqueue(new KeyValuePair<string, Func<Task>>(jobName, job));
-			}
-		}
-
-		public void Start()
-		{
-			_timerBackgroundJobs.Start();
+			_queueJobs.Enqueue(new KeyValuePair<string, Func<Task>>(jobName, job));
 		}
 
 		private async void EventBackgroundJobTimerTick(object sender, EventArgs e)
@@ -60,11 +53,7 @@ namespace Quoter.App.Services.BackgroundJobs
 					{
 						break;
 					}
-					KeyValuePair<string, Func<Task>> kvpJob;
-					lock (_lock)
-					{
-						kvpJob = _queueJobs.Dequeue();
-					}
+					_queueJobs.TryDequeue(out KeyValuePair<string, Func<Task>>  kvpJob);
 					await TryRunJob(kvpJob.Key, kvpJob.Value);
 				}
 			}
@@ -88,7 +77,7 @@ namespace Quoter.App.Services.BackgroundJobs
 			}
 			catch (Exception ex)
 			{
-				_logger.Error(ex, $"An error occured while processing background job {jobName}.");
+				_logger.Error(ex, $"An error occured while processing background job: {jobName}.");
 			}
 		}
 
