@@ -11,10 +11,10 @@ using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms
 {
-    /// <summary>
-    /// Form shown when starting the app for the first time to setup some collections and settings.
-    /// </summary>
-    public partial class WelcomeForm : Form, IWelcomeForm
+	/// <summary>
+	/// Form shown when starting the app for the first time to setup some collections and settings.
+	/// </summary>
+	public partial class WelcomeForm : Form, IWelcomeForm
 	{
 		private readonly IWelcomeFormController _controller;
 		private readonly IFormsManager _formsManager;

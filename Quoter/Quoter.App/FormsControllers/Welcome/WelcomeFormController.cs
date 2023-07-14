@@ -97,19 +97,27 @@ namespace Quoter.App.FormsControllers.Welcome
 			{
 				return true;
 			}
-			DialogOptions dialogModel = new DialogOptions()
+			else
 			{
-				Title = _stringResources["Quoter"],
-				Message = _stringResources["ConfirmExit"],
-				DialogTheme = Enums.DialogOptionsTheme.Warning,
-				MessageBoxButtons = EnumDialogButtons.OkCancel
-			};
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
-			if (result.DialogResult == DialogResult.OK)
-			{
-				Application.Exit();
+				// Warn the user that the setup is not finished and confirming will close the application
+				DialogOptions dialogModel = new()
+				{
+					Title = _stringResources["Quoter"],
+					Message = _stringResources["ConfirmExit"],
+					DialogTheme = Enums.DialogOptionsTheme.Warning,
+					MessageBoxButtons = EnumDialogButtons.OkCancel
+				};
+				IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+				if (result.DialogResult == DialogResult.OK)
+				{
+					Application.Exit();
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
-			return true;
 		}
 
 		public void SetLanguage(EnumLanguage language)
