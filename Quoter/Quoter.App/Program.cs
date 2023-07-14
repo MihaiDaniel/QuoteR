@@ -19,6 +19,7 @@ using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.Versioning;
+using System.Configuration;
 using System.Resources;
 
 namespace Quoter.App
@@ -40,7 +41,11 @@ namespace Quoter.App
 				Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
 				ApplicationConfiguration.Initialize();
 
-				Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
+				if ((bool)Properties.Settings.Default["IsUpgradeRequired"] == true)
+				{
+					Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
+				}
+
 				DependencyInjectionContainer diContainer = SetupDependencyInjection();
 
 				// Apply migrations
@@ -95,6 +100,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IReaderFormController, ReaderFormController>();
 
 			// Other transient services
+			serviceCollection.AddTransient<IQuoterApplicationService, QuoterApplicationService>();
 			serviceCollection.AddTransient<IFormAnimationService, FormAnimationsService>();
 			serviceCollection.AddTransient<IFormPositioningService, FormPositioningService>();
 
