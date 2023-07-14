@@ -35,6 +35,7 @@
 			btnClose = new Button();
 			tabControl = new TabControl();
 			tabPage1 = new TabPage();
+			label1 = new Label();
 			btnLanguageFr = new Button();
 			btnLanguageRo = new Button();
 			btnLanguageEn = new Button();
@@ -42,12 +43,14 @@
 			txtTab1WelcomeMsg = new TextBox();
 			lblTab1Welcome = new Label();
 			tabPage2 = new TabPage();
+			label2 = new Label();
 			btnTab2Back = new Button();
 			clbTab2ImportCollections = new CheckedListBox();
 			lblTab2 = new Label();
 			btnTab2Next = new Button();
 			txtTab2Msg = new TextBox();
 			tabPage3 = new TabPage();
+			label3 = new Label();
 			btnTab3Back = new Button();
 			btnTab3Often = new Button();
 			btnTab3Rare = new Button();
@@ -57,6 +60,7 @@
 			txtTab3Extra = new TextBox();
 			txtTab3NotificationInterval = new TextBox();
 			tabPage4 = new TabPage();
+			label4 = new Label();
 			lblTab4 = new Label();
 			btnTab4Finish = new Button();
 			txtTab4Msg = new TextBox();
@@ -128,18 +132,19 @@
 			tabControl.Controls.Add(tabPage3);
 			tabControl.Controls.Add(tabPage4);
 			tabControl.ItemSize = new Size(50, 20);
-			tabControl.Location = new Point(0, 46);
+			tabControl.Location = new Point(0, 32);
 			tabControl.Name = "tabControl";
 			tabControl.Padding = new Point(0, 0);
 			tabControl.SelectedIndex = 0;
-			tabControl.Size = new Size(683, 360);
+			tabControl.Size = new Size(683, 374);
 			tabControl.SizeMode = TabSizeMode.Fixed;
 			tabControl.TabIndex = 4;
 			tabControl.TabStop = false;
 			// 
 			// tabPage1
 			// 
-			tabPage1.BackColor = Color.WhiteSmoke;
+			tabPage1.BackColor = Color.FromArgb(250, 250, 250);
+			tabPage1.Controls.Add(label1);
 			tabPage1.Controls.Add(btnLanguageFr);
 			tabPage1.Controls.Add(btnLanguageRo);
 			tabPage1.Controls.Add(btnLanguageEn);
@@ -149,9 +154,19 @@
 			tabPage1.Location = new Point(4, 24);
 			tabPage1.Name = "tabPage1";
 			tabPage1.Padding = new Padding(3);
-			tabPage1.Size = new Size(675, 332);
+			tabPage1.Size = new Size(675, 346);
 			tabPage1.TabIndex = 0;
 			tabPage1.Text = "tabPage1";
+			// 
+			// label1
+			// 
+			label1.AutoSize = true;
+			label1.Font = new Font("Constantia", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			label1.Location = new Point(300, 310);
+			label1.Name = "label1";
+			label1.Size = new Size(77, 23);
+			label1.TabIndex = 22;
+			label1.Text = "● ◌ ◌ ◌";
 			// 
 			// btnLanguageFr
 			// 
@@ -198,7 +213,7 @@
 			// btnTab1Next
 			// 
 			btnTab1Next.FlatStyle = FlatStyle.Flat;
-			btnTab1Next.Location = new Point(560, 289);
+			btnTab1Next.Location = new Point(560, 310);
 			btnTab1Next.Name = "btnTab1Next";
 			btnTab1Next.Size = new Size(100, 30);
 			btnTab1Next.TabIndex = 6;
@@ -208,7 +223,7 @@
 			// 
 			// txtTab1WelcomeMsg
 			// 
-			txtTab1WelcomeMsg.BackColor = Color.WhiteSmoke;
+			txtTab1WelcomeMsg.BackColor = Color.FromArgb(250, 250, 250);
 			txtTab1WelcomeMsg.BorderStyle = BorderStyle.None;
 			txtTab1WelcomeMsg.Location = new Point(118, 74);
 			txtTab1WelcomeMsg.Multiline = true;
@@ -230,7 +245,8 @@
 			// 
 			// tabPage2
 			// 
-			tabPage2.BackColor = Color.WhiteSmoke;
+			tabPage2.BackColor = Color.FromArgb(250, 250, 250);
+			tabPage2.Controls.Add(label2);
 			tabPage2.Controls.Add(btnTab2Back);
 			tabPage2.Controls.Add(clbTab2ImportCollections);
 			tabPage2.Controls.Add(lblTab2);
@@ -239,14 +255,24 @@
 			tabPage2.Location = new Point(4, 24);
 			tabPage2.Name = "tabPage2";
 			tabPage2.Padding = new Padding(3);
-			tabPage2.Size = new Size(675, 332);
+			tabPage2.Size = new Size(675, 346);
 			tabPage2.TabIndex = 1;
 			tabPage2.Text = "tabPage2";
+			// 
+			// label2
+			// 
+			label2.AutoSize = true;
+			label2.Font = new Font("Constantia", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			label2.Location = new Point(300, 310);
+			label2.Name = "label2";
+			label2.Size = new Size(77, 23);
+			label2.TabIndex = 23;
+			label2.Text = "◌ ● ◌ ◌";
 			// 
 			// btnTab2Back
 			// 
 			btnTab2Back.FlatStyle = FlatStyle.Flat;
-			btnTab2Back.Location = new Point(448, 289);
+			btnTab2Back.Location = new Point(448, 310);
 			btnTab2Back.Name = "btnTab2Back";
 			btnTab2Back.Size = new Size(100, 30);
 			btnTab2Back.TabIndex = 12;
@@ -277,7 +303,7 @@
 			// btnTab2Next
 			// 
 			btnTab2Next.FlatStyle = FlatStyle.Flat;
-			btnTab2Next.Location = new Point(560, 289);
+			btnTab2Next.Location = new Point(560, 310);
 			btnTab2Next.Name = "btnTab2Next";
 			btnTab2Next.Size = new Size(100, 30);
 			btnTab2Next.TabIndex = 9;
@@ -287,7 +313,7 @@
 			// 
 			// txtTab2Msg
 			// 
-			txtTab2Msg.BackColor = Color.WhiteSmoke;
+			txtTab2Msg.BackColor = Color.FromArgb(250, 250, 250);
 			txtTab2Msg.BorderStyle = BorderStyle.None;
 			txtTab2Msg.Location = new Point(73, 53);
 			txtTab2Msg.Multiline = true;
@@ -299,7 +325,8 @@
 			// 
 			// tabPage3
 			// 
-			tabPage3.BackColor = Color.WhiteSmoke;
+			tabPage3.BackColor = Color.FromArgb(250, 250, 250);
+			tabPage3.Controls.Add(label3);
 			tabPage3.Controls.Add(btnTab3Back);
 			tabPage3.Controls.Add(btnTab3Often);
 			tabPage3.Controls.Add(btnTab3Rare);
@@ -311,14 +338,24 @@
 			tabPage3.Location = new Point(4, 24);
 			tabPage3.Name = "tabPage3";
 			tabPage3.Padding = new Padding(3);
-			tabPage3.Size = new Size(675, 332);
+			tabPage3.Size = new Size(675, 346);
 			tabPage3.TabIndex = 2;
 			tabPage3.Text = "tabPage3";
+			// 
+			// label3
+			// 
+			label3.AutoSize = true;
+			label3.Font = new Font("Constantia", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			label3.Location = new Point(300, 310);
+			label3.Name = "label3";
+			label3.Size = new Size(77, 23);
+			label3.TabIndex = 24;
+			label3.Text = "◌ ◌ ● ◌";
 			// 
 			// btnTab3Back
 			// 
 			btnTab3Back.FlatStyle = FlatStyle.Flat;
-			btnTab3Back.Location = new Point(448, 289);
+			btnTab3Back.Location = new Point(448, 310);
 			btnTab3Back.Name = "btnTab3Back";
 			btnTab3Back.Size = new Size(100, 30);
 			btnTab3Back.TabIndex = 23;
@@ -328,6 +365,7 @@
 			// 
 			// btnTab3Often
 			// 
+			btnTab3Often.BackColor = Color.White;
 			btnTab3Often.FlatAppearance.BorderColor = Color.LightGray;
 			btnTab3Often.FlatStyle = FlatStyle.Flat;
 			btnTab3Often.Location = new Point(77, 87);
@@ -335,11 +373,12 @@
 			btnTab3Often.Size = new Size(169, 54);
 			btnTab3Often.TabIndex = 22;
 			btnTab3Often.Text = "Often\r\n(every 15 mins)";
-			btnTab3Often.UseVisualStyleBackColor = true;
+			btnTab3Often.UseVisualStyleBackColor = false;
 			btnTab3Often.Click += btnTab3Often_Click;
 			// 
 			// btnTab3Rare
 			// 
+			btnTab3Rare.BackColor = Color.White;
 			btnTab3Rare.FlatAppearance.BorderColor = Color.LightGray;
 			btnTab3Rare.FlatStyle = FlatStyle.Flat;
 			btnTab3Rare.Location = new Point(427, 87);
@@ -347,24 +386,25 @@
 			btnTab3Rare.Size = new Size(169, 54);
 			btnTab3Rare.TabIndex = 21;
 			btnTab3Rare.Text = "Rare\r\n(every 15 mins)";
-			btnTab3Rare.UseVisualStyleBackColor = true;
+			btnTab3Rare.UseVisualStyleBackColor = false;
 			btnTab3Rare.Click += btnTab3Rare_Click;
 			// 
 			// btnTab3Normal
 			// 
+			btnTab3Normal.BackColor = Color.White;
 			btnTab3Normal.FlatStyle = FlatStyle.Flat;
 			btnTab3Normal.Location = new Point(252, 87);
 			btnTab3Normal.Name = "btnTab3Normal";
 			btnTab3Normal.Size = new Size(169, 54);
 			btnTab3Normal.TabIndex = 20;
 			btnTab3Normal.Text = "Regular\r\n(every 15 mins)";
-			btnTab3Normal.UseVisualStyleBackColor = true;
+			btnTab3Normal.UseVisualStyleBackColor = false;
 			btnTab3Normal.Click += btnTab3Normal_Click;
 			// 
 			// btnTab3Next
 			// 
 			btnTab3Next.FlatStyle = FlatStyle.Flat;
-			btnTab3Next.Location = new Point(560, 289);
+			btnTab3Next.Location = new Point(560, 310);
 			btnTab3Next.Name = "btnTab3Next";
 			btnTab3Next.Size = new Size(100, 30);
 			btnTab3Next.TabIndex = 18;
@@ -384,7 +424,7 @@
 			// 
 			// txtTab3Extra
 			// 
-			txtTab3Extra.BackColor = Color.WhiteSmoke;
+			txtTab3Extra.BackColor = Color.FromArgb(250, 250, 250);
 			txtTab3Extra.BorderStyle = BorderStyle.None;
 			txtTab3Extra.Font = new Font("Calibri Light", 10F, FontStyle.Regular, GraphicsUnit.Point);
 			txtTab3Extra.Location = new Point(77, 147);
@@ -397,7 +437,7 @@
 			// 
 			// txtTab3NotificationInterval
 			// 
-			txtTab3NotificationInterval.BackColor = Color.WhiteSmoke;
+			txtTab3NotificationInterval.BackColor = Color.FromArgb(250, 250, 250);
 			txtTab3NotificationInterval.BorderStyle = BorderStyle.None;
 			txtTab3NotificationInterval.Location = new Point(70, 53);
 			txtTab3NotificationInterval.Multiline = true;
@@ -409,16 +449,27 @@
 			// 
 			// tabPage4
 			// 
-			tabPage4.BackColor = Color.WhiteSmoke;
+			tabPage4.BackColor = Color.FromArgb(250, 250, 250);
+			tabPage4.Controls.Add(label4);
 			tabPage4.Controls.Add(lblTab4);
 			tabPage4.Controls.Add(btnTab4Finish);
 			tabPage4.Controls.Add(txtTab4Msg);
 			tabPage4.Location = new Point(4, 24);
 			tabPage4.Name = "tabPage4";
 			tabPage4.Padding = new Padding(3);
-			tabPage4.Size = new Size(675, 332);
+			tabPage4.Size = new Size(675, 346);
 			tabPage4.TabIndex = 3;
 			tabPage4.Text = "tabPage4";
+			// 
+			// label4
+			// 
+			label4.AutoSize = true;
+			label4.Font = new Font("Constantia", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+			label4.Location = new Point(300, 310);
+			label4.Name = "label4";
+			label4.Size = new Size(77, 23);
+			label4.TabIndex = 24;
+			label4.Text = "◌ ◌ ◌ ●";
 			// 
 			// lblTab4
 			// 
@@ -433,7 +484,7 @@
 			// btnTab4Finish
 			// 
 			btnTab4Finish.FlatStyle = FlatStyle.Flat;
-			btnTab4Finish.Location = new Point(560, 289);
+			btnTab4Finish.Location = new Point(560, 310);
 			btnTab4Finish.Name = "btnTab4Finish";
 			btnTab4Finish.Size = new Size(100, 30);
 			btnTab4Finish.TabIndex = 19;
@@ -443,7 +494,7 @@
 			// 
 			// txtTab4Msg
 			// 
-			txtTab4Msg.BackColor = Color.WhiteSmoke;
+			txtTab4Msg.BackColor = Color.FromArgb(250, 250, 250);
 			txtTab4Msg.BorderStyle = BorderStyle.None;
 			txtTab4Msg.Location = new Point(73, 66);
 			txtTab4Msg.Multiline = true;
@@ -457,7 +508,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(8F, 19F);
 			AutoScaleMode = AutoScaleMode.Font;
-			BackColor = Color.WhiteSmoke;
+			BackColor = Color.FromArgb(250, 250, 250);
 			ClientSize = new Size(682, 406);
 			ControlBox = false;
 			Controls.Add(tabControl);
@@ -533,5 +584,8 @@
 		private Label lblTab4;
 		private Button btnTab2Back;
 		private Button btnTab3Back;
+		private Label label1;
+		private Label label2;
+		private Label label4;
 	}
 }
