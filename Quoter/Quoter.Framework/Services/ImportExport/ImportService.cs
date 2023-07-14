@@ -111,7 +111,7 @@ namespace Quoter.Framework.Services.ImportExport
 		{
 			Stopwatch stopwatch = Stopwatch.StartNew();
 			_logger.Info($"Starting Import on file: {file}");
-			
+
 			string fileContent = await File.ReadAllTextAsync(file);
 			if (string.IsNullOrEmpty(fileContent))
 			{
@@ -128,27 +128,27 @@ namespace Quoter.Framework.Services.ImportExport
 
 			foreach (CollectionExportModel collectionModel in importModel.Collections)
 			{
-				await ImportCollection(collectionModel, importModel, importParameters);
+				await ImportCollectionAsync(collectionModel, importModel, importParameters);
 				importedCollections += Environment.NewLine + collectionModel.Name + "; ";
 			}
 			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported collections");
 
+			await _context.Database.BeginTransactionAsync();
 			foreach (BookExportModel bookExportModel in importModel.Books)
 			{
-				await ImportBook(bookExportModel, importModel, importParameters);
+				await ImportBookAsync(bookExportModel, importModel, importParameters);
 			}
+			await _context.Database.CommitTransactionAsync();
 			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported books");
 
 			foreach (ChapterExportModel chapterModel in importModel.Chapters)
 			{
-				await ImportChapter(chapterModel, importModel, importParameters);
+				await ImportChapterAsync(chapterModel, importModel, importParameters);
 			}
 			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported chapters");
 
-			foreach (QuoteExportModel quoteModel in importModel.Quotes)
-			{
-				await ImportQuote(quoteModel, importParameters);
-			}
+			await ImportQuotesAsync(importModel, importParameters);
+
 			_logger.Info($"{stopwatch.ElapsedMilliseconds} imported quotes");
 
 			await _context.SaveChangesAsync(); // For quotes, just save once at the end
@@ -157,7 +157,7 @@ namespace Quoter.Framework.Services.ImportExport
 			return importedCollections;
 		}
 
-		private async Task ImportCollection(CollectionExportModel collectionModel, ExportModel importModel, ImportParameters importParameters)
+		private async Task ImportCollectionAsync(CollectionExportModel collectionModel, ExportModel importModel, ImportParameters importParameters)
 		{
 			if (importParameters.IsIgnoreLanguage)
 			{
@@ -256,7 +256,7 @@ namespace Quoter.Framework.Services.ImportExport
 				.ForEach(q => { q.CollectionId = newCollectionId; });
 		}
 
-		private async Task ImportBook(BookExportModel bookModel, ExportModel importModel, ImportParameters importParameters)
+		private async Task ImportBookAsync(BookExportModel bookModel, ExportModel importModel, ImportParameters importParameters)
 		{
 			if (importParameters.IsFavourite)
 			{
@@ -264,16 +264,18 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 			if (importParameters.IsMergeCollections)
 			{
-				Book? existingBook = await _context.Books.FirstOrDefaultAsync(b => b.Name == bookModel.Name
-																				&& b.CollectionId == bookModel.CollectionId);
-				if (existingBook == null)
+				int existingBookId = await _context.Books
+					.Where(b => b.Name == bookModel.Name && b.CollectionId == bookModel.CollectionId)
+					.Select(b => b.BookId)
+					.FirstOrDefaultAsync();
+				if (existingBookId == 0)
 				{
 					Book addedBook = await AddBook(bookModel);
 					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, addedBook.BookId);
 				}
 				else
 				{
-					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, existingBook.BookId);
+					UpdateImportDataReferencesToBook(importModel, bookModel.BookId, existingBookId);
 				}
 			}
 			else
@@ -310,7 +312,7 @@ namespace Quoter.Framework.Services.ImportExport
 				.ForEach(q => { q.BookId = newBookId; });
 		}
 
-		private async Task ImportChapter(ChapterExportModel chapterModel, ExportModel importModel, ImportParameters importParameters)
+		private async Task ImportChapterAsync(ChapterExportModel chapterModel, ExportModel importModel, ImportParameters importParameters)
 		{
 			if (importParameters.IsFavourite)
 			{
@@ -318,16 +320,18 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 			if (importParameters.IsMergeCollections)
 			{
-				Chapter? existingChapter = await _context.Chapters.FirstOrDefaultAsync(c => c.Name == chapterModel.Name
-																						&& c.BookId == chapterModel.BookId);
-				if (existingChapter == null)
+				int existingChapterId = await _context.Chapters
+					.Where(c => c.Name == chapterModel.Name && c.BookId == chapterModel.BookId)
+					.Select(c => c.ChapterId)
+					.FirstOrDefaultAsync();
+				if (existingChapterId == 0)
 				{
 					Chapter addedChapter = await AddChapter(chapterModel);
 					UpdateImportDataReferencesToChapter(importModel, chapterModel.ChapterId, addedChapter.ChapterId);
 				}
 				else
 				{
-					UpdateImportDataReferencesToChapter(importModel, chapterModel.ChapterId, existingChapter.ChapterId);
+					UpdateImportDataReferencesToChapter(importModel, chapterModel.ChapterId, existingChapterId);
 				}
 			}
 			else
@@ -361,42 +365,47 @@ namespace Quoter.Framework.Services.ImportExport
 				.ForEach(q => { q.ChapterId = newChapterId; });
 		}
 
-		private async Task ImportQuote(QuoteExportModel quoteModel, ImportParameters importParameters)
+		private async Task ImportQuotesAsync(ExportModel importModel, ImportParameters importParameters)
 		{
-			int quoteIndex = 0;
-			if (importParameters.IsMergeCollections)
-			{
-				List<int> indexes = await _context.Quotes
-				.Where(q => q.CollectionId == quoteModel.CollectionId
-						&& q.BookId == quoteModel.BookId
-						&& q.ChapterId == quoteModel.BookId)
-				.Select(q => q.QuoteIndex)
-				.ToListAsync();
-
-				if (indexes.Count > 0)
+			List<List<QuoteExportModel>> groupingByCollBookChapter = importModel.Quotes
+				.GroupBy(q => new
 				{
-					quoteIndex = indexes.Max() + 1;
-				}
-				else
-				{
-					quoteIndex = quoteModel.QuoteIndex;
-				}
-			}
-			else
-			{
-				quoteIndex = quoteModel.QuoteIndex;
-			}
+					q.CollectionId,
+					q.BookId,
+					q.ChapterId
+				})
+				.Select(grp => grp.ToList())
+				.ToList();
 
-			Quote quote = new Quote()
+			foreach(List<QuoteExportModel> lstQuoteModels in groupingByCollBookChapter)
 			{
-				BookId = quoteModel.BookId,
-				CollectionId = quoteModel.CollectionId,
-				ChapterId = quoteModel.ChapterId,
-				QuoteIndex = quoteIndex,
-				Description = quoteModel.Description,
-				Content = quoteModel.Content,
-			};
-			_context.Quotes.Add(quote);
+				List<Quote> lstQuotesToAdd = lstQuoteModels
+					.Select(quoteModel => new Quote()
+					{
+						BookId = quoteModel.BookId,
+						CollectionId = quoteModel.CollectionId,
+						ChapterId = quoteModel.ChapterId,
+						QuoteIndex = quoteModel.QuoteIndex,
+						Description = quoteModel.Description,
+						Content = quoteModel.Content,
+					}).ToList();
+
+				if (importParameters.IsMergeCollections)
+				{
+					int currentLargestQuoteIndex = (await _context.Quotes
+						.Where(q => q.CollectionId == lstQuotesToAdd[0].CollectionId
+								&& q.BookId == lstQuotesToAdd[0].BookId
+								&& q.ChapterId == lstQuotesToAdd[0].ChapterId)
+						.Select(q => q.QuoteIndex)
+						.ToListAsync())
+						.DefaultIfEmpty(0)
+						.Max();
+
+					lstQuotesToAdd.ForEach(q => q.QuoteIndex += currentLargestQuoteIndex);
+				}
+				_context.Quotes.AddRange(lstQuotesToAdd);
+			}
 		}
+
 	}
 }
