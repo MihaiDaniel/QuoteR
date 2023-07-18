@@ -1,4 +1,5 @@
-﻿using Quoter.Shared.Enums;
+﻿using Quoter.Framework.Enums;
+using Quoter.Shared.Enums;
 
 namespace Quoter.Framework.Models.ImportExport
 {
@@ -13,7 +14,7 @@ namespace Quoter.Framework.Models.ImportExport
 		public string[] Files { get; set; }
 
 		/// <summary>
-		/// Set the imported collections as favourite on import.
+		/// Set the imported collections (books and chapters) as favourite on import, regardless of their favourite status.
 		/// </summary>
 		public bool IsFavourite { get; set; }
 
@@ -30,12 +31,9 @@ namespace Quoter.Framework.Models.ImportExport
 		public EnumLanguage Language { get; set; }
 
 		/// <summary>
-		/// Parameter that indicates what happens when an imported collection has the same name as an
-		/// existing collection. If True, all the books, chapters, and quotes will be merged into the
-		/// existing collection. If False they will be simply added (in case of name conflict, collections will 
-		/// be renamed)
+		/// Indicates what strategy to use when importing collections
 		/// </summary>
-		public bool IsMergeCollections { get; set; }
+		public EnumImportStrategy ImportStrategy { get; set; }
 
 		/// <summary>
 		/// Indicates if the user should be notified or not of this import job

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
@@ -79,10 +80,10 @@ namespace Quoter.Framework.Services.ImportExport
 
 				// Execute & get export models
 				List<Collection> lstCollections = await queryCollections.ToListAsync();
-				ExportModel exportModel = GetExportModel(lstCollections);
+				ImportExportModel exportModel = GetExportModel(lstCollections);
 
 				// Serialize & write
-				string content = JsonSerializer.Serialize(exportModel);
+				string content = JsonConvert.SerializeObject(exportModel);
 				await File.WriteAllTextAsync(exportParameters.ExportFilePath, content);
 
 				announcement.Remove();
@@ -99,16 +100,16 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 		}
 
-		private ExportModel GetExportModel(List<Collection> lstCollections)
+		private ImportExportModel GetExportModel(List<Collection> lstCollections)
 		{
-			ExportModel export = new ExportModel()
+			ImportExportModel export = new ImportExportModel()
 			{
 				Id = Guid.NewGuid(),
 				Version = Assembly.GetEntryAssembly().GetName().Version.ToString(),
-				Collections = new List<CollectionExportModel>(),
-				Books = new List<BookExportModel>(),
-				Chapters = new List<ChapterExportModel>(),
-				Quotes = new List<QuoteExportModel>()
+				Collections = new List<CollectionModel>(),
+				Books = new List<BookModel>(),
+				Chapters = new List<ChapterModel>(),
+				Quotes = new List<QuoteModel>()
 			};
 
 			foreach (Collection collection in lstCollections)
@@ -141,9 +142,9 @@ namespace Quoter.Framework.Services.ImportExport
 			return export;
 		}
 
-		private BookExportModel GetBookExportModel(Book book)
+		private BookModel GetBookExportModel(Book book)
 		{
-			return new BookExportModel()
+			return new BookModel()
 			{
 				CollectionId = book.CollectionId,
 				Description = book.Description,
@@ -153,9 +154,9 @@ namespace Quoter.Framework.Services.ImportExport
 			};
 		}
 
-		private CollectionExportModel GetCollectionExportModel(Collection collection)
+		private CollectionModel GetCollectionExportModel(Collection collection)
 		{
-			return new CollectionExportModel()
+			return new CollectionModel()
 			{
 				CollectionId = collection.CollectionId,
 				Description = collection.Description,
@@ -165,9 +166,9 @@ namespace Quoter.Framework.Services.ImportExport
 			};
 		}
 
-		private ChapterExportModel GetChapterExportModel(Chapter chapter)
+		private ChapterModel GetChapterExportModel(Chapter chapter)
 		{
-			return new ChapterExportModel()
+			return new ChapterModel()
 			{
 				Name = chapter.Name,
 				BookId = chapter.BookId,
@@ -178,9 +179,9 @@ namespace Quoter.Framework.Services.ImportExport
 			};
 		}
 
-		private QuoteExportModel GetQuoteExportModel(Quote quote)
+		private QuoteModel GetQuoteExportModel(Quote quote)
 		{
-			return new QuoteExportModel()
+			return new QuoteModel()
 			{
 				BookId = quote.BookId,
 				ChapterId = quote.ChapterId,

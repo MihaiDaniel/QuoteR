@@ -29,6 +29,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 		private readonly IFormsManager _formsManager;
 		private readonly ISettings _settings;
 		private readonly ILogger _logger;
+		private readonly ICollectionService _collectionService;
 
 		private readonly Regex _regexQuote;
 
@@ -115,7 +116,8 @@ namespace Quoter.App.FormsControllers.EditQuotes
 										IStringResources stringResources,
 										IFormsManager formManager,
 										ISettings settings,
-										ILogger logger)
+										ILogger logger,
+										ICollectionService collectionService)
 		{
 			_context = quoterContext;
 			_stringResources = stringResources;
@@ -131,6 +133,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			Chapters = new BindingList<Chapter>();
 
 			System.Diagnostics.Debug.WriteLine($"EditQuotesFormController Context: {_context.InstanceID}");
+			_collectionService = collectionService;
 		}
 
 		public void RegisterForm(IEditQuotesForm editQuotesForm)
@@ -366,8 +369,9 @@ namespace Quoter.App.FormsControllers.EditQuotes
 				try
 				{
 					// For some reason using linq triggers a FK exception even though there is no problem on SQLite side
-					await _context.Database.ExecuteSqlRawAsync(
-						$"DELETE FROM {nameof(_context.Collections)} WHERE {nameof(Collection.CollectionId)} = {SelectedCollection.CollectionId}");
+					//await _context.Database.ExecuteSqlRawAsync(
+					//	$"DELETE FROM {nameof(_context.Collections)} WHERE {nameof(Collection.CollectionId)} = {SelectedCollection.CollectionId}");
+					await _collectionService.DeleteCollectionAsync(SelectedCollection.CollectionId);
 
 					//Collection collectionToRemove = await _context.Collections.FirstAsync(c => c.CollectionId == SelectedCollection.CollectionId);
 					//_context.Collections.Remove(collectionToRemove);

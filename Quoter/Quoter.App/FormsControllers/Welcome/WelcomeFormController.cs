@@ -199,7 +199,7 @@ namespace Quoter.App.FormsControllers.Welcome
 			{
 				Files = filesToImport,
 				IsFavourite = true,         // Set the imported collections by default as favourites
-				IsMergeCollections = true,  // In case the user goes back and forth, we don't want to duplicate the import
+				ImportStrategy = EnumImportStrategy.Replace, // In case the user goes back and forth, we don't want to duplicate the import
 				NotifyUser = false          // Don't notify the user when import finished
 			};
 			_importService.QueueImportJob(importParameters);

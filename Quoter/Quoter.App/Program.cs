@@ -17,6 +17,7 @@ using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.ImportExport;
+using Quoter.Framework.Services.ImportExport.ImportStrategies;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.Versioning;
 using System.Configuration;
@@ -24,7 +25,7 @@ using System.Resources;
 
 namespace Quoter.App
 {
-	internal static class Program
+    internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -76,6 +77,10 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
 			serviceCollection.AddSingleton<IExportService, ExportService>();
 			serviceCollection.AddSingleton<IImportService, ImportService>();
+			serviceCollection.AddSingleton<IImportStrategyServiceFactory, ImportStrategyServiceFactory>();
+			serviceCollection.AddSingleton<DefaultImportStrategyService>();
+			serviceCollection.AddSingleton<ReplaceImportStrategyService>();
+			serviceCollection.AddSingleton<MergeImportStrategyService>();
 			serviceCollection.AddSingleton<ISoundService, SoundService>();
 			serviceCollection.AddSingleton<IBackgroundJobsFormsService, BackgroundJobsFormsService>();
 
@@ -111,6 +116,8 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IRegistrationService, RegistrationService>();
 			serviceCollection.AddTransient<IVersionService, VersionService>();
 			serviceCollection.AddTransient<IUpdateService, UpdateService>();
+			serviceCollection.AddTransient<ICollectionService, CollectionService>();
+			serviceCollection.AddTransient<ICommonStrategyService, CommonStrategyService>();
 
 			// Database
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());

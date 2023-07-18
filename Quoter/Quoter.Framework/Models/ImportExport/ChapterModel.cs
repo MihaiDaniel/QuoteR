@@ -1,33 +1,31 @@
-﻿namespace Quoter.Framework.Entities
+﻿using Newtonsoft.Json;
+
+namespace Quoter.Framework.Models.ImportExport
 {
 	/// <summary>
-	/// Represents a chapter of a book
+	/// Model used for exporting and importing chapters
 	/// </summary>
-	public class Chapter
+	public class ChapterModel
 	{
+		[JsonProperty("ChapterId")]
 		public int ChapterId { get; set; }
 
+		[JsonProperty("Name")]
 		public string Name { get; set; }
 
+		[JsonProperty("Description")]
 		public string? Description { get; set; }
 
+		[JsonProperty("IsFavourite")]
 		public bool? IsFavourite { get; set; }
 
 		/// <summary>
 		/// The chapter index number in the book
 		/// </summary>
+		[JsonProperty("ChapterIndex")]
 		public int ChapterIndex { get; set; }
 
-		public int? ImportChapterId { get; set; }
-
-		#region FK
-
+		[JsonProperty("BookId")]
 		public int BookId { get; set; }
-
-		public Book Book { get; set; }
-
-		public List<Quote> LstQuotes { get; set; }
-
-		#endregion FK
 	}
 }

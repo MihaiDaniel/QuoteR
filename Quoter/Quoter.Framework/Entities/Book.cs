@@ -16,6 +16,8 @@ namespace Quoter.Framework.Entities
 
 		public bool? IsFavourite { get; set; }
 
+		public int? ImportBookId { get; set; }
+
 		#region FK
 
 		public int CollectionId { get; set; }
