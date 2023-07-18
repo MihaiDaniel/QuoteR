@@ -399,6 +399,23 @@ namespace Quoter.App.Forms
 			this.BackColor = theme.BodyColor;
 			pnlTitle.BackColor = theme.TitleColor;
 			pnlSelectedTab.BackColor = theme.TitleColor;
+			tabPage1.BackColor = theme.BodyColor;
+			tabPage2.BackColor = theme.BodyColor;
+			tabPage3.BackColor = theme.BodyColor;
+			tabPage3.BackColor = theme.BodyColor;
+			gbCollections.BackColor = theme.BodyColor;
+			gbBooks.BackColor = theme.BodyColor;
+			gbChapters.BackColor = theme.BodyColor;
+			gbQuotes.BackColor = theme.BodyColor;
+			gbLanguageSettings.BackColor = theme.BodyColor;
+			gbThemeSettings.BackColor = theme.BodyColor;
+			gbOtherSettings.BackColor = theme.BodyColor;
+			gbQuotesSettings.BackColor = theme.BodyColor;
+			pnlStatusBar.BackColor = theme.BodyColor;
+			pnlTitle.BackColor = theme.TitleColor;
+			pnlSelectedTab.BackColor = theme.TitleColor;
+			btnMinimize.FlatAppearance.MouseOverBackColor = theme.HighlightColor;
+			btnMinimize.FlatAppearance.MouseDownBackColor = theme.PressedColor;
 		}
 
 		void IResizableForm.SetSize(Size size)
@@ -1066,8 +1083,8 @@ namespace Quoter.App.Forms
 
 		private void cbUpdateMode_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (cbUpdateMode.SelectedItem != null 
-				&& ((UpdateModeItem)cbUpdateMode.SelectedItem).UpdateMode  != _settingsController.SelectedUpdateMode?.UpdateMode)
+			if (cbUpdateMode.SelectedItem != null
+				&& ((UpdateModeItem)cbUpdateMode.SelectedItem).UpdateMode != _settingsController.SelectedUpdateMode?.UpdateMode)
 			{
 				_logger.Debug($"cbUpdateMode_SelectedValueChanged {cbUpdateMode.SelectedIndex} {((UpdateModeItem)cbUpdateMode.SelectedItem)?.DisplayName}");
 				_settingsController.SetSelectedUpdateMode(cbUpdateMode.SelectedItem as UpdateModeItem);

@@ -159,7 +159,7 @@
 			pbBackgroundTask = new PictureBox();
 			lblBackgroundTask = new Label();
 			tableLayoutPanel3 = new TableLayoutPanel();
-			panel9 = new Panel();
+			pnlStatusBar = new Panel();
 			lblVersion = new Label();
 			pnlTitle.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -194,7 +194,7 @@
 			gbLanguageSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
-			panel9.SuspendLayout();
+			pnlStatusBar.SuspendLayout();
 			SuspendLayout();
 			// 
 			// pnlTitle
@@ -1862,16 +1862,16 @@
 			tableLayoutPanel3.Size = new Size(799, 33);
 			tableLayoutPanel3.TabIndex = 19;
 			// 
-			// panel9
+			// pnlStatusBar
 			// 
-			panel9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			panel9.BackColor = Color.Transparent;
-			panel9.Controls.Add(lblVersion);
-			panel9.Controls.Add(txtStatus);
-			panel9.Location = new Point(4, 498);
-			panel9.Name = "panel9";
-			panel9.Size = new Size(576, 21);
-			panel9.TabIndex = 21;
+			pnlStatusBar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			pnlStatusBar.BackColor = Color.Transparent;
+			pnlStatusBar.Controls.Add(lblVersion);
+			pnlStatusBar.Controls.Add(txtStatus);
+			pnlStatusBar.Location = new Point(4, 498);
+			pnlStatusBar.Name = "pnlStatusBar";
+			pnlStatusBar.Size = new Size(576, 21);
+			pnlStatusBar.TabIndex = 21;
 			// 
 			// lblVersion
 			// 
@@ -1891,7 +1891,7 @@
 			BackColor = Color.WhiteSmoke;
 			ClientSize = new Size(800, 524);
 			ControlBox = false;
-			Controls.Add(panel9);
+			Controls.Add(pnlStatusBar);
 			Controls.Add(pnlSelectedTab);
 			Controls.Add(tableLayoutPanel3);
 			Controls.Add(lblBackgroundTask);
@@ -1953,8 +1953,8 @@
 			gbLanguageSettings.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
-			panel9.ResumeLayout(false);
-			panel9.PerformLayout();
+			pnlStatusBar.ResumeLayout(false);
+			pnlStatusBar.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -2086,7 +2086,7 @@
 		private Panel panel6;
 		private Panel panel7;
 		private Panel panel8;
-		private Panel panel9;
+		private Panel pnlStatusBar;
 		private Button btnMinimize;
 		private Button btnReadCollection;
 		private PictureBox pictureBox1;

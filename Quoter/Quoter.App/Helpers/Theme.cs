@@ -8,6 +8,10 @@ namespace Quoter.App.Helpers
 
 		public Color BodyColor { get; set; }
 
+		public Color HighlightColor { get; set; }
+
+		public Color PressedColor { get; set; }
+
 		public double Opacity { get; set; }
 
 		public EnumAnimation OpenNotificationAnimation { get; set; }

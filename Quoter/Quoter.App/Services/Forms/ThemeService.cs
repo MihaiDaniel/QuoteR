@@ -24,7 +24,9 @@ namespace Quoter.App.Services.Forms
 			return new Theme()
 			{
 				TitleColor = GetTitleColorFromTheme(theme),
-				BodyColor = Color.WhiteSmoke,
+				BodyColor = GetBodyColorFromTheme(theme),
+				HighlightColor = GetHighlightColorFromTheme(theme),
+				PressedColor = GetPressedColorFromTheme(theme),
 				Opacity = opacity,
 				OpenNotificationAnimation = animationOpen,
 				CloseNotificationAnimation = animationClose
@@ -42,6 +44,42 @@ namespace Quoter.App.Services.Forms
 				EnumTheme.LightCoral => Color.LightCoral,
 				EnumTheme.IndianRed => Color.IndianRed,
 				_ => Color.SlateGray
+			};
+		}
+
+		private Color GetBodyColorFromTheme(EnumTheme theme)
+		{
+			return theme switch
+			{
+				_ => Color.FromArgb(250,250,250) // lighter than white smoke
+			};
+		}
+
+		private Color GetHighlightColorFromTheme(EnumTheme theme)
+		{
+			return theme switch
+			{
+				EnumTheme.SlateGray => Color.FromArgb(127, 136, 145),
+				EnumTheme.Blue => Color.FromArgb(94, 142, 182),
+				EnumTheme.Green => Color.FromArgb(28, 160, 28),
+				EnumTheme.Orange => Color.FromArgb(253,163,52),
+				EnumTheme.LightCoral => Color.FromArgb(241, 173, 173),
+				EnumTheme.IndianRed => Color.FromArgb(221, 120, 120),
+				_ => Color.WhiteSmoke
+			};
+		}
+
+		private Color GetPressedColorFromTheme(EnumTheme theme)
+		{
+			return theme switch
+			{
+				EnumTheme.SlateGray => Color.FromArgb(127, 136, 145),
+				EnumTheme.Blue => Color.FromArgb(94, 142, 182),
+				EnumTheme.Green => Color.FromArgb(28, 160, 28),
+				EnumTheme.Orange => Color.FromArgb(253, 163, 52),
+				EnumTheme.LightCoral => Color.FromArgb(241, 173, 173),
+				EnumTheme.IndianRed => Color.FromArgb(221, 120, 120),
+				_ => Color.WhiteSmoke
 			};
 		}
 	}
