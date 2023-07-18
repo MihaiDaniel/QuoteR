@@ -93,12 +93,6 @@ namespace Quoter.App.Forms
 			tabControl.ItemSize = new Size(0, 1);
 			tabControl.SelectTab(0);
 
-			// Hide tabs in settings section
-			tabBasicSettings.Appearance = TabAppearance.FlatButtons;
-			tabBasicSettings.SizeMode = TabSizeMode.Fixed;
-			tabBasicSettings.ItemSize = new Size(0, 1);
-			tabBasicSettings.SelectTab(0);
-
 #if DEBUG
 			btnQuickAdd.Visible = true;
 #else
@@ -416,6 +410,51 @@ namespace Quoter.App.Forms
 			pnlSelectedTab.BackColor = theme.TitleColor;
 			btnMinimize.FlatAppearance.MouseOverBackColor = theme.HighlightColor;
 			btnMinimize.FlatAppearance.MouseDownBackColor = theme.PressedColor;
+
+			//btnTabPage1.BackColor = theme.BodyColor;
+			//btnTabPage2.BackColor = theme.BodyColor;
+			//btnTabPage3.BackColor = theme.BodyColor;
+			//btnTabPage1.ForeColor = theme.ForeColor;
+			//btnTabPage2.ForeColor = theme.ForeColor;
+			//btnTabPage3.ForeColor = theme.ForeColor;
+
+			//pnlStatusBar.BackColor = theme.BodyColor;
+			//txtStatus.BackColor = theme.BodyColor;
+			//txtStatus.ForeColor = theme.ForeColor;
+			//lblVersion.ForeColor = theme.ForeColor;
+			//lblBackgroundTask.ForeColor = theme.ForeColor;
+
+			//gbCollections.BackColor = theme.BodyColor;
+			//gbCollections.ForeColor = theme.ForeColor;
+			//gbBooks.BackColor = theme.BodyColor;
+			//gbBooks.ForeColor = theme.ForeColor;
+			//gbChapters.BackColor = theme.BodyColor;
+			//gbChapters.ForeColor = theme.ForeColor;
+			//gbQuotes.BackColor = theme.BodyColor;
+			//gbQuotes.ForeColor = theme.ForeColor;
+			//rtbQuotes.BackColor = theme.BodyColor;
+			//rtbQuotes.ForeColor = theme.ForeColor;
+			//pnlQuotesOptions.BackColor = theme.BodyColor;
+			//pnlQuotesOptions.ForeColor = theme.ForeColor;
+
+			//lblFavoritesText.ForeColor = theme.ForeColor;
+			//lblFavouriteCollections.ForeColor = theme.ForeColor;
+			//lblFavouriteBooks.ForeColor = theme.ForeColor;
+			//lblFavouriteChapters.ForeColor = theme.ForeColor;
+			//clbCollections.BackColor = theme.BodyColor;
+			//clbCollections.ForeColor = theme.ForeColor;
+			//clbBooks.BackColor = theme.BodyColor;
+			//clbBooks.ForeColor = theme.ForeColor;
+			//clbChapters.BackColor = theme.BodyColor;
+			//clbChapters.ForeColor = theme.ForeColor;
+			//gbExport.BackColor = theme.BodyColor;
+			//gbExport.ForeColor = theme.ForeColor;
+			//gbImport.BackColor = theme.BodyColor;
+			//gbImport.ForeColor = theme.ForeColor;
+			//chkExportFavCollections.ForeColor = theme.ForeColor;
+			//chkImportIgnoreLanguage.ForeColor = theme.ForeColor;
+			//chkImportMerge.ForeColor = theme.ForeColor;
+
 		}
 
 		void IResizableForm.SetSize(Size size)
@@ -1016,6 +1055,11 @@ namespace Quoter.App.Forms
 		{
 			double opacity = ((double)tbOpacity.Value) / 10;
 			_settingsController.SetOpacity(opacity);
+		}
+
+		private void btnNightMode_Click(object sender, EventArgs e)
+		{
+			_settingsController.SetNightMode();
 		}
 
 		private void btnPopupNotifications_Click(object sender, EventArgs e)

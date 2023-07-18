@@ -24,6 +24,7 @@ namespace Quoter.App.Services.Forms
 			return new Theme()
 			{
 				TitleColor = GetTitleColorFromTheme(theme),
+				ForeColor = GetForeColorFromTheme(theme),
 				BodyColor = GetBodyColorFromTheme(theme),
 				HighlightColor = GetHighlightColorFromTheme(theme),
 				PressedColor = GetPressedColorFromTheme(theme),
@@ -31,6 +32,18 @@ namespace Quoter.App.Services.Forms
 				OpenNotificationAnimation = animationOpen,
 				CloseNotificationAnimation = animationClose
 			};
+		}
+
+		private Color GetForeColorFromTheme(EnumTheme theme)
+		{
+			if(_settings.IsNightMode)
+			{
+				return Color.WhiteSmoke;
+			}
+			else
+			{
+				return Color.DarkGray;
+			}
 		}
 
 		private Color GetTitleColorFromTheme(EnumTheme theme)
@@ -49,6 +62,11 @@ namespace Quoter.App.Services.Forms
 
 		private Color GetBodyColorFromTheme(EnumTheme theme)
 		{
+			if (_settings.IsNightMode)
+			{
+				return Color.FromArgb(50,50,50);
+			}
+
 			return theme switch
 			{
 				_ => Color.FromArgb(250,250,250) // lighter than white smoke

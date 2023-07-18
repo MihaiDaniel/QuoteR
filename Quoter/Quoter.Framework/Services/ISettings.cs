@@ -41,6 +41,7 @@ namespace Quoter.Framework.Services
 
 		EnumTheme Theme { get; set; }
 		double Opacity { get; set; }
+		bool IsNightMode { get; set; }
 		bool IsStartWithWindows { get; set; }
 		bool IsSetupFinished { get; set; }
 		Size WindowSize { get; set; }

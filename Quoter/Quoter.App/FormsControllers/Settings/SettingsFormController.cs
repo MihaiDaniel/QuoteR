@@ -259,6 +259,12 @@ namespace Quoter.App.FormsControllers.Settings
 			_messagingService.SendMessage(Event.ThemeChanged);
 		}
 
+		public void SetNightMode()
+		{
+			_settings.IsNightMode = !_settings.IsNightMode;
+			_messagingService.SendMessage(Event.ThemeChanged);
+		}
+
 		public void SetNotificationType(EnumNotificationType type)
 		{
 			if (_settings.NotificationType != type)

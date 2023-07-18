@@ -6,6 +6,8 @@ namespace Quoter.App.Helpers
 	{
 		public Color TitleColor { get; set; }
 
+		public Color ForeColor { get; set; }
+
 		public Color BodyColor { get; set; }
 
 		public Color HighlightColor { get; set; }

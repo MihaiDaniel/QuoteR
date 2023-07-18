@@ -334,5 +334,17 @@ namespace Quoter.App.Properties {
                 this["IsUpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsNightMode {
+            get {
+                return ((bool)(this["IsNightMode"]));
+            }
+            set {
+                this["IsNightMode"] = value;
+            }
+        }
     }
 }

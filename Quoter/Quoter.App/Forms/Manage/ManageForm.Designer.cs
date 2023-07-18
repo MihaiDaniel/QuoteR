@@ -101,8 +101,7 @@
 			clbChapters = new CheckedListBox();
 			lblFavoritesText = new Label();
 			tabPage3 = new TabPage();
-			tabBasicSettings = new TabControl();
-			tabPage4 = new TabPage();
+			tableLayoutPanel4 = new TableLayoutPanel();
 			gbQuotesSettings = new GroupBox();
 			cbNotificationSound = new ComboBox();
 			lblNotificationFont = new Label();
@@ -125,16 +124,15 @@
 			lblQuotesFrequency = new Label();
 			btnPopupNotifications = new Button();
 			lblNotificationType = new Label();
-			gbOtherSettings = new GroupBox();
-			lblUpdateMode = new Label();
-			cbUpdateMode = new ComboBox();
-			btnStartWithWindowsNo = new Button();
-			btnStartWithWindowsYes = new Button();
-			lblStartWithWindows = new Label();
-			btnShowWelcomeMsgNo = new Button();
-			btnShowWelcomeMsgYes = new Button();
-			lblShowWelcomeMsg = new Label();
+			gbLanguageSettings = new GroupBox();
+			btnLanguageFr = new Button();
+			btnShowCollBasedOnLanguageNo = new Button();
+			btnLanguageRo = new Button();
+			btnShowCollBasedOnLanguageYes = new Button();
+			btnLanguageEn = new Button();
+			lblShowCollByLanguage = new Label();
 			gbThemeSettings = new GroupBox();
+			btnNightMode = new Button();
 			lblOpacityPercent = new Label();
 			lblOpacity = new Label();
 			tbOpacity = new TrackBar();
@@ -144,13 +142,15 @@
 			btnTheme6 = new Button();
 			btnTheme5 = new Button();
 			btnTheme4 = new Button();
-			gbLanguageSettings = new GroupBox();
-			btnLanguageFr = new Button();
-			btnShowCollBasedOnLanguageNo = new Button();
-			btnLanguageRo = new Button();
-			btnShowCollBasedOnLanguageYes = new Button();
-			btnLanguageEn = new Button();
-			lblShowCollByLanguage = new Label();
+			gbOtherSettings = new GroupBox();
+			lblUpdateMode = new Label();
+			cbUpdateMode = new ComboBox();
+			btnStartWithWindowsNo = new Button();
+			btnStartWithWindowsYes = new Button();
+			lblStartWithWindows = new Label();
+			btnShowWelcomeMsgNo = new Button();
+			btnShowWelcomeMsgYes = new Button();
+			lblShowWelcomeMsg = new Label();
 			txtStatus = new TextBox();
 			btnTabPage1 = new Button();
 			btnTabPage2 = new Button();
@@ -184,14 +184,13 @@
 			panel7.SuspendLayout();
 			panel8.SuspendLayout();
 			tabPage3.SuspendLayout();
-			tabBasicSettings.SuspendLayout();
-			tabPage4.SuspendLayout();
+			tableLayoutPanel4.SuspendLayout();
 			gbQuotesSettings.SuspendLayout();
 			panel3.SuspendLayout();
-			gbOtherSettings.SuspendLayout();
+			gbLanguageSettings.SuspendLayout();
 			gbThemeSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)tbOpacity).BeginInit();
-			gbLanguageSettings.SuspendLayout();
+			gbOtherSettings.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
 			pnlStatusBar.SuspendLayout();
@@ -348,6 +347,7 @@
 			gbCollections.Controls.Add(cbCollection);
 			gbCollections.Controls.Add(btnAddCollection);
 			gbCollections.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbCollections.ForeColor = SystemColors.ControlText;
 			gbCollections.Location = new Point(3, 5);
 			gbCollections.Name = "gbCollections";
 			gbCollections.Size = new Size(217, 84);
@@ -1033,9 +1033,11 @@
 			// clbCollections
 			// 
 			clbCollections.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			clbCollections.BackColor = SystemColors.Window;
 			clbCollections.BorderStyle = BorderStyle.FixedSingle;
 			clbCollections.ColumnWidth = 50;
 			clbCollections.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			clbCollections.ForeColor = SystemColors.WindowText;
 			clbCollections.FormattingEnabled = true;
 			clbCollections.HorizontalScrollbar = true;
 			clbCollections.Items.AddRange(new object[] { "This is one of the collections (Description)", "col2", "col3", "col4", "col5", "col6" });
@@ -1136,7 +1138,7 @@
 			// tabPage3
 			// 
 			tabPage3.BackColor = Color.WhiteSmoke;
-			tabPage3.Controls.Add(tabBasicSettings);
+			tabPage3.Controls.Add(tableLayoutPanel4);
 			tabPage3.Location = new Point(4, 25);
 			tabPage3.Name = "tabPage3";
 			tabPage3.Padding = new Padding(3);
@@ -1144,32 +1146,29 @@
 			tabPage3.TabIndex = 4;
 			tabPage3.Text = "Settings";
 			// 
-			// tabBasicSettings
+			// tableLayoutPanel4
 			// 
-			tabBasicSettings.Alignment = TabAlignment.Left;
-			tabBasicSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			tabBasicSettings.Appearance = TabAppearance.Buttons;
-			tabBasicSettings.Controls.Add(tabPage4);
-			tabBasicSettings.Location = new Point(6, 6);
-			tabBasicSettings.Multiline = true;
-			tabBasicSettings.Name = "tabBasicSettings";
-			tabBasicSettings.SelectedIndex = 0;
-			tabBasicSettings.Size = new Size(780, 386);
-			tabBasicSettings.TabIndex = 15;
-			// 
-			// tabPage4
-			// 
-			tabPage4.BackColor = Color.WhiteSmoke;
-			tabPage4.Controls.Add(gbQuotesSettings);
-			tabPage4.Controls.Add(gbOtherSettings);
-			tabPage4.Controls.Add(gbThemeSettings);
-			tabPage4.Controls.Add(gbLanguageSettings);
-			tabPage4.Location = new Point(52, 4);
-			tabPage4.Name = "tabPage4";
-			tabPage4.Padding = new Padding(3);
-			tabPage4.Size = new Size(724, 378);
-			tabPage4.TabIndex = 0;
-			tabPage4.Text = "Basic";
+			tableLayoutPanel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel4.ColumnCount = 2;
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.Controls.Add(gbQuotesSettings, 1, 0);
+			tableLayoutPanel4.Controls.Add(gbLanguageSettings, 0, 0);
+			tableLayoutPanel4.Controls.Add(gbThemeSettings, 0, 1);
+			tableLayoutPanel4.Controls.Add(gbOtherSettings, 0, 2);
+			tableLayoutPanel4.Location = new Point(3, 3);
+			tableLayoutPanel4.Name = "tableLayoutPanel4";
+			tableLayoutPanel4.RowCount = 3;
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel4.Size = new Size(783, 397);
+			tableLayoutPanel4.TabIndex = 16;
 			// 
 			// gbQuotesSettings
 			// 
@@ -1192,9 +1191,10 @@
 			gbQuotesSettings.Controls.Add(btnPopupNotifications);
 			gbQuotesSettings.Controls.Add(lblNotificationType);
 			gbQuotesSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			gbQuotesSettings.Location = new Point(374, 6);
+			gbQuotesSettings.Location = new Point(394, 3);
 			gbQuotesSettings.Name = "gbQuotesSettings";
-			gbQuotesSettings.Size = new Size(390, 357);
+			tableLayoutPanel4.SetRowSpan(gbQuotesSettings, 3);
+			gbQuotesSettings.Size = new Size(386, 391);
 			gbQuotesSettings.TabIndex = 22;
 			gbQuotesSettings.TabStop = false;
 			gbQuotesSettings.Text = "Quotes";
@@ -1429,241 +1429,9 @@
 			lblNotificationType.Text = "Notification type";
 			lblNotificationType.TextAlign = ContentAlignment.MiddleCenter;
 			// 
-			// gbOtherSettings
-			// 
-			gbOtherSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-			gbOtherSettings.Controls.Add(lblUpdateMode);
-			gbOtherSettings.Controls.Add(cbUpdateMode);
-			gbOtherSettings.Controls.Add(btnStartWithWindowsNo);
-			gbOtherSettings.Controls.Add(btnStartWithWindowsYes);
-			gbOtherSettings.Controls.Add(lblStartWithWindows);
-			gbOtherSettings.Controls.Add(btnShowWelcomeMsgNo);
-			gbOtherSettings.Controls.Add(btnShowWelcomeMsgYes);
-			gbOtherSettings.Controls.Add(lblShowWelcomeMsg);
-			gbOtherSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			gbOtherSettings.Location = new Point(6, 240);
-			gbOtherSettings.Name = "gbOtherSettings";
-			gbOtherSettings.Size = new Size(362, 135);
-			gbOtherSettings.TabIndex = 21;
-			gbOtherSettings.TabStop = false;
-			gbOtherSettings.Text = "Other";
-			// 
-			// lblUpdateMode
-			// 
-			lblUpdateMode.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblUpdateMode.Location = new Point(6, 96);
-			lblUpdateMode.Name = "lblUpdateMode";
-			lblUpdateMode.Size = new Size(112, 18);
-			lblUpdateMode.TabIndex = 36;
-			lblUpdateMode.Text = "Updates";
-			lblUpdateMode.TextAlign = ContentAlignment.MiddleLeft;
-			// 
-			// cbUpdateMode
-			// 
-			cbUpdateMode.DropDownStyle = ComboBoxStyle.DropDownList;
-			cbUpdateMode.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
-			cbUpdateMode.FormattingEnabled = true;
-			cbUpdateMode.Location = new Point(140, 92);
-			cbUpdateMode.Name = "cbUpdateMode";
-			cbUpdateMode.Size = new Size(216, 27);
-			cbUpdateMode.TabIndex = 36;
-			cbUpdateMode.SelectedValueChanged += cbUpdateMode_SelectedValueChanged;
-			// 
-			// btnStartWithWindowsNo
-			// 
-			btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
-			btnStartWithWindowsNo.FlatStyle = FlatStyle.Flat;
-			btnStartWithWindowsNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnStartWithWindowsNo.Location = new Point(316, 52);
-			btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
-			btnStartWithWindowsNo.Size = new Size(40, 30);
-			btnStartWithWindowsNo.TabIndex = 20;
-			btnStartWithWindowsNo.Text = "NO";
-			btnStartWithWindowsNo.UseVisualStyleBackColor = true;
-			btnStartWithWindowsNo.Click += btnStartWithWindowsNo_Click;
-			// 
-			// btnStartWithWindowsYes
-			// 
-			btnStartWithWindowsYes.FlatStyle = FlatStyle.Flat;
-			btnStartWithWindowsYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnStartWithWindowsYes.Location = new Point(270, 52);
-			btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
-			btnStartWithWindowsYes.Size = new Size(40, 30);
-			btnStartWithWindowsYes.TabIndex = 21;
-			btnStartWithWindowsYes.Text = "YES";
-			btnStartWithWindowsYes.UseVisualStyleBackColor = true;
-			btnStartWithWindowsYes.Click += btnStartWithWindowsYes_Click;
-			// 
-			// lblStartWithWindows
-			// 
-			lblStartWithWindows.AutoSize = true;
-			lblStartWithWindows.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblStartWithWindows.Location = new Point(6, 58);
-			lblStartWithWindows.Name = "lblStartWithWindows";
-			lblStartWithWindows.Size = new Size(127, 18);
-			lblStartWithWindows.TabIndex = 19;
-			lblStartWithWindows.Text = "Start with windows";
-			// 
-			// btnShowWelcomeMsgNo
-			// 
-			btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
-			btnShowWelcomeMsgNo.FlatStyle = FlatStyle.Flat;
-			btnShowWelcomeMsgNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnShowWelcomeMsgNo.Location = new Point(316, 16);
-			btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
-			btnShowWelcomeMsgNo.Size = new Size(40, 30);
-			btnShowWelcomeMsgNo.TabIndex = 18;
-			btnShowWelcomeMsgNo.Text = "NO";
-			btnShowWelcomeMsgNo.UseVisualStyleBackColor = true;
-			btnShowWelcomeMsgNo.Click += btnShowWelcomeMsgNo_Click;
-			// 
-			// btnShowWelcomeMsgYes
-			// 
-			btnShowWelcomeMsgYes.FlatStyle = FlatStyle.Flat;
-			btnShowWelcomeMsgYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnShowWelcomeMsgYes.Location = new Point(270, 16);
-			btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
-			btnShowWelcomeMsgYes.Size = new Size(40, 30);
-			btnShowWelcomeMsgYes.TabIndex = 18;
-			btnShowWelcomeMsgYes.Text = "YES";
-			btnShowWelcomeMsgYes.UseVisualStyleBackColor = true;
-			btnShowWelcomeMsgYes.Click += btnShowWelcomeMsgYes_Click;
-			// 
-			// lblShowWelcomeMsg
-			// 
-			lblShowWelcomeMsg.AutoSize = true;
-			lblShowWelcomeMsg.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblShowWelcomeMsg.Location = new Point(6, 22);
-			lblShowWelcomeMsg.Name = "lblShowWelcomeMsg";
-			lblShowWelcomeMsg.Size = new Size(159, 18);
-			lblShowWelcomeMsg.TabIndex = 18;
-			lblShowWelcomeMsg.Text = "Show welcome message";
-			// 
-			// gbThemeSettings
-			// 
-			gbThemeSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-			gbThemeSettings.Controls.Add(lblOpacityPercent);
-			gbThemeSettings.Controls.Add(lblOpacity);
-			gbThemeSettings.Controls.Add(tbOpacity);
-			gbThemeSettings.Controls.Add(btnTheme1);
-			gbThemeSettings.Controls.Add(btnTheme2);
-			gbThemeSettings.Controls.Add(btnTheme3);
-			gbThemeSettings.Controls.Add(btnTheme6);
-			gbThemeSettings.Controls.Add(btnTheme5);
-			gbThemeSettings.Controls.Add(btnTheme4);
-			gbThemeSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			gbThemeSettings.Location = new Point(6, 106);
-			gbThemeSettings.Name = "gbThemeSettings";
-			gbThemeSettings.Size = new Size(362, 145);
-			gbThemeSettings.TabIndex = 20;
-			gbThemeSettings.TabStop = false;
-			gbThemeSettings.Text = "Theme";
-			// 
-			// lblOpacityPercent
-			// 
-			lblOpacityPercent.AutoSize = true;
-			lblOpacityPercent.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblOpacityPercent.Location = new Point(11, 93);
-			lblOpacityPercent.Name = "lblOpacityPercent";
-			lblOpacityPercent.Size = new Size(33, 18);
-			lblOpacityPercent.TabIndex = 21;
-			lblOpacityPercent.Text = "90%";
-			// 
-			// lblOpacity
-			// 
-			lblOpacity.AutoSize = true;
-			lblOpacity.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblOpacity.Location = new Point(6, 75);
-			lblOpacity.Name = "lblOpacity";
-			lblOpacity.Size = new Size(55, 18);
-			lblOpacity.TabIndex = 20;
-			lblOpacity.Text = "Opacity";
-			// 
-			// tbOpacity
-			// 
-			tbOpacity.LargeChange = 1;
-			tbOpacity.Location = new Point(67, 75);
-			tbOpacity.Minimum = 1;
-			tbOpacity.Name = "tbOpacity";
-			tbOpacity.Size = new Size(289, 45);
-			tbOpacity.TabIndex = 15;
-			tbOpacity.Value = 2;
-			tbOpacity.Scroll += tbOpacity_Scroll;
-			// 
-			// btnTheme1
-			// 
-			btnTheme1.BackColor = Color.SlateGray;
-			btnTheme1.FlatAppearance.BorderSize = 0;
-			btnTheme1.FlatStyle = FlatStyle.Flat;
-			btnTheme1.Location = new Point(6, 22);
-			btnTheme1.Name = "btnTheme1";
-			btnTheme1.Size = new Size(46, 44);
-			btnTheme1.TabIndex = 9;
-			btnTheme1.UseVisualStyleBackColor = false;
-			btnTheme1.Click += btnTheme1_Click;
-			// 
-			// btnTheme2
-			// 
-			btnTheme2.BackColor = Color.SteelBlue;
-			btnTheme2.FlatAppearance.BorderSize = 0;
-			btnTheme2.FlatStyle = FlatStyle.Flat;
-			btnTheme2.Location = new Point(65, 22);
-			btnTheme2.Name = "btnTheme2";
-			btnTheme2.Size = new Size(46, 44);
-			btnTheme2.TabIndex = 10;
-			btnTheme2.UseVisualStyleBackColor = false;
-			btnTheme2.Click += btnTheme2_Click;
-			// 
-			// btnTheme3
-			// 
-			btnTheme3.BackColor = Color.Green;
-			btnTheme3.FlatAppearance.BorderSize = 0;
-			btnTheme3.FlatStyle = FlatStyle.Flat;
-			btnTheme3.Location = new Point(124, 22);
-			btnTheme3.Name = "btnTheme3";
-			btnTheme3.Size = new Size(46, 44);
-			btnTheme3.TabIndex = 11;
-			btnTheme3.UseVisualStyleBackColor = false;
-			btnTheme3.Click += btnTheme3_Click;
-			// 
-			// btnTheme6
-			// 
-			btnTheme6.BackColor = Color.IndianRed;
-			btnTheme6.FlatAppearance.BorderSize = 0;
-			btnTheme6.FlatStyle = FlatStyle.Flat;
-			btnTheme6.Location = new Point(299, 22);
-			btnTheme6.Name = "btnTheme6";
-			btnTheme6.Size = new Size(46, 44);
-			btnTheme6.TabIndex = 13;
-			btnTheme6.UseVisualStyleBackColor = false;
-			btnTheme6.Click += btnTheme6_Click;
-			// 
-			// btnTheme5
-			// 
-			btnTheme5.BackColor = Color.LightCoral;
-			btnTheme5.FlatAppearance.BorderSize = 0;
-			btnTheme5.FlatStyle = FlatStyle.Flat;
-			btnTheme5.Location = new Point(240, 22);
-			btnTheme5.Name = "btnTheme5";
-			btnTheme5.Size = new Size(46, 44);
-			btnTheme5.TabIndex = 14;
-			btnTheme5.UseVisualStyleBackColor = false;
-			btnTheme5.Click += btnTheme5_Click;
-			// 
-			// btnTheme4
-			// 
-			btnTheme4.BackColor = Color.DarkOrange;
-			btnTheme4.FlatAppearance.BorderSize = 0;
-			btnTheme4.FlatStyle = FlatStyle.Flat;
-			btnTheme4.Location = new Point(184, 22);
-			btnTheme4.Name = "btnTheme4";
-			btnTheme4.Size = new Size(46, 44);
-			btnTheme4.TabIndex = 12;
-			btnTheme4.UseVisualStyleBackColor = false;
-			btnTheme4.Click += btnTheme4_Click;
-			// 
 			// gbLanguageSettings
 			// 
+			gbLanguageSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			gbLanguageSettings.Controls.Add(btnLanguageFr);
 			gbLanguageSettings.Controls.Add(btnShowCollBasedOnLanguageNo);
 			gbLanguageSettings.Controls.Add(btnLanguageRo);
@@ -1671,9 +1439,9 @@
 			gbLanguageSettings.Controls.Add(btnLanguageEn);
 			gbLanguageSettings.Controls.Add(lblShowCollByLanguage);
 			gbLanguageSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			gbLanguageSettings.Location = new Point(6, 6);
+			gbLanguageSettings.Location = new Point(3, 3);
 			gbLanguageSettings.Name = "gbLanguageSettings";
-			gbLanguageSettings.Size = new Size(362, 100);
+			gbLanguageSettings.Size = new Size(385, 113);
 			gbLanguageSettings.TabIndex = 15;
 			gbLanguageSettings.TabStop = false;
 			gbLanguageSettings.Text = "Language";
@@ -1698,12 +1466,12 @@
 			btnShowCollBasedOnLanguageNo.FlatAppearance.BorderSize = 0;
 			btnShowCollBasedOnLanguageNo.FlatStyle = FlatStyle.Flat;
 			btnShowCollBasedOnLanguageNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnShowCollBasedOnLanguageNo.Location = new Point(316, 64);
+			btnShowCollBasedOnLanguageNo.Location = new Point(336, 60);
 			btnShowCollBasedOnLanguageNo.Name = "btnShowCollBasedOnLanguageNo";
 			btnShowCollBasedOnLanguageNo.Size = new Size(40, 30);
 			btnShowCollBasedOnLanguageNo.TabIndex = 17;
 			btnShowCollBasedOnLanguageNo.Text = "NO";
-			btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = false;
+			btnShowCollBasedOnLanguageNo.UseVisualStyleBackColor = true;
 			btnShowCollBasedOnLanguageNo.Click += btnShowCollBasedOnLanguageNo_Click;
 			// 
 			// btnLanguageRo
@@ -1725,12 +1493,12 @@
 			btnShowCollBasedOnLanguageYes.BackColor = Color.WhiteSmoke;
 			btnShowCollBasedOnLanguageYes.FlatStyle = FlatStyle.Flat;
 			btnShowCollBasedOnLanguageYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-			btnShowCollBasedOnLanguageYes.Location = new Point(270, 63);
+			btnShowCollBasedOnLanguageYes.Location = new Point(294, 59);
 			btnShowCollBasedOnLanguageYes.Name = "btnShowCollBasedOnLanguageYes";
 			btnShowCollBasedOnLanguageYes.Size = new Size(40, 30);
 			btnShowCollBasedOnLanguageYes.TabIndex = 16;
 			btnShowCollBasedOnLanguageYes.Text = "YES";
-			btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = false;
+			btnShowCollBasedOnLanguageYes.UseVisualStyleBackColor = true;
 			btnShowCollBasedOnLanguageYes.Click += btnShowCollBasedOnLanguageYes_Click;
 			// 
 			// btnLanguageEn
@@ -1750,12 +1518,261 @@
 			// lblShowCollByLanguage
 			// 
 			lblShowCollByLanguage.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblShowCollByLanguage.Location = new Point(8, 58);
+			lblShowCollByLanguage.Location = new Point(8, 57);
 			lblShowCollByLanguage.Name = "lblShowCollByLanguage";
-			lblShowCollByLanguage.Size = new Size(256, 40);
+			lblShowCollByLanguage.Size = new Size(280, 40);
 			lblShowCollByLanguage.TabIndex = 7;
 			lblShowCollByLanguage.Text = "Show collections based on language";
 			lblShowCollByLanguage.TextAlign = ContentAlignment.MiddleLeft;
+			// 
+			// gbThemeSettings
+			// 
+			gbThemeSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbThemeSettings.Controls.Add(btnNightMode);
+			gbThemeSettings.Controls.Add(lblOpacityPercent);
+			gbThemeSettings.Controls.Add(lblOpacity);
+			gbThemeSettings.Controls.Add(tbOpacity);
+			gbThemeSettings.Controls.Add(btnTheme1);
+			gbThemeSettings.Controls.Add(btnTheme2);
+			gbThemeSettings.Controls.Add(btnTheme3);
+			gbThemeSettings.Controls.Add(btnTheme6);
+			gbThemeSettings.Controls.Add(btnTheme5);
+			gbThemeSettings.Controls.Add(btnTheme4);
+			gbThemeSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbThemeSettings.Location = new Point(3, 122);
+			gbThemeSettings.Name = "gbThemeSettings";
+			gbThemeSettings.Size = new Size(385, 113);
+			gbThemeSettings.TabIndex = 20;
+			gbThemeSettings.TabStop = false;
+			gbThemeSettings.Text = "Theme";
+			// 
+			// btnNightMode
+			// 
+			btnNightMode.BackColor = Color.DimGray;
+			btnNightMode.FlatStyle = FlatStyle.Flat;
+			btnNightMode.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+			btnNightMode.ForeColor = SystemColors.ButtonFace;
+			btnNightMode.Location = new Point(298, 17);
+			btnNightMode.Name = "btnNightMode";
+			btnNightMode.Size = new Size(78, 40);
+			btnNightMode.TabIndex = 37;
+			btnNightMode.Text = "Night Mode";
+			btnNightMode.UseVisualStyleBackColor = false;
+			btnNightMode.Visible = false;
+			btnNightMode.Click += btnNightMode_Click;
+			// 
+			// lblOpacityPercent
+			// 
+			lblOpacityPercent.AutoSize = true;
+			lblOpacityPercent.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblOpacityPercent.Location = new Point(11, 85);
+			lblOpacityPercent.Name = "lblOpacityPercent";
+			lblOpacityPercent.Size = new Size(33, 18);
+			lblOpacityPercent.TabIndex = 21;
+			lblOpacityPercent.Text = "90%";
+			// 
+			// lblOpacity
+			// 
+			lblOpacity.AutoSize = true;
+			lblOpacity.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblOpacity.Location = new Point(6, 64);
+			lblOpacity.Name = "lblOpacity";
+			lblOpacity.Size = new Size(55, 18);
+			lblOpacity.TabIndex = 20;
+			lblOpacity.Text = "Opacity";
+			// 
+			// tbOpacity
+			// 
+			tbOpacity.LargeChange = 1;
+			tbOpacity.Location = new Point(67, 64);
+			tbOpacity.Minimum = 1;
+			tbOpacity.Name = "tbOpacity";
+			tbOpacity.Size = new Size(309, 45);
+			tbOpacity.TabIndex = 15;
+			tbOpacity.Value = 2;
+			tbOpacity.Scroll += tbOpacity_Scroll;
+			// 
+			// btnTheme1
+			// 
+			btnTheme1.BackColor = Color.SlateGray;
+			btnTheme1.FlatAppearance.BorderSize = 0;
+			btnTheme1.FlatStyle = FlatStyle.Flat;
+			btnTheme1.Location = new Point(11, 17);
+			btnTheme1.Name = "btnTheme1";
+			btnTheme1.Size = new Size(40, 40);
+			btnTheme1.TabIndex = 9;
+			btnTheme1.UseVisualStyleBackColor = false;
+			btnTheme1.Click += btnTheme1_Click;
+			// 
+			// btnTheme2
+			// 
+			btnTheme2.BackColor = Color.SteelBlue;
+			btnTheme2.FlatAppearance.BorderSize = 0;
+			btnTheme2.FlatStyle = FlatStyle.Flat;
+			btnTheme2.Location = new Point(59, 17);
+			btnTheme2.Name = "btnTheme2";
+			btnTheme2.Size = new Size(40, 40);
+			btnTheme2.TabIndex = 10;
+			btnTheme2.UseVisualStyleBackColor = false;
+			btnTheme2.Click += btnTheme2_Click;
+			// 
+			// btnTheme3
+			// 
+			btnTheme3.BackColor = Color.Green;
+			btnTheme3.FlatAppearance.BorderSize = 0;
+			btnTheme3.FlatStyle = FlatStyle.Flat;
+			btnTheme3.Location = new Point(107, 17);
+			btnTheme3.Name = "btnTheme3";
+			btnTheme3.Size = new Size(40, 40);
+			btnTheme3.TabIndex = 11;
+			btnTheme3.UseVisualStyleBackColor = false;
+			btnTheme3.Click += btnTheme3_Click;
+			// 
+			// btnTheme6
+			// 
+			btnTheme6.BackColor = Color.IndianRed;
+			btnTheme6.FlatAppearance.BorderSize = 0;
+			btnTheme6.FlatStyle = FlatStyle.Flat;
+			btnTheme6.Location = new Point(252, 17);
+			btnTheme6.Name = "btnTheme6";
+			btnTheme6.Size = new Size(40, 40);
+			btnTheme6.TabIndex = 13;
+			btnTheme6.UseVisualStyleBackColor = false;
+			btnTheme6.Click += btnTheme6_Click;
+			// 
+			// btnTheme5
+			// 
+			btnTheme5.BackColor = Color.LightCoral;
+			btnTheme5.FlatAppearance.BorderSize = 0;
+			btnTheme5.FlatStyle = FlatStyle.Flat;
+			btnTheme5.Location = new Point(204, 17);
+			btnTheme5.Name = "btnTheme5";
+			btnTheme5.Size = new Size(40, 40);
+			btnTheme5.TabIndex = 14;
+			btnTheme5.UseVisualStyleBackColor = false;
+			btnTheme5.Click += btnTheme5_Click;
+			// 
+			// btnTheme4
+			// 
+			btnTheme4.BackColor = Color.DarkOrange;
+			btnTheme4.FlatAppearance.BorderSize = 0;
+			btnTheme4.FlatStyle = FlatStyle.Flat;
+			btnTheme4.Location = new Point(155, 17);
+			btnTheme4.Name = "btnTheme4";
+			btnTheme4.Size = new Size(40, 40);
+			btnTheme4.TabIndex = 12;
+			btnTheme4.UseVisualStyleBackColor = false;
+			btnTheme4.Click += btnTheme4_Click;
+			// 
+			// gbOtherSettings
+			// 
+			gbOtherSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			gbOtherSettings.Controls.Add(lblUpdateMode);
+			gbOtherSettings.Controls.Add(cbUpdateMode);
+			gbOtherSettings.Controls.Add(btnStartWithWindowsNo);
+			gbOtherSettings.Controls.Add(btnStartWithWindowsYes);
+			gbOtherSettings.Controls.Add(lblStartWithWindows);
+			gbOtherSettings.Controls.Add(btnShowWelcomeMsgNo);
+			gbOtherSettings.Controls.Add(btnShowWelcomeMsgYes);
+			gbOtherSettings.Controls.Add(lblShowWelcomeMsg);
+			gbOtherSettings.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			gbOtherSettings.Location = new Point(3, 241);
+			gbOtherSettings.Name = "gbOtherSettings";
+			gbOtherSettings.Size = new Size(385, 153);
+			gbOtherSettings.TabIndex = 21;
+			gbOtherSettings.TabStop = false;
+			gbOtherSettings.Text = "Other";
+			// 
+			// lblUpdateMode
+			// 
+			lblUpdateMode.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblUpdateMode.Location = new Point(6, 96);
+			lblUpdateMode.Name = "lblUpdateMode";
+			lblUpdateMode.Size = new Size(112, 18);
+			lblUpdateMode.TabIndex = 36;
+			lblUpdateMode.Text = "Updates";
+			lblUpdateMode.TextAlign = ContentAlignment.MiddleLeft;
+			// 
+			// cbUpdateMode
+			// 
+			cbUpdateMode.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbUpdateMode.Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			cbUpdateMode.FormattingEnabled = true;
+			cbUpdateMode.Location = new Point(140, 92);
+			cbUpdateMode.Name = "cbUpdateMode";
+			cbUpdateMode.Size = new Size(236, 27);
+			cbUpdateMode.TabIndex = 36;
+			cbUpdateMode.SelectedValueChanged += cbUpdateMode_SelectedValueChanged;
+			// 
+			// btnStartWithWindowsNo
+			// 
+			btnStartWithWindowsNo.FlatAppearance.BorderSize = 0;
+			btnStartWithWindowsNo.FlatStyle = FlatStyle.Flat;
+			btnStartWithWindowsNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnStartWithWindowsNo.Location = new Point(336, 52);
+			btnStartWithWindowsNo.Name = "btnStartWithWindowsNo";
+			btnStartWithWindowsNo.Size = new Size(40, 30);
+			btnStartWithWindowsNo.TabIndex = 20;
+			btnStartWithWindowsNo.Text = "NO";
+			btnStartWithWindowsNo.UseVisualStyleBackColor = true;
+			btnStartWithWindowsNo.Click += btnStartWithWindowsNo_Click;
+			// 
+			// btnStartWithWindowsYes
+			// 
+			btnStartWithWindowsYes.FlatStyle = FlatStyle.Flat;
+			btnStartWithWindowsYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnStartWithWindowsYes.Location = new Point(294, 52);
+			btnStartWithWindowsYes.Name = "btnStartWithWindowsYes";
+			btnStartWithWindowsYes.Size = new Size(40, 30);
+			btnStartWithWindowsYes.TabIndex = 21;
+			btnStartWithWindowsYes.Text = "YES";
+			btnStartWithWindowsYes.UseVisualStyleBackColor = true;
+			btnStartWithWindowsYes.Click += btnStartWithWindowsYes_Click;
+			// 
+			// lblStartWithWindows
+			// 
+			lblStartWithWindows.AutoSize = true;
+			lblStartWithWindows.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblStartWithWindows.Location = new Point(6, 58);
+			lblStartWithWindows.Name = "lblStartWithWindows";
+			lblStartWithWindows.Size = new Size(127, 18);
+			lblStartWithWindows.TabIndex = 19;
+			lblStartWithWindows.Text = "Start with windows";
+			// 
+			// btnShowWelcomeMsgNo
+			// 
+			btnShowWelcomeMsgNo.FlatAppearance.BorderSize = 0;
+			btnShowWelcomeMsgNo.FlatStyle = FlatStyle.Flat;
+			btnShowWelcomeMsgNo.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowWelcomeMsgNo.Location = new Point(336, 16);
+			btnShowWelcomeMsgNo.Name = "btnShowWelcomeMsgNo";
+			btnShowWelcomeMsgNo.Size = new Size(40, 30);
+			btnShowWelcomeMsgNo.TabIndex = 18;
+			btnShowWelcomeMsgNo.Text = "NO";
+			btnShowWelcomeMsgNo.UseVisualStyleBackColor = true;
+			btnShowWelcomeMsgNo.Click += btnShowWelcomeMsgNo_Click;
+			// 
+			// btnShowWelcomeMsgYes
+			// 
+			btnShowWelcomeMsgYes.FlatStyle = FlatStyle.Flat;
+			btnShowWelcomeMsgYes.Font = new Font("Calibri", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+			btnShowWelcomeMsgYes.Location = new Point(294, 16);
+			btnShowWelcomeMsgYes.Name = "btnShowWelcomeMsgYes";
+			btnShowWelcomeMsgYes.Size = new Size(40, 30);
+			btnShowWelcomeMsgYes.TabIndex = 18;
+			btnShowWelcomeMsgYes.Text = "YES";
+			btnShowWelcomeMsgYes.UseVisualStyleBackColor = true;
+			btnShowWelcomeMsgYes.Click += btnShowWelcomeMsgYes_Click;
+			// 
+			// lblShowWelcomeMsg
+			// 
+			lblShowWelcomeMsg.AutoSize = true;
+			lblShowWelcomeMsg.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblShowWelcomeMsg.Location = new Point(6, 22);
+			lblShowWelcomeMsg.Name = "lblShowWelcomeMsg";
+			lblShowWelcomeMsg.Size = new Size(159, 18);
+			lblShowWelcomeMsg.TabIndex = 18;
+			lblShowWelcomeMsg.Text = "Show welcome message";
 			// 
 			// txtStatus
 			// 
@@ -1939,18 +1956,17 @@
 			panel7.ResumeLayout(false);
 			panel8.ResumeLayout(false);
 			tabPage3.ResumeLayout(false);
-			tabBasicSettings.ResumeLayout(false);
-			tabPage4.ResumeLayout(false);
+			tableLayoutPanel4.ResumeLayout(false);
 			gbQuotesSettings.ResumeLayout(false);
 			gbQuotesSettings.PerformLayout();
 			panel3.ResumeLayout(false);
 			panel3.PerformLayout();
-			gbOtherSettings.ResumeLayout(false);
-			gbOtherSettings.PerformLayout();
+			gbLanguageSettings.ResumeLayout(false);
 			gbThemeSettings.ResumeLayout(false);
 			gbThemeSettings.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)tbOpacity).EndInit();
-			gbLanguageSettings.ResumeLayout(false);
+			gbOtherSettings.ResumeLayout(false);
+			gbOtherSettings.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)pbBackgroundTask).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
 			pnlStatusBar.ResumeLayout(false);
@@ -1990,49 +2006,15 @@
 		private TabPage tabPage2;
 		private TabPage tabPage3;
 		private LineNumbers.LineNumbers_For_RichTextBox lineNumbers_For_RichTextBox1;
-		private Label lblShowCollByLanguage;
-		private TextBox txtQuotesInterval;
-		private Button btnTheme5;
-		private Button btnTheme6;
-		private Button btnTheme4;
-		private Button btnTheme3;
-		private Button btnTheme2;
-		private Button btnTheme1;
-		private TabControl tabBasicSettings;
-		private TabPage tabPage4;
-		private GroupBox gbThemeSettings;
-		private Label lblQuotesFrequencyTime;
-		private Label lblQuotesFrequency;
-		private GroupBox gbLanguageSettings;
-		private Button btnShowCollBasedOnLanguageNo;
-		private Button btnLanguageRo;
-		private Button btnShowCollBasedOnLanguageYes;
-		private Button btnLanguageEn;
-		private Label lblOpacityPercent;
-		private Label lblOpacity;
-		private TrackBar tbOpacity;
 		private GroupBox gbOtherSettings;
 		private Button btnShowWelcomeMsgNo;
 		private Button btnShowWelcomeMsgYes;
 		private Label lblShowWelcomeMsg;
 		private Button btnAddFirstChapter;
 		private Button btnAddFirstBook;
-		private GroupBox gbQuotesSettings;
-		private Button btnAlwaysOnNotifications;
-		private Button btnPopupNotifications;
-		private Label lblNotificationType;
 		private CheckedListBox clbCollections;
 		private CheckedListBox clbChapters;
 		private CheckedListBox clbBooks;
-		private Label lblNotificationLocation;
-		private Panel panel3;
-		private RadioButton rbAnimTopRight;
-		private RadioButton rbAnimBottomRight;
-		private RadioButton rbAnimBottomLeft;
-		private RadioButton rbAnimTopLeft;
-		private Label lblQuotesAutocloseTime;
-		private TextBox txtQuotesAutoCloseInterval;
-		private Label lblQuotesAutocloseInterval;
 		private Button btnImport;
 		private Button btnExportCollection;
 		private GroupBox gbImport;
@@ -2053,11 +2035,7 @@
 		private Label lblQuotesExcludeChars;
 		private CheckBox chkImportMerge;
 		private Panel pnlSelectedTab;
-		private Button btnNotificationFont;
-		private Label lblNotificationFont;
 		private TextBox textBox1;
-		private TextBox txtSelectedFont;
-		private Button btnLanguageFr;
 		private CheckBox chkWordWrap;
 		private PictureBox pbBackgroundTask;
 		private Label lblBackgroundTask;
@@ -2066,9 +2044,6 @@
 		private Button btnStartWithWindowsNo;
 		private Button btnStartWithWindowsYes;
 		private Label lblStartWithWindows;
-		private Button btnPlayNotificationSound;
-		private Label lblNotificationSound;
-		private ComboBox cbNotificationSound;
 		private TextBox txtQuotesReplaceCharsReplacement;
 		private Label lblQuotesReplaceChars;
 		private TextBox txtQuotesReplaceChars;
@@ -2093,5 +2068,46 @@
 		private Label lblUpdateMode;
 		private ComboBox cbUpdateMode;
 		private Label lblVersion;
+		private TableLayoutPanel tableLayoutPanel4;
+		private GroupBox gbQuotesSettings;
+		private ComboBox cbNotificationSound;
+		private Label lblNotificationFont;
+		private Button btnPlayNotificationSound;
+		private TextBox txtSelectedFont;
+		private Label lblNotificationSound;
+		private Button btnNotificationFont;
+		private Label lblQuotesAutocloseTime;
+		private TextBox txtQuotesAutoCloseInterval;
+		private Label lblQuotesAutocloseInterval;
+		private Label lblNotificationLocation;
+		private Panel panel3;
+		private RadioButton rbAnimTopRight;
+		private RadioButton rbAnimBottomRight;
+		private RadioButton rbAnimBottomLeft;
+		private RadioButton rbAnimTopLeft;
+		private Label lblQuotesFrequencyTime;
+		private Button btnAlwaysOnNotifications;
+		private TextBox txtQuotesInterval;
+		private Label lblQuotesFrequency;
+		private Button btnPopupNotifications;
+		private Label lblNotificationType;
+		private GroupBox gbLanguageSettings;
+		private Button btnLanguageFr;
+		private Button btnShowCollBasedOnLanguageNo;
+		private Button btnLanguageRo;
+		private Button btnShowCollBasedOnLanguageYes;
+		private Button btnLanguageEn;
+		private Label lblShowCollByLanguage;
+		private GroupBox gbThemeSettings;
+		private Label lblOpacityPercent;
+		private Label lblOpacity;
+		private TrackBar tbOpacity;
+		private Button btnTheme1;
+		private Button btnTheme2;
+		private Button btnTheme3;
+		private Button btnTheme6;
+		private Button btnTheme5;
+		private Button btnTheme4;
+		private Button btnNightMode;
 	}
 }

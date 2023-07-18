@@ -260,6 +260,18 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public bool IsNightMode
+		{
+			get
+			{
+				return Get<bool>(nameof(IsNightMode));
+			}
+			set
+			{
+				Set<bool>(nameof(IsNightMode), value);
+			}
+		}
+
 		public bool IsStartWithWindows
 		{
 			get
