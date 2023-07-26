@@ -2,6 +2,7 @@
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Data;
+using Quoter.Framework.Data.Repositories;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
@@ -54,34 +55,45 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;
-		private readonly ICollectionService _collectionService;
-		private readonly ICommonStrategyService _commonStrategyService;
+		private readonly ICollectionRepository _collectionRepo;
+		private readonly ICommonImportService _commonStrategyService;
 
 		public MergeImportStrategyService(
 			QuoterContext context,
 			ILogger logger,
-			ICollectionService collectionService,
-			ICommonStrategyService commonStrategyService)
+			ICollectionRepository collectionRepo,
+			ICommonImportService commonStrategyService)
 		{
 			_context = context;
 			_logger = logger;
-			_collectionService = collectionService;
+			_collectionRepo = collectionRepo;
 			_commonStrategyService = commonStrategyService;
 		}
 
 		public async Task ImportAsync(ImportExportModel importModel, ImportParameters importParameters)
 		{
-			// Import collections
-			await ImportCollectionsAsync(importModel, importParameters);
+			try
+			{
+				// Import collections
+				await ImportCollectionsAsync(importModel, importParameters);
 
-			// Import books
-			await ImportBooksAsync(importModel, importParameters);
+				// Import books
+				await ImportBooksAsync(importModel, importParameters);
 
-			// Import chapters
-			await ImportChaptersAsync(importModel, importParameters);
+				// Import chapters
+				await ImportChaptersAsync(importModel, importParameters);
 
-			// Import quotes
-			await ImportQuotesAsync(importModel);
+				// Import quotes
+				await ImportQuotesAsync(importModel);
+			}
+			finally
+			{
+				await _collectionRepo.DeleteImportIdsAsync();
+				// On subsequent runs (if this is instantitated only once)
+				// all entities will be tracked and we'll have FK errors when updating entities
+				// So clear all tracked entities to be sure to not have any issues.
+				_context.ChangeTracker.Clear();
+			}
 		}
 
 		private async Task ImportCollectionsAsync(ImportExportModel importModel, ImportParameters importParameters)
@@ -134,9 +146,10 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 					.Where(b => b.CollectionId == bookModel.CollectionId && b.Name == bookModel.Name)
 					.FirstOrDefaultAsync();
 
-				if(existingBook != null)
+				if (existingBook != null)
 				{
 					existingBook.ImportBookId = bookModel.BookId;
+					existingBook.Description = bookModel.Description;
 				}
 				else
 				{
@@ -150,7 +163,10 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 					});
 				}
 			}
-			_context.Books.AddRange(booksToAdd);
+			if (booksToAdd.Any())
+			{
+				_context.Books.AddRange(booksToAdd);
+			}
 			await _context.SaveChangesAsync();
 			await _commonStrategyService.UpdateChaptersReferencesToBooksIdsFromImportIds(importModel.Chapters);
 			await _commonStrategyService.UpdateQuotesReferencesToBooksIdsFromImportIds(importModel.Quotes);
@@ -159,14 +175,15 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 		private async Task ImportChaptersAsync(ImportExportModel importModel, ImportParameters importParameters)
 		{
 			List<Chapter> chaptersToAdd = new();
-			foreach(ChapterModel chapterModel in importModel.Chapters)
+			foreach (ChapterModel chapterModel in importModel.Chapters)
 			{
 				Chapter? existingChapter = await _context.Chapters
 					.Where(c => c.BookId == chapterModel.BookId && c.Name == chapterModel.Name)
 					.FirstOrDefaultAsync();
-				if(existingChapter != null)
+				if (existingChapter != null)
 				{
 					existingChapter.ImportChapterId = chapterModel.ChapterId;
+					existingChapter.Description = chapterModel.Description;
 				}
 				else
 				{
@@ -180,7 +197,10 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 					});
 				}
 			}
-			_context.Chapters.AddRange(chaptersToAdd);
+			if (chaptersToAdd.Any())
+			{
+				_context.Chapters.AddRange(chaptersToAdd);
+			}
 			await _context.SaveChangesAsync();
 			await _commonStrategyService.UpdateQuotesReferencesToChaptersIdsFromImportIds(importModel.Quotes);
 		}
@@ -203,7 +223,7 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 				int? bookId = quoteModels.First().BookId;
 				int? chapterId = quoteModels.First().ChapterId;
 
-				await _collectionService.DeleteQuotesAsync(collectionId, bookId, chapterId);
+				await _collectionRepo.DeleteQuotesAsync(collectionId, bookId, chapterId);
 				_context.Quotes.AddRange(quoteModels
 					.Select(quoteModel => new Quote()
 					{

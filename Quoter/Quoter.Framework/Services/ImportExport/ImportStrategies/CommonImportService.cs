@@ -1,26 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
+using Quoter.Framework.Data.Repositories;
 using Quoter.Framework.Models.ImportExport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
-	public class CommonStrategyService : ICommonStrategyService
+	public class CommonImportService : ICommonImportService
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;
-		private readonly ICollectionService _collectionService;
+		private readonly ICollectionRepository _collectionRepo;
 
-		public CommonStrategyService(QuoterContext context, ILogger logger,
-			ICollectionService collectionService)
+		public CommonImportService(QuoterContext context, ILogger logger,
+			ICollectionRepository collectionService)
 		{
 			_context = context;
 			_logger = logger;
-			_collectionService = collectionService;
+			_collectionRepo = collectionService;
 		}
 
 		public void UpdateBooksCollectionIdReferences(List<BookModel> lstBookModels, int currentCollectionId, int newCollectionId)

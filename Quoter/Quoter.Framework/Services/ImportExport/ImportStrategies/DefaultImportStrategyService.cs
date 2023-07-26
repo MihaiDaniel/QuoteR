@@ -1,4 +1,5 @@
 ﻿using Quoter.Framework.Data;
+using Quoter.Framework.Data.Repositories;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 
@@ -13,34 +14,42 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;
-		private readonly ICollectionService _collectionService;
-		private readonly ICommonStrategyService _commonStrategyService;
+		private readonly ICollectionRepository _collectionRepo;
+		private readonly ICommonImportService _commonStrategyService;
 
 		public DefaultImportStrategyService(
 			QuoterContext context,
 			ILogger logger,
-			ICollectionService collectionService,
-			ICommonStrategyService commonStrategyService)
+			ICollectionRepository collectionRepo,
+			ICommonImportService commonStrategyService)
 		{
 			_context = context;
 			_logger = logger;
-			_collectionService = collectionService;
+			_collectionRepo = collectionRepo;
 			_commonStrategyService = commonStrategyService;
 		}
 
 		public async Task ImportAsync(ImportExportModel importModel, ImportParameters importParameters)
 		{
-			// Import collections
-			await ImportCollectionsAsync(importModel, importParameters);
+			try
+			{
+				// Import collections
+				await ImportCollectionsAsync(importModel, importParameters);
 
-			// Import books
-			await ImportBooksAsync(importModel, importParameters);
+				// Import books
+				await ImportBooksAsync(importModel, importParameters);
 
-			// Import chapters
-			await ImportChaptersAsync(importModel, importParameters);
+				// Import chapters
+				await ImportChaptersAsync(importModel, importParameters);
 
-			// Import quotes
-			await ImportQuotesAsync(importModel);
+				// Import quotes
+				await ImportQuotesAsync(importModel);
+			}
+			finally
+			{
+				await _collectionRepo.DeleteImportIdsAsync();
+				_context.ChangeTracker.Clear();
+			}
 		}
 
 		private async Task ImportCollectionsAsync(ImportExportModel importModel, ImportParameters importParameters)
@@ -55,7 +64,7 @@ namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 				{
 					collectionModel.IsFavourite = true;
 				}
-				collectionModel.Name = await _collectionService.GetUniqueCollectionNameAsync(collectionModel.Name);
+				collectionModel.Name = await _collectionRepo.GetUniqueCollectionNameAsync(collectionModel.Name);
 				Collection addedCollection = await AddCollectionAsync(collectionModel);
 				_commonStrategyService.UpdateBooksCollectionIdReferences(importModel.Books, collectionModel.CollectionId, addedCollection.CollectionId);
 				_commonStrategyService.UpdateQuotesCollectionIdReferences(importModel.Quotes, collectionModel.CollectionId, addedCollection.CollectionId);

@@ -13,6 +13,7 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.App.Views;
 using Quoter.Framework.Data;
+using Quoter.Framework.Data.Repositories;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.DependencyInjection;
@@ -116,8 +117,8 @@ namespace Quoter.App
 			serviceCollection.AddTransient<IRegistrationService, RegistrationService>();
 			serviceCollection.AddTransient<IVersionService, VersionService>();
 			serviceCollection.AddTransient<IUpdateService, UpdateService>();
-			serviceCollection.AddTransient<ICollectionService, CollectionService>();
-			serviceCollection.AddTransient<ICommonStrategyService, CommonStrategyService>();
+			serviceCollection.AddTransient<ICollectionRepository, CollectionRepository>();
+			serviceCollection.AddTransient<ICommonImportService, CommonImportService>();
 
 			// Database
 			serviceCollection.AddTransient<QuoterContext>(GetContextConnectionString());

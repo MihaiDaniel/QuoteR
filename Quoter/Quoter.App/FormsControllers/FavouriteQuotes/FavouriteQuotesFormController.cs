@@ -17,6 +17,7 @@ using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
@@ -38,6 +39,8 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		private readonly IImportService _importService;
 		private readonly ISettings _settings;
 		private readonly IMessagingService _messagingService;
+		private readonly ILogger _logger;
+
 		private IFavouriteQuotesForm _form;
 
 		public BindingList<Collection> Collections { get; private set; }
@@ -53,7 +56,8 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			ISettings settings,
 			IExportService exportService,
 			IImportService importService,
-			IMessagingService messagingService)
+			IMessagingService messagingService,
+			ILogger logger)
 		{
 			_context = context;
 			_stringResources = stringResources;
@@ -66,6 +70,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			Collections = new BindingList<Collection>();
 			Books = new BindingList<Book>();
 			Chapters = new BindingList<Chapter>();
+			_logger = logger;
 		}
 
 		public void RegisterForm(IFavouriteQuotesForm form)
@@ -394,6 +399,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			openFileDialog.Filter = "Quoter file (.qter) |*.qter";
 			openFileDialog.Multiselect = true;
 			openFileDialog.Title = _stringResources["ChooseImportFilename"];
+			openFileDialog.AutoUpgradeEnabled = false; // if it's true it seems to be very slow
 			DialogResult result = openFileDialog.ShowDialog();
 			if (result != DialogResult.OK)
 			{
@@ -417,7 +423,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			}
 
 			_formsManager.ShowDialogOk(_stringResources["Importing"], _stringResources["ImportingInBackground"]);
-			ImportParameters importParameters = new ImportParameters()
+			ImportParameters importParameters = new()
 			{
 				Files = fileNames,
 				IsIgnoreLanguage = isImportIgnoreLang,
@@ -425,7 +431,6 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				Language = LanguageHelper.GetEnumLanguageFromString(_settings.Language)
 			};
 			_importService.QueueImportJob(importParameters);
-
 		}
 
 	}

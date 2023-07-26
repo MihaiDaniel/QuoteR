@@ -1,20 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
-using Quoter.Framework.Models.ImportExport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Quoter.Framework.Services
+namespace Quoter.Framework.Data.Repositories
 {
-	public class CollectionService : ICollectionService
+	public class CollectionRepository : ICollectionRepository
 	{
 		private readonly QuoterContext _context;
 
-		public CollectionService(QuoterContext context)
+		public CollectionRepository(QuoterContext context)
 		{
 			_context = context;
 		}
@@ -42,6 +35,12 @@ namespace Quoter.Framework.Services
 		{
 			await _context.Database.ExecuteSqlRawAsync(
 						$"DELETE FROM {nameof(_context.Collections)} WHERE {nameof(Collection.CollectionId)} = {collectionId}");
+		}
+
+		public async Task DeleteImportIdsAsync()
+		{
+			await _context.Database.ExecuteSqlRawAsync($"UPDATE {nameof(_context.Books)} SET {nameof(Book.ImportBookId)} = null ");
+			await _context.Database.ExecuteSqlRawAsync($"UPDATE {nameof(_context.Chapters)} SET {nameof(Chapter.ImportChapterId)} = null ");
 		}
 
 		public async Task<string> GetUniqueCollectionNameAsync(string collectionName)

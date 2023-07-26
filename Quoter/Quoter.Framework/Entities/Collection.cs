@@ -19,7 +19,7 @@ namespace Quoter.Framework.Entities
 		/// The language of the collection. Normally it would be the app language
 		/// under which the collection was added.
 		/// </summary>
-		public EnumLanguage? Language { get; set; } 
+		public EnumLanguage? Language { get; set; }
 
 		#region FK
 

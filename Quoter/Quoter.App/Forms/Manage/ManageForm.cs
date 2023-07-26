@@ -406,6 +406,7 @@ namespace Quoter.App.Forms
 			gbOtherSettings.BackColor = theme.BodyColor;
 			gbQuotesSettings.BackColor = theme.BodyColor;
 			pnlStatusBar.BackColor = theme.BodyColor;
+			txtStatus.BackColor = theme.BodyColor;
 			pnlTitle.BackColor = theme.TitleColor;
 			pnlSelectedTab.BackColor = theme.TitleColor;
 			btnMinimize.FlatAppearance.MouseOverBackColor = theme.HighlightColor;

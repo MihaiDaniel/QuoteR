@@ -1,13 +1,8 @@
 ﻿using Quoter.Framework.Models.ImportExport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
-	public interface ICommonStrategyService
+	public interface ICommonImportService
 	{
 		void UpdateBooksCollectionIdReferences(List<BookModel> lstBookModels, int currentCollectionId, int newCollectionId);
 
