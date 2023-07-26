@@ -2,6 +2,7 @@
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Services.Api;
+using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
 using Quoter.Shared.Models;
 using System.Diagnostics;
@@ -19,18 +20,21 @@ namespace Quoter.Framework.Services.Versioning
 		private readonly IWebApiService _webApiService;
 		private readonly IVersionService _versionService;
 		private readonly QuoterContext _context;
+		private readonly IMessagingService _messagingService;
 
 		public UpdateService(ILogger logger,
 							IRegistrationService registrationService,
 							IWebApiService webApiService,
 							IVersionService versionService,
-							QuoterContext context)
+							QuoterContext context,
+							IMessagingService messagingService)
 		{
 			_logger = logger;
 			_registrationService = registrationService;
 			_webApiService = webApiService;
 			_versionService = versionService;
 			_context = context;
+			_messagingService = messagingService;
 		}
 
 		public async Task<bool> VerifyIfNewVersionAvailable()
@@ -42,6 +46,7 @@ namespace Quoter.Framework.Services.Versioning
 					_logger.Warn("Can't check if new version is available because application is not registered.");
 					return false;
 				}
+
 				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
 				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 
@@ -86,6 +91,7 @@ namespace Quoter.Framework.Services.Versioning
 					_logger.Warn("Can't update because application is not registered.");
 					return;
 				}
+
 				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
 				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 
@@ -94,6 +100,8 @@ namespace Quoter.Framework.Services.Versioning
 					ActionResult result = await DownloadVersionAsync(latestVersion);
 					if (result.IsSuccess)
 					{
+						await WaitForBackgroundTasksToFinish();
+
 						_logger.Info("Downloaded update file. Starting updater...");
 						string updaterExePath = GetUpdaterAppExePath();
 						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>(), isSilent);
@@ -105,6 +113,27 @@ namespace Quoter.Framework.Services.Versioning
 			{
 				_logger.Error(ex);
 			}
+		}
+
+		private async Task WaitForBackgroundTasksToFinish()
+		{
+			DateTime startWait = DateTime.Now;
+			DateTime endWait = startWait.AddHours(1);
+			while (DateTime.Now < endWait)
+			{
+				if (_messagingService.ExistsAnnouncement(Event.ImportInProgress))
+				{
+					await Task.Delay(1000);
+					continue;
+				};
+				if (_messagingService.ExistsAnnouncement(Event.ExportInProgress))
+				{
+					await Task.Delay(1000);
+					continue;
+				};
+				return;
+			}
+			throw new Exception("WaitForBackgroundTasksToFinish has not completed succesfully. Import/Export tasks seem to be still working after 1 hour");
 		}
 
 		private async Task<ActionResult> DownloadVersionAsync(QuoterVersionInfo latestVersion)
