@@ -12,7 +12,7 @@ namespace Quoter.App.Forms
 	/// <summary>
 	/// Dialog form to show errors or simple choices. Expects a <see cref="Dialog_options"/>
 	/// </summary>
-	public partial class DialogMessageForm : Form, IDialogReturnable
+	public partial class DialogMessageForm : Form, IDialogResult
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;

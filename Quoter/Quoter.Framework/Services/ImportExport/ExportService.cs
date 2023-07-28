@@ -4,15 +4,16 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Shared.Models;
 using System.Reflection;
 using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
 {
-    /// <summary>
-    /// <see cref="IExportService"/> implementation
-    /// </summary>
-    public class ExportService : IExportService
+	/// <summary>
+	/// <see cref="IExportService"/> implementation
+	/// </summary>
+	public class ExportService : IExportService
 	{
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;
@@ -73,7 +74,7 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					queryCollections = queryCollections.Where(c => c.IsFavourite == true);
 				}
-				if(exportParameters.Language != null)
+				if (exportParameters.Language != null)
 				{
 					queryCollections = queryCollections.Where(c => c.Language == exportParameters.Language);
 				}
@@ -86,16 +87,16 @@ namespace Quoter.Framework.Services.ImportExport
 				string content = JsonConvert.SerializeObject(exportModel);
 				await File.WriteAllTextAsync(exportParameters.ExportFilePath, content);
 
-				announcement.Remove();
-				_messagingService.SendMessage(Event.ExportSucessfull, exportParameters.ExportFilePath);
+				_messagingService.SendMessage(Event.ExportSucessfull, new ActionResult(true, exportParameters.ExportFilePath));
 			}
 			catch (Exception ex)
 			{
-				announcement.Remove();
+				
 				_messagingService.SendMessage(Event.ExportFailed, ex.Message);
 			}
 			finally
 			{
+				announcement.Remove();
 				IsExportInProgress = false;
 			}
 		}

@@ -55,7 +55,7 @@ namespace Quoter.App
 				Message = "Acesta este un mesaj",
 				Title = "Acesta este un titlu"
 			};
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(dialogModel);
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(dialogModel);
 			if(result.DialogResult== DialogResult.OK)
 			{
 				lblTopBar.Text = result.StringResult;

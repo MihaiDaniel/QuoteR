@@ -19,7 +19,7 @@ namespace Quoter.App.Services.Forms
 		/// </summary>
 		/// <typeparam name="TForm">Type of form to show</typeparam>
 		/// <param name="arrParameters">Optional parameters to pass to the form's constructor if needed</param>
-		IDialogReturnable ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogReturnable;
+		IDialogResult ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogResult;
 
 		/// <summary>
 		/// Shows a form modally as a dialog. Allows for opening of multiple forms of same type.

@@ -283,7 +283,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 
 		public async Task AddCollection()
 		{
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["NewCollection"],
 				Message = _stringResources["NewCollectionName"],
@@ -322,7 +322,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["EditCollection"],
 				Message = _stringResources["EditCollectionMsg"],
@@ -356,7 +356,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
 			{
 				Title = _stringResources["DeleteCollection"],
 				Message = _stringResources["DeleteCollectionMsg", SelectedCollection.Name],
@@ -396,7 +396,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["NewBook"],
 				Message = _stringResources["NewBookName", SelectedCollection.Name],
@@ -467,7 +467,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["EditBook"],
 				Message = _stringResources["EditBookMsg"],
@@ -515,7 +515,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
 			{
 				Title = _stringResources["DeleteBook"],
 				Message = _stringResources["DeleteBookMsg", SelectedBook.Name],
@@ -542,7 +542,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["NewChapter"],
 				Message = _stringResources["NewChapterName", SelectedBook.Name],
@@ -610,7 +610,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogInputForm>(new DialogOptions()
 			{
 				Title = _stringResources["EditChapter"],
 				Message = _stringResources["EditChapterMsg"],
@@ -658,7 +658,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 			{
 				return;
 			}
-			IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
+			IDialogResult result = _formsManager.ShowDialog<DialogMessageForm>(new DialogOptions()
 			{
 				Title = _stringResources["DeleteChapter"],
 				Message = _stringResources["DeleteChapterMsg", SelectedChapter.Name],

@@ -21,12 +21,11 @@ using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.ImportExport.ImportStrategies;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.Versioning;
-using System.Configuration;
 using System.Resources;
 
 namespace Quoter.App
 {
-    internal static class Program
+	internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -96,6 +95,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<ReaderForm>();
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();
+			serviceCollection.AddTransient<DialogExportFinishedForm>();
 
 			// Forms controllers
 			serviceCollection.AddTransient<IManageFormController, ManageFormController>();

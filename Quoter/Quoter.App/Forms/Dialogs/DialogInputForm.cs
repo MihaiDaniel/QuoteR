@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Quoter.App.Forms
 {
-	public partial class DialogInputForm : Form, IDialogReturnable
+	public partial class DialogInputForm : Form, IDialogResult
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;

@@ -69,7 +69,7 @@ namespace Quoter.App.Services.Forms
 		}
 
 		/// <inheritdoc/>
-		public IDialogReturnable ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogReturnable
+		public IDialogResult ShowDialog<TForm>(params object[] arrParameters) where TForm : Form, IDialogResult
 		{
 			_logger.Debug(typeof(TForm).ToString());
 			try
@@ -79,7 +79,7 @@ namespace Quoter.App.Services.Forms
 				form.FormClosing += EventFormClosing;
 				form.ShowDialog();
 
-				IDialogReturnable dialogReturnable = form as IDialogReturnable;
+				IDialogResult dialogReturnable = form as IDialogResult;
 				DialogReturnable result = new(dialogReturnable.DialogResult, dialogReturnable.StringResult);
 				if (!form.IsDisposed)
 				{

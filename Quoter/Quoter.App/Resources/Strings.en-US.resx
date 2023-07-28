@@ -567,4 +567,7 @@
   <data name="ErrCantImportAlreadyInProgress" xml:space="preserve">
     <value>Cannot import as an import is already in progress.</value>
   </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
 </root>

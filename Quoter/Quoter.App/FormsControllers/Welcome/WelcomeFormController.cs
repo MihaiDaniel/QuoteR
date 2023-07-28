@@ -106,7 +106,7 @@ namespace Quoter.App.FormsControllers.Welcome
 					DialogTheme = Enums.DialogOptionsTheme.Warning,
 					MessageBoxButtons = EnumDialogButtons.OkCancel
 				};
-				IDialogReturnable result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
+				IDialogResult result = _formsManager.ShowDialog<DialogMessageForm>(dialogModel);
 				if (result.DialogResult == DialogResult.OK)
 				{
 					Application.Exit();

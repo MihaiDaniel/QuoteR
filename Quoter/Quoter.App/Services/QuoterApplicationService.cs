@@ -93,7 +93,7 @@ namespace Quoter.App.Services
 						bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
 						if (isUpdateAvailable)
 						{
-							IDialogReturnable result = ShowDialogConfirmUpdate();
+							IDialogResult result = ShowDialogConfirmUpdate();
 							if (result.DialogResult == DialogResult.OK)
 							{
 								await _updateService.TryUpdate(isSilent: false);
@@ -145,7 +145,7 @@ namespace Quoter.App.Services
 			_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 		}
 
-		private IDialogReturnable ShowDialogConfirmUpdate()
+		private IDialogResult ShowDialogConfirmUpdate()
 		{
 			DialogOptions options = new()
 			{

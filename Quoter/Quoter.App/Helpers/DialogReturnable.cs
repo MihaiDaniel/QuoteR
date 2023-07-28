@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quoter.App.Helpers
 {
-	public class DialogReturnable : IDialogReturnable
+	public class DialogReturnable : IDialogResult
 	{
 		public DialogResult DialogResult { get; private set; }
 

@@ -15,6 +15,7 @@ using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.Versioning;
 using Quoter.Shared.Models;
+using System.Diagnostics;
 
 namespace Quoter.App
 {
@@ -185,8 +186,9 @@ namespace Quoter.App
 					SetTrayBusyMessage(true);
 					break;
 				case Event.ExportSucessfull:
+					ActionResult exportResult = argument as ActionResult;
+					ShowDialogExportSuccesfull(exportResult);
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
-					_formsManager.ShowDialogOk(_stringResources["ExportSuccessfull"], _stringResources["ExportSuccesfullMsg", argument?.ToString()]);
 					break;
 				case Event.ExportFailed:
 					HideTrayBusyMsgIfAnnouncementNotExists(Event.ImportInProgress);
@@ -370,6 +372,28 @@ namespace Quoter.App
 		private int GetNotificationsIntervalMiliseconds()
 		{
 			return _settings.NotificationIntervalSeconds * 1000;
+		}
+
+		private void ShowDialogExportSuccesfull(ActionResult exportResult)
+		{
+			string fileName = exportResult.GetValue<string>();
+			string directory = Path.GetDirectoryName(fileName);
+			IDialogResult dialogResult = _formsManager.ShowDialog<DialogExportFinishedForm>(new DialogOptions()
+			{
+				Title = _stringResources["ExportSuccessfull"],
+				Message = _stringResources["ExportSuccesfullMsg", fileName]
+			});
+			if (dialogResult.DialogResult == DialogResult.OK)
+			{
+				try
+				{
+					Process.Start("explorer.exe", directory);
+				}
+				catch (Exception ex)
+				{
+					_logger.Error(ex);
+				}
+			}
 		}
 	}
 }
