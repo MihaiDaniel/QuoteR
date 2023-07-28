@@ -30,6 +30,7 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeForm));
 			pnlTitle = new Panel();
+			lblVersion = new Label();
 			pictureBox1 = new PictureBox();
 			lblTitle = new Label();
 			btnClose = new Button();
@@ -84,6 +85,17 @@
 			pnlTitle.Name = "pnlTitle";
 			pnlTitle.Size = new Size(683, 30);
 			pnlTitle.TabIndex = 1;
+			// 
+			// lblVersion
+			// 
+			lblVersion.AutoSize = true;
+			lblVersion.Font = new Font("Calibri", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblVersion.ForeColor = SystemColors.ButtonShadow;
+			lblVersion.Location = new Point(632, 3);
+			lblVersion.Name = "lblVersion";
+			lblVersion.Size = new Size(40, 13);
+			lblVersion.TabIndex = 23;
+			lblVersion.Text = "0.0.0.0";
 			// 
 			// pictureBox1
 			// 
@@ -144,6 +156,7 @@
 			// tabPage1
 			// 
 			tabPage1.BackColor = Color.FromArgb(250, 250, 250);
+			tabPage1.Controls.Add(lblVersion);
 			tabPage1.Controls.Add(label1);
 			tabPage1.Controls.Add(btnLanguageFr);
 			tabPage1.Controls.Add(btnLanguageRo);
@@ -587,5 +600,6 @@
 		private Label label1;
 		private Label label2;
 		private Label label4;
+		private Label lblVersion;
 	}
 }

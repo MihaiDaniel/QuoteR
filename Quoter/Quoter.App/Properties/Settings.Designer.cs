@@ -25,7 +25,7 @@ namespace Quoter.App.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public int NotificationIntervalSeconds {
             get {
                 return ((int)(this["NotificationIntervalSeconds"]));
@@ -325,7 +325,7 @@ namespace Quoter.App.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsUpgradeRequired {
             get {
                 return ((bool)(this["IsUpgradeRequired"]));

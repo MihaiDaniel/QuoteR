@@ -42,9 +42,15 @@ namespace Quoter.App
 				Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
 				ApplicationConfiguration.Initialize();
 
+				// By default this will be true. Still not working, maybe try to sign the app
 				if ((bool)Properties.Settings.Default["IsUpgradeRequired"] == true)
 				{
 					Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
+					Properties.Settings.Default.Reload();
+					Properties.Settings.Default.Save();
+					Properties.Settings.Default.IsUpgradeRequired = false;
+					Properties.Settings.Default.Save();
+					File.WriteAllText("Log.txt", "IsUpgradeRequired was triggered");
 				}
 
 				DependencyInjectionContainer diContainer = SetupDependencyInjection();

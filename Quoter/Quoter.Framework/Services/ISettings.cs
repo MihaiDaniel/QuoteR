@@ -20,6 +20,9 @@ namespace Quoter.Framework.Services
 		/// Indicates if the notifications are paused or not
 		/// </summary>
 		bool IsPaused { get; set; }
+
+		bool IsUpgradeRequired { get; set; }
+
 		string Language { get; set; }
 		string FontName { get; set; }
 		string FontStyle { get; set; }

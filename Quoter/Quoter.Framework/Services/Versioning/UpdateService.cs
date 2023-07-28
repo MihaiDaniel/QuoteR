@@ -100,9 +100,10 @@ namespace Quoter.Framework.Services.Versioning
 					ActionResult result = await DownloadVersionAsync(latestVersion);
 					if (result.IsSuccess)
 					{
+						_logger.Info("Succesfully downloaded update file.");
 						await WaitForBackgroundTasksToFinish();
 
-						_logger.Info("Downloaded update file. Starting updater...");
+						_logger.Info("Starting update process...");
 						string updaterExePath = GetUpdaterAppExePath();
 						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>(), isSilent);
 						Process.Start(updaterExePath, updaterArgs); // Try like this, Updater should close the app automatically
@@ -158,6 +159,7 @@ namespace Quoter.Framework.Services.Versioning
 				{
 					// If same version was re-downloaded just re-update the file path in case something changed like version number
 					appVersion.FilePath = filePath;
+					appVersion.Version = latestVersion.ToString();
 				}
 				await _context.SaveChangesAsync();
 				return ActionResult.Success(appVersion);

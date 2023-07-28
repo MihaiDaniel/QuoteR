@@ -44,6 +44,18 @@ namespace Quoter.App.Services
 			}
 		}
 
+		public bool IsUpgradeRequired
+		{
+			get
+			{
+				return Get<bool>(nameof(IsUpgradeRequired));
+			}
+			set
+			{
+				Set<bool>(nameof(IsUpgradeRequired), value);
+			}
+		}
+
 		public string FontName
 		{
 			get

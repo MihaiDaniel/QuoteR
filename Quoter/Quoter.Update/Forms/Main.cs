@@ -137,16 +137,20 @@ namespace Quoter.Update
 			ApplicationExeName = str.Substring(str.IndexOf("-e") + 2, str.IndexOf("-u") - str.IndexOf("-e") - 3).Trim();
 			ZipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-uid") - str.IndexOf("-u") - 3).Trim();
 			UpdateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-s") - str.IndexOf("-uid") - 5).Trim();
-			IsSilent = str.Substring(str.IndexOf("-s") + 4, str.IndexOf("-r") - str.IndexOf("-s") - 3).Trim().ToLower() == "true";
+			IsSilent = str.Substring(str.IndexOf("-s") + 2, str.IndexOf("-r") - str.IndexOf("-s") - 2).Trim().ToLower() == "true";
 			IsRestartedAsAdmin = str.Substring(str.IndexOf("-r") + 2, str.Length - str.IndexOf("-r") - 2).Trim().ToLower() == "true";
 
 			ApplicationExeName = ApplicationExeName.Replace(".dll", ".exe"); // Just in case we receive the dll name instead of the actual exe
 
 			Logger.Info("Starting arguments: ");
-			Logger.Info(InstallFolderPath);
-			Logger.Info(ApplicationExeName);
-			Logger.Info(ZipUpdateFolderPath);
-			Logger.Info(IsRestartedAsAdmin.ToString());
+			Logger.Info("args: " + str);
+			Logger.Info("----------------------");
+			Logger.Info("InstallFolderPath: " + InstallFolderPath);
+			Logger.Info("ApplicationExeName: " + ApplicationExeName);
+			Logger.Info("ZipUpdateFolderPath: " + ZipUpdateFolderPath);
+			Logger.Info("UpdateId: " + UpdateId);
+			Logger.Info("IsSilent: " + IsSilent.ToString());
+			Logger.Info("IsRestartedAsAdmin: " + IsRestartedAsAdmin.ToString());
 		}
 
 		private bool VerifyArguments()

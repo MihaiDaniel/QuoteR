@@ -7,6 +7,7 @@ using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models.ImportExport;
+using Quoter.Framework.Services.Versioning;
 using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms
@@ -21,12 +22,14 @@ namespace Quoter.App.Forms
 		private readonly IStringResources _stringResources;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;
+		private readonly IVersionService _versionService;
 
 		public WelcomeForm(IWelcomeFormController controller,
 							IFormsManager formsManager,
 							IStringResources stringResources,
 							IFormAnimationService formAnimationService,
-							IFormPositioningService positioningService)
+							IFormPositioningService positioningService,
+							IVersionService versionService)
 		{
 			InitializeComponent();
 			DropShadow.ApplyShadows(this);
@@ -35,6 +38,7 @@ namespace Quoter.App.Forms
 			_stringResources = stringResources;
 			_formAnimationService = formAnimationService;
 			_positioningService = positioningService;
+			_versionService = versionService;
 
 			_controller.RegisterForm(this);
 
@@ -48,6 +52,7 @@ namespace Quoter.App.Forms
 			txtTab3Extra.TabStop = false;
 			txtTab3NotificationInterval.TabStop = false;
 			txtTab4Msg.TabStop = false;
+			lblVersion.Text = _versionService.GetCurrentQuoterVersionInfo().ToString();
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)

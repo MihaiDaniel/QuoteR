@@ -27,7 +27,7 @@ namespace Quoter.App.Services.BackgroundJobs
 			_isRunningJobs = false;
 
 			_timerBackgroundJobs = new System.Windows.Forms.Timer();
-			_timerBackgroundJobs.Interval = 30000; // 30 sec by default
+			_timerBackgroundJobs.Interval = 10000; // 10 sec by default
 			_timerBackgroundJobs.Tick += (sender, e) => EventBackgroundJobTimerTick(sender, e);
 			_timerBackgroundJobs.Start();
 		}
