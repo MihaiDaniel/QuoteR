@@ -4,64 +4,73 @@
 @{
 	ViewData["Title"] = "Index";
 }
+<div class="container">
+	<div class ="container m-1">
+		<h1>Application versions</h1>
+	</div>
+	<div class="container mt-2">
+		<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>Create New</a>
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].Version)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].Description)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].Os)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.AppVersion)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Version)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Description)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Os)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CreationDate)
+							</td>
+							<td>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Edit">
+									<a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+								</span>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Details">
+									<a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info"><i class="bi bi-info-square"></i></a>
+								</span>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
+									<a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+								</span>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-<h1>Index</h1>
+	
 
-<p>
-	<a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].Name)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].Version)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].Description)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].Os)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].Path)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model.AppVersion)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Name)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Version)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Description)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Os)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Path)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.CreationDate)
-				</td>
-				<td>
-					<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-					<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-					<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+	
+</div>
+

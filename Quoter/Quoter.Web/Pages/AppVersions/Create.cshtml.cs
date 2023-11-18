@@ -10,7 +10,7 @@ using Quoter.Web.ViewModels.AppVersions;
 
 namespace Quoter.Web.Pages.AppVersions
 {
-    [Authorize]
+	[Authorize]
 	public class CreateModel : PageModel
 	{
 		private readonly IFileVersionsService _fileVersionsService;
@@ -62,7 +62,7 @@ namespace Quoter.Web.Pages.AppVersions
 
 				return RedirectToPage("./Index");
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				throw;
 			}
@@ -84,7 +84,7 @@ namespace Quoter.Web.Pages.AppVersions
 		private async Task<bool> ValidatePostAsync()
 		{
 			bool isDuplicateName = await _context.AppVersions.AnyAsync(v => v.Name == ViewModel.Name);
-			if(isDuplicateName)
+			if (isDuplicateName)
 			{
 				ModelState.TryAddModelError(nameof(CreateViewModel.Name), "A version with the same name already exists");
 				return false;

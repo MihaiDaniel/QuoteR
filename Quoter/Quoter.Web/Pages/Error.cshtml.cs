@@ -14,14 +14,17 @@ namespace Quoter.Web.Pages
 
 		private readonly ILogger<ErrorModel> _logger;
 
+		public new int StatusCode { get; set; }
+
 		public ErrorModel(ILogger<ErrorModel> logger)
 		{
 			_logger = logger;
 		}
 
-		public void OnGet()
+		public void OnGet(int statusCode)
 		{
 			RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+			StatusCode = statusCode;
 		}
 	}
 }
