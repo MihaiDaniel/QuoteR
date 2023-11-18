@@ -14,14 +14,14 @@ namespace Quoter.Web.Pages.AppVersions
 		private readonly IFileVersionsService _fileVersionsService;
 		private readonly ApplicationDbContext _context;
 
+		[BindProperty]
+		public AppVersion AppVersion { get; set; } = default!;
+
 		public DeleteModel(ApplicationDbContext context, IFileVersionsService fileVersionsService)
 		{
 			_context = context;
 			_fileVersionsService = fileVersionsService;
 		}
-
-		[BindProperty]
-		public AppVersion AppVersion { get; set; } = default!;
 
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
@@ -47,7 +47,7 @@ namespace Quoter.Web.Pages.AppVersions
 		{
 			if (id == null || _context.AppVersions == null)
 			{
-				return NotFound();
+				return BadRequest();
 			}
 			try
 			{

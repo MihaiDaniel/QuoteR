@@ -27,4 +27,8 @@
     <ProjectReference Include="..\Quoter.Shared\Quoter.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Versions\AppVersions\" />
+  </ItemGroup>
+
 </Project>

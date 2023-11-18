@@ -7,7 +7,7 @@ using Quoter.Web.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Quoter.Web.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -42,11 +42,13 @@ builder.Services.AddSwaggerGen(c =>
 	c.OperationFilter<SwaggerRegistrationHeaderParameter>();
 });
 
+// Web Application services
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
-
 builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
+builder.Services.AddScoped<IAppVersionService, AppVersionService>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
+
 // Migrate the database if needed
 app.MigrateDatabase();
 // Seed data in the database if needed
@@ -58,6 +60,7 @@ if (app.Environment.IsDevelopment())
 	app.UseMigrationsEndPoint();
 	app.UseSwagger();
 	app.UseSwaggerUI();
+	app.UseDeveloperExceptionPage();
 }
 else
 {

@@ -2,65 +2,66 @@
 @model Quoter.Web.Pages.AppVersions.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+	<a asp-page="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].Version)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].Os)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].Path)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.AppVersion) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Os)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Path)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].Version)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].Description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].Os)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].Path)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.AppVersion)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Version)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Os)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Path)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreationDate)
+				</td>
+				<td>
+					<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+					<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>

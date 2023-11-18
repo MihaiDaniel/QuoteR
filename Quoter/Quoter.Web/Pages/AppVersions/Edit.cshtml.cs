@@ -1,65 +1,50 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Quoter.Shared.Enums;
+using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
+using Quoter.Web.Services;
+using Quoter.Web.ViewModels.AppVersions;
 
 namespace Quoter.Web.Pages.AppVersions
 {
 	[Authorize]
 	public class EditModel : PageModel
 	{
-		private readonly Quoter.Web.Data.ApplicationDbContext _context;
-
-		public EditModel(Quoter.Web.Data.ApplicationDbContext context)
-		{
-			_context = context;
-		}
+		private readonly ApplicationDbContext _context;
+		private readonly IAppVersionService _appVersionService;
 
 		[BindProperty]
-		public AppVersionModel ViewModel { get; set; } = default!;
+		public EditViewModel ViewModel { get; set; } = default!;
 
-		public class AppVersionModel
+		public EditModel(ApplicationDbContext context, IAppVersionService appVersionService)
 		{
-			[Required]
-			public Guid Id { get; set; }
-
-			[Required]
-			public string Name { get; set; }
-
-			[Required]
-			public string Version { get; set; }
-
-			public string? Description { get; set; }
-
-			public EnumOperatingSystem Os { get; set; }
-
-			public string Path { get; set; }
+			_context = context;
+			_appVersionService = appVersionService;
 		}
 
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
-			if (id == null || _context.AppVersions == null)
+			if (!await _appVersionService.IsAppVersionIdValid(id))
 			{
-				return NotFound();
+				return BadRequest();
 			}
 
-			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(m => m.Id == id);
-			if (appVersion == null)
-			{
-				return NotFound();
-			}
-			ViewModel = new()
-			{
-				Id = appVersion.Id,
-				Name = appVersion.Name,
-				Version = appVersion.Version,
-				Description = appVersion.Description,
-				Os = appVersion.Os,
-				Path = appVersion.Path
-			};
+			ViewModel = await _context.AppVersions
+				.Where(appVersion => appVersion.Id == id)
+				.Select(appVersion => new EditViewModel()
+				{
+					Id = appVersion.Id,
+					Name = appVersion.Name,
+					Version = appVersion.Version,
+					Description = appVersion.Description,
+					Os = appVersion.Os,
+					Path = appVersion.Path,
+					IsAvailable = appVersion.IsAvailable,
+				})
+				.FirstAsync();
+
 			return Page();
 		}
 
@@ -71,19 +56,17 @@ namespace Quoter.Web.Pages.AppVersions
 			{
 				return Page();
 			}
-
 			try
 			{
-
 				AppVersion? appVersion = _context.AppVersions.FirstOrDefault(a => a.Id == ViewModel.Id);
-
-				if(appVersion == null)
+				if (appVersion == null)
 				{
-					return NotFound();
+					return BadRequest();
 				}
 
 				appVersion.Name = ViewModel.Name;
 				appVersion.Version = ViewModel.Version;
+				appVersion.IsAvailable = ViewModel.IsAvailable;
 				appVersion.Os = ViewModel.Os;
 				appVersion.Description = ViewModel.Description;
 
@@ -91,7 +74,7 @@ namespace Quoter.Web.Pages.AppVersions
 
 				return RedirectToPage("./Index");
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				throw;
 			}

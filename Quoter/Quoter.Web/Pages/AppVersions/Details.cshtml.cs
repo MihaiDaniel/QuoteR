@@ -2,70 +2,52 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Quoter.Shared.Enums;
+using Quoter.Web.Data;
+using Quoter.Web.Services;
+using Quoter.Web.ViewModels.AppVersions;
 
 namespace Quoter.Web.Pages.AppVersions
 {
 	[Authorize]
 	public class DetailsModel : PageModel
 	{
-		private readonly Quoter.Web.Data.ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
+		private readonly IAppVersionService _appVersionService;
 
-		public DetailsModel(Quoter.Web.Data.ApplicationDbContext context)
+		public DetailsViewModel ViewModel { get; set; } = default!;
+
+		public DetailsModel(ApplicationDbContext context, IAppVersionService appVersionService)
 		{
 			_context = context;
+			_appVersionService = appVersionService;
 		}
-
-		public AppVersionModel ViewModel { get; set; } = default!;
-
-		public class AppVersionModel
-		{
-			public Guid Id { get; set; }
-
-			public string Name { get; set; }
-
-			public string Version { get; set; }
-
-			public string? Description { get; set; }
-
-			public EnumOperatingSystem Os { get; set; }
-
-			public string Path { get; set; }
-
-			public DateTime CreationDate { get; set; }
-
-			public int VersionDownloads { get; set; }
-
-		}
-
 
 		public async Task<IActionResult> OnGetAsync(Guid? id)
 		{
-			if (id == null || _context.AppVersions == null)
+			if (!await _appVersionService.IsAppVersionIdValid(id))
 			{
-				return NotFound();
+				return BadRequest();
 			}
 
 			ViewModel = await _context.AppVersions
 				.Include(v => v.LstAppVersionDownloads)
 				.Where(v => v.Id == id)
-				.Select(v => new AppVersionModel()
+				.Select(v => new DetailsViewModel()
 				{
 					Id = v.Id,
 					Name = v.Name,
 					Version = v.Version,
+					VersionType = v.Type,
 					Description = v.Description,
 					Os = v.Os,
 					CreationDate = v.CreationDate,
 					Path = v.Path,
 					VersionDownloads = v.LstAppVersionDownloads.Count
 				})
-				.FirstOrDefaultAsync(m => m.Id == id);
-			if (ViewModel == null)
-			{
-				return NotFound();
-			}
+				.FirstAsync(m => m.Id == id);
+
 			return Page();
 		}
+
 	}
 }

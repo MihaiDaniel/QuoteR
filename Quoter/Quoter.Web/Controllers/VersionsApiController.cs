@@ -25,6 +25,13 @@ namespace Quoter.Web.Controllers
 			_fileVersionsService = fileVersionsService;
 		}
 
+		/// <summary>
+		/// Returns information about the latest version available for download.
+		/// The version information is for updates of the application.
+		/// </summary>
+		/// <remarks>
+		/// Normally this is used by the app to verify if it's up to date.
+		/// </remarks>
 		[Route("getLatestVersionInfo")]
 		[HttpGet]
 		public async Task<IActionResult> GetLatestVersion()
@@ -59,6 +66,9 @@ namespace Quoter.Web.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Download a version file based on it's id.
+		/// </summary>
 		[Route("downloadVersion")]
 		[HttpGet]
 		public async Task<IActionResult> DownloadVersion([FromQuery] Guid versionId)
