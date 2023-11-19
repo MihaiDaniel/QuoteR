@@ -10,8 +10,8 @@ namespace Quoter.Web.Pages.AppVersions
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
-		public IList<AppVersion> AppVersion { get; set; } = default!;
 
+		public IList<AppVersion> AppVersion { get; set; } = default!;
 
 		public IndexModel(ApplicationDbContext context)
 		{
@@ -22,7 +22,7 @@ namespace Quoter.Web.Pages.AppVersions
 		{
 			if (_context.AppVersions != null)
 			{
-				AppVersion = await _context.AppVersions.ToListAsync();
+				AppVersion = await _context.AppVersions.OrderByDescending(v => v.CreationDate).ToListAsync();
 			}
 		}
 	}

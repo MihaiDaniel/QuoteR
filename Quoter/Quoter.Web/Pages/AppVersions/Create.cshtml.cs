@@ -53,6 +53,7 @@ namespace Quoter.Web.Pages.AppVersions
 					Name = ViewModel.Name,
 					Version = ViewModel.Version,
 					Description = ViewModel.Description,
+					Type = ViewModel.VersionType,
 					Os = ViewModel.Os,
 					Path = filePath,
 					CreationDate = DateTime.UtcNow

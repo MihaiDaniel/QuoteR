@@ -74,6 +74,7 @@ namespace Quoter.Web.Data.Entities
 		public AppVersion()
 		{
 			CreationDate = DateTime.UtcNow;
+			LstAppVersionDownloads = new List<AppVersionDownload>();
 		}
 	}
 }

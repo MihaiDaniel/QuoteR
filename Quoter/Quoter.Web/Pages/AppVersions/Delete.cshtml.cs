@@ -15,7 +15,7 @@ namespace Quoter.Web.Pages.AppVersions
 		private readonly ApplicationDbContext _context;
 
 		[BindProperty]
-		public AppVersion AppVersion { get; set; } = default!;
+		public AppVersion ViewModel { get; set; } = default!;
 
 		public DeleteModel(ApplicationDbContext context, IFileVersionsService fileVersionsService)
 		{
@@ -38,7 +38,7 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 			else
 			{
-				AppVersion = appVersion;
+				ViewModel = appVersion;
 			}
 			return Page();
 		}
@@ -57,8 +57,8 @@ namespace Quoter.Web.Pages.AppVersions
 				{
 					_fileVersionsService.Delete(appVersion.Path);
 
-					AppVersion = appVersion;
-					_context.AppVersions.Remove(AppVersion);
+					ViewModel = appVersion;
+					_context.AppVersions.Remove(ViewModel);
 					await _context.SaveChangesAsync();
 				}
 

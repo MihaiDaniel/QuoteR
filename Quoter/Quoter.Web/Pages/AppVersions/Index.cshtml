@@ -1,4 +1,5 @@
 ﻿@page
+@using Quoter.Web.Data.Entities;
 @using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AppVersions.IndexModel
 
@@ -7,7 +8,7 @@
 }
 <div class="container">
 	@await Html.PartialAsync("BreadCrumbs", new BreadCrumbsViewModel("Application versions"))
-	<div class ="container m-1">
+	<div class="container m-1">
 		<h1>Application versions</h1>
 	</div>
 	<div class="container mt-2">
@@ -17,10 +18,16 @@
 				<thead>
 					<tr>
 						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].IsAvailable)
+						</th>
+						<th>
 							@Html.DisplayNameFor(model => model.AppVersion[0].Name)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.AppVersion[0].Version)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppVersion[0].Type)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.AppVersion[0].Description)
@@ -31,13 +38,26 @@
 						<th>
 							@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
 						</th>
+						<th>
+							Downloads
+						</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (var item in Model.AppVersion)
+					@foreach (AppVersion item in Model.AppVersion)
 					{
 						<tr>
+							<td>
+								@if (item.IsAvailable)
+								{
+									<span class="badge rounded-pill text-bg-success">Yes</span>
+								}
+								else
+								{
+									<span class="badge rounded-pill text-bg-danger">No</span>
+								}
+							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.Name)
 							</td>
@@ -45,6 +65,30 @@
 								@Html.DisplayFor(modelItem => item.Version)
 							</td>
 							<td>
+								@if (item.Type == Quoter.Shared.Enums.EnumVersionType.UpdateZip)
+								{
+									<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="hover focus" data-bs-content="Zip update">
+										<div class="btn btn-sm"><i class="bi bi-file-earmark-zip"></i></div>
+									</span>
+								}
+								else if (item.Type == Quoter.Shared.Enums.EnumVersionType.Installer)
+								{
+									<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="hover focus" data-bs-content="Setup installer">
+										<div class="btn btn-sm"><i class="bi bi-file-earmark-play"></i></div>
+									</span>
+								}
+								else
+								{
+									<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="hover focus" data-bs-content="None">
+										<div class="btn btn-sm"><i class="bi bi-file-earmark"></i></div>
+									</span>
+								}
+							</td>
+							<td>
+								@if(item.Description?.Length > 30)
+								{
+									item.Description = item.Description.Substring(0, 30) + "...";
+								}
 								@Html.DisplayFor(modelItem => item.Description)
 							</td>
 							<td>
@@ -52,6 +96,9 @@
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.CreationDate)
+							</td>
+							<td>
+								@item.LstAppVersionDownloads.Count()
 							</td>
 							<td>
 								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Edit">
@@ -71,8 +118,8 @@
 		</div>
 	</div>
 
-	
 
-	
+
+
 </div>
 

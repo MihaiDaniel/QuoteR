@@ -1,73 +1,99 @@
 ﻿@page
+@using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AppVersions.DetailsModel
 
 @{
 	ViewData["Title"] = "Details";
 }
+<div class="container">
+	@await Html.PartialAsync("BreadCrumbs",
+	new BreadCrumbsViewModel(
+	$"Version {@Model.ViewModel.Version}",
+	new RouteViewModel("Application versions","/AppVersions/Index")))
 
-<h1>Details</h1>
+	<div class="container text-center">
 
-<div>
-	<h4>AppVersion</h4>
-	<hr />
-	<dl class="row">
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Id)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Id)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Name)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Name)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Version)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Version)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.VersionType)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.VersionType)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Description)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Description)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Os)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Os)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.Path)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.Path)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.CreationDate)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.CreationDate)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ViewModel.VersionDownloads)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ViewModel.VersionDownloads)
-		</dd>
-	</dl>
-</div>
-<div>
-	<a asp-page="./Edit" asp-route-id="@Model.ViewModel?.Id">Edit</a> |
-	<a asp-page="./Index">Back to List</a>
+		<div class="row row-cols-auto">
+			<div class="col">
+				<h2>Version @Model.ViewModel.Version</h2>
+			</div>
+			<div class="col">
+				<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Edit">
+					<a asp-page="./Edit" asp-route-id="@Model.ViewModel.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-2">
+		<dl class="row">
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Id)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Id)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Name)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Name)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Version)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Version)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.VersionType)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.VersionType)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Description)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Description)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Os)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Os)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.Path)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.Path)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.CreationDate)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.CreationDate)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.IsAvailable)
+			</dt>
+			<dd class="col-sm-10">
+				@if (Model.ViewModel.IsAvailable)
+				{
+					<span class="badge rounded-pill text-bg-success">Yes</span>
+				}
+				else
+				{
+					<span class="badge rounded-pill text-bg-danger">No</span>
+				}
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ViewModel.VersionDownloads)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ViewModel.VersionDownloads)
+			</dd>
+		</dl>
+	</div>
 </div>

@@ -41,6 +41,7 @@ namespace Quoter.Web.Pages.AppVersions
 					Description = v.Description,
 					Os = v.Os,
 					CreationDate = v.CreationDate,
+					IsAvailable = v.IsAvailable,
 					Path = v.Path,
 					VersionDownloads = v.LstAppVersionDownloads.Count
 				})

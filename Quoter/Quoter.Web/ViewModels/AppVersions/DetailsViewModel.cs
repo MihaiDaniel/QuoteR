@@ -21,6 +21,8 @@ namespace Quoter.Web.ViewModels.AppVersions
 
 		public string Path { get; set; }
 
+		public bool IsAvailable { get; set; }
+
 		public DateTime CreationDate { get; set; }
 
 		public int VersionDownloads { get; set; }
