@@ -1,0 +1,24 @@
+﻿@using Quoter.Web.ViewModels.Shared
+@model Quoter.Web.ViewModels.Shared.BreadCrumbsViewModel
+
+
+<div class="container my-0">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb breadcrumb-chevron p-2 bg-body-tertiary rounded-3">
+			<li class="breadcrumb-item">
+				<a class="link-body-emphasis" href="/">
+					<i class="bi bi-house-door-fill"></i>
+				</a>
+			</li>
+			@foreach (RouteViewModel route in Model.Routes)
+			{
+				<li class="breadcrumb-item">
+					<a class="link-body-emphasis fw-semibold text-decoration-none" href=@route.Route>@route.Name</a>
+				</li>
+			}
+			<li class="breadcrumb-item active" aria-current="page">
+				@Model.CurrentPageName
+			</li>
+		</ol>
+	</nav>
+</div>

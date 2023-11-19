@@ -1,10 +1,12 @@
 ﻿@page
+@using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AppVersions.IndexModel
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Application versions";
 }
 <div class="container">
+	@await Html.PartialAsync("BreadCrumbs", new BreadCrumbsViewModel("Application versions"))
 	<div class ="container m-1">
 		<h1>Application versions</h1>
 	</div>

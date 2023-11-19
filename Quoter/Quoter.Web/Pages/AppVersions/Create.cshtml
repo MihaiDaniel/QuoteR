@@ -1,59 +1,96 @@
 ﻿@page
 @using Quoter.Shared.Enums;
+@using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AppVersions.CreateModel
 
 @{
-	ViewData["Title"] = "Create";
+	ViewData["Title"] = "Create app version";
 }
-
-<h1>Create</h1>
-
-<h4>ViewModel</h4>
-<hr />
-<div class="row">
-	<div class="col-md-4">
+<div class="container">
+	@await Html.PartialAsync("BreadCrumbs", 
+		new BreadCrumbsViewModel(
+			"Create application version",
+			new RouteViewModel("Application versions","/AppVersions/Index")))
+	<div class="container m-1">
+		<h2>Create application version</h2>
+	</div>
+	<div class="container mt-2">
 		<form method="post" enctype="multipart/form-data">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="ViewModel.Name" class="control-label"></label>
-				<input asp-for="ViewModel.Name" class="form-control" />
-				<span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.Name" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<input asp-for="ViewModel.Name" class="form-control" />
+					<span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="ViewModel.Version" class="control-label"></label>
-				<input asp-for="ViewModel.Version" class="form-control" />
-				<span asp-validation-for="ViewModel.Version" class="text-danger"></span>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.Version" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<input asp-for="ViewModel.Version" class="form-control" />
+					<span asp-validation-for="ViewModel.Version" class="text-danger"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="ViewModel.VersionType" class="control-label"></label>
-				<select asp-for="ViewModel.VersionType" class="form-control" asp-items="Html.GetEnumSelectList<EnumVersionType>()"></select>
-				<span asp-validation-for="ViewModel.VersionType" class="text-danger"></span>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.VersionType" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<select asp-for="ViewModel.VersionType" class="form-control" asp-items="Html.GetEnumSelectList<EnumVersionType>()"></select>
+					<span asp-validation-for="ViewModel.VersionType" class="text-danger"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="ViewModel.Description" class="control-label"></label>
-				<input asp-for="ViewModel.Description" class="form-control" />
-				<span asp-validation-for="ViewModel.Description" class="text-danger"></span>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.Description" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<input asp-for="ViewModel.Description" class="form-control" />
+					<span asp-validation-for="ViewModel.Description" class="text-danger"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="ViewModel.Os" class="control-label"></label>
-				<select asp-for="ViewModel.Os" class="form-control" asp-items="Html.GetEnumSelectList<EnumOperatingSystem>()"></select>
-				<span asp-validation-for="ViewModel.Os" class="text-danger"></span>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.Os" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<select asp-for="ViewModel.Os" class="form-control" asp-items="Html.GetEnumSelectList<EnumOperatingSystem>()"></select>
+					<span asp-validation-for="ViewModel.Os" class="text-danger"></span>
+				</div>
 			</div>
-			<div class="form-group">
-				<label asp-for="ViewModel.File" class="control-label"></label>
-				<input type="file" asp-for="ViewModel.File" />
-				<span asp-validation-for="ViewModel.File" class="text-danger"></span>
+			@*<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.File" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<input type="file" asp-for="ViewModel.File" />
+					<span asp-validation-for="ViewModel.File" class="text-danger"></span>
+				</div>
+			</div>*@
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="ViewModel.File" class="control-label"></label>
+				</div>
+				<div class="col-6">
+					<input type="file" asp-for="ViewModel.File" class="form-control"/>
+					<span asp-validation-for="ViewModel.File" class="text-danger"></span>
+				</div>
 			</div>
+			<div class="row p-1">
+				<div class="col-2">
+					<button type="submit" value="Create" class="btn btn-primary">
+						<i class="bi bi-file-plus"></i> Create
+					</button>
+				</div>
+				
 
-			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary" />
 			</div>
 		</form>
 	</div>
-</div>
-
-<div>
-	<a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

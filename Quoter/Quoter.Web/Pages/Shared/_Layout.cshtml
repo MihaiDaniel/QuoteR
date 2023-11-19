@@ -18,11 +18,12 @@
 
 </head>
 <body>
-	<nav class="p-2 navbar navbar-expand-md navbar-dark fixed-top bg-dark text-bg-dark">
-		<div class="container-fluid">
+	@* HEADER *@
+	<nav class="p-1 navbar navbar-expand-md navbar-dark fixed-top bg-dark text-bg-dark">
+		<div class="container-fluid ms-5 me-5">
 			@* LOGO *@
 			<a href="/" class="navbar-brand">
-				<img width="40" height="32" src="~/images/open-book.png" />
+				<img width="40" height="40" src="~/images/book-blue-circle.png" />
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -40,7 +41,7 @@
 					{
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Admin
+								Admin navigation
 							</a>
 							<ul class="dropdown-menu">
 								<li><a class="nav-link text-black" asp-page="/AppVersions/Index">Versions</a></li>
@@ -53,16 +54,25 @@
 						</li>
 					}
 				</ul>
-				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+				@* Search bar - not needed for the moment*@
+				@*<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 					<input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-				</form>
+				</form>*@
 				<div class="text-end">
 					@if (SignInManager.IsSignedIn(User))
 					{
-						<a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
-						<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-							<button type="submit" class="nav-link btn btn-link">Logout</button>
-						</form>
+						<div class="dropdown">
+							<a class="dropdown-toggle btn btn-outline-light me-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								@User.Identity?.Name
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+										<button type="submit" class="nav-link btn btn-link">Logout</button>
+									</form>
+								</li>
+							</ul>
+						</div>
 					}
 					else
 					{
@@ -73,8 +83,8 @@
 			</div>
 		</div>
 	</nav>
-
-	<main class="container" style="margin-top: 80px"> @* add 80 px so navbar does not overlap the content*@
+	@* BODY *@
+	<main class="container" style="margin-top: 65px"> @* add 65 px so navbar does not overlap the content*@
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>
