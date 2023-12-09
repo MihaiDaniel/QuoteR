@@ -15,9 +15,18 @@ builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
 // Setup the database
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// PostgreSQL
+//string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
+//	options.UseNpgsql(connectionString));
+// SQLite
+string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web.db");
+string connectionString = $"Data Source={sqlitePath}";
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
-	options.UseNpgsql(connectionString));
+	options.UseSqlite(connectionString));
+
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
@@ -46,6 +55,10 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
 builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
 builder.Services.AddScoped<IAppVersionService, AppVersionService>();
+
+
+
+
 
 WebApplication app = builder.Build();
 

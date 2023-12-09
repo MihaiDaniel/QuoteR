@@ -13,14 +13,19 @@ namespace Quoter.Web.Pages.AppVersions
 	[Authorize]
 	public class CreateModel : PageModel
 	{
+		private readonly ILogger<CreateModel> _logger;
 		private readonly IFileVersionsService _fileVersionsService;
 		private readonly ApplicationDbContext _context;
 
 		[BindProperty]
 		public CreateViewModel ViewModel { get; set; } = default!;
 
-		public CreateModel(ApplicationDbContext context, IFileVersionsService fileVersionsService)
+		public CreateModel(
+			ILogger<CreateModel> logger,
+			ApplicationDbContext context,
+			IFileVersionsService fileVersionsService)
 		{
+			_logger = logger;
 			_context = context;
 			_fileVersionsService = fileVersionsService;
 		}
@@ -30,7 +35,6 @@ namespace Quoter.Web.Pages.AppVersions
 			return Page();
 		}
 
-		// To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
 		public async Task<IActionResult> OnPostAsync()
 		{
 			if (!ModelState.IsValid || _context.AppVersions == null || ViewModel == null)
@@ -65,6 +69,7 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "An error occured while trying to upload and save an update file.");
 				throw;
 			}
 		}
@@ -74,9 +79,7 @@ namespace Quoter.Web.Pages.AppVersions
 			switch (ViewModel.VersionType)
 			{
 				case EnumVersionType.UpdateZip:
-					return $"{ViewModel.Version}.zip";
-				case EnumVersionType.Installer:
-					return $"Quoter installer {ViewModel.Version}.exe";
+					return $"{ViewModel.Version}.zip";;
 				default:
 					return ViewModel.File.FileName;
 			}

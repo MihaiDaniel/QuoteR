@@ -1,10 +1,105 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="home" class="container-fluid m-0 p-0">
+	<div class="row p-4 m-0 bg-light-subtle">
+		@*Empty row for more space between sections*@
+	</div>
+	<div class="row justify-content-center pt-5 pb-5 m-0 bg-light-subtle">
+		<div class="col-lg-5 p-1">
+			<h1 class="mb-4">Pause Verse</h1>
+			<p class="fs-4">Remind yourself to take a break from your task and read a bit of scripture!</p>
+			<p class="fs-6">Lots of customization options. Scroll down for more information, or click the button below to download the latest version. Available for Windows.</p>
+			<p class="fs-6">You can also check the Github repository if you want to take a look at the sources.</p>
+			<a asp-page-handler="DownloadApp" class="btn btn-primary"><i class="bi bi-download p-2"></i>Download</a>
+
+			<a href="https://github.com/MihaiDaniel/QuoteR" class="btn btn-secondary"><i class="bi bi-github p-2"></i>Github</a>
+		</div>
+		<div class="col-lg-5 p-1">
+			<div class="image-container">
+				<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg" alt="alternative">
+			</div>
+		</div>
+	</div>
+
+	<div class="row p-3 m-0 bg-light-subtle">
+		@*Empty row for more space between sections*@
+	</div>
+	<div id="about" class="row pb-4 pt-4 bg-light">
+		<div class="col text-center">
+			<h2 class="pt-5">About</h2>
+			<p>For who is this aplication made</p>
+		</div>
+	</div>
+
+
+	<div class="row justify-content-center m-0 pt-5 pb-5 bg-light">
+		<div class="col-4 p-1">
+			<div class="image-container">
+				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
+				@*<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg">*@
+			</div>
+		</div>
+		<div class="col-4 p-1 ms-2">
+			<div class="card">
+				<div class="card-body bg-light">
+					<h5 class="card-title">Do you work on your laptop or PC?</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Then this application is for you.</h6>
+					<p class="card-text">Quoter regularly displays one of your favourite bible verses inside a notification on your desktop. You can use it to:</p>
+					<ul>
+						<li>Remind yourself to take a break from work.</li>
+						<li>Read some verses even if you're busy.</li>
+						<li>Memorise bible verses by repeating them.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row p-5 m-0 bg-light-subtle">
+		@*Empty row for more space between sections*@
+	</div>
+	<div id="features" class="row pb-4 bg-light-subtle">
+		<div class="col text-center">
+			<h2 class="pt-5">Features</h2>
+			<p>Customization options and other features</p>
+		</div>
+	</div>
+
+	<div class="row justify-content-center m-0 bg-light-subtle">
+		<div class="col-lg-4">
+			<div class="card p-2 m-2">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+

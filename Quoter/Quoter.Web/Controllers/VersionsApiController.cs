@@ -27,7 +27,7 @@ namespace Quoter.Web.Controllers
 
 		/// <summary>
 		/// Returns information about the latest version available for download.
-		/// The version information is for updates of the application.
+		/// The version information is only for updates of already installed application.
 		/// </summary>
 		/// <remarks>
 		/// Normally this is used by the app to verify if it's up to date.
@@ -41,6 +41,7 @@ namespace Quoter.Web.Controllers
 				if (await IsRequestValid())
 				{
 					List<QuoterVersionInfo> lstQuoterVersions = await _context.AppVersions
+						.Where(v => v.IsAvailable && v.Type == EnumVersionType.UpdateZip)
 						.OrderBy(v => v.CreationDate)
 						.Select(v => new QuoterVersionInfo(v.Id, v.Version))
 						.ToListAsync();

@@ -25,5 +25,6 @@ namespace Quoter.Web.Pages.AppVersions
 				AppVersion = await _context.AppVersions.OrderByDescending(v => v.CreationDate).ToListAsync();
 			}
 		}
+
 	}
 }

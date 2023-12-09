@@ -6,7 +6,7 @@ namespace Quoter.Web.Services
 	public class FileVersionsService : IFileVersionsService
 	{
 		private Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
-		private const string DirUploads = "Versions";
+		private string DirUploads =  Path.Combine("Quoter.Web", "Versions");
 
 		public FileVersionsService(Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
 		{
@@ -25,13 +25,14 @@ namespace Quoter.Web.Services
 
 		public async Task<string> SaveFileVersionAsync(IFormFile file, string? name = null)
 		{
-			string versionsDir = Path.Combine(_environment.ContentRootPath, DirUploads);
-			if (!Directory.Exists(versionsDir))
+			string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			string versionUploadsDir = Path.Combine(dirLocalAppData, DirUploads);
+			if (!Directory.Exists(versionUploadsDir))
 			{
-				Directory.CreateDirectory(versionsDir);
+				Directory.CreateDirectory(versionUploadsDir);
 			}
 
-			string filePath = Path.Combine(versionsDir, name ?? file.FileName);
+			string filePath = Path.Combine(versionUploadsDir, name ?? file.FileName);
 
 			using (var fileStream = new FileStream(filePath, FileMode.Create))
 			{
