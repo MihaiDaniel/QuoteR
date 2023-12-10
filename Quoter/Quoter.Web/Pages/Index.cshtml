@@ -5,10 +5,13 @@
 }
 
 <div id="home" class="container-fluid m-0 p-0">
-	<div class="row p-4 m-0 bg-light-subtle">
+
+	@* HOME & DOWNLOAD *@
+
+	<div class="row p-4 m-0">
 		@*Empty row for more space between sections*@
 	</div>
-	<div class="row justify-content-center pt-5 pb-5 m-0 bg-light-subtle">
+	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5">
 		<div class="col-lg-5 p-1">
 			<h1 class="mb-4">Pause Verse</h1>
 			<p class="fs-4">Remind yourself to take a break from your task and read a bit of scripture!</p>
@@ -25,18 +28,21 @@
 		</div>
 	</div>
 
-	<div class="row p-3 m-0 bg-light-subtle">
+	@* ABOUT *@
+
+
+	<div class="row p-3 m-0">
 		@*Empty row for more space between sections*@
 	</div>
-	<div id="about" class="row pb-4 pt-4 bg-light">
+	<div id="about" class="row pb-4 pt-4 m-0 bg-light bg-gradient">
 		<div class="col text-center">
-			<h2 class="pt-5">About</h2>
+			<h2 class="pt-5 h-line">About</h2>
 			<p>For who is this aplication made</p>
 		</div>
 	</div>
 
 
-	<div class="row justify-content-center m-0 pt-5 pb-5 bg-light">
+	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5 bg-light">
 		<div class="col-4 p-1">
 			<div class="image-container">
 				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
@@ -44,8 +50,8 @@
 			</div>
 		</div>
 		<div class="col-4 p-1 ms-2">
-			<div class="card">
-				<div class="card-body bg-light">
+			<div class="card shadow">
+				<div class="card-body bg-light rounded">
 					<h5 class="card-title">Do you work on your laptop or PC?</h5>
 					<h6 class="card-subtitle mb-2 text-body-secondary">Then this application is for you.</h6>
 					<p class="card-text">Quoter regularly displays one of your favourite bible verses inside a notification on your desktop. You can use it to:</p>
@@ -58,44 +64,103 @@
 			</div>
 		</div>
 	</div>
-	<div class="row p-5 m-0 bg-light-subtle">
+
+
+	@* FEATURES *@
+
+	<div class="row p-3 m-0">
 		@*Empty row for more space between sections*@
 	</div>
-	<div id="features" class="row pb-4 bg-light-subtle">
+	<div id="features" class="row pb-4 pt-4 m-0 bg-light-subtle bg-gradient">
 		<div class="col text-center">
-			<h2 class="pt-5">Features</h2>
-			<p>Customization options and other features</p>
+			<h2 class="pt-5 h-line">Features</h2>
+			<p>What can you expect from the application</p>
 		</div>
 	</div>
 
-	<div class="row justify-content-center m-0 bg-light-subtle">
+	@* FEATURES first row *@
+
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
 		<div class="col-lg-4">
-			<div class="card p-2 m-2">
+			<div class="card p-2 m-2  shadow">
 				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
 				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h5 class="card-title">Different modes</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Periodic notifications or always on screen</h6>
+					<p class="card-text">
+						Depending on your preferences you can choose to receive notifications as a popup or 
+						have an always-on window.
+					</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-lg-4">
-			<div class="card p-2 m-2">
+			<div class="card p-2 m-2  shadow">
 				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
 				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h5 class="card-title">Add your own verses</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Add, modify or delete collections, books, chapters and verses</h6>
+					<p class="card-text">
+						You can modify any of the existing verses or add your own collection. 
+						Not only that but you're free to add any type of verse or quote you like in an easy to use interface.
+					</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-lg-4">
-			<div class="card p-2 m-2">
+			<div class="card p-2 m-2 shadow">
 				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
 				<div class="card-body">
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<h5 class="card-title">Choose favourites</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Choose to display verses from a favourite collection/book/chapter</h6>
+					<p class="card-text">
+						The Favourites tab allows you to set exactly what specify the exact collection, book, or chapter 
+						from which you want the app to display the verses.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	@* FEATURES second row *@
+
+	<div class="row justify-content-center m-0 p-4 bg-light-subtle">
+		<div class="col-lg-4">
+			<div class="card p-2 m-2 shadow">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Export and import</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Export and import any supported collection as a file</h6>
+					<p class="card-text">
+						If you want to make your own collection of verses you can use the export feature 
+						to generate a file you can share with your friends. The import feature allows you 
+						to add new collections from a file.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2 shadow">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">See what's next</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Navigation arrows to show the next or previous verse</h6>
+					<p class="card-text">
+						You can use the arrows on the notification window to scroll back and forth between the verses as you desire.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2 shadow">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Curious to read more?</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Simple reader interface to browse the collection</h6>
+					<p class="card-text">
+						By clicking on the chapter and verse number inside the notification window you can open the read mode 
+						in which you can read the verse in it's context. Here you can also browse through your whole collection.
+					</p>
 				</div>
 			</div>
 		</div>

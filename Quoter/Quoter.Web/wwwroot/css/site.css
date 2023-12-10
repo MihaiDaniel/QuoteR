@@ -16,3 +16,34 @@ html {
 body {
   margin-bottom: 60px;
 }*/
+
+.w-limit {
+		max-width: 1400px;
+		margin: 0 auto;
+}
+
+.h-line {
+		overflow: hidden;
+		text-align: center;
+}
+
+		.h-line::before,
+		.h-line::after {
+				background-color: #808080;
+				content: "";
+				display: inline-block;
+				height: 1px;
+				position: relative;
+				vertical-align: middle;
+				width: 50%;
+		}
+
+		.h-line::before {
+				right: 0.5em;
+				margin-left: -50%;
+		}
+
+		.h-line::after {
+				left: 0.5em;
+				margin-right: -50%;
+		}
