@@ -1,0 +1,50 @@
+﻿@using Quoter.Web;
+@using Microsoft.Extensions.Localization;
+@model dynamic
+@inject IStringLocalizer<SharedResource> Localizer
+
+@* For some reason asp tags are not recognized without adding the following line *@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+	string culture = Model.culture;
+	string returnUrl = Model.returnUrl;
+}
+@*
+	Creates the drop-down for selecting the website culture (language)
+*@
+<div class="dropdown">
+	<form method="post">
+		<a class="dropdown-toggle btn btn-outline-dark me-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			@switch (culture)
+			{
+				case "en-US":
+					<img width="32" src="~/images/flags/flag_uk_64.png" />
+					break;
+				case "ro-RO":
+					<img width="32" src="~/images/flags/flag_romania_64.png" />
+					break;
+				case "fr-FR":
+					<img width="32" src="~/images/flags/flag_france_64.png" />
+					break;
+			}
+		</a>
+		<ul class="dropdown-menu">
+			<li>
+				<button class="nav-link text-black" asp-page="/Index" asp-page-handler="SetCulture" asp-route-culture="en-US" asp-route-returnUrl="@returnUrl">
+					<img class="p-1" width="32" src="~/images/flags/flag_uk_64.png" /> @Localizer["English"]
+				</button>
+			</li>
+			<li>
+				<button class="nav-link text-black" asp-page="/Index" asp-page-handler="SetCulture" asp-route-culture="ro-RO" asp-route-returnUrl="@returnUrl">
+					<img class="p-1" width="32" src="~/images/flags/flag_romania_64.png" /> @Localizer["Romanian"]
+				</button>
+			</li>
+			<li>
+				<button class="nav-link text-black" asp-page="/Index" asp-page-handler="SetCulture" asp-route-culture="fr-FR" asp-route-returnUrl="@returnUrl">
+					<img class="p-1" width="32" src="~/images/flags/flag_france_64.png" /> @Localizer["French"]
+				</button>
+			</li>
+		</ul>
+	</form>
+</div>

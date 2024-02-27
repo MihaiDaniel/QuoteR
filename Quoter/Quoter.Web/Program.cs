@@ -6,20 +6,40 @@ using Quoter.Web.Models.Configuration;
 using Quoter.Web.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Quoter.Web.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
+using Quoter.Web;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+	.AddDataAnnotationsLocalization();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 
-// Setup the database
-// PostgreSQL
+builder.Services.AddLocalization(options =>
+{
+	options.ResourcesPath = "Resources";
+});
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	var supportedCultures = new[] { "en-US", "fr-FR", "ro-RO" };
+	options.SetDefaultCulture(supportedCultures[0])
+		.AddSupportedCultures(supportedCultures)
+		.AddSupportedUICultures(supportedCultures);
+	options.DefaultRequestCulture = new RequestCulture("en-US");
+});
+builder.Services.AddMvc();
+
+// PostgreSQL database
 //string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 //	options.UseNpgsql(connectionString));
-// SQLite
+
+// SQLite database
 string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web.db");
 string connectionString = $"Data Source={sqlitePath}";
@@ -29,7 +49,7 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	{
 		options.SignIn.RequireConfirmedAccount = false;
 		options.SignIn.RequireConfirmedEmail = false;
@@ -52,6 +72,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Web Application services
+builder.Services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
 builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
 builder.Services.AddScoped<IAppVersionService, AppVersionService>();
@@ -98,6 +119,6 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
-
+app.UseRequestLocalization();
 
 app.Run();

@@ -1,4 +1,8 @@
-﻿@page
+﻿@*
+	"HOME" Landing page of the website.
+	Contains download button and features list
+*@
+@page
 @model IndexModel
 @{
 	ViewData["Title"] = "Home page";
@@ -42,11 +46,11 @@
 	</div>
 
 
-	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5 bg-light">
+@*	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5 bg-light">
 		<div class="col-4 p-1">
 			<div class="image-container">
 				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
-				@*<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg">*@
+				@*<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg">
 			</div>
 		</div>
 		<div class="col-4 p-1 ms-2">
@@ -63,8 +67,29 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>*@
 
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		<div class="col-lg-4">
+			<div class="image-container">
+				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card shadow">
+				<div class="card-body bg-light rounded">
+					<h5 class="card-title">Do you work on your laptop or PC?</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Then this application is for you.</h6>
+					<p class="card-text">Quoter regularly displays one of your favourite bible verses inside a notification on your desktop. You can use it to:</p>
+					<ul>
+						<li>Remind yourself to take a break from work.</li>
+						<li>Read some verses even if you're busy.</li>
+						<li>Memorise bible verses by repeating them.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	@* FEATURES *@
 

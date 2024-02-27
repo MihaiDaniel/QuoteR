@@ -17,11 +17,6 @@ body {
   margin-bottom: 60px;
 }*/
 
-.w-limit {
-		max-width: 1400px;
-		margin: 0 auto;
-}
-
 .h-line {
 		overflow: hidden;
 		text-align: center;

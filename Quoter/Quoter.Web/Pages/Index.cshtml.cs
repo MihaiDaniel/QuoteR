@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Quoter.Shared.Enums;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
-using System.IO;
 
 namespace Quoter.Web.Pages
 {
+	/// <summary>
+	/// Home page of the website
+	/// </summary>
 	public class IndexModel : PageModel
 	{
 		private readonly ILogger<IndexModel> _logger;
@@ -23,10 +26,14 @@ namespace Quoter.Web.Pages
 			_context = context;
 			_memoryCache = memoryCache;
 		}
+
 		public void OnGet()
 		{
 		}
 
+		/// <summary>
+		/// Returns the file for the latest version of the application installer
+		/// </summary>
 		public ActionResult OnGetDownloadApp()
 		{
 			try
@@ -50,11 +57,26 @@ namespace Quoter.Web.Pages
 				byte[] bytes = System.IO.File.ReadAllBytes(latestVersion.Path);
 				return File(bytes, "application/octet-stream", latestVersion.Name);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				_logger.LogError(ex, "An error occured while user tried to download latest version from website.");
 				return BadRequest();
 			}
+		}
+
+		/// <summary>
+		/// Sets the culture of the client in a cookie. Used to chance the website language
+		/// </summary>
+		/// <param name="culture">Culture to change language to (ex: en-US)</param>
+		/// <param name="returnUrl">In case we are on different page to return to the same page</param>
+		public IActionResult OnPostSetCulture(string culture, string returnUrl)
+		{
+			Response.Cookies.Append(
+				CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+				new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+
+			return LocalRedirect(returnUrl);
 		}
 	}
 }
