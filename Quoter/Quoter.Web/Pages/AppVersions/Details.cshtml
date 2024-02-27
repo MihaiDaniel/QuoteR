@@ -6,7 +6,7 @@
 	ViewData["Title"] = "Details";
 }
 <div class="container">
-	@await Html.PartialAsync("BreadCrumbs",
+	@await Html.PartialAsync("_BreadCrumbs",
 	new BreadCrumbsViewModel(
 	$"Version {@Model.ViewModel.Version}",
 	new RouteViewModel("Application versions","/AppVersions/Index")))
