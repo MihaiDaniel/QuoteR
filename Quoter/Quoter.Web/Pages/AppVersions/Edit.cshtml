@@ -8,7 +8,7 @@
 }
 
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbs",
+	@await Html.PartialAsync("_BreadCrumbsPartial",
 	new BreadCrumbsViewModel(
 	"Edit application version",
 	new RouteViewModel("Application versions","/AppVersions/Index")))

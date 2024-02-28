@@ -6,10 +6,57 @@
 }
 
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbs", new BreadCrumbsViewModel("Dashboard"))
+	@await Html.PartialAsync("_BreadCrumbsPartial", new BreadCrumbsViewModel("Dashboard"))
 	<div class="container m-1">
-		<h1>Dashboard</h1>
+		<h1>@Localizer["Dashboard"]</h1>
 	</div>
+
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<i class="bi bi-card-checklist fs-1"></i>
+				</div>
+				
+				<div class="card-body">
+					<h5 class="card-title">Different modes</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Periodic notifications or always on screen</h6>
+					<p class="card-text">
+						Depending on your preferences you can choose to receive notifications as a popup or
+						have an always-on window.
+					</p>
+					<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>Create New</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Add your own verses</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Add, modify or delete collections, books, chapters and verses</h6>
+					<p class="card-text">
+						You can modify any of the existing verses or add your own collection.
+						Not only that but you're free to add any type of verse or quote you like in an easy to use interface.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card p-2 m-2 shadow">
+				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Choose favourites</h5>
+					<h6 class="card-subtitle mb-2 text-body-secondary">Choose to display verses from a favourite collection/book/chapter</h6>
+					<p class="card-text">
+						The Favourites tab allows you to set exactly what specify the exact collection, book, or chapter
+						from which you want the app to display the verses.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container mt-2">
 		<div class="container m-1">
 			<h3>Updates</h3>

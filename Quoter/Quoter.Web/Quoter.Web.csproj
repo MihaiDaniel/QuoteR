@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Shared\Templates\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
 
 	<PropertyGroup>
