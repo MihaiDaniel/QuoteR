@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
 using Quoter.Framework.Data;
 using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Models;
+using System.IO.Compression;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
@@ -85,13 +89,31 @@ namespace Quoter.Framework.Services.ImportExport
 
 				// Serialize & write
 				string content = JsonConvert.SerializeObject(exportModel);
-				await File.WriteAllTextAsync(exportParameters.ExportFilePath, content);
 
+				using (FileStream fs1 = new (exportParameters.ExportFilePath, FileMode.CreateNew))
+				using (GZipStream gzs = new (fs1, CompressionLevel.Optimal))
+				{
+					byte[] contentBytes = Encoding.UTF8.GetBytes(content);
+					await gzs.WriteAsync(contentBytes, 0, contentBytes.Length);
+				}
+
+#if DEBUG
+				await File.WriteAllTextAsync(exportParameters.ExportFilePath + ".json", content);
+
+				using FileStream fs = new(exportParameters.ExportFilePath + ".zip", FileMode.Create);
+				using (ZipArchive zipArchive = new(fs, ZipArchiveMode.Create, false))
+				{
+					ZipArchiveEntry zipArchiveEntry = zipArchive.CreateEntry("content.json", CompressionLevel.Optimal);
+					using (Stream zipStream = zipArchiveEntry.Open())
+					{
+						zipStream.Write(Encoding.UTF8.GetBytes(content));
+					}
+				}
+#endif
 				_messagingService.SendMessage(Event.ExportSucessfull, new ActionResult(true, exportParameters.ExportFilePath));
 			}
 			catch (Exception ex)
 			{
-				
 				_messagingService.SendMessage(Event.ExportFailed, ex.Message);
 			}
 			finally

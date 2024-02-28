@@ -22,6 +22,10 @@
 		/// If another collection with the same name already exist it will delete it entierly and add new data 
 		/// from the import effectively replacing it. Otherwise this strategy will simply add a collection if it does not exist.
 		/// </summary>
+		/// <remarks>
+		/// Useful when starting app for the first time if user imported some collections but went back to previous
+		/// screen and re-imported collections. In this case it's safer to replace everything
+		/// </remarks>
 		Replace = 2,
 	}
 }

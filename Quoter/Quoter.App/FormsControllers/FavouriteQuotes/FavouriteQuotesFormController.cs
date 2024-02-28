@@ -396,7 +396,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		public void Import(bool isImportMerge, bool isImportIgnoreLang)
 		{
 			OpenFileDialog openFileDialog = new();
-			openFileDialog.Filter = "Quoter file (.qter) |*.qter";
+			openFileDialog.Filter = "Quoter file (.qter) |*.qter;*.json;*.zip";
 			openFileDialog.Multiselect = true;
 			openFileDialog.Title = _stringResources["ChooseImportFilename"];
 			openFileDialog.AutoUpgradeEnabled = false; // if it's true it seems to be very slow
@@ -408,7 +408,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			string[] fileNames = openFileDialog.FileNames;
 			foreach (string fileName in fileNames)
 			{
-				if (string.IsNullOrWhiteSpace(fileName) || Path.GetExtension(fileName) != ".qter")
+				if (!IsFileExtensionValid(fileName))
 				{
 					_formsManager.ShowDialogError(_stringResources["ErrCantImport"], _stringResources["ErrCantImportMsgBadFileName"]);
 					return;
@@ -431,6 +431,21 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 				Language = LanguageHelper.GetEnumLanguageFromString(_settings.Language)
 			};
 			_importService.QueueImportJob(importParameters);
+		}
+
+		private bool IsFileExtensionValid(string fileName)
+		{
+			if (string.IsNullOrWhiteSpace(fileName))
+			{
+				return false;
+			}
+			if(Path.GetExtension(fileName) == ".qter"
+				|| Path.GetExtension(fileName) == ".json"
+				|| Path.GetExtension(fileName) == ".zip")
+			{
+				return true;
+			}
+			return false;
 		}
 
 	}

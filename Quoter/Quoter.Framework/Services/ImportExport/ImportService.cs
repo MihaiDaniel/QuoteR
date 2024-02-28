@@ -3,6 +3,9 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.ImportExport.ImportStrategies;
 using Quoter.Framework.Services.Messaging;
+using System.IO.Compression;
+using System.IO;
+using System.Text;
 
 namespace Quoter.Framework.Services.ImportExport
 {
@@ -58,6 +61,10 @@ namespace Quoter.Framework.Services.ImportExport
 				{
 					await BeginImport(importParameters);
 				}
+				else
+				{
+					_messagingService.SendMessage(Event.ImportFailed, "Something went wrong. Please try again.");
+				}
 			}).ConfigureAwait(false);
 		}
 
@@ -111,11 +118,11 @@ namespace Quoter.Framework.Services.ImportExport
 			}
 		}
 
-		private async Task<string> ImportFileAsync(string file, ImportParameters importParameters)
+		private async Task<string> ImportFileAsync(string filePath, ImportParameters importParameters)
 		{
-			_logger.Info($"Starting Import on file: {file}");
+			_logger.Info($"Starting Import on file: {filePath}");
+			string? fileContent = await GetFileContent(filePath);
 
-			string fileContent = await File.ReadAllTextAsync(file);
 			if (string.IsNullOrEmpty(fileContent))
 			{
 				return string.Empty;
@@ -134,5 +141,36 @@ namespace Quoter.Framework.Services.ImportExport
 			return importedCollectionNames;
 		}
 
+		private async Task<string?> GetFileContent(string filePath)
+		{
+			if(Path.GetExtension(filePath).Equals(".json", StringComparison.InvariantCultureIgnoreCase))
+			{
+				return await File.ReadAllTextAsync(filePath);
+			}
+			else if (Path.GetExtension(filePath).Equals(".zip", StringComparison.InvariantCultureIgnoreCase))
+			{
+				using (FileStream fs = File.OpenRead(filePath))
+				using (ZipArchive zip = new(fs, ZipArchiveMode.Read))
+				{
+					foreach (ZipArchiveEntry entry in zip.Entries)
+					{
+						using (StreamReader sr = new(entry.Open()))
+						{
+							return await sr.ReadToEndAsync();
+						}
+					}
+				}
+			}
+			else if (Path.GetExtension(filePath).Equals(".qter", StringComparison.InvariantCultureIgnoreCase))
+			{
+				using (FileStream fs = File.OpenRead(filePath))
+				using (GZipStream gzs = new(fs, CompressionMode.Decompress))
+				using (StreamReader sr = new(gzs))
+				{
+					return await sr.ReadToEndAsync();
+				}
+			}
+			throw new ArgumentException($"Unsupported file extension for: {filePath}");
+		}
 	}
 }
