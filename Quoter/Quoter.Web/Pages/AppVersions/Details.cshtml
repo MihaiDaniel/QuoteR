@@ -3,19 +3,22 @@
 @model Quoter.Web.Pages.AppVersions.DetailsModel
 
 @{
-	ViewData["Title"] = "Details";
+	ViewData["Title"] = Localizer["Version", Model.ViewModel.Version];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Version", Model.ViewModel.Version],
+			new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"),
+			new RouteViewModel(Localizer["Application versions"], "/AppVersions/Index")
+	);
 }
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbsPartial",
-	new BreadCrumbsViewModel(
-	$"Version {@Model.ViewModel.Version}",
-	new RouteViewModel("Application versions","/AppVersions/Index")))
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
 
 	<div class="container text-center">
 
 		<div class="row row-cols-auto">
 			<div class="col">
-				<h2>Version @Model.ViewModel.Version</h2>
+				<h2>@Localizer["Version", Model.ViewModel.Version]</h2>
 			</div>
 			<div class="col">
 				<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Edit">

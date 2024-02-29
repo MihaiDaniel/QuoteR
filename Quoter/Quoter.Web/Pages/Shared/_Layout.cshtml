@@ -54,18 +54,19 @@
 					<li><a href="#features" class="nav-link px-2 text-dark fw-bold text-primary-emphasis">@Localizer["Features"]</a></li>
 					@if (SignInManager.IsSignedIn(User))
 					{
+						<li><a class="nav-link px-2 text-dark fw-bold text-primary-emphasis" asp-page="/AdminDashboard/Index">@Localizer["Admin Dashboard"]</a></li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle px-2 text-dark fw-bold text-primary-emphasis" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Admin navigation
+								@Localizer["Admin shortcuts"]
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="nav-link text-black" asp-page="/AdminDashboard/Index">Dashboard</a></li>
+								<li><a class="nav-link text-black" asp-page="/AdminDashboard/Index">@Localizer["Dashboard"]</a></li>
 								<li>
 									<hr class="dropdown-divider">
 								</li>
-								<li><a class="nav-link text-black" asp-page="/AppVersions/Index">Versions</a></li>
+								<li><a class="nav-link text-black" asp-page="/AppVersions/Index">@Localizer["Versions"]</a></li>
 
-								<li><a class="nav-link text-black" asp-page="/AppRegistrations/Index">Registrations</a></li>
+								<li><a class="nav-link text-black" asp-page="/AppRegistrations/Index">@Localizer["Registrations"]</a></li>
 
 							</ul>
 						</li>

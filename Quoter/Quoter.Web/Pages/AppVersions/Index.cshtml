@@ -4,15 +4,21 @@
 @model Quoter.Web.Pages.AppVersions.IndexModel
 
 @{
-	ViewData["Title"] = "Application versions";
+	ViewData["Title"] = Localizer["Application versions"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Application versions"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
 }
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbsPartial", new BreadCrumbsViewModel("Application versions"))
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
 	<div class="container m-1">
-		<h1>Application versions</h1>
+		<h1>@Localizer["Application versions"]</h1>
 	</div>
 	<div class="container mt-2">
-		<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>Create New</a>
+		<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>@Localizer["Create"]</a>
 		<div class="table-responsive">
 			<table class="table table-sm table-striped table-hover">
 				<thead>
@@ -39,7 +45,7 @@
 							@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
 						</th>
 						<th>
-							Downloads
+							@Localizer["Downloads"]
 						</th>
 						<th></th>
 					</tr>
@@ -85,7 +91,7 @@
 								}
 							</td>
 							<td>
-								@if(item.Description?.Length > 30)
+								@if (item.Description?.Length > 30)
 								{
 									item.Description = item.Description.Substring(0, 30) + "...";
 								}
@@ -117,9 +123,6 @@
 			</table>
 		</div>
 	</div>
-
-
-
 
 </div>
 

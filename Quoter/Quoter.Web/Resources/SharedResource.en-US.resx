@@ -115,4 +115,61 @@
   <data name="French" xml:space="preserve">
     <value>Français</value>
   </data>
+  <data name="Admin Dashboard" xml:space="preserve">
+    <value>Admin Dashboard</value>
+  </data>
+  <data name="Versions" xml:space="preserve">
+    <value>Versions</value>
+  </data>
+  <data name="Registrations" xml:space="preserve">
+    <value>Registrations</value>
+  </data>
+  <data name="Admin shortcuts" xml:space="preserve">
+    <value>Admin shortcuts</value>
+  </data>
+  <data name="Application versions" xml:space="preserve">
+    <value>Application versions</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="Edit app version" xml:space="preserve">
+    <value>Edit application version</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Delete application version" xml:space="preserve">
+    <value>Delete application version</value>
+  </data>
+  <data name="re you sure you want to delete version" xml:space="preserve">
+    <value>re you sure you want to delete version {0} ?</value>
+  </data>
+  <data name="Create app version" xml:space="preserve">
+    <value>Create application version</value>
+  </data>
+  <data name="ViewAndManageVersions" xml:space="preserve">
+    <value>View and manage application versions</value>
+  </data>
+  <data name="ViewAndManageRegistrations" xml:space="preserve">
+    <value>View and manage application registrations</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="ViewAndManageCollections" xml:space="preserve">
+    <value>View and manage collections of the application</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Current version: {0}</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
 </root>

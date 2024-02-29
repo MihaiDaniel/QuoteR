@@ -3,16 +3,21 @@
 @model Quoter.Web.Pages.AppVersions.DeleteModel
 
 @{
-	ViewData["Title"] = "Delete";
+	ViewData["Title"] = Localizer["Delete application version"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Delete application version"],
+			new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"),
+			new RouteViewModel(Localizer["Application versions"], "/AppVersions/Index")
+	);
 }
 
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbsPartial",
-	new BreadCrumbsViewModel(
-	"Delete application version",
-	new RouteViewModel("Application versions","/AppVersions/Index")))
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
 	<div class="container m-1">
-		<h2>Are you sure you want to delete version @Model.ViewModel.Version ?</h2>
+		<h2>@Localizer["re you sure you want to delete version", @Model.ViewModel.Version]</h2>
 	</div>
 	<div class="container mt-2">
 		<dl class="row">

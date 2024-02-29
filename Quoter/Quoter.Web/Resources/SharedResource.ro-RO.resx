@@ -115,4 +115,61 @@
   <data name="French" xml:space="preserve">
     <value>Français</value>
   </data>
+  <data name="Admin Dashboard" xml:space="preserve">
+    <value>Panou de control</value>
+  </data>
+  <data name="Versions" xml:space="preserve">
+    <value>Versiuni</value>
+  </data>
+  <data name="Registrations" xml:space="preserve">
+    <value>Înregistrări aplicație</value>
+  </data>
+  <data name="Admin shortcuts" xml:space="preserve">
+    <value>Scurtături</value>
+  </data>
+  <data name="Application versions" xml:space="preserve">
+    <value>Versiuni aplicație</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Panou de control</value>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>Descărcări</value>
+  </data>
+  <data name="Edit app version" xml:space="preserve">
+    <value>Editează versiune aplicație</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versiunea {0}</value>
+  </data>
+  <data name="Delete application version" xml:space="preserve">
+    <value>Șterge versiune aplicație</value>
+  </data>
+  <data name="re you sure you want to delete version" xml:space="preserve">
+    <value>Sigur doriți ștergerea versiunii {0} ?</value>
+  </data>
+  <data name="Create app version" xml:space="preserve">
+    <value>Creează o versiune de aplicație</value>
+  </data>
+  <data name="ViewAndManageVersions" xml:space="preserve">
+    <value>Vizualizează și administrează versiunile de aplicație</value>
+  </data>
+  <data name="ViewAndManageRegistrations" xml:space="preserve">
+    <value>Vizualizează și administrează înregistrările aplicației</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>Colecții</value>
+  </data>
+  <data name="ViewAndManageCollections" xml:space="preserve">
+    <value>Vizualizează și administrează colecțiile aplicației</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Versiunea curentă: {0}</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Administrează</value>
+  </data>
 </root>

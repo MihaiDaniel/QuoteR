@@ -4,16 +4,21 @@
 @model Quoter.Web.Pages.AppVersions.EditModel
 
 @{
-	ViewData["Title"] = "Edit app version";
+	ViewData["Title"] = Localizer["Edit app version"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Edit app version"],
+			new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"),
+			new RouteViewModel(Localizer["Application versions"], "/AppVersions/Index")
+	);
 }
 
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbsPartial",
-	new BreadCrumbsViewModel(
-	"Edit application version",
-	new RouteViewModel("Application versions","/AppVersions/Index")))
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
 	<div class="container m-1">
-		<h2>Edit application version</h2>
+		<h2>@Localizer["Edit app version"]</h2>
 	</div>
 	<div class="container mt-2">
 		<form method="post">

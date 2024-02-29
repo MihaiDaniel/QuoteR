@@ -2,90 +2,90 @@
 @using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AdminDashboard.IndexModel
 @{
-	ViewData["Title"] = "Dashboard";
+	ViewData["Title"] = @Localizer["Dashboard"];
 }
 
 <div class="container">
-	@await Html.PartialAsync("_BreadCrumbsPartial", new BreadCrumbsViewModel("Dashboard"))
+	@await Html.PartialAsync("_BreadCrumbsPartial", new BreadCrumbsViewModel(Localizer["Dashboard"]))
 	<div class="container m-1">
 		<h1>@Localizer["Dashboard"]</h1>
 	</div>
 
 	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+
+		@* COLLECTIONS *@
 		<div class="col-lg-4">
 			<div class="card p-2 m-2  shadow">
 				<div class="p-1 text-center">
-					<i class="bi bi-card-checklist fs-1"></i>
+					<div class="row">
+						<div class="col-4"><i class="bi bi-book fs-1"></i></div>
+						<div class="col-4"><i class="bi bi-translate fs-1"></i></div>
+						<div class="col-4"><i class="bi bi-journal-arrow-down fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-4 fw-bold">@Model.ViewModel.CollectionsNo</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.TopLanguageDownloads</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.CollectionsDownloadedNo</div>
+					</div>
 				</div>
 				
 				<div class="card-body">
-					<h5 class="card-title">Different modes</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Periodic notifications or always on screen</h6>
+					<h3 class="card-title">@Localizer["Collections"]</h3>
 					<p class="card-text">
-						Depending on your preferences you can choose to receive notifications as a popup or
-						have an always-on window.
+						@Localizer["ViewAndManageCollections"]
 					</p>
-					<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>Create New</a>
+					<a asp-page="Collections/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
 				</div>
 			</div>
 		</div>
+
+		@* VERSIONS *@
 		<div class="col-lg-4">
 			<div class="card p-2 m-2  shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+				<div class="p-1 text-center">
+					<div class="row">
+						<div class="col-4"><i class="bi bi-files fs-1"></i></div>
+						<div class="col-4"><i class="bi bi-download fs-1"></i></div>
+						<div class="col-4"><i class="bi bi-arrow-repeat fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-4 fw-bold">@Model.ViewModel.VersionsNo</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.VersionsDownloaded</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.VersionsUpdates</div>
+					</div>
+				</div>
+
 				<div class="card-body">
-					<h5 class="card-title">Add your own verses</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Add, modify or delete collections, books, chapters and verses</h6>
+					<h3 class="card-title">@Localizer["Versions"]</h3>
+					<h6 class="card-subtitle mb-2 text-body-secondary">@Localizer["CurrentVersion", Model.ViewModel.LatestVersion]</h6>
 					<p class="card-text">
-						You can modify any of the existing verses or add your own collection.
-						Not only that but you're free to add any type of verse or quote you like in an easy to use interface.
+						@Localizer["ViewAndManageVersions"]
 					</p>
+					<a asp-page="/AppVersions/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
 				</div>
 			</div>
 		</div>
+
+		@* REGISTRATIONS *@
 		<div class="col-lg-4">
-			<div class="card p-2 m-2 shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<div class="row">
+						<div class="col-12"><i class="bi bi-clipboard2-check fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-12 fw-bold">@Model.ViewModel.RegistrationsNo</div>
+					</div>
+				</div>
 				<div class="card-body">
-					<h5 class="card-title">Choose favourites</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Choose to display verses from a favourite collection/book/chapter</h6>
+					<h3 class="card-title">@Localizer["Registrations"]</h3>
 					<p class="card-text">
-						The Favourites tab allows you to set exactly what specify the exact collection, book, or chapter
-						from which you want the app to display the verses.
+						@Localizer["ViewAndManageRegistrations"]
 					</p>
+					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="container mt-2">
-		<div class="container m-1">
-			<h3>Updates</h3>
-		</div>
-		<div class="row p-1 text-center">
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>January</h4>
-			</div>
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>February</h4>
-			</div>
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>March</h4>
-			</div>
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>April</h4>
-			</div>
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>June</h4>
-			</div>
-			<div class="col-2">
-				<h1>0</h1>
-				<h4>July</h4>
-			</div>
-		</div>
-	</div>
 </div>
