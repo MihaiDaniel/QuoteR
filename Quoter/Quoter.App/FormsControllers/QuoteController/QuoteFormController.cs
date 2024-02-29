@@ -3,22 +3,23 @@ using Quoter.App.Forms.Quote;
 using Quoter.App.Helpers;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Enums;
 using System.Media;
 
 namespace Quoter.App.FormsControllers.QuoteController
 {
-	public class QuoteFormController : IQuoteFormController, IMessagingSubscriber
+    public class QuoteFormController : IQuoteFormController, IMessagingSubscriber
 	{
 		private readonly IQuoteService _quoteService;
 		private readonly IMessagingService _messagingService;
 		private readonly IThemeService _themeService;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IStringResources _stringResources;
 		private readonly ISoundService _soundService;
 		private readonly IFormsManager _formsManager;
@@ -30,7 +31,7 @@ namespace Quoter.App.FormsControllers.QuoteController
 		public QuoteFormController(IQuoteService quoteService,
 									IMessagingService messagingService,
 									IThemeService themeService,
-									ISettings settings,
+									IAppSettings settings,
 									IStringResources stringResources,
 									ISoundService soundService,
 									IFormsManager formsManager)

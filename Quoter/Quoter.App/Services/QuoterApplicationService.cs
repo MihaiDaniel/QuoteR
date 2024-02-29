@@ -9,22 +9,23 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Framework.Services.Versioning;
 using Quoter.Shared.Models;
 
 namespace Quoter.App.Services
 {
-	/// <summary>
-	/// Service handling different features for <see cref="QuoterApplicationContext"/>
-	/// </summary>
-	public class QuoterApplicationService : IQuoterApplicationService
+    /// <summary>
+    /// Service handling different features for <see cref="QuoterApplicationContext"/>
+    /// </summary>
+    public class QuoterApplicationService : IQuoterApplicationService
 	{
 		private const string JobNameNotifyIfAppWasUpdated = "notify_if_app_was_updated";
 		private const string JobNameRegisterApp = "register_app";
 		private const string JobNameUpdateApp = "update_app";
 
 		private readonly ILogger _logger;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IBackgroundJobsFormsService _backgroundJobsService;
 		private readonly IRegistrationService _registrationService;
 		private readonly IStringResources _stringResources;
@@ -33,7 +34,7 @@ namespace Quoter.App.Services
 		private readonly IMessagingService _messagingService;
 
 		public QuoterApplicationService(IFormsManager formsManager,
-										ISettings settings,
+										IAppSettings settings,
 										IStringResources stringResources,
 										ILogger logger,
 										IRegistrationService registrationService,

@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
 using Quoter.Shared.Enums;
 using Quoter.Framework.Models;
 using System.Text;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.Framework.Services
 {
-	public class QuoteService : IQuoteService
+    public class QuoteService : IQuoteService
 	{
 		private readonly QuoterContext _context;
 		private readonly Random _random;

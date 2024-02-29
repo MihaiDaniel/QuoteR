@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Data;
 using Quoter.Framework.Data.Repositories;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
-	/// <summary>
-	/// Importing strategy service that will replace any existing collection with the same name of the ones to import.
-	/// This will also replace all of the collection's content (books, chapters, quotes)
-	/// </summary>
-	public class ReplaceImportStrategyService : IImportStrategyService
+    /// <summary>
+    /// Importing strategy service that will replace any existing collection with the same name of the ones to import.
+    /// This will also replace all of the collection's content (books, chapters, quotes)
+    /// </summary>
+    public class ReplaceImportStrategyService : IImportStrategyService
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;

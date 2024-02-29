@@ -1,18 +1,18 @@
 ﻿using Moq;
 using Quoter.Framework.Services.Api;
-using Quoter.Framework.Services;
+using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.Framework.Tests.Services.Api
 {
-	public class RegistrationServiceTests
+    public class RegistrationServiceTests
 	{
-		Mock<ISettings> _mockSettings;
+		Mock<IAppSettings> _mockSettings;
 		Mock<IWebApiService> _mockWebApiService;
 		RegistrationService _registrationService;
 
 		public RegistrationServiceTests()
 		{
-			_mockSettings = new Mock<ISettings>();
+			_mockSettings = new Mock<IAppSettings>();
 			_mockWebApiService = new Mock<IWebApiService>();
 
 			_registrationService = new(_mockSettings.Object, _mockWebApiService.Object);

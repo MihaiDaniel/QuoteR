@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.Framework.Data.Repositories
 {
-	public class CollectionRepository : ICollectionRepository
+    public class CollectionRepository : ICollectionRepository
 	{
 		private readonly QuoterContext _context;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Enums;
@@ -10,10 +10,10 @@ using System.Reflection;
 
 namespace Quoter.Framework.Services.Versioning
 {
-	/// <summary>
-	/// Service responible for updating the application
-	/// </summary>
-	public class UpdateService : IUpdateService
+    /// <summary>
+    /// Service responible for updating the application
+    /// </summary>
+    public class UpdateService : IUpdateService
 	{
 		private readonly ILogger _logger;
 		private readonly IRegistrationService _registrationService;

@@ -1,15 +1,10 @@
 ﻿using Quoter.App.Forms.Manage;
-using Quoter.Framework.Entities;
-using System;
-using System.Collections.Generic;
+using Quoter.Framework.Data.Entities;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-    public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
+	public interface IFavouriteQuotesFormController : IFormController<IFavouriteQuotesForm>
 	{
 
 		BindingList<Collection> Collections { get; }
@@ -33,6 +28,6 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		void Export(bool isExportOnlyFavourites);
 
 		void Import(bool isImportMerge, bool isImportIgnoreLang);
-		
+
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using System.Runtime.CompilerServices;
 using System.Text;
 

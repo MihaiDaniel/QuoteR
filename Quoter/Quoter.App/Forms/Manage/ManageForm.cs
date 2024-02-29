@@ -11,7 +11,7 @@ using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
@@ -19,11 +19,11 @@ using Quoter.Shared.Enums;
 
 namespace Quoter.App.Forms
 {
-	/// <summary>
-	/// Main form of the application that contains different tabs for settings and managing quotes.
-	/// Expects a <see cref="ManageFormOptions"/>
-	/// </summary>
-	public partial class ManageForm : ResizableForm, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
+    /// <summary>
+    /// Main form of the application that contains different tabs for settings and managing quotes.
+    /// Expects a <see cref="ManageFormOptions"/>
+    /// </summary>
+    public partial class ManageForm : ResizableForm, IManageForm, IEditQuotesForm, ISettingsForm, IFavouriteQuotesForm
 	{
 		private readonly IFormsManager _formsManager;
 		private readonly IFormAnimationService _formAnimationService;

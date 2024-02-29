@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Shared.Models;
@@ -14,10 +14,10 @@ using System.Text.Json;
 
 namespace Quoter.Framework.Services.ImportExport
 {
-	/// <summary>
-	/// <see cref="IExportService"/> implementation
-	/// </summary>
-	public class ExportService : IExportService
+    /// <summary>
+    /// <see cref="IExportService"/> implementation
+    /// </summary>
+    public class ExportService : IExportService
 	{
 		private readonly object _lock = new object();
 		private readonly QuoterContext _context;

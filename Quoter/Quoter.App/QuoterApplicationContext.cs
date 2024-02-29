@@ -10,6 +10,7 @@ using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Models;
 using System.Diagnostics;
 
@@ -23,7 +24,7 @@ namespace Quoter.App
 		private readonly NotifyIcon _trayIcon;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly ISoundService _soundService;
 		private readonly ILogger _logger;
@@ -35,7 +36,7 @@ namespace Quoter.App
 		private System.Windows.Forms.Timer _timerStartup;
 
 		public QuoterApplicationContext(IFormsManager formsManager,
-										ISettings settings,
+										IAppSettings settings,
 										IStringResources stringResources,
 										IMessagingService messagingService,
 										ISoundService soundService,
@@ -72,7 +73,6 @@ namespace Quoter.App
 		{
 			if (_settings.IsFirstStart)
 			{
-				_settings.SetDefaults();
 				_settings.InstallId = Guid.NewGuid().ToString();
 				_settings.Language = LanguageHelper.SetCurrentUICultureForCurrentThread();
 				_settings.IsFirstStart = false;

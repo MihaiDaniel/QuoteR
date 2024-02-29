@@ -9,6 +9,7 @@ using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Enums;
 using System.ComponentModel;
 using System.Globalization;
@@ -21,7 +22,7 @@ namespace Quoter.App.FormsControllers.Settings
 	/// </summary>
 	public class SettingsFormController : ISettingsFormController, INotifyPropertyChanged
 	{
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
@@ -129,7 +130,7 @@ namespace Quoter.App.FormsControllers.Settings
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		public SettingsFormController(ISettings settings,
+		public SettingsFormController(IAppSettings settings,
 										IMessagingService messagingService,
 										IStringResources stringResources,
 										IFormsManager formsManager,
@@ -340,6 +341,19 @@ namespace Quoter.App.FormsControllers.Settings
 		public void SetSelectedNotificationSound(EnumSound selectedSound)
 		{
 			_settings.NotificationSound = selectedSound;
+			switch (_settings.NotificationSound)
+			{
+				case EnumSound.None:
+					SelectedNotificationSound = "-"; break;
+				case EnumSound.Click:
+					SelectedNotificationSound = "Click"; break;
+				case EnumSound.Pop:
+					SelectedNotificationSound = "Pop"; break;
+				case EnumSound.Arpeggio:
+					SelectedNotificationSound = "Arpeggio"; break;
+				case EnumSound.Bell:
+					SelectedNotificationSound = "Bell"; break;
+			}
 		}
 
 		public void PlayCurrentNotificationSound()

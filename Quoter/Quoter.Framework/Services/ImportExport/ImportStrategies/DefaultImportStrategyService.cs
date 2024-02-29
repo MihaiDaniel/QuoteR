@@ -1,16 +1,16 @@
 ﻿using Quoter.Framework.Data;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Data.Repositories;
-using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
-	/// <summary>
-	/// Default strategy import service implementation. This import service simply imports collections 
-	/// without checking for duplicate collections books, etc. If another collection with the same name
-	/// is found, it simply inserts with the name + a number.
-	/// </summary>
-	public class DefaultImportStrategyService : IImportStrategyService
+    /// <summary>
+    /// Default strategy import service implementation. This import service simply imports collections 
+    /// without checking for duplicate collections books, etc. If another collection with the same name
+    /// is found, it simply inserts with the name + a number.
+    /// </summary>
+    public class DefaultImportStrategyService : IImportStrategyService
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;

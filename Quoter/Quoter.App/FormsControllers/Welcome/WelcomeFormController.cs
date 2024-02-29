@@ -8,18 +8,18 @@ using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models.ImportExport;
-using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Enums;
 using System.Globalization;
 
 namespace Quoter.App.FormsControllers.Welcome
 {
-	public class WelcomeFormController : IWelcomeFormController
+    public class WelcomeFormController : IWelcomeFormController
 	{
 		private readonly QuoterContext _context;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly IFormsManager _formsManager;
 		private readonly IImportService _importService;
@@ -29,7 +29,7 @@ namespace Quoter.App.FormsControllers.Welcome
 		private List<CollectionFileModel> _importableCollections;
 
 		public WelcomeFormController(QuoterContext context,
-									ISettings settings,
+									IAppSettings settings,
 									IMessagingService messagingService,
 									IFormsManager formsManager,
 									IImportService importService,

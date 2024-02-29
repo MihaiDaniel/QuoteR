@@ -1,21 +1,22 @@
 ﻿using Moq;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
+using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.Framework.Tests.Services.Api
 {
-	public class WebApiServiceTests
+    public class WebApiServiceTests
 	{
-		Mock<ISettings> _mockSettings;
+		Mock<IAppSettings> _mockSettings;
 		Mock<ILogger> _mockLogger;
 		WebApiService _webApiService;
 
 		public WebApiServiceTests()
 		{
 			_mockLogger = new Mock<ILogger>();
-			_mockSettings = new Mock<ISettings>();
+			_mockSettings = new Mock<IAppSettings>();
 			_mockSettings
-				.SetupGet(_ => _.WebApiDomainUrl)
+				.SetupGet(_ => _.WebApiUrl)
 				.Returns("https://localhost:7277");
 
 			_webApiService = new(_mockLogger.Object, _mockSettings.Object);

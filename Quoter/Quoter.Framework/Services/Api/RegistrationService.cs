@@ -1,11 +1,13 @@
-﻿namespace Quoter.Framework.Services.Api
+﻿using Quoter.Framework.Services.AppSettings;
+
+namespace Quoter.Framework.Services.Api
 {
-	public class RegistrationService : IRegistrationService
+    public class RegistrationService : IRegistrationService
 	{
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IWebApiService _webApiService;
 
-		public RegistrationService(ISettings settings, IWebApiService webApiService)
+		public RegistrationService(IAppSettings settings, IWebApiService webApiService)
 		{
 			_settings = settings;
 			_webApiService = webApiService;

@@ -1,9 +1,9 @@
-﻿using Quoter.Framework.Entities;
+﻿using Quoter.Framework.Data.Entities;
 using System.Text;
 
 namespace Quoter.Framework.Helpers
 {
-	public static class QuoteHelper
+    public static class QuoteHelper
 	{
 		/// <summary>
 		/// Returns a list of <see cref="Quote"/> as a single string. Quotes are separated by new lines.

@@ -1,14 +1,14 @@
 ﻿using Quoter.App.Helpers;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Services;
+using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.App.Services.Forms
 {
-	public class ThemeService : IThemeService
+    public class ThemeService : IThemeService
 	{
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 
-		public ThemeService(ISettings settings)
+		public ThemeService(IAppSettings settings)
 		{
 			_settings = settings;
 		}

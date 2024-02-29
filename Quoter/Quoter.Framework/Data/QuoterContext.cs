@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.Framework.Data
 {
@@ -19,6 +19,8 @@ namespace Quoter.Framework.Data
 		public DbSet<Log> Logs { get; set; }
 
 		public DbSet<AppVersion> AppVersions { get; set; }
+
+		public DbSet<Setting> Settings { get; set; }
 
 		/// <summary>
 		/// Default constructor needed for ef tools migrations to intialize the context
@@ -41,9 +43,9 @@ namespace Quoter.Framework.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			
+
 		}
 
-	
+
 	}
 }

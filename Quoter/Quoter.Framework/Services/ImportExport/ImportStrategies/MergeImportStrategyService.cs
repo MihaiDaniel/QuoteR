@@ -1,57 +1,57 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Quoter.Framework.Entities;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Data;
 using Quoter.Framework.Data.Repositories;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.Framework.Services.ImportExport.ImportStrategies
 {
-	/// <summary>
-	/// Importing strategy service that will add new collections or merge data into an existing collection if a collection
-	/// with the same name already exists.
-	/// This will also merge books and chapters. 
-	/// Quotes will be replaced instead.
-	/// </summary>
-	/// <remarks>
-	/// For the following existing collection:
-	/// Collection1
-	///		Book1
-	///			Chapter1
-	///				Quote1
-	///				Quote2
-	///				Quote3
-	///			Chapter2
-	///				Quote1
-	/// 
-	/// If we import the following:
-	/// Collection1
-	///		Book1
-	///			Chapter2
-	///				QuoteX
-	///				QuoteY
-	///			Chapter3
-	///				QuoteZ
-	///		Book2
-	///			Chapter1
-	///				QuoteA
-	///				
-	/// The final result will be:
-	/// Collection1					=
-	///		Book1					=
-	///			Chapter1			=
-	///				Quote1			=
-	///				Quote2			=
-	///				Quote3			=
-	///			Chapter2			~ (chapter stays the same, but it's content is new)
-	///				QuoteX			+
-	///				QuoteY			+
-	///			Chapter3			+
-	///				QuoteZ			+
-	///		Book2					+
-	///			Chapter1			+
-	///				QuoteA			+
-	/// </remarks>
-	public class MergeImportStrategyService : IImportStrategyService
+    /// <summary>
+    /// Importing strategy service that will add new collections or merge data into an existing collection if a collection
+    /// with the same name already exists.
+    /// This will also merge books and chapters. 
+    /// Quotes will be replaced instead.
+    /// </summary>
+    /// <remarks>
+    /// For the following existing collection:
+    /// Collection1
+    ///		Book1
+    ///			Chapter1
+    ///				Quote1
+    ///				Quote2
+    ///				Quote3
+    ///			Chapter2
+    ///				Quote1
+    /// 
+    /// If we import the following:
+    /// Collection1
+    ///		Book1
+    ///			Chapter2
+    ///				QuoteX
+    ///				QuoteY
+    ///			Chapter3
+    ///				QuoteZ
+    ///		Book2
+    ///			Chapter1
+    ///				QuoteA
+    ///				
+    /// The final result will be:
+    /// Collection1					=
+    ///		Book1					=
+    ///			Chapter1			=
+    ///				Quote1			=
+    ///				Quote2			=
+    ///				Quote3			=
+    ///			Chapter2			~ (chapter stays the same, but it's content is new)
+    ///				QuoteX			+
+    ///				QuoteY			+
+    ///			Chapter3			+
+    ///				QuoteZ			+
+    ///		Book2					+
+    ///			Chapter1			+
+    ///				QuoteA			+
+    /// </remarks>
+    public class MergeImportStrategyService : IImportStrategyService
 	{
 		private readonly QuoterContext _context;
 		private readonly ILogger _logger;

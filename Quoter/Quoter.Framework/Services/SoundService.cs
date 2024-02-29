@@ -1,17 +1,18 @@
 ﻿using Quoter.Framework.Enums;
+using Quoter.Framework.Services.AppSettings;
 using System.Media;
 using System.Reflection;
 
 namespace Quoter.Framework.Services
 {
-	public class SoundService : ISoundService
+    public class SoundService : ISoundService
 	{
 		private readonly Dictionary<EnumSound, SoundPlayer> _dicSoundPlayers;
 		private readonly Assembly _entryAssembly;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private bool _isLoaded;
 
-		public SoundService(ISettings settings)
+		public SoundService(IAppSettings settings)
 		{
 			_dicSoundPlayers = new Dictionary<EnumSound, SoundPlayer>();
 			_entryAssembly = Assembly.GetEntryAssembly();

@@ -6,7 +6,6 @@ using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
 using Quoter.Shared.Enums;
 using Quoter.Framework.Helpers;
 using Quoter.Framework.Services;
@@ -15,18 +14,20 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Data.Repositories;
+using Quoter.Framework.Data.Entities;
+using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-	/// <summary>
-	/// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
-	/// </summary>
-	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
+    /// <summary>
+    /// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
+    /// </summary>
+    public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;
 		private readonly IFormsManager _formsManager;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly ILogger _logger;
 		private readonly ICollectionRepository _collectionRepo;
 
@@ -114,7 +115,7 @@ namespace Quoter.App.FormsControllers.EditQuotes
 		public EditQuotesFormController(QuoterContext quoterContext,
 										IStringResources stringResources,
 										IFormsManager formManager,
-										ISettings settings,
+										IAppSettings settings,
 										ILogger logger,
 										ICollectionRepository collectionService)
 		{

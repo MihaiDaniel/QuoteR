@@ -5,26 +5,25 @@ using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
 using Quoter.App.Models;
 using Quoter.App.Services;
-using Quoter.App.Services.BackgroundJobs;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Models.ImportExport;
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Enums;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Quoter.App.FormsControllers.FavouriteQuotes
 {
-	/// <summary>
-	/// Controller for the Favourite Tab of the <see cref="ManageForm"/>
-	/// </summary>
-	public class FavouriteQuotesFormController : IFavouriteQuotesFormController
+    /// <summary>
+    /// Controller for the Favourite Tab of the <see cref="ManageForm"/>
+    /// </summary>
+    public class FavouriteQuotesFormController : IFavouriteQuotesFormController
 	{
 		/// <summary>
 		/// Special item in the list boxes. If this is checked or unchecked it should check/uncheck
@@ -37,7 +36,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 		private readonly IFormsManager _formsManager;
 		private readonly IExportService _exportService;
 		private readonly IImportService _importService;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IMessagingService _messagingService;
 		private readonly ILogger _logger;
 
@@ -53,7 +52,7 @@ namespace Quoter.App.FormsControllers.FavouriteQuotes
 			QuoterContext context,
 			IStringResources stringResources,
 			IFormsManager formsManager,
-			ISettings settings,
+			IAppSettings settings,
 			IExportService exportService,
 			IImportService importService,
 			IMessagingService messagingService,

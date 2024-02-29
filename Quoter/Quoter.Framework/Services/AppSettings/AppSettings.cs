@@ -1,12 +1,17 @@
-﻿using Quoter.App.Helpers;
+﻿using Quoter.Framework.Data;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Enums;
-using Quoter.Framework.Services.AppSettings;
+using System.Collections.Concurrent;
+using System.Drawing;
 
-namespace Quoter.App.Services
+namespace Quoter.Framework.Services.AppSettings
 {
-	public class SettingsOld : IAppSettings
+	public class AppSettings : IAppSettings
 	{
-		private readonly object _lock = new object();
+		private readonly QuoterContext _context;
+		private readonly ConcurrentDictionary<string, object> _settingsDic;
+
+		#region IAppSettings
 
 		public bool IsFirstStart
 		{
@@ -320,63 +325,118 @@ namespace Quoter.App.Services
 			}
 		}
 
-		public void SetDefaults()
+		#endregion IAppSettings
+
+		public AppSettings(QuoterContext context)
 		{
-			NotificationIntervalSeconds = Constants.SettingDefault.NotificationIntervalSeconds;
-			AutoCloseNotificationSeconds = Constants.SettingDefault.AutoCloseNotificationSeconds;
-			ShowWelcomeNotification = Constants.SettingDefault.ShowWelcomeNotification;
-			KeepNotificationOpenOnMouseOver = Constants.SettingDefault.KeepNotificationOpenOnMouseOver;
-			ShowCollectionsBasedOnLanguage = Constants.SettingDefault.ShowCollectionsBasedOnLanguage;
-			NotificationType = Constants.SettingDefault.NotificationType;
-			NotificationSound = EnumSound.Click;
+			_context = context;
+			_settingsDic = new ConcurrentDictionary<string, object>();
 		}
 
 		/// <summary>
-		/// Gets the value of a setting thread-safe based on the <paramref name="key"/>
+		/// Returns a setting's value. Get first from in memory dic if found.
 		/// </summary>
-		/// <typeparam name="T">Type expected of the setting value</typeparam>
-		/// <param name="key">Key of the setting</param>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
 		/// <returns></returns>
+		/// <exception cref="ArgumentException"></exception>
 		private T Get<T>(string key)
 		{
-			lock (_lock)
+			if (_settingsDic.ContainsKey(key))
 			{
-				ValidateSetting<T>(key);
-				return (T)Properties.Settings.Default[key];
-
+				return (T)_settingsDic[key];
+			}
+			else
+			{
+				Setting? setting = _context.Settings.FirstOrDefault(s => s.Name == key);
+				if (setting is not null)
+				{
+					object value = ConvertToType<T>(setting.Value);
+					_settingsDic.TryAdd(setting.Name, value);
+					return (T)value;
+				}
+				throw new ArgumentException($"Setting '{key}' does not exist.");
 			}
 		}
 
 		/// <summary>
-		/// Sets the value of a setting thread-safe if it's different than the current value and saves changes.
+		/// Sets a setting value. Saves changes to the database if values differ
 		/// </summary>
-		/// <typeparam name="T">Type expected of the setting value</typeparam>
-		/// <param name="key">Key of the setting</param>
-		/// <param name="value">Value to set the setting to</param>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
+		/// <param name="value"></param>
+		/// <exception cref="ArgumentNullException"></exception>
 		private void Set<T>(string key, T value)
 		{
-			lock (_lock)
+			if(value is null)
 			{
-				ValidateSetting<T>(key);
-				if (Properties.Settings.Default[key] != (object?)value)
+				throw new ArgumentNullException($"Can't set setting '{key}' value to NULL");
+			}
+			Setting? setting = _context.Settings.FirstOrDefault(s => s.Name == key);
+			if (setting is not null)
+			{
+				_settingsDic.AddOrUpdate(setting.Name, value, (existingKey, existingVal) =>
 				{
-					Properties.Settings.Default[key] = value;
-					Properties.Settings.Default.Save();
+					if(existingKey == setting.Name && existingVal != (object)value)
+					{
+						existingVal = value;
+					}
+					return existingVal;
+				});
+				string strValue = ConvertToString<T>(value);
+				if(setting.Value != strValue)
+				{
+					setting.Value = strValue;
+					_context.SaveChanges();
 				}
 			}
 		}
 
-		private void ValidateSetting<T>(string key)
+		public static string ConvertToString<T>(T value)
 		{
-			if (Properties.Settings.Default[key] == null)
+			if(typeof(T) == typeof(Size))
+			{  
+				Size? size = value as Size?;
+				return $"{size!.Value.Width},{size!.Value.Height}";
+			}
+			else
 			{
-				throw new ArgumentException($"Setting {key} does not exist");
+				return value.ToString();
+			}
+		}
 
-			}
-			if (Properties.Settings.Default[key].GetType() != typeof(T))
+		public static object ConvertToType<T>(string value)
+		{
+			if (typeof(T) == typeof(string))
 			{
-				throw new ArgumentException($"Setting {key} is not of type {typeof(T)}");
+				return value;
 			}
+			else if (typeof(T) == typeof(int))
+			{
+				return int.Parse(value);
+			}
+			else if (typeof(T) == typeof(float))
+			{
+				return float.Parse(value);
+			}
+			else if (typeof(T) == typeof(double))
+			{
+				return double.Parse(value);
+			}
+			else if (typeof(T) == typeof(bool))
+			{
+				return bool.Parse(value);
+			}
+			else if (typeof(T) == typeof(Guid))
+			{
+				return Guid.Parse(value);
+			}
+			else if (typeof(T) == typeof(Size))
+			{
+				string[] values = value.Split(',');
+				return new Size(int.Parse(values[0]), int.Parse(values[1]));
+			}
+			throw new ArgumentException($"Setting value '{value}' is of unknown type.");
 		}
 	}
 }

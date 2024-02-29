@@ -4,31 +4,31 @@ using Quoter.App.Forms.Quote;
 using Quoter.App.FormsControllers.QuoteController;
 using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
-using Quoter.Framework.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
+using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.App.Views
 {
-	/// <summary>
-	/// Form used to display quotes as notifications.
-	/// </summary>
-	public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
+    /// <summary>
+    /// Form used to display quotes as notifications.
+    /// </summary>
+    public partial class QuoteForm : Form, IMonitoredForm, IQuoteForm
 	{
 		private const int TitleMaxChars = 35;
 		private const int FooterMaxChars = 40;
 
 		private readonly IFormsManager _formsManager;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IFormAnimationService _formAnimationService;
 		private readonly IFormPositioningService _positioningService;
 		private readonly IThemeService _themeService;
 		private readonly IQuoteFormController _controller;
 
 		public QuoteForm(IFormsManager formsManager,
-							ISettings settings,
+							IAppSettings settings,
 							IFormPositioningService positioningService,
 							IFormAnimationService animationService,
 							IThemeService themeService,
@@ -48,7 +48,7 @@ namespace Quoter.App.Views
 		}
 
 		public QuoteForm(IFormsManager formsManager,
-							ISettings settings,
+							IAppSettings settings,
 							IFormPositioningService positioningService,
 							IFormAnimationService animationService,
 							IThemeService themeService,

@@ -1,12 +1,12 @@
-﻿using Quoter.Framework.Entities;
+﻿using Quoter.Framework.Data.Entities;
 using Quoter.Shared.Enums;
 
 namespace Quoter.Framework.Services
 {
-	/// <summary>
-	/// Interface for a service responsible for getting quotes to be shown to the user
-	/// </summary>
-	public interface IQuoteService
+    /// <summary>
+    /// Interface for a service responsible for getting quotes to be shown to the user
+    /// </summary>
+    public interface IQuoteService
 	{
 		/// <summary>
 		/// Returns a random quote from any of the collections marked as favourites. If <paramref name="language"/> is specified (any other than None)

@@ -3,22 +3,22 @@ using Quoter.App.Forms.Manage;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Models;
-using Quoter.Framework.Services;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Framework.Services.Versioning;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Manage
 {
-	/// <summary>
-	/// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
-	/// </summary>
-	public class ManageFormController : IManageFormController, IMessagingSubscriber, INotifyPropertyChanged
+    /// <summary>
+    /// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
+    /// </summary>
+    public class ManageFormController : IManageFormController, IMessagingSubscriber, INotifyPropertyChanged
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly IThemeService _themeService;
 		private readonly IVersionService _versionService;
 		private IManageForm _form;
@@ -43,7 +43,7 @@ namespace Quoter.App.FormsControllers.Manage
 
 		public ManageFormController(IMessagingService messagingService,
 									IStringResources stringResources,
-									ISettings settings,
+									IAppSettings settings,
 									IThemeService themeService,
 									IVersionService versionService)
 		{

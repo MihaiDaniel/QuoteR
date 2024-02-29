@@ -1,12 +1,12 @@
 ﻿using Quoter.Framework.Enums;
 using System.Drawing;
 
-namespace Quoter.Framework.Services
+namespace Quoter.Framework.Services.AppSettings
 {
 	/// <summary>
 	/// Interface for settings. Settings should be saved automatically when is set.
 	/// </summary>
-	public interface ISettings
+	public interface IAppSettings
 	{
 		/// <summary>
 		/// Indicates if the application is started for the first time
@@ -21,8 +21,10 @@ namespace Quoter.Framework.Services
 		/// </summary>
 		bool IsPaused { get; set; }
 
-		bool IsUpgradeRequired { get; set; }
-
+		/// <summary>
+		/// Application UI language.
+		/// Ex: en-US , ro-RO , fr-FR
+		/// </summary>
 		string Language { get; set; }
 		string FontName { get; set; }
 		string FontStyle { get; set; }
@@ -35,7 +37,7 @@ namespace Quoter.Framework.Services
 		EnumSound NotificationSound { get; set; }
 
 		EnumAutoUpdate AutoUpdate { get; set; }
-		string WebApiDomainUrl { get; set; }
+		string WebApiUrl { get; set; }
 		Guid RegistrationId { get; set; }
 
 		bool ShowCollectionsBasedOnLanguage { get; set; }
@@ -49,6 +51,5 @@ namespace Quoter.Framework.Services
 		bool IsSetupFinished { get; set; }
 		Size WindowSize { get; set; }
 
-		void SetDefaults();
 	}
 }

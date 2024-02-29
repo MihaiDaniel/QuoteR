@@ -1,15 +1,16 @@
 ﻿using Newtonsoft.Json;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Models;
 using System.Net.Http.Json;
 
 namespace Quoter.Framework.Services.Api
 {
-	public class WebApiService : IWebApiService
+    public class WebApiService : IWebApiService
 	{
 		private readonly ILogger _logger;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 
-		public WebApiService(ILogger logger, ISettings settings)
+		public WebApiService(ILogger logger, IAppSettings settings)
 		{
 			_logger = logger;
 			_settings = settings;
@@ -21,7 +22,7 @@ namespace Quoter.Framework.Services.Api
 			{
 				using (HttpClient client = new())
 				{
-					string reqUri = $"{_settings.WebApiDomainUrl}/api/registration/register";
+					string reqUri = $"{_settings.WebApiUrl}/api/registration/register";
 					RegisterPostRequestModel reqModel = new()
 					{
 						InstallId = installId,
@@ -49,7 +50,7 @@ namespace Quoter.Framework.Services.Api
 			{
 				using (HttpClient client = new())
 				{
-					string reqUrl = $"{_settings.WebApiDomainUrl}/api/versions/getLatestVersionInfo";
+					string reqUrl = $"{_settings.WebApiUrl}/api/versions/getLatestVersionInfo";
 
 					HttpRequestMessage requestMessage = new();
 					requestMessage.RequestUri = new Uri(reqUrl);
@@ -78,7 +79,7 @@ namespace Quoter.Framework.Services.Api
 			{
 				using (HttpClient client = new())
 				{
-					string reqUrl = $"{_settings.WebApiDomainUrl}/api/versions/downloadVersion?versionId={versionId}";
+					string reqUrl = $"{_settings.WebApiUrl}/api/versions/downloadVersion?versionId={versionId}";
 					client.DefaultRequestHeaders.Add("Registration", _settings.RegistrationId.ToString());
 					using HttpResponseMessage response = await client.GetAsync(reqUrl);
 					response.EnsureSuccessStatusCode();

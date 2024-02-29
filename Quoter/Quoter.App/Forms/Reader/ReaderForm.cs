@@ -6,9 +6,9 @@ using Quoter.Framework.Services;
 using Quoter.App.FormsControllers.Reader;
 using Quoter.App.Forms.Common;
 using Quoter.App.Helpers;
-using Quoter.Framework.Entities;
 using Quoter.App.Controls;
 using Quoter.App.Forms.Reader;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.App.Forms
 {

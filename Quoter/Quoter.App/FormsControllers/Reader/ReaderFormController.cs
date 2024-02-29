@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms.Reader;
-using Quoter.App.Helpers;
 using Quoter.App.Helpers.Extensions;
 using Quoter.App.Services;
 using Quoter.App.Services.Forms;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
+using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Helpers;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
+using Quoter.Framework.Services.AppSettings;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -20,7 +20,7 @@ namespace Quoter.App.FormsControllers.Reader
 		private readonly IQuoteService _quoteService;
 		private readonly IFormsManager _formsManager;
 		private readonly IStringResources _stringResources;
-		private readonly ISettings _settings;
+		private readonly IAppSettings _settings;
 		private readonly ILogger _logger;
 		private readonly IThemeService _themeService;
 
@@ -60,7 +60,7 @@ namespace Quoter.App.FormsControllers.Reader
 									IQuoteService quoteService,
 									IFormsManager formsManager,
 									IStringResources stringResources,
-									ISettings settings,
+									IAppSettings settings,
 									IThemeService themeService)
 		{
 			_context = context;

@@ -1,22 +1,15 @@
-using Microsoft.EntityFrameworkCore;
 using Quoter.App.Forms;
-using Quoter.App.FormsControllers;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
 using Quoter.App.Services;
 using Quoter.App.Services.FormAnimation;
 using Quoter.App.Services.Forms;
-using Quoter.App.Views;
 using Quoter.Framework.Data;
-using Quoter.Framework.Entities;
-using Quoter.Framework.Models;
-using Quoter.Framework.Services.DependencyInjection;
-using System.ComponentModel;
-using System.Resources;
+using Quoter.Framework.Data.Entities;
 
 namespace Quoter.App
 {
-    public partial class SettingsForm : Form
+	public partial class SettingsForm : Form
 	{
 		private readonly QuoterContext _context;
 		private readonly IFormAnimationService _formAnimationService;

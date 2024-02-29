@@ -20,8 +20,10 @@ using Quoter.Framework.Services.DependencyInjection;
 using Quoter.Framework.Services.ImportExport;
 using Quoter.Framework.Services.ImportExport.ImportStrategies;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.AppSettings;
 using Quoter.Framework.Services.Versioning;
 using System.Resources;
+using Quoter.App.Helpers.Extensions;
 
 namespace Quoter.App
 {
@@ -43,21 +45,22 @@ namespace Quoter.App
 				ApplicationConfiguration.Initialize();
 
 				// By default this will be true. Still not working, maybe try to sign the app
-				if ((bool)Properties.Settings.Default["IsUpgradeRequired"] == true)
-				{
-					Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
-					Properties.Settings.Default.Reload();
-					Properties.Settings.Default.Save();
-					Properties.Settings.Default.IsUpgradeRequired = false;
-					Properties.Settings.Default.Save();
-					File.WriteAllText("Log.txt", "IsUpgradeRequired was triggered");
-				}
+				//if ((bool)Properties.Settings.Default["IsUpgradeRequired"] == true)
+				//{
+				//	Properties.Settings.Default.Upgrade(); // If we update the app version user.config will have to be copied to the new version
+				//	Properties.Settings.Default.Reload();
+				//	Properties.Settings.Default.Save();
+				//	//Properties.Settings.Default.IsUpgradeRequired = false;
+				//	Properties.Settings.Default.Save();
+				//	File.WriteAllText("Log.txt", "IsUpgradeRequired was triggered");
+				//}
 
 				DependencyInjectionContainer diContainer = SetupDependencyInjection();
 
-				// Apply migrations
+				// Apply migrations & seed the database
 				QuoterContext context = diContainer.GetService<QuoterContext>();
 				context.Database.Migrate();
+				context.Seed();
 
 				QuoterApplicationContext appContext = diContainer.GetService<QuoterApplicationContext>();
 				Application.Run(appContext);
@@ -77,7 +80,7 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
-			serviceCollection.AddSingleton<ISettings, Settings>();
+			serviceCollection.AddSingleton<IAppSettings, Framework.Services.AppSettings.AppSettings>();
 			serviceCollection.AddSingleton<IFormLifecycleService, FormLifecycleService>();
 			serviceCollection.AddSingleton<IMessagingService, MessagingService>();
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();
