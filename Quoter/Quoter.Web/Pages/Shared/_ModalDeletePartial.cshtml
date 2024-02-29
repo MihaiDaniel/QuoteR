@@ -1,0 +1,29 @@
+﻿@using Quoter.Web.ViewModels.Shared;
+@model ModalDeleteViewModel
+
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="modalDeleteLabel">@Model.Title</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h6 id ="modalDeleteObjectName"class="text-secondary"></h6>
+				<p>@Model.Message</p>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+				<form method="post">
+				@*	<input type="hidden" asp-for="ViewModel.Id" />
+					<input type="submit" value="Delete" class="btn btn-danger" />*@
+					<button id="modalConfirmDeleteButton" type="submit" data-bs-dismiss="modal" class="btn btn-danger">
+						<i class="bi bi-trash"></i> @Localizer["Delete"]
+					</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

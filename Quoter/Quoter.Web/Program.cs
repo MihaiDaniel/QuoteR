@@ -41,7 +41,7 @@ builder.Services.AddMvc();
 
 // SQLite database
 string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web.db");
+string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web", "Quoter.Web.db");
 string connectionString = $"Data Source={sqlitePath}";
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 	options.UseSqlite(connectionString));

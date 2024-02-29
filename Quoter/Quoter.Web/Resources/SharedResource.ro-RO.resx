@@ -172,4 +172,16 @@
   <data name="Manage" xml:space="preserve">
     <value>Administrează</value>
   </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Confirmă ștergerea</value>
+  </data>
+  <data name="ConfirmDeleteVersion" xml:space="preserve">
+    <value>Sigur doriți ștergerea versiunii? Toate fișierele asociate vor fi șterse.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
 </root>

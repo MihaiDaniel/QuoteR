@@ -113,8 +113,14 @@
 								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Details">
 									<a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info"><i class="bi bi-info-square"></i></a>
 								</span>
-								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
+								@*<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
 									<a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+								</span>*@
+
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
+									<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete" data-bs-name ="@item.Name" data-bs-action="/AppVersions/Delete?id=@item.Id.ToString()">
+										<i class="bi bi-trash"></i>
+									</button>
 								</span>
 							</td>
 						</tr>
@@ -123,6 +129,13 @@
 			</table>
 		</div>
 	</div>
-
 </div>
 
+<!-- Modal -->
+@await Html.PartialAsync(
+		"_ModalDeletePartial",
+		new ModalDeleteViewModel(Localizer["ConfirmDelete"], Localizer["ConfirmDeleteVersion"]))
+
+@section Scripts {
+	<script src="~/js/modal-delete.js"></script>
+}
