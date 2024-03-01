@@ -46,5 +46,17 @@ namespace Quoter.App.Properties {
                 this["WebApiUrl"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("39689652CDF2ECBA94EA8C34259CA")]
+        public string ApplicationKey {
+            get {
+                return ((string)(this["ApplicationKey"]));
+            }
+            set {
+                this["ApplicationKey"] = value;
+            }
+        }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Quoter.Shared.Models
 {
@@ -11,5 +6,8 @@ namespace Quoter.Shared.Models
 	{
 		[Required]
 		public string InstallId { get; set; }
+
+		[Required]
+		public string ApplicationKey { get; set; }
 	}
 }

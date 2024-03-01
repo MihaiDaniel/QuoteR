@@ -80,7 +80,8 @@ namespace Quoter.App
 			serviceCollection.AddSingleton<ResourceManager>(resourceManager);
 			serviceCollection.AddSingleton<IStringResources, StringResources>();
 			serviceCollection.AddSingleton<IFormsManager, FormsManager>();
-			serviceCollection.AddSingleton<IAppSettings, Framework.Services.AppSettings.AppSettings>();
+			serviceCollection.AddSingleton<IAppSettings, AppSettings>();
+			serviceCollection.AddSingleton<IAppConfiguration, AppConfiguration>();
 			serviceCollection.AddSingleton<IFormLifecycleService, FormLifecycleService>();
 			serviceCollection.AddSingleton<IMessagingService, MessagingService>();
 			serviceCollection.AddSingleton<IThemeService, ThemeService>();

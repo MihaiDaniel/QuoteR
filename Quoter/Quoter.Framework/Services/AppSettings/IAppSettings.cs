@@ -16,6 +16,7 @@ namespace Quoter.Framework.Services.AppSettings
 		/// A guid generted when the application is started for the first time
 		/// </summary>
 		string InstallId { get; set; }
+
 		/// <summary>
 		/// Indicates if the notifications are paused or not
 		/// </summary>

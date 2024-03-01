@@ -1,4 +1,5 @@
 ﻿using Moq;
+using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.AppSettings;
 
@@ -8,14 +9,16 @@ namespace Quoter.Framework.Tests.Services.Api
 	{
 		Mock<IAppSettings> _mockSettings;
 		Mock<IWebApiService> _mockWebApiService;
+		Mock<IAppConfiguration> _mockConfiguration;
 		RegistrationService _registrationService;
 
 		public RegistrationServiceTests()
 		{
 			_mockSettings = new Mock<IAppSettings>();
+			_mockConfiguration = new Mock<IAppConfiguration> { };
 			_mockWebApiService = new Mock<IWebApiService>();
 
-			_registrationService = new(_mockSettings.Object, _mockWebApiService.Object);
+			_registrationService = new(_mockConfiguration.Object, _mockSettings.Object, _mockWebApiService.Object);
 		}
 
 
@@ -29,7 +32,7 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Returns(expected);
 
 			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>()))
+				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(expected);
 
 			Guid registrationId = await _registrationService.GetRegistrationId();
@@ -47,7 +50,7 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Returns(expected);
 
 			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>()))
+				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(Guid.NewGuid);
 
 			Guid registrationId = await _registrationService.GetRegistrationId();

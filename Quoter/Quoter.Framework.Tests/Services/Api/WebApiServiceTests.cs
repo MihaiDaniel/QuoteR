@@ -28,7 +28,7 @@ namespace Quoter.Framework.Tests.Services.Api
 		{
 			string installId = Guid.NewGuid().ToString();
 
-			Guid registrationId = await _webApiService.RegisterAsync(installId);
+			Guid registrationId = await _webApiService.RegisterAsync(installId, null);
 
 			Assert.NotEqual(Guid.Empty, registrationId);
 		}

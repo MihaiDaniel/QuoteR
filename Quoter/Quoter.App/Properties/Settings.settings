@@ -8,5 +8,8 @@
     <Setting Name="WebApiUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://localhost:7277</Value>
     </Setting>
+    <Setting Name="ApplicationKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">39689652CDF2ECBA94EA8C34259CA</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

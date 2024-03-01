@@ -25,6 +25,8 @@ namespace Quoter.Web.Data
 
 		public DbSet<AppVersionDownload> AppVersionDownloads { get; set; }
 
+		public DbSet<AppKey> AppKeys { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

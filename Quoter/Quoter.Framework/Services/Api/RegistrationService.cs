@@ -4,11 +4,13 @@ namespace Quoter.Framework.Services.Api
 {
     public class RegistrationService : IRegistrationService
 	{
+		private readonly IAppConfiguration _configuration;
 		private readonly IAppSettings _settings;
 		private readonly IWebApiService _webApiService;
 
-		public RegistrationService(IAppSettings settings, IWebApiService webApiService)
+		public RegistrationService(IAppConfiguration configuration, IAppSettings settings, IWebApiService webApiService)
 		{
+			_configuration = configuration;
 			_settings = settings;
 			_webApiService = webApiService;
 		}
@@ -26,8 +28,7 @@ namespace Quoter.Framework.Services.Api
 		{
 			if (_settings.RegistrationId == Guid.Empty)
 			{
-				string installId = _settings.InstallId;
-				Guid registrationId = await _webApiService.RegisterAsync(installId);
+				Guid registrationId = await _webApiService.RegisterAsync(_settings.InstallId, _configuration.ApplicationKey);
 				if(registrationId != Guid.Empty)
 				{
 					_settings.RegistrationId = registrationId;

@@ -16,18 +16,19 @@ namespace Quoter.Framework.Services.Api
 			_settings = settings;
 		}
 
-		public async Task<Guid> RegisterAsync(string installId)
+		public async Task<Guid> RegisterAsync(string installId, string applicationKey)
 		{
 			try
 			{
 				using (HttpClient client = new())
 				{
-					string reqUri = $"{_settings.WebApiUrl}/api/registration/register";
-					RegisterPostRequestModel reqModel = new()
+					string uri = $"{_settings.WebApiUrl}/api/registration/register";
+					RegisterPostRequestModel requestModel = new()
 					{
 						InstallId = installId,
+						ApplicationKey = applicationKey
 					};
-					HttpResponseMessage response = await client.PostAsync(reqUri, JsonContent.Create(reqModel));
+					HttpResponseMessage response = await client.PostAsync(uri, JsonContent.Create(requestModel));
 					if(response.StatusCode == System.Net.HttpStatusCode.OK)
 					{
 						string content = await response.Content.ReadAsStringAsync();

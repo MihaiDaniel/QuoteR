@@ -17,10 +17,9 @@ namespace Quoter.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "6.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -52,9 +51,8 @@ namespace Quoter.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -77,9 +75,8 @@ namespace Quoter.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -162,9 +159,8 @@ namespace Quoter.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -186,16 +182,15 @@ namespace Quoter.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppCollections");
+                    b.ToTable("AppCollections", (string)null);
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.AppCollectionDownload", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("AppCollectionId")
                         .HasColumnType("integer");
@@ -212,16 +207,15 @@ namespace Quoter.Web.Migrations
 
                     b.HasIndex("AppRegistrationId");
 
-                    b.ToTable("AppCollectionDownloads");
+                    b.ToTable("AppCollectionDownloads", (string)null);
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.AppError", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<Guid>("AppRegistrationId")
                         .HasColumnType("uuid");
@@ -241,7 +235,7 @@ namespace Quoter.Web.Migrations
 
                     b.HasIndex("AppRegistrationId");
 
-                    b.ToTable("AppErrors");
+                    b.ToTable("AppErrors", (string)null);
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.ApplicationUser", b =>
@@ -326,7 +320,7 @@ namespace Quoter.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppRegistrations");
+                    b.ToTable("AppRegistrations", (string)null);
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.AppVersion", b =>
@@ -364,16 +358,15 @@ namespace Quoter.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppVersions");
+                    b.ToTable("AppVersions", (string)null);
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.AppVersionDownload", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<Guid?>("AppRegistrationId")
                         .HasColumnType("uuid");
@@ -390,7 +383,7 @@ namespace Quoter.Web.Migrations
 
                     b.HasIndex("AppVersionId");
 
-                    b.ToTable("AppVersionDownloads");
+                    b.ToTable("AppVersionDownloads", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
