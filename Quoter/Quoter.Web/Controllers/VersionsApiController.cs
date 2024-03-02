@@ -38,7 +38,7 @@ namespace Quoter.Web.Controllers
 		{
 			try
 			{
-				if (await IsRequestValid())
+				if (await IsClientRegistered())
 				{
 					List<QuoterVersionInfo> lstQuoterVersions = await _context.AppVersions
 						.Where(v => v.IsAvailable && v.Type == EnumVersionType.UpdateZip)
@@ -76,7 +76,7 @@ namespace Quoter.Web.Controllers
 		{
 			try
 			{
-				if (!await IsRequestValid())
+				if (!await IsClientRegistered())
 				{
 					return BadRequest("No registration specified");
 				}
@@ -89,7 +89,7 @@ namespace Quoter.Web.Controllers
 					// Log a new version download by the client
 					AppVersionDownload appVersionDownload = new()
 					{
-						AppRegistrationId = GetRequestRegistrationId(),
+						AppRegistrationId = GetClientRegistrationId(),
 						AppVersionId = appVersion.Id,
 						DownloadDateTime = DateTime.UtcNow,
 					};

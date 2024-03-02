@@ -25,11 +25,20 @@ namespace Quoter.Web.Controllers
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(requestModel.InstallId))
+				if (string.IsNullOrEmpty(requestModel.InstallId)
+					|| string.IsNullOrEmpty(requestModel.ApplicationKey))
 				{
 					return BadRequest("Identifier provided is not valid");
 				}
-				Guid? existingRegId = await _context.AppRegistrations.Where(r => r.Identifier == requestModel.InstallId).Select(r => r.Id).FirstOrDefaultAsync();
+				if(!await _context.AppKeys.AnyAsync(k => k.Key == requestModel.ApplicationKey))
+				{
+					return BadRequest("Identifier provided is not valid");
+				}
+
+				Guid? existingRegId = await _context.AppRegistrations
+					.Where(r => r.Identifier == requestModel.InstallId)
+					.Select(r => r.Id)
+					.FirstOrDefaultAsync();
 				if (existingRegId != null && existingRegId != Guid.Empty)
 				{
 					return Ok(new RegisterPostResponseModel(existingRegId.Value));
@@ -54,6 +63,7 @@ namespace Quoter.Web.Controllers
 			}
 
 		}
+
 
 	}
 

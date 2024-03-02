@@ -15,10 +15,14 @@ namespace Quoter.Web.Controllers
 			_context = applicationDbContext;
 		}
 
+		/// <summary>
+		/// Verifies if the calling application client is registered to use the API.
+		/// We expect the registration id to be present in the request header
+		/// </summary>
 		[NonAction]
-		public async Task<bool> IsRequestValid()
+		public async Task<bool> IsClientRegistered()
 		{
-			Guid registrationId = GetRequestRegistrationId();
+			Guid registrationId = GetClientRegistrationId();
 			if(registrationId != Guid.Empty )
 			{
 				return await _context.AppRegistrations.AnyAsync(r => r.Id == registrationId);
@@ -27,7 +31,7 @@ namespace Quoter.Web.Controllers
 		}
 
 		[NonAction]
-		public Guid GetRequestRegistrationId()
+		public Guid GetClientRegistrationId()
 		{
 			StringValues strValues = HttpContext.Request.Headers["Registration"];
 			if (strValues.Any(sv => !string.IsNullOrEmpty(sv)))

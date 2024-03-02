@@ -88,4 +88,103 @@
 		</div>
 	</div>
 
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		@* STATISTICS *@
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<div class="col-12"><i class="bi bi-info-circle fs-1"></i></div>
+				</div>
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["Statistics"]</h3>
+					<p class="card-text">
+						@Localizer["WorkInProgress"]
+					</p>
+					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
+				</div>
+			</div>
+		</div>
+		
+		@* APPLICATION KEYS *@
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<div class="row">
+						<div class="col-12"><i class="bi bi-key fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-12 fw-bold">@Model.ViewModel.RegistrationsNo</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["ApplicationKeys"]</h3>
+					<p class="card-text">
+						@Localizer["ViewAndManageApplicationKeys"]
+					</p>
+					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
+				</div>
+			</div>
+		</div>
+
+		@* LOGS *@
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<div class="row">
+						<div class="col-12"><i class="bi bi-list-columns fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-12 fw-bold">@Model.ViewModel.RegistrationsNo</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["Logs"]</h3>
+					<p class="card-text">
+						@Localizer["ViewLogs"]
+					</p>
+					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["View"]</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		
+		@* STATISTICS *@
+		<div class="col-lg-12">
+			<div class="card p-2 m-2  shadow">
+				
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["Statistics"]</h3>
+					<div class="p-1 text-center">
+						<div class="row">
+							<div class="col-2">08/2023</div>
+							<div class="col-2">09/2023</div>
+							<div class="col-2">10/2023</div>
+							<div class="col-2">11/2023</div>
+							<div class="col-2">12/2023</div>
+							<div class="col-2">01/2024</div>
+						</div>
+						<div class="row">
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsDownloaded</div>
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsUpdates</div>
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsNo</div>
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsDownloaded</div>
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsUpdates</div>
+							<div class="col-2 fw-bold">@Model.ViewModel.VersionsUpdates</div>
+						</div>
+					</div>
+					<p class="card-text">
+						@Localizer["WorkInProgress"]
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+
+		
+	</div>
+
 </div>
