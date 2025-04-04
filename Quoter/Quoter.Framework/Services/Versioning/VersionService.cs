@@ -8,7 +8,8 @@ namespace Quoter.Framework.Services.Versioning
 	/// </summary>
 	public class VersionService : IVersionService
 	{
-		public QuoterVersionInfo GetCurrentQuoterVersionInfo()
+		/// <inheritdoc/>
+		public QuoterVersionInfo GetCurrentAppVersion()
 		{
 			Version? version = Assembly.GetEntryAssembly()?.GetName().Version;
 			if (version == null)

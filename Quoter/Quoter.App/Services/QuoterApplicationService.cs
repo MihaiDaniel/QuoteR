@@ -88,16 +88,16 @@ namespace Quoter.App.Services
 				switch (_settings.AutoUpdate)
 				{
 					case EnumAutoUpdate.Auto:
-						await _updateService.TryUpdate(isSilent: true);
+						await _updateService.TryUpdateAsync(isSilent: true);
 						break;
 					case EnumAutoUpdate.AskFirst:
 						bool isUpdateAvailable = await _updateService.VerifyIfNewVersionAvailable();
 						if (isUpdateAvailable)
 						{
-							IDialogResult result = ShowDialogConfirmUpdate();
+							IDialogResult result = AskUserIfHeWantsToUpdateToNewVersion();
 							if (result.DialogResult == DialogResult.OK)
 							{
-								await _updateService.TryUpdate(isSilent: false);
+								await _updateService.TryUpdateAsync(isSilent: false);
 							}
 						}
 						break;
@@ -146,7 +146,7 @@ namespace Quoter.App.Services
 			_formsManager.Show<QuoteForm>(autoHideWelcomeMessageSeconds, messageModel);
 		}
 
-		private IDialogResult ShowDialogConfirmUpdate()
+		private IDialogResult AskUserIfHeWantsToUpdateToNewVersion()
 		{
 			DialogOptions options = new()
 			{

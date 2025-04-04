@@ -52,7 +52,7 @@ namespace Quoter.App.Forms
 			txtTab3Extra.TabStop = false;
 			txtTab3NotificationInterval.TabStop = false;
 			txtTab4Msg.TabStop = false;
-			lblVersion.Text = _versionService.GetCurrentQuoterVersionInfo().ToString();
+			lblVersion.Text = _versionService.GetCurrentAppVersion().ToString();
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)

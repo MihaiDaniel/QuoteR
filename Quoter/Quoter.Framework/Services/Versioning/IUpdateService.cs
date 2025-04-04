@@ -28,6 +28,6 @@ namespace Quoter.Framework.Services.Versioning
 		/// that will handle overwriting the current version files. The Quoter.Update.exe would also handle restarting the app.
 		/// </summary>
 		/// <param name="isSilent">Indicates if the Quoter.Update application that replaces the files will be visible to the user or not</param>
-		Task TryUpdate(bool isSilent);
+		Task TryUpdateAsync(bool isSilent);
 	}
 }

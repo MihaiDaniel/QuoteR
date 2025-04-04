@@ -9,7 +9,8 @@ namespace Quoter.Framework.Services.Versioning
 	{
 		/// <summary>
 		/// Returns the current application version as a <see cref="QuoterVersionInfo"/>
+		/// by reading the AssemblyVersion
 		/// </summary>
-		QuoterVersionInfo GetCurrentQuoterVersionInfo();
+		QuoterVersionInfo GetCurrentAppVersion();
 	}
 }

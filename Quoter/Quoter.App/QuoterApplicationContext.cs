@@ -103,6 +103,9 @@ namespace Quoter.App
 			_timerStartup.Start();
 		}
 
+		/// <summary>
+		/// A timer event to delay the display of windows and update of the application
+		/// </summary>
 		private async void ElapsedTimerEventStartup()
 		{
 			_logger.Debug("");

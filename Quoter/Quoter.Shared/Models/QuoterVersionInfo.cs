@@ -44,6 +44,15 @@ namespace Quoter.Shared.Models
 		}
 
 		/// <summary>
+		/// Verifies if this version is older than the <paramref name="other"/> version specified
+		/// </summary>
+		/// <returns>True if this is older, false if equal or this is newer</returns>
+		public bool IsOlderThan(QuoterVersionInfo other)
+		{
+			return this.CompareWith(other) == EnumVersionCompare.Older;
+		}
+
+		/// <summary>
 		/// Compares the current version with <paramref name="version"/>. 
 		/// Returns a value indicating how this version is in comparison.
 		/// Is it Older/Newer/Equal in regards to the one to compare 

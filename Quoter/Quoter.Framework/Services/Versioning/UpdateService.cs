@@ -47,10 +47,10 @@ namespace Quoter.Framework.Services.Versioning
 					return false;
 				}
 
+				QuoterVersionInfo currentVersion = _versionService.GetCurrentAppVersion();
 				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
-				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
 
-				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
+				if (currentVersion.IsOlderThan(latestVersion))
 				{
 					return true;
 				}
@@ -64,7 +64,7 @@ namespace Quoter.Framework.Services.Versioning
 
 		public async Task<ActionResult> VerifyIfUpdateApplied()
 		{
-			QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
+			QuoterVersionInfo currentVersion = _versionService.GetCurrentAppVersion();
 			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
 			if (appVersion != null)
 			{
@@ -80,7 +80,7 @@ namespace Quoter.Framework.Services.Versioning
 			// Ideea: verify if an update was not applied and maybe retry?
 		}
 
-		public async Task TryUpdate(bool isSilent)
+		public async Task TryUpdateAsync(bool isSilent)
 		{
 			try
 			{
@@ -92,18 +92,18 @@ namespace Quoter.Framework.Services.Versioning
 					return;
 				}
 
-				QuoterVersionInfo latestVersion = await _webApiService.GetLatestVersion();
-				QuoterVersionInfo currentVersion = _versionService.GetCurrentQuoterVersionInfo();
+				QuoterVersionInfo latestVersionFromServer = await _webApiService.GetLatestVersion();
+				QuoterVersionInfo currentVersion = _versionService.GetCurrentAppVersion();
 
-				if (currentVersion.CompareWith(latestVersion) == EnumVersionCompare.Older)
+				if (currentVersion.IsOlderThan(latestVersionFromServer))
 				{
-					ActionResult result = await DownloadVersionAsync(latestVersion);
+					ActionResult result = await DownloadVersionAsync(latestVersionFromServer);
 					if (result.IsSuccess)
 					{
 						_logger.Info("Succesfully downloaded update file.");
 						await WaitForBackgroundTasksToFinish();
 
-						_logger.Info("Starting update process...");
+						_logger.Info("Starting update executable...");
 						string updaterExePath = GetUpdaterAppExePath();
 						string updaterArgs = GetUpdaterArgs(result.GetValue<AppVersion>(), isSilent);
 						Process.Start(updaterExePath, updaterArgs); // Try like this, Updater should close the app automatically
@@ -112,12 +112,13 @@ namespace Quoter.Framework.Services.Versioning
 			}
 			catch (Exception ex)
 			{
-				_logger.Error(ex);
+				_logger.Error(ex, "Application update failed!");
 			}
 		}
 
 		private async Task WaitForBackgroundTasksToFinish()
 		{
+			_logger.Info("Waiting for any background tasks to finish processing");
 			DateTime startWait = DateTime.Now;
 			DateTime endWait = startWait.AddHours(1);
 			while (DateTime.Now < endWait)
@@ -132,6 +133,7 @@ namespace Quoter.Framework.Services.Versioning
 					await Task.Delay(1000);
 					continue;
 				};
+				_logger.Info("Waiting for background task has ended, continuing...");
 				return;
 			}
 			throw new Exception("WaitForBackgroundTasksToFinish has not completed succesfully. Import/Export tasks seem to be still working after 1 hour");

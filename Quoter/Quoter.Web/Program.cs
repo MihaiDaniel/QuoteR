@@ -41,7 +41,12 @@ builder.Services.AddMvc();
 
 // SQLite database
 string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web", "Quoter.Web.db");
+string dirSqlite = Path.Combine(dirLocalAppData, "Quoter.Web");
+if (!Directory.Exists(dirSqlite))
+{
+	Directory.CreateDirectory(dirSqlite);
+}
+string sqlitePath = Path.Combine(dirLocalAppData, "Quoter.Web.db");
 string connectionString = $"Data Source={sqlitePath}";
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 	options.UseSqlite(connectionString));
@@ -76,9 +81,6 @@ builder.Services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
 builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
 builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
 builder.Services.AddScoped<IAppVersionService, AppVersionService>();
-
-
-
 
 
 WebApplication app = builder.Build();

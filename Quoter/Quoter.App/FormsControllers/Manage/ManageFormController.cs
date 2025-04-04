@@ -73,7 +73,7 @@ namespace Quoter.App.FormsControllers.Manage
 			{
 				_form.SetBackgroundTask(true, _stringResources["ExportingInProgress"]);
 			}
-			Version = _versionService.GetCurrentQuoterVersionInfo().ToString();
+			Version = _versionService.GetCurrentAppVersion().ToString();
 			return Task.CompletedTask;
 		}
 
