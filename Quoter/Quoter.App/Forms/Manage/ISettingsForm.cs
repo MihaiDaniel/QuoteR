@@ -9,6 +9,7 @@ namespace Quoter.App.Forms.Manage
 	/// </summary>
 	/// <remarks>
 	/// This is actually a tab in the <see cref="ManageForm"/>
+	/// Associated controller: <see cref="FormsControllers.Settings.ISettingsFormController"/>
 	/// </remarks>
 	public interface ISettingsForm : IManageForm
 	{

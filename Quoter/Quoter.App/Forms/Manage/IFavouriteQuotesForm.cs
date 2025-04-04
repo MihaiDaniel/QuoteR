@@ -7,6 +7,7 @@ namespace Quoter.App.Forms.Manage
     /// </summary>
     /// <remarks>
     /// This is actually a tab in the <see cref="ManageForm"/>
+	/// Associated controller <see cref="FormsControllers.FavouriteQuotes.IFavouriteQuotesFormController"/>
     /// </remarks>
     public interface IFavouriteQuotesForm
 	{

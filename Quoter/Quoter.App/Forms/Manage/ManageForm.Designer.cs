@@ -991,7 +991,6 @@
 			// 
 			// btnReadCollection
 			// 
-			btnReadCollection.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			btnReadCollection.BackgroundImage = Resources.Resources.book_open_64;
 			btnReadCollection.BackgroundImageLayout = ImageLayout.Zoom;
 			btnReadCollection.FlatAppearance.BorderColor = Color.Gray;
