@@ -184,4 +184,7 @@
   <data name="Delete" xml:space="preserve">
     <value>Șterge</value>
   </data>
+  <data name="ViewAndManageApplicationKeys" xml:space="preserve">
+    <value>Administreaza cheile aplicatiei</value>
+  </data>
 </root>

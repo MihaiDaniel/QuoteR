@@ -184,4 +184,7 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="ViewAndManageApplicationKeys" xml:space="preserve">
+    <value>View and manage application keys</value>
+  </data>
 </root>

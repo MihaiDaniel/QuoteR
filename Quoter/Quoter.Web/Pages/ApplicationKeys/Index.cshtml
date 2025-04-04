@@ -1,0 +1,71 @@
+﻿@page
+@using Quoter.Web.Data.Entities;
+@using Quoter.Web.ViewModels.Shared;
+@model Quoter.Web.Pages.ApplicationKeys.IndexModel
+@{
+	ViewData["Title"] = Localizer["Application keys"];
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Application keys"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
+}
+
+<div class="container">
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
+	<div class="container m-1">
+		<h1>@Localizer["Application keys"]</h1>
+	</div>
+	<div class="container mt-2">
+		<a asp-page="Create" class="btn btn-primary"><i class="bi bi-file-earmark-plus p-1"></i>@Localizer["Create"]</a>
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.AppKeys[0].AppKeyId)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppKeys[0].Key)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppKeys[0].CreatedDate)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (AppKey item in Model.AppKeys)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.AppKeyId)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Key)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CreatedDate)
+							</td>
+							<th>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
+									<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete" data-bs-name="@item.Key" data-bs-action="/ApplicationKeys/Index?handler=Delete&id=@item.AppKeyId.ToString()">
+										<i class="bi bi-trash"></i>
+									</button>
+								</span>
+							</th>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+@await Html.PartialAsync(
+			"_ModalDeletePartial",
+			new ModalDeleteViewModel(Localizer["ConfirmDelete"], Localizer["ConfirmDeleteKey"]))
+
+@section Scripts {
+	<script src="~/js/modal-delete.js"></script>
+}

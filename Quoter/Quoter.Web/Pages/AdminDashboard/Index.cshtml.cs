@@ -26,7 +26,7 @@ namespace Quoter.Web.Pages.AdminDashboard
 				.Where(v => v.IsAvailable == true)
 				.OrderByDescending(v => v.CreationDate)
 				.Select(v => v.Version)
-				.FirstOrDefaultAsync() ?? " - ";
+				.FirstOrDefaultAsync() ?? " N/A ";
 			ViewModel.VersionsNo = await _context.AppVersions.CountAsync();
 			ViewModel.VersionsDownloaded = await _context.AppVersionDownloads
 				.Where(vd => vd.AppVersion!.Type == EnumVersionType.Installer)
@@ -36,6 +36,8 @@ namespace Quoter.Web.Pages.AdminDashboard
 				.CountAsync();
 
 			ViewModel.RegistrationsNo = await _context.AppRegistrations.CountAsync();
+
+			ViewModel.AppKeysNo = await _context.AppKeys.CountAsync();
 		}
 	}
 
@@ -68,5 +70,7 @@ namespace Quoter.Web.Pages.AdminDashboard
 		public int VersionsUpdates { get; set; }
 
 		public int RegistrationsNo { get; set; }
+
+		public int AppKeysNo { get; set; }
 	}
 }

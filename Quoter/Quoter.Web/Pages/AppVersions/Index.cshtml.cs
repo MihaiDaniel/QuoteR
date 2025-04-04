@@ -11,11 +11,12 @@ namespace Quoter.Web.Pages.AppVersions
 	{
 		private readonly ApplicationDbContext _context;
 
-		public IList<AppVersion> AppVersion { get; set; } = default!;
+		public IList<AppVersion> AppVersion { get; set; }
 
 		public IndexModel(ApplicationDbContext context)
 		{
 			_context = context;
+			AppVersion = new List<AppVersion>();
 		}
 
 		public async Task OnGetAsync()

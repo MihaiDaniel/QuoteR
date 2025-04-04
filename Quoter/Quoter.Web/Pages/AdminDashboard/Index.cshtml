@@ -57,7 +57,7 @@
 
 				<div class="card-body">
 					<h3 class="card-title">@Localizer["Versions"]</h3>
-					<h6 class="card-subtitle mb-2 text-body-secondary">@Localizer["CurrentVersion", Model.ViewModel.LatestVersion]</h6>
+					<h6 class="card-subtitle mb-2 text-body-secondary">@Localizer["Latest released version: "] @Model.ViewModel.LatestVersion</h6>
 					<p class="card-text">
 						@Localizer["ViewAndManageVersions"]
 					</p>
@@ -89,6 +89,27 @@
 	</div>
 
 	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		@* APPLICATION KEYS *@
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="p-1 text-center">
+					<div class="row">
+						<div class="col-12"><i class="bi bi-key fs-1"></i></div>
+					</div>
+					<div class="row">
+						<div class="col-12 fw-bold">@Model.ViewModel.AppKeysNo</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["ApplicationKeys"]</h3>
+					<p class="card-text">
+						@Localizer["ViewAndManageApplicationKeys"]
+					</p>
+					<a asp-page="/ApplicationKeys/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
+				</div>
+			</div>
+		</div>
+		
 		@* STATISTICS *@
 		<div class="col-lg-4">
 			<div class="card p-2 m-2  shadow">
@@ -98,28 +119,7 @@
 				<div class="card-body">
 					<h3 class="card-title">@Localizer["Statistics"]</h3>
 					<p class="card-text">
-						@Localizer["WorkInProgress"]
-					</p>
-					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
-				</div>
-			</div>
-		</div>
-		
-		@* APPLICATION KEYS *@
-		<div class="col-lg-4">
-			<div class="card p-2 m-2  shadow">
-				<div class="p-1 text-center">
-					<div class="row">
-						<div class="col-12"><i class="bi bi-key fs-1"></i></div>
-					</div>
-					<div class="row">
-						<div class="col-12 fw-bold">@Model.ViewModel.RegistrationsNo</div>
-					</div>
-				</div>
-				<div class="card-body">
-					<h3 class="card-title">@Localizer["ApplicationKeys"]</h3>
-					<p class="card-text">
-						@Localizer["ViewAndManageApplicationKeys"]
+						@Localizer["WORK IN PROGRESS"]
 					</p>
 					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["Manage"]<i class="bi bi-tools p-2"></i></a>
 				</div>
@@ -140,7 +140,7 @@
 				<div class="card-body">
 					<h3 class="card-title">@Localizer["Logs"]</h3>
 					<p class="card-text">
-						@Localizer["ViewLogs"]
+						@Localizer["WORK IN PROGRESS"]
 					</p>
 					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["View"]</a>
 				</div>

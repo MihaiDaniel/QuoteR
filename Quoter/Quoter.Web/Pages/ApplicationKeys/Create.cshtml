@@ -1,0 +1,46 @@
+﻿@page
+@using Quoter.Shared.Enums;
+@using Quoter.Web.ViewModels.Shared;
+@model Quoter.Web.Pages.ApplicationKeys.CreateModel
+@{
+	ViewData["Title"] = Localizer["Create application key"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Create application key"],
+			new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"),
+			new RouteViewModel(Localizer["Application keys"], "/ApplicationKeys/Index")
+	);
+}
+<div class="container">
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+	<div class="container m-1">
+		<h2>@Localizer["Create application key"]</h2>
+	</div>
+	<div class="container mt-2">
+		<form method="post" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="row p-1">
+				<div class="col-1">
+					<label asp-for="NewKey" class="control-label"></label>
+				</div>
+				<div class="col-3">
+					<input asp-for="NewKey" class="form-control" />
+					<span asp-validation-for="NewKey" class="text-danger"></span>
+				</div>
+				<div class="row p-1">
+					<div class="col-2">
+						<button type="submit" value="Create" class="btn btn-primary">
+							<i class="bi bi-file-plus"></i> Create
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
