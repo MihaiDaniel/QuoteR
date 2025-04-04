@@ -16,6 +16,6 @@
 		/// the application by calling the server, stores the received registrationId and then returns it.
 		/// </summary>
 		/// <returns></returns>
-		Task<Guid> GetRegistrationId();
+		Task<Guid> GetRegistrationIdOrRegisterAsync();
 	}
 }

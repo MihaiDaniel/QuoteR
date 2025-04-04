@@ -35,7 +35,7 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(expected);
 
-			Guid registrationId = await _registrationService.GetRegistrationId();
+			Guid registrationId = await _registrationService.GetRegistrationIdOrRegisterAsync();
 
 			Assert.NotEqual(Guid.Empty, registrationId);
 			_mockSettings.VerifyGet(s => s.RegistrationId, Times.Exactly(2));
@@ -53,7 +53,7 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(Guid.NewGuid);
 
-			Guid registrationId = await _registrationService.GetRegistrationId();
+			Guid registrationId = await _registrationService.GetRegistrationIdOrRegisterAsync();
 
 			Assert.Equal(expected, registrationId);
 		}

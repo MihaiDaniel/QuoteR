@@ -58,7 +58,7 @@ namespace Quoter.App.Services
 			{
 				if (_settings.RegistrationId == Guid.Empty)
 				{
-					await _registrationService.GetRegistrationId();
+					await _registrationService.GetRegistrationIdOrRegisterAsync();
 				}
 			}, JobNameRegisterApp);
 		}

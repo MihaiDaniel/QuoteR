@@ -24,7 +24,7 @@ namespace Quoter.Framework.Services.Api
 			return true;
 		}
 
-		public async Task<Guid> GetRegistrationId()
+		public async Task<Guid> GetRegistrationIdOrRegisterAsync()
 		{
 			if (_settings.RegistrationId == Guid.Empty)
 			{
