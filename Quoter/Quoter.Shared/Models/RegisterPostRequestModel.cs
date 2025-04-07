@@ -9,5 +9,7 @@ namespace Quoter.Shared.Models
 
 		[Required]
 		public string ApplicationKey { get; set; }
+
+		public string LocalWinRegionCode { get; set; }
 	}
 }

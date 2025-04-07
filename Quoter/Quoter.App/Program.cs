@@ -24,10 +24,11 @@ using Quoter.Framework.Services.AppSettings;
 using Quoter.Framework.Services.Versioning;
 using System.Resources;
 using Quoter.App.Helpers.Extensions;
+using Quoter.Framework.Services.Registration;
 
 namespace Quoter.App
 {
-	internal static class Program
+    internal static class Program
 	{
 		/// <summary>
 		///  The main entry point for the application.
@@ -67,7 +68,8 @@ namespace Quoter.App
 			}
 			catch (Exception ex)
 			{
-				File.WriteAllText("Log.txt", ex.ToString());
+				string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				File.WriteAllText(Path.Combine(specialFolderPath, "Quoter", "CrashLog.txt"), ex.ToString());
 			}
 		}
 

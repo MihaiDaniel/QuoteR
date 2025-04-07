@@ -16,7 +16,7 @@ namespace Quoter.Framework.Services.Api
 			_settings = settings;
 		}
 
-		public async Task<Guid> RegisterAsync(string installId, string applicationKey)
+		public async Task<Guid> RegisterAsync(string installId, string applicationKey, string localWinRegionCode)
 		{
 			try
 			{
@@ -26,7 +26,8 @@ namespace Quoter.Framework.Services.Api
 					RegisterPostRequestModel requestModel = new()
 					{
 						InstallId = installId,
-						ApplicationKey = applicationKey
+						ApplicationKey = applicationKey,
+						LocalWinRegionCode = localWinRegionCode
 					};
 					HttpResponseMessage response = await client.PostAsync(uri, JsonContent.Create(requestModel));
 					if(response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -34,6 +35,10 @@ namespace Quoter.Framework.Services.Api
 						string content = await response.Content.ReadAsStringAsync();
 						RegisterPostResponseModel responseModel = JsonConvert.DeserializeObject<RegisterPostResponseModel>(content);
 						return responseModel.RegistrationId;
+					}
+					else
+					{
+						_logger.Error($"Registration API returned an unexpected status code {response.StatusCode}");
 					}
 				}
 			}

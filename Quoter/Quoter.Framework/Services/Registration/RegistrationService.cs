@@ -1,8 +1,9 @@
-﻿using Quoter.Framework.Services.AppSettings;
+﻿using Quoter.Framework.Services.Api;
+using Quoter.Framework.Services.AppSettings;
 
-namespace Quoter.Framework.Services.Api
+namespace Quoter.Framework.Services.Registration
 {
-    public class RegistrationService : IRegistrationService
+	public class RegistrationService : IRegistrationService
 	{
 		private readonly IAppConfiguration _configuration;
 		private readonly IAppSettings _settings;
@@ -24,15 +25,14 @@ namespace Quoter.Framework.Services.Api
 			return true;
 		}
 
-		public async Task<Guid> GetRegistrationIdOrRegisterAsync()
+		public async Task<Guid> RegisterAsync()
 		{
 			if (_settings.RegistrationId == Guid.Empty)
 			{
-				Guid registrationId = await _webApiService.RegisterAsync(_settings.InstallId, _configuration.ApplicationKey);
-				if(registrationId != Guid.Empty)
-				{
-					_settings.RegistrationId = registrationId;
-				}
+				string regionCode = RegionAndLanguageHelper.GetMachineCurrentLocation();
+				Guid registrationId = await _webApiService.RegisterAsync(_settings.InstallId, _configuration.ApplicationKey, regionCode);
+				_settings.RegistrationId = registrationId;
+				
 			}
 			return _settings.RegistrationId;
 		}

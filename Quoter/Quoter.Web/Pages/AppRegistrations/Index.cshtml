@@ -1,59 +1,81 @@
 ﻿@page
+@using Quoter.Web.Data.Entities;
+@using Quoter.Web.ViewModels.Shared;
 @model Quoter.Web.Pages.AppRegistrations.IndexModel
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = Localizer["Application registrations"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Application registrations"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
 }
 
-<h1>Index</h1>
+<div class="container">
 
-<p>
-	<a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-	<thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.ViewModels[0].Id)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ViewModels[0].Identifier)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ViewModels[0].IpAddress)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ViewModels[0].RegisteredDateTime)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ViewModels[0].VersionDownloads)
-			</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var item in Model.ViewModels)
-		{
-			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Id)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Identifier)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.IpAddress)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.RegisteredDateTime)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.VersionDownloads)
-				</td>
-				<td>
-					<a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
+	<div class="container m-1">
+		<h1>@Localizer["Application registrations"]</h1>
+	</div>
+	<div class="container mt-3">
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].Id)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].Identifier)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].IpAddress)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].LocalWinRegionCode)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].RegisteredDateTime)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.AppRegistrations)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Id)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Identifier)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.IpAddress)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.LocalWinRegionCode)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.RegisteredDateTime)
+							</td>
+							
+							<td>
+								<a asp-page="./Details" asp-route-id="@item.Id">Details</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<paging page-no="Model.PageNo"
+					page-size="Model.PageSize"
+					total-records="Model.TotalRecords"
+					url-template="./AppRegistrations?PageNo={0}&PageSize={1}"
+					render-mode="Bootstrap5">
+			</paging>
+		</div>
+	</div>
+
+</div>
+

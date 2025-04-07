@@ -1,48 +1,45 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Quoter.Web.Data;
+using Quoter.Web.Data.Entities;
 
 namespace Quoter.Web.Pages.AppRegistrations
 {
 	[Authorize]
 	public class IndexModel : PageModel
 	{
-		private readonly Data.ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
-		public IndexModel(Data.ApplicationDbContext context)
+		public IList<AppRegistration> AppRegistrations { get; set; }
+
+		public int TotalRecords { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public int PageNo { get; set; }
+
+		[BindProperty(SupportsGet = true)]
+		public int PageSize { get; set; }
+
+		public IndexModel(ApplicationDbContext context)
 		{
 			_context = context;
-		}
-
-		public IList<AppRegistrationModel> ViewModels { get; set; } = default!;
-
-		public class AppRegistrationModel
-		{
-			public Guid Id { get; set; }
-
-			public string Identifier { get; set; }
-
-			public string? IpAddress { get; set; }
-
-			public DateTime RegisteredDateTime { get; set; }
-
-			public int VersionDownloads { get; set; }
+			PageNo = 1;
+			PageSize = 10;
 		}
 
 		public async Task OnGetAsync()
 		{
 			try
 			{
-				ViewModels =  await _context.AppRegistrations
-					.Include(r => r.LstUpdateDownloads)
-					.Select(r => new AppRegistrationModel()
-					{
-						Id = r.Id,
-						Identifier = r.Identifier,
-						IpAddress = r.IpAddress,
-						RegisteredDateTime = r.RegisteredDateTime,
-						VersionDownloads = r.LstUpdateDownloads.Count
-					})
+				TotalRecords = await _context.AppRegistrations.CountAsync();
+
+				AppRegistrations =  await _context.AppRegistrations
+					.AsNoTracking()
+					.OrderByDescending(r => r.RegisteredDateTime)
+					.Skip((PageNo - 1) * 10)
+					.Take(PageSize)
 					.ToListAsync();
 			}
 			catch (Exception ex)

@@ -3,6 +3,7 @@ using Quoter.Framework.Data;
 using Quoter.Framework.Data.Entities;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
+using Quoter.Framework.Services.Registration;
 using Quoter.Shared.Enums;
 using Quoter.Shared.Models;
 using System.Diagnostics;

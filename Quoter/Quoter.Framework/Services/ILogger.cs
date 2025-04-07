@@ -6,6 +6,8 @@ namespace Quoter.Framework.Services
 	{
 		void Error(Exception ex, string? message = default);
 
+		void Error(string message);
+
 		void Warn(string message);
 
 		void Info(string message);

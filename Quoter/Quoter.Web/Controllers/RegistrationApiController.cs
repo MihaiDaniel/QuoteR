@@ -49,6 +49,7 @@ namespace Quoter.Web.Controllers
 				{
 					Identifier = requestModel.InstallId.ToString(),
 					IpAddress = clientIpAddress,
+					LocalWinRegionCode = requestModel.LocalWinRegionCode,
 					RegisteredDateTime = DateTime.UtcNow,
 				};
 

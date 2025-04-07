@@ -7,7 +7,7 @@ namespace Quoter.Framework.Services.Api
 		/// <summary>
 		/// Register the application and get back an registrationId as a Guid from the web server
 		/// </summary>
-		Task<Guid> RegisterAsync(string installId, string applicationKey);
+		Task<Guid> RegisterAsync(string installId, string applicationKey, string localWinRegionCode);
 
 		/// <summary>
 		/// Request the info about the latest version of the application from the web server

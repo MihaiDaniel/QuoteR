@@ -4,6 +4,7 @@ using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.App.Services
 {
+	[Obsolete]
 	public class SettingsOld : IAppSettings
 	{
 		private readonly object _lock = new object();

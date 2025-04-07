@@ -22,6 +22,8 @@ namespace Quoter.Web.Data.Entities
 		/// </summary>
 		public string? IpAddress { get; set; }
 
+		public string? LocalWinRegionCode { get; set; }
+
 		public DateTime RegisteredDateTime { get; set; }
 
 		public List<AppVersionDownload> LstUpdateDownloads { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Quoter.Framework.Services.Api
+﻿namespace Quoter.Framework.Services.Registration
 {
 	/// <summary>
 	/// Interface for service responsible for managing the registration of the application
@@ -16,6 +16,6 @@
 		/// the application by calling the server, stores the received registrationId and then returns it.
 		/// </summary>
 		/// <returns></returns>
-		Task<Guid> GetRegistrationIdOrRegisterAsync();
+		Task<Guid> RegisterAsync();
 	}
 }

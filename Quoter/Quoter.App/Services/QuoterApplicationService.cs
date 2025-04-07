@@ -7,18 +7,18 @@ using Quoter.App.Views;
 using Quoter.Framework.Enums;
 using Quoter.Framework.Models;
 using Quoter.Framework.Services;
-using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.AppSettings;
 using Quoter.Framework.Services.Versioning;
 using Quoter.Shared.Models;
+using Quoter.Framework.Services.Registration;
 
 namespace Quoter.App.Services
 {
-    /// <summary>
-    /// Service handling different features for <see cref="QuoterApplicationContext"/>
-    /// </summary>
-    public class QuoterApplicationService : IQuoterApplicationService
+	/// <summary>
+	/// Service handling different features for <see cref="QuoterApplicationContext"/>
+	/// </summary>
+	public class QuoterApplicationService : IQuoterApplicationService
 	{
 		private const string JobNameNotifyIfAppWasUpdated = "notify_if_app_was_updated";
 		private const string JobNameRegisterApp = "register_app";
@@ -58,7 +58,7 @@ namespace Quoter.App.Services
 			{
 				if (_settings.RegistrationId == Guid.Empty)
 				{
-					await _registrationService.GetRegistrationIdOrRegisterAsync();
+					await _registrationService.RegisterAsync();
 				}
 			}, JobNameRegisterApp);
 		}

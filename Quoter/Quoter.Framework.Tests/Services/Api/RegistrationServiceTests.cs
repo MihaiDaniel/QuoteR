@@ -2,10 +2,11 @@
 using Quoter.Framework.Services;
 using Quoter.Framework.Services.Api;
 using Quoter.Framework.Services.AppSettings;
+using Quoter.Framework.Services.Registration;
 
 namespace Quoter.Framework.Tests.Services.Api
 {
-    public class RegistrationServiceTests
+	public class RegistrationServiceTests
 	{
 		Mock<IAppSettings> _mockSettings;
 		Mock<IWebApiService> _mockWebApiService;
@@ -32,10 +33,10 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Returns(expected);
 
 			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
+				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(expected);
 
-			Guid registrationId = await _registrationService.GetRegistrationIdOrRegisterAsync();
+			Guid registrationId = await _registrationService.RegisterAsync();
 
 			Assert.NotEqual(Guid.Empty, registrationId);
 			_mockSettings.VerifyGet(s => s.RegistrationId, Times.Exactly(2));
@@ -50,10 +51,10 @@ namespace Quoter.Framework.Tests.Services.Api
 				.Returns(expected);
 
 			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>()))
+				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
 				.ReturnsAsync(Guid.NewGuid);
 
-			Guid registrationId = await _registrationService.GetRegistrationIdOrRegisterAsync();
+			Guid registrationId = await _registrationService.RegisterAsync();
 
 			Assert.Equal(expected, registrationId);
 		}

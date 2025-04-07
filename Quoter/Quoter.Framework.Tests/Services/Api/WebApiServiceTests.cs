@@ -5,7 +5,7 @@ using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.Framework.Tests.Services.Api
 {
-    public class WebApiServiceTests
+	public class WebApiServiceTests
 	{
 		Mock<IAppSettings> _mockSettings;
 		Mock<ILogger> _mockLogger;
@@ -28,7 +28,7 @@ namespace Quoter.Framework.Tests.Services.Api
 		{
 			string installId = Guid.NewGuid().ToString();
 
-			Guid registrationId = await _webApiService.RegisterAsync(installId, null);
+			Guid registrationId = await _webApiService.RegisterAsync(installId, null, null);
 
 			Assert.NotEqual(Guid.Empty, registrationId);
 		}

@@ -49,6 +49,22 @@ namespace Quoter.Framework.Services
 			}
 		}
 
+		public void Error(string message)
+		{
+			System.Diagnostics.Debug.WriteLine($"{DateTime.Now:G} {message}");
+
+			lock (_lock)
+			{
+				_context.Logs.Add(new Log()
+				{
+					DateTime = DateTime.Now,
+					LogLevel = Enums.EnumLogLevel.Error,
+					Message = message
+				});
+				_context.SaveChanges();
+			}
+		}
+
 		private string GetExceptionContent(Exception ex)
 		{
 			if (ex.InnerException != null)
