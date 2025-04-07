@@ -12,18 +12,32 @@ namespace Quoter.Web.Pages.ApplicationKeys
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly ILogger<IndexModel> _logger;
-		public IList<AppKey> AppKeys { get; set; }
+		public IList<AppKey> AppKeys { get; set; } = new List<AppKey>();
+
+		public int TotalRecords { get; set; } = 0;
+
+		[BindProperty(SupportsGet = true)]
+		public int PageNo { get; set; } = 1;
+
+		[BindProperty(SupportsGet = true)]
+		public int PageSize { get; set; } = 10;
 
 		public IndexModel(ApplicationDbContext context, ILogger<IndexModel> logger)
 		{
 			_context = context;
 			_logger = logger;
-			AppKeys = new List<AppKey>();
 		}
 
 		public async Task OnGetAsync()
 		{
-			AppKeys = await _context.AppKeys.OrderByDescending(k => k.AppKeyId).ToListAsync();
+			TotalRecords = await _context.AppKeys.CountAsync();
+
+			AppKeys = await _context.AppKeys
+				.AsNoTracking()
+				.OrderByDescending(k => k.AppKeyId)
+				.Skip((PageNo - 1) * 10)
+				.Take(PageSize)
+				.ToListAsync();
 		}
 
 		/// <summary>

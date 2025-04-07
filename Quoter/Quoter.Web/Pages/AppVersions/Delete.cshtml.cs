@@ -64,11 +64,11 @@ namespace Quoter.Web.Pages.AppVersions
 
 				return RedirectToPage("./Index");
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				throw;
 			}
-			
+
 		}
 	}
 }
