@@ -32,7 +32,7 @@
 			try
 			{
 				LstLines.Add(Environment.NewLine);
-				string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter.Update", "Log.txt");
+				string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter", "UpdateLog.txt");
 				if (!Directory.Exists(Path.GetDirectoryName(logPath)))
 				{
 					Directory.CreateDirectory(Path.GetDirectoryName(logPath));

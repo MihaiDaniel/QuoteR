@@ -142,12 +142,12 @@ namespace Quoter.App
 			if (string.IsNullOrEmpty(connectionString))
 			{
 				string specialFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-				string dbFolderPath = Path.Combine(specialFolderPath, "Quoter.App");
+				string dbFolderPath = Path.Combine(specialFolderPath, "Quoter");
 				if (!Directory.Exists(dbFolderPath))
 				{
 					Directory.CreateDirectory(dbFolderPath);
 				}
-				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.db");
+				connectionString = "Data Source=" + Path.Combine(dbFolderPath, "quoter.app.db");
 				Properties.Settings.Default["ConnectionString"] = connectionString;
 				Properties.Settings.Default.Save();
 			}
