@@ -22,56 +22,56 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.Name" class="control-label"></label>
+					<label asp-for="Name" class="control-label"></label>
 				</div>
 				<div class="col-3">
-					<input asp-for="ViewModel.Name" class="form-control" />
-					<span asp-validation-for="ViewModel.Name" class="text-danger"></span>
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.Version" class="control-label"></label>
+					<label asp-for="Version" class="control-label"></label>
 				</div>
 				<div class="col-3">
-					<input asp-for="ViewModel.Version" class="form-control" />
-					<span asp-validation-for="ViewModel.Version" class="text-danger"></span>
+					<input asp-for="Version" class="form-control" />
+					<span asp-validation-for="Version" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.VersionType" class="control-label"></label>
+					<label asp-for="VersionType" class="control-label"></label>
 				</div>
 				<div class="col-3">
-					<select asp-for="ViewModel.VersionType" class="form-control" asp-items="Html.GetEnumSelectList<EnumVersionType>()"></select>
-					<span asp-validation-for="ViewModel.VersionType" class="text-danger"></span>
+					<select asp-for="VersionType" class="form-control" asp-items="Html.GetEnumSelectList<EnumVersionType>()"></select>
+					<span asp-validation-for="VersionType" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.Description" class="control-label"></label>
+					<label asp-for="Description" class="control-label"></label>
 				</div>
 				<div class="col-3">
-					<input asp-for="ViewModel.Description" class="form-control" />
-					<span asp-validation-for="ViewModel.Description" class="text-danger"></span>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.Os" class="control-label"></label>
+					<label asp-for="Os" class="control-label"></label>
 				</div>
 				<div class="col-3">
-					<select asp-for="ViewModel.Os" class="form-control" asp-items="Html.GetEnumSelectList<EnumOperatingSystem>()"></select>
-					<span asp-validation-for="ViewModel.Os" class="text-danger"></span>
+					<select asp-for="Os" class="form-control" asp-items="Html.GetEnumSelectList<EnumOperatingSystem>()"></select>
+					<span asp-validation-for="Os" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">
 				<div class="col-1">
-					<label asp-for="ViewModel.File" class="control-label"></label>
+					<label asp-for="FileUpload" class="control-label"></label>
 				</div>
 				<div class="col-6">
-					<input type="file" asp-for="ViewModel.File" class="form-control"/>
-					<span asp-validation-for="ViewModel.File" class="text-danger"></span>
+					<input type="file" asp-for="FileUpload" class="form-control"/>
+					<span asp-validation-for="FileUpload" class="text-danger"></span>
 				</div>
 			</div>
 			<div class="row p-1">

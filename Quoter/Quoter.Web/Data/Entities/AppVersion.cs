@@ -57,7 +57,7 @@ namespace Quoter.Web.Data.Entities
 		/// <summary>
 		/// Indicates if the update is available for download.
 		/// App versions that are not available will not be downloadable by the
-		/// desktop application on auto-update
+		/// desktop application on auto-update, nor by the website download
 		/// </summary>
 		public bool IsReleased { get; set; }
 

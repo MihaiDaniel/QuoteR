@@ -41,12 +41,12 @@ namespace Quoter.Web.Pages
 				AppVersion latestVersion = _memoryCache.GetOrCreate("WebLatestVersion",
 				entry =>
 				{
-					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
 
 					return _context.AppVersions
 						.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
-						.OrderBy(v => v.CreationDate)
-						.First();
+						.OrderBy(v => v.Id)
+						.Last();
 				})!;
 
 				if (!System.IO.File.Exists(latestVersion.Path))

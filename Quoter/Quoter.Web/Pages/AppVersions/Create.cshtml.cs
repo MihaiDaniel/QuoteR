@@ -6,7 +6,8 @@ using Quoter.Shared.Enums;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
 using Quoter.Web.Services;
-using Quoter.Web.ViewModels.AppVersions;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Quoter.Web.Pages.AppVersions
 {
@@ -18,7 +19,26 @@ namespace Quoter.Web.Pages.AppVersions
 		private readonly ApplicationDbContext _context;
 
 		[BindProperty]
-		public CreateViewModel ViewModel { get; set; } = default!;
+		[Required]
+		public string Name { get; set; }
+
+		[BindProperty]
+		[Required]
+		public string Version { get; set; }
+
+		[BindProperty]
+		public string? Description { get; set; }
+
+		[BindProperty]
+		public EnumOperatingSystem Os { get; set; }
+
+		[BindProperty]
+		[Required]
+		public EnumVersionType VersionType { get; set; }
+
+		[BindProperty]
+		[Required]
+		public IFormFile FileUpload { get; set; }
 
 		public CreateModel(
 			ILogger<CreateModel> logger,
@@ -37,7 +57,7 @@ namespace Quoter.Web.Pages.AppVersions
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			if (!ModelState.IsValid || _context.AppVersions == null || ViewModel == null)
+			if (!ModelState.IsValid)
 			{
 				return Page();
 			}
@@ -50,15 +70,15 @@ namespace Quoter.Web.Pages.AppVersions
 				}
 
 				string fileName = GetFileName();
-				string filePath = await _fileVersionsService.SaveFileVersionUploadAsync(ViewModel.File, fileName);
+				string filePath = await _fileVersionsService.SaveFileVersionUploadAsync(FileUpload, fileName);
 
 				AppVersion newVersion = new()
 				{
-					Name = ViewModel.Name,
-					Version = ViewModel.Version,
-					Description = ViewModel.Description,
-					Type = ViewModel.VersionType,
-					Os = ViewModel.Os,
+					Name = Name,
+					Version = Version,
+					Description = Description,
+					Type = VersionType,
+					Os = Os,
 					Path = filePath,
 					CreationDate = DateTime.UtcNow
 				};
@@ -76,30 +96,34 @@ namespace Quoter.Web.Pages.AppVersions
 
 		private string GetFileName()
 		{
-			switch (ViewModel.VersionType)
+			switch (VersionType)
 			{
 				case EnumVersionType.UpdateZip:
-					return $"{ViewModel.Version}.zip";;
+					if (FileUpload.FileName.Contains(".zip"))
+					{
+						return FileUpload.FileName;
+					}
+					return $"{Version}.zip";
 				default:
-					return ViewModel.File.FileName;
+					return FileUpload.FileName;
 			}
 		}
 
 		private async Task<bool> ValidatePostAsync()
 		{
-			bool isDuplicateName = await _context.AppVersions.AnyAsync(v => v.Name == ViewModel.Name);
-			if (isDuplicateName)
+			Regex regexVersionFormat = new("^\\d+\\.\\d+\\.\\d+\\.\\d+$");
+			if (!regexVersionFormat.IsMatch(Version))
 			{
-				ModelState.TryAddModelError(nameof(CreateViewModel.Name), "A version with the same name already exists");
-				return false;
+				ModelState.TryAddModelError($"{nameof(Version)}", "Version format is incorrect, example correct format: 1.2.3.4");
 			}
+
 			bool isDuplicateVersion = await _context.AppVersions
-				.AnyAsync(v => v.Version == ViewModel.Version
-							&& v.Type == ViewModel.VersionType);
+				.AnyAsync(v => v.Version == Version
+							&& v.Type == VersionType);
 			if (isDuplicateVersion)
 			{
-				ModelState.TryAddModelError(nameof(CreateViewModel.Version), "A version with the same version and version type already exists");
-				ModelState.TryAddModelError(nameof(CreateViewModel.VersionType), "A version with the same version and version type already exists");
+				ModelState.TryAddModelError($"{nameof(Version)}", "A version with the same version and version type already exists");
+				ModelState.TryAddModelError($"{nameof(VersionType)}", "A version with the same version and version type already exists");
 				return false;
 			}
 			return true;
