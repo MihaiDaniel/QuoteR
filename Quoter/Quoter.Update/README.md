@@ -18,6 +18,8 @@ This updater takes a zip file and unzips it in the specified directory.
 	- If an exception occurs the backup will be restored.
 - It will restart the newly updated application
 
+This should have a name of: Quoter.Update.exe to be automatically started by Quoter.exe and pe put in Updater folder where Quoter.exe resides
+
 ### Arguments
 
 Tha application expects at startup a list of arguments. All arguments are mandatory.

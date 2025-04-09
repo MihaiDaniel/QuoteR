@@ -22,26 +22,31 @@ namespace Quoter.Web.Controllers
 		[NonAction]
 		public async Task<bool> IsClientRegistered()
 		{
-			Guid registrationId = GetClientRegistrationId();
-			if(registrationId != Guid.Empty )
+			string? registrationId = GetRequestRegistration();
+			if(!string.IsNullOrEmpty(registrationId))
 			{
-				return await _context.AppRegistrations.AnyAsync(r => r.Id == registrationId);
+				return await _context.AppRegistrations.AnyAsync(r => r.RegistrationId == registrationId);
 			}
 			return false;
 		}
 
 		[NonAction]
-		public Guid GetClientRegistrationId()
+		public string? GetRequestRegistration()
 		{
 			StringValues strValues = HttpContext.Request.Headers["Registration"];
 			if (strValues.Any(sv => !string.IsNullOrEmpty(sv)))
 			{
 				string? registrationId = strValues.Last();
-				Guid.TryParse(registrationId, out Guid result);
-				return result;
+				return registrationId;
 			}
-			return Guid.Empty;
+			return null;
+		}
 
+		[NonAction]
+		public async Task<int> GetAppRegistrationId()
+		{
+			string? registrationId = GetRequestRegistration();
+			return await _context.AppRegistrations.Where(r => r.RegistrationId == registrationId).Select(r => r.Id).FirstAsync();
 		}
 
 		[NonAction]

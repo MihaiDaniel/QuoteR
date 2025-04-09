@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
 using Quoter.Web.Services;
-using System.Drawing.Printing;
 
 namespace Quoter.Web.Pages.AppVersions
 {
@@ -14,6 +13,7 @@ namespace Quoter.Web.Pages.AppVersions
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IFileVersionsService _fileVersionsService;
+		private readonly ILogger _logger;
 
 		public IList<AppVersion> AppVersion { get; set; }
 
@@ -25,11 +25,12 @@ namespace Quoter.Web.Pages.AppVersions
 		[BindProperty(SupportsGet = true)]
 		public int PageSize { get; set; } = 10;
 
-		public IndexModel(ApplicationDbContext context, IFileVersionsService fileVersionsService)
+		public IndexModel(ApplicationDbContext context, IFileVersionsService fileVersionsService, ILoggerFactory loggerFactory)
 		{
 			_context = context;
 			_fileVersionsService = fileVersionsService;
 			AppVersion = new List<AppVersion>();
+			_logger = loggerFactory.CreateLogger<IndexModel>();
 		}
 
 		public async Task OnGetAsync()
@@ -38,20 +39,16 @@ namespace Quoter.Web.Pages.AppVersions
 
 			AppVersion = await _context.AppVersions
 				.AsNoTracking()
+				.Include(v => v.LstAppVersionDownloads)
 				.Skip((PageNo - 1) * PageSize)
 				.Take(PageSize)
 				.OrderByDescending(v => v.CreationDate)
 				.ToListAsync();
 		}
 
-		/// <summary>
-		/// ERROR HERE, EVEN IF GUID IS CORRECT IT CANNOT DELETE IT FOR SOME REASON
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public async Task<IActionResult> OnPostDeleteAsync(Guid? id)
+		public async Task<IActionResult> OnPostDeleteAsync(int id)
 		{
-			if (id == null)
+			if (id == 0)
 			{
 				return BadRequest();
 			}
@@ -61,6 +58,8 @@ namespace Quoter.Web.Pages.AppVersions
 
 				if (appVersion != null)
 				{
+					//_context.AppVersionDownloads
+
 					_fileVersionsService.Delete(appVersion.Path);
 					_context.AppVersions.Remove(appVersion);
 					await _context.SaveChangesAsync();
@@ -70,6 +69,7 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "Could not delete AppVersion {0}", id);
 				throw;
 			}
 

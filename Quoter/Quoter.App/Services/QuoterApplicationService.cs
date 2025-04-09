@@ -56,26 +56,22 @@ namespace Quoter.App.Services
 		{
 			_backgroundJobsService.Enqueue(async () =>
 			{
-				if (_settings.RegistrationId == Guid.Empty)
+				if (string.IsNullOrEmpty(_settings.RegistrationId))
 				{
 					await _registrationService.RegisterAsync();
 				}
 			}, JobNameRegisterApp);
 		}
 
+		// TODO REMOVE
 		public void EnqueueBackgroundJobDisplayMessageIfAppWasUpdated()
 		{
 			_backgroundJobsService.Enqueue(async () =>
 			{
-				ActionResult result = await _updateService.VerifyIfUpdateApplied();
+				ActionResult result = await _updateService.VerifyIfUpdateAppliedAsync();
 				if (result.IsSuccess)
 				{
-					QuoteFormOptions messageModel = new()
-					{
-						Title = _stringResources["UpdateApplied"],
-						Body = _stringResources["UpdateAppliedMessage", result.GetValue<string>()]
-					};
-					_formsManager.Show<QuoteForm>(10, messageModel);
+					
 				}
 			}, JobNameNotifyIfAppWasUpdated);
 		}
@@ -84,7 +80,7 @@ namespace Quoter.App.Services
 		{
 			_backgroundJobsService.Enqueue(async () =>
 			{
-				_logger.Debug($"Beginning auto update job. AutoUpdate: {_settings.AutoUpdate}");
+				_logger.Debug($"Beginning auto update job. AutoUpdate setting value: {_settings.AutoUpdate}");
 				switch (_settings.AutoUpdate)
 				{
 					case EnumAutoUpdate.Auto:
@@ -106,6 +102,26 @@ namespace Quoter.App.Services
 						break;
 				}
 			}, JobNameUpdateApp);
+		}
+
+		public bool IsAnyUpdateApplied()
+		{
+			ActionResult result = _updateService.MarkUpdateAsAppliedIfAppUpdated();
+			return result.IsSuccess;
+		}
+
+		public bool ShowUpdateAppliedNotification()
+		{
+			string version = _updateService.GetLastAppliedVersion();
+			
+			int autohideSeconds = 10;
+			QuoteFormOptions messageModel = new()
+			{
+				Title = _stringResources["UpdateApplied"],
+				Body = _stringResources["UpdateAppliedMessage", version]
+			};
+			_formsManager.Show<QuoteForm>(autohideSeconds, messageModel);
+			return true;
 		}
 
 		public void ShowRandomQuoteInNotificationWindow()
@@ -148,6 +164,8 @@ namespace Quoter.App.Services
 
 		private IDialogResult AskUserIfHeWantsToUpdateToNewVersion()
 		{
+			_logger.Debug("Asking the user if he wants to update to a new version");
+
 			DialogOptions options = new()
 			{
 				MessageBoxButtons = EnumDialogButtons.YesLater,

@@ -15,7 +15,7 @@
 		/// Returns the current registrationId if the app is registered. Otherwise it tries to register
 		/// the application by calling the server, stores the received registrationId and then returns it.
 		/// </summary>
-		/// <returns></returns>
-		Task<Guid> RegisterAsync();
+		/// <returns>The registration id</returns>
+		Task<string> RegisterAsync();
 	}
 }

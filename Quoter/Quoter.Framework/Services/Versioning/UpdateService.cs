@@ -42,6 +42,7 @@ namespace Quoter.Framework.Services.Versioning
 		{
 			try
 			{
+				_logger.Debug("Verifying if a new update is available");
 				if (!_registrationService.IsRegistered())
 				{
 					_logger.Warn("Can't check if new version is available because application is not registered.");
@@ -53,19 +54,31 @@ namespace Quoter.Framework.Services.Versioning
 
 				if (currentVersion.IsOlderThan(latestVersion))
 				{
+					_logger.Debug("A new version update has been found");
 					return true;
 				}
 			}
 			catch (Exception ex)
 			{
-				_logger.Error(ex, "An error occured while checking IsNewVersionAvailable");
+				_logger.Error(ex, "An error occured while checking VerifyIfNewVersionAvailable");
 			}
+			_logger.Debug("No new versions have been found. This it the latest version");
 			return false;
 		}
 
-		public async Task<ActionResult> VerifyIfUpdateApplied()
+		public async Task<ActionResult> VerifyIfUpdateAppliedAsync()
 		{
+			_logger.Debug("Verifying if a new update has been applied");
+
 			QuoterVersionInfo currentVersion = _versionService.GetCurrentAppVersion();
+			//_logger.Warn("Current version: " + currentVersion.ToString());
+
+			//var vers = _context.AppVersions.ToList();
+			//foreach (var version in vers)
+			//{
+			//	_logger.Debug($"Db version: Id={version.Id}, Version={version.Version}, IsApplied={version.IsApplied}");
+			//}
+			
 			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
 			if (appVersion != null)
 			{
@@ -76,9 +89,39 @@ namespace Quoter.Framework.Services.Versioning
 					await _context.SaveChangesAsync();
 					return ActionResult.Success(appVersion.Version);
 				}
+				_logger.Debug("No update has been applied");
 			}
 			return ActionResult.Fail();
 			// Ideea: verify if an update was not applied and maybe retry?
+		}
+
+		public ActionResult MarkUpdateAsAppliedIfAppUpdated()
+		{
+			_logger.Debug("Verifying if a new update has been applied");
+			QuoterVersionInfo currentVersion = _versionService.GetCurrentAppVersion();
+			AppVersion? appVersion = _context.AppVersions.FirstOrDefault(v => v.Version == currentVersion.ToString());
+			if (appVersion != null)
+			{
+				if (!appVersion.IsApplied)
+				{
+					_logger.Info($"Update applied - {appVersion.Version}");
+					appVersion.IsApplied = true;
+					_context.SaveChanges();
+					return ActionResult.Success(appVersion.Version);
+				}
+				_logger.Debug("No update has been applied");
+			}
+			return ActionResult.Fail();
+		}
+
+		public string GetLastAppliedVersion()
+		{
+			AppVersion? version = _context.AppVersions.Where(v => v.IsApplied).OrderBy(v => v.Id).LastOrDefault();
+			if(version != null)
+			{
+				return version.Version;
+			}
+			return string.Empty;
 		}
 
 		public async Task TryUpdateAsync(bool isSilent)
@@ -142,16 +185,16 @@ namespace Quoter.Framework.Services.Versioning
 
 		private async Task<ActionResult> DownloadVersionAsync(QuoterVersionInfo latestVersion)
 		{
-			ActionResult result = await _webApiService.DownloadVersionAsync(latestVersion.Id);
+			ActionResult result = await _webApiService.DownloadVersionAsync(latestVersion.PublicId);
 			if (result.IsSuccess)
 			{
 				string filePath = result.GetValue<string>();
-				AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.VersionId == latestVersion.Id);
+				AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.PublicId == latestVersion.PublicId);
 				if (appVersion == null)
 				{
 					appVersion = new()
 					{
-						VersionId = latestVersion.Id,
+						PublicId = latestVersion.PublicId,
 						Version = latestVersion.ToString(),
 						FilePath = filePath,
 						IsApplied = false

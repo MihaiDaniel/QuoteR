@@ -8,8 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>Quoter.App.Program</StartupObject>
     <ApplicationIcon>Resources\icon_book_black.ico</ApplicationIcon>
-    <AssemblyVersion>0.1.0.1</AssemblyVersion>
-    <FileVersion>0.1.0.1</FileVersion>
+    <AssemblyVersion>0.1.0.4</AssemblyVersion>
+    <FileVersion>0.1.0.4</FileVersion>
     <Version>0.1.0</Version>
   </PropertyGroup>
 
@@ -105,4 +105,28 @@
     </None>
   </ItemGroup>
 
+	<!-- Deleted unwanted sqlite nuget runtimes for unsupported platforms to trim release size -->
+	<Target Name="RemoveUnwantedRuntimes" AfterTargets="Build">
+		<ItemGroup>
+			<UnwantedFiles Include="$(TargetDir)runtimes\alpine-*\**\*" />
+			<UnwantedFiles Include="$(TargetDir)runtimes\linux-*\**\*" />
+			<UnwantedFiles Include="$(TargetDir)runtimes\osx-*\**\*" />
+			<UnwantedFiles Include="$(TargetDir)runtimes\maccatalyst-*\**\*" />
+		</ItemGroup>
+
+		<Message Text="Deleting unwanted runtime files..." Importance="high" />
+		<Delete Files="@(UnwantedFiles)" />
+	</Target>
+
+	<Target Name="RemoveUnwantedRuntimes" AfterTargets="Publish">
+		<ItemGroup>
+			<UnwantedFiles Include="$(PublishDir)runtimes\alpine-*\**\*" />
+			<UnwantedFiles Include="$(PublishDir)runtimes\linux-*\**\*" />
+			<UnwantedFiles Include="$(PublishDir)runtimes\osx-*\**\*" />
+			<UnwantedFiles Include="$(PublishDir)runtimes\maccatalyst-*\**\*" />
+		</ItemGroup>
+
+		<Message Text="Deleting unwanted runtime files..." Importance="high" />
+		<Delete Files="@(UnwantedFiles)" />
+	</Target>
 </Project>

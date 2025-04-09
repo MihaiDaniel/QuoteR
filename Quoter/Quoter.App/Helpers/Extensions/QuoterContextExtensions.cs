@@ -7,11 +7,17 @@ namespace Quoter.App.Helpers.Extensions
 {
 	public static class QuoterContextExtensions
 	{
+		/// <summary>
+		/// Seed the database with necessary data (like settings)
+		/// </summary>
 		public static void Seed(this QuoterContext context)
 		{
 			SeedAppSettings(context);
 		}
 
+		/// <summary>
+		/// Seed settings if they don't exist in the database
+		/// </summary>
 		private static void SeedAppSettings(QuoterContext context)
 		{
 			TrySeedAppSetting(context, nameof(IAppSettings.IsFirstStart), false);
@@ -37,7 +43,7 @@ namespace Quoter.App.Helpers.Extensions
 
 			string? webApiUrl = Properties.Settings.Default["WebApiUrl"] as string;
 			TrySeedAppSetting(context, nameof(IAppSettings.WebApiUrl), webApiUrl);
-			TrySeedAppSetting(context, nameof(IAppSettings.RegistrationId), "00000000-0000-0000-0000-000000000000");
+			TrySeedAppSetting(context, nameof(IAppSettings.RegistrationId), "");
 			TrySeedAppSetting(context, nameof(IAppSettings.ShowCollectionsBasedOnLanguage), true);
 			TrySeedAppSetting(context, nameof(IAppSettings.IsStartWithWindows), true);
 
@@ -51,10 +57,10 @@ namespace Quoter.App.Helpers.Extensions
 
 		private static void TrySeedAppSetting<T>(QuoterContext context, string name, T value)
 		{
-			Setting? setting = context.Settings.FirstOrDefault(s => s.Name == name);
-			if(setting is null)
+			bool exists = context.Settings.Any(s => s.Name == name);
+			if(!exists)
 			{
-				setting = new Setting()
+				Setting setting = new()
 				{
 					Name = name,
 					Value = AppSettings.ConvertToString(value)

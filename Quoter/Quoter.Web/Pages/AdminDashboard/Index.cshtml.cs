@@ -23,7 +23,7 @@ namespace Quoter.Web.Pages.AdminDashboard
 		public async void OnGet()
 		{
 			ViewModel.LatestVersion = await _context.AppVersions
-				.Where(v => v.IsAvailable == true)
+				.Where(v => v.IsReleased == true)
 				.OrderByDescending(v => v.CreationDate)
 				.Select(v => v.Version)
 				.FirstOrDefaultAsync() ?? " N/A ";

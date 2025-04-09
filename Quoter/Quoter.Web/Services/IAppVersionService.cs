@@ -2,6 +2,6 @@
 {
 	public interface IAppVersionService
 	{
-		Task<bool> IsAppVersionIdValid(Guid? appVersionId);
+		Task<bool> IsAppVersionIdValid(int? appVersionId);
 	}
 }

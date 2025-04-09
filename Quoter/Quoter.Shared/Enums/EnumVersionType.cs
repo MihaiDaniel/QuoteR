@@ -14,12 +14,12 @@
 		None = 0,
 
 		/// <summary>
-		/// This represents an installer file used for installing the app
+		/// This represents an installer file used for installing the app (e.g. Setup.exe)
 		/// </summary>
 		Installer = 1,
 
 		/// <summary>
-		/// This represents zip a file used to update the installed application
+		/// This represents zip a file used to update the installed application (used by the auto-updater)
 		/// </summary>
 		UpdateZip = 2
 	}

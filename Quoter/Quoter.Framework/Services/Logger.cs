@@ -128,7 +128,7 @@ namespace Quoter.Framework.Services
 				{
 					DateTime = DateTime.Now,
 					LogLevel = Enums.EnumLogLevel.Debug,
-					Message = $"Th:{thread} {callerFile}.{callerMemberName} {message}"
+					Message = $"{callerFile}.{callerMemberName} [Thread:{thread}] {message}"
 				});
 				_context.SaveChanges();
 

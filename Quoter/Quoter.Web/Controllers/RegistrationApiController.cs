@@ -13,10 +13,12 @@ namespace Quoter.Web.Controllers
 	public class RegistrationApiController : BaseApiController
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly ILogger _logger;
 
-		public RegistrationApiController(ApplicationDbContext context) : base(context)
+		public RegistrationApiController(ApplicationDbContext context, ILoggerFactory loggerFactory) : base(context)
 		{
 			_context = context;
+			_logger = loggerFactory.CreateLogger<RegistrationApiController>();
 		}
 
 		[Route("register")]
@@ -35,19 +37,19 @@ namespace Quoter.Web.Controllers
 					return BadRequest("Identifier provided is not valid");
 				}
 
-				Guid? existingRegId = await _context.AppRegistrations
-					.Where(r => r.Identifier == requestModel.InstallId)
-					.Select(r => r.Id)
+				AppRegistration? existingReg = await _context.AppRegistrations
+					.AsNoTracking()
+					.Where(r => r.InstallId == requestModel.InstallId)
 					.FirstOrDefaultAsync();
-				if (existingRegId != null && existingRegId != Guid.Empty)
+				if (existingReg is not null)
 				{
-					return Ok(new RegisterPostResponseModel(existingRegId.Value));
+					return Ok(new RegisterPostResponseModel(existingReg.RegistrationId));
 				}
-
+				
 				string? clientIpAddress = HttpContext.Connection?.RemoteIpAddress?.ToString();
 				AppRegistration appRegistration = new()
 				{
-					Identifier = requestModel.InstallId.ToString(),
+					InstallId = requestModel.InstallId.ToString(),
 					IpAddress = clientIpAddress,
 					LocalWinRegionCode = requestModel.LocalWinRegionCode,
 					RegisteredDateTime = DateTime.UtcNow,
@@ -56,10 +58,11 @@ namespace Quoter.Web.Controllers
 				_context.AppRegistrations.Add(appRegistration);
 				await _context.SaveChangesAsync();
 
-				return Ok(new RegisterPostResponseModel(appRegistration.Id));
+				return Ok(new RegisterPostResponseModel(appRegistration.RegistrationId));
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "Registration failed");
 				return GetInternalServerErrorResponse();
 			}
 

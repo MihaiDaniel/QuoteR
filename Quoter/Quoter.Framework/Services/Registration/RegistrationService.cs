@@ -18,19 +18,19 @@ namespace Quoter.Framework.Services.Registration
 
 		public bool IsRegistered()
 		{
-			if (_settings.RegistrationId == Guid.Empty)
+			if (string.IsNullOrEmpty(_settings.RegistrationId))
 			{
 				return false;
 			}
 			return true;
 		}
 
-		public async Task<Guid> RegisterAsync()
+		public async Task<string> RegisterAsync()
 		{
-			if (_settings.RegistrationId == Guid.Empty)
+			if (string.IsNullOrEmpty(_settings.RegistrationId))
 			{
 				string regionCode = RegionAndLanguageHelper.GetMachineCurrentLocation();
-				Guid registrationId = await _webApiService.RegisterAsync(_settings.InstallId, _configuration.ApplicationKey, regionCode);
+				string registrationId = await _webApiService.RegisterAsync(_settings.InstallId, _configuration.ApplicationKey, regionCode);
 				_settings.RegistrationId = registrationId;
 				
 			}

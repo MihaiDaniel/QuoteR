@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quoter.Framework.Data;
 
@@ -10,9 +11,11 @@ using Quoter.Framework.Data;
 namespace Quoter.Framework.Migrations
 {
     [DbContext(typeof(QuoterContext))]
-    partial class QuoterContextModelSnapshot : ModelSnapshot
+    [Migration("20250408092516_SwitchGuidsToString")]
+    partial class SwitchGuidsToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -40,7 +43,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppVersions", (string)null);
+                    b.ToTable("AppVersions");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Book", b =>
@@ -69,7 +72,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasIndex("CollectionId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Chapter", b =>
@@ -101,7 +104,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("Chapters", (string)null);
+                    b.ToTable("Chapters");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Collection", b =>
@@ -125,7 +128,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasKey("CollectionId");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Log", b =>
@@ -146,7 +149,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasKey("LogId");
 
-                    b.ToTable("Logs", (string)null);
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Quote", b =>
@@ -182,7 +185,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasIndex("CollectionId");
 
-                    b.ToTable("Quotes", (string)null);
+                    b.ToTable("Quotes");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Setting", b =>
@@ -201,7 +204,7 @@ namespace Quoter.Framework.Migrations
 
                     b.HasKey("SettingId");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Quoter.Framework.Data.Entities.Book", b =>

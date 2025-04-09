@@ -15,14 +15,16 @@ namespace Quoter.Web.Controllers
 	public class VersionsApiController : BaseApiController
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly ILogger _logger;
 		private readonly IMemoryCache _memoryCache;
 		private readonly IFileVersionsService _fileVersionsService;
 
-		public VersionsApiController(ApplicationDbContext context, IMemoryCache memoryCache, IFileVersionsService fileVersionsService) : base(context)
+		public VersionsApiController(ApplicationDbContext context, ILoggerFactory loggerFactory, IMemoryCache memoryCache, IFileVersionsService fileVersionsService) : base(context)
 		{
 			_context = context;
 			_memoryCache = memoryCache;
 			_fileVersionsService = fileVersionsService;
+			_logger = loggerFactory.CreateLogger<VersionsApiController>();
 		}
 
 		/// <summary>
@@ -40,21 +42,22 @@ namespace Quoter.Web.Controllers
 			{
 				if (await IsClientRegistered())
 				{
-					List<QuoterVersionInfo> lstQuoterVersions = await _context.AppVersions
-						.Where(v => v.IsAvailable && v.Type == EnumVersionType.UpdateZip)
-						.OrderBy(v => v.CreationDate)
-						.Select(v => new QuoterVersionInfo(v.Id, v.Version))
+					List<QuoterVersionInfo> lstAllReleasedUpdates = await _context.AppVersions
+						.Where(v => v.IsReleased && v.Type == EnumVersionType.UpdateZip)
+						.OrderBy(v => v.Id)
+						.Select(v => new QuoterVersionInfo(v.PublicId, v.Version))
 						.ToListAsync();
 
-					QuoterVersionInfo latest = lstQuoterVersions.Last();
-					foreach (var quoterVersion in lstQuoterVersions)
+					// Normally newer versions should be added lastly, but just in case we compare them
+					QuoterVersionInfo latestVersion = lstAllReleasedUpdates.Last();
+					foreach (var versionToCompare in lstAllReleasedUpdates)
 					{
-						if (latest.CompareWith(quoterVersion) == EnumVersionCompare.Older)
+						if (latestVersion.IsOlderThan(versionToCompare))
 						{
-							latest = quoterVersion;
+							latestVersion = versionToCompare;
 						}
 					}
-					return Ok(new LatestVersionInfoGetResponse(latest.Id, latest.ToString()));
+					return Ok(new LatestVersionInfoGetResponse(latestVersion.PublicId, latestVersion.ToString()));
 				}
 				else
 				{
@@ -63,16 +66,17 @@ namespace Quoter.Web.Controllers
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "Error occured on GetLatestVersion");
 				return GetInternalServerErrorResponse();
 			}
 		}
 
 		/// <summary>
-		/// Download a version file based on it's id.
+		/// Download a version file based on it's public id.
 		/// </summary>
 		[Route("downloadVersion")]
 		[HttpGet]
-		public async Task<IActionResult> DownloadVersion([FromQuery] Guid versionId)
+		public async Task<IActionResult> DownloadVersion([FromQuery] string versionId)
 		{
 			try
 			{
@@ -82,29 +86,30 @@ namespace Quoter.Web.Controllers
 				}
 
 				AppVersion? appVersion = await _context.AppVersions
-					.FirstOrDefaultAsync(v => v.Id == versionId);
+					.FirstOrDefaultAsync(v => v.PublicId == versionId);
 
-				if (appVersion != null)
+				if (appVersion is not null)
 				{
 					// Log a new version download by the client
 					AppVersionDownload appVersionDownload = new()
 					{
-						AppRegistrationId = GetClientRegistrationId(),
-						AppVersionId = appVersion.Id,
-						DownloadDateTime = DateTime.UtcNow,
+						AppRegistrationId = await GetAppRegistrationId(),
+						AppVersionId = appVersion.Id
 					};
 					_context.AppVersionDownloads.Add(appVersionDownload);
 					await _context.SaveChangesAsync();
 
 					// Get from cache or by reading from file the content
-					VersionFile file = await _memoryCache.GetOrCreateAsync(appVersion.Version,
+					VersionFileContent? fileContent = await _memoryCache.GetOrCreateAsync(appVersion.Version,
 						async entry =>
 						{
-							entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1);
+							entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2);
 
-							return await _fileVersionsService.GetVersionFileAsync(appVersion);
+							return await _fileVersionsService.GetVersionFileContentAsync(appVersion);
 						});
-					return File(new MemoryStream(file.Content), "application/zip", file.FileName);
+					
+					ArgumentNullException.ThrowIfNull(fileContent);
+					return File(new MemoryStream(fileContent.Content), "application/zip", fileContent.FileName);
 				}
 				else
 				{
@@ -113,6 +118,7 @@ namespace Quoter.Web.Controllers
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "Error occured on DownloadVersion");
 				return GetInternalServerErrorResponse();
 			}
 		}

@@ -44,7 +44,7 @@ namespace Quoter.Web.Pages
 					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
 					return _context.AppVersions
-						.Where(v => v.IsAvailable && v.Type == EnumVersionType.Installer)
+						.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
 						.OrderBy(v => v.CreationDate)
 						.First();
 				})!;

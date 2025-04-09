@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quoter.Web.Data;
 
@@ -10,9 +11,11 @@ using Quoter.Web.Data;
 namespace Quoter.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250408090027_SwitchGuidsToString")]
+    partial class SwitchGuidsToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
@@ -486,13 +489,11 @@ namespace Quoter.Web.Migrations
                 {
                     b.HasOne("Quoter.Web.Data.Entities.AppRegistration", "AppRegistration")
                         .WithMany("LstUpdateDownloads")
-                        .HasForeignKey("AppRegistrationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AppRegistrationId");
 
                     b.HasOne("Quoter.Web.Data.Entities.AppVersion", "AppVersion")
                         .WithMany("LstAppVersionDownloads")
-                        .HasForeignKey("AppVersionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AppVersionId");
 
                     b.Navigation("AppRegistration");
 

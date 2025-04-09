@@ -20,7 +20,16 @@ namespace Quoter.Framework.Services.Versioning
 		/// Verifies if in the local db we have a version with the same number as the app exe version. 
 		/// If yes it marks the version as IsApplied=true.
 		/// </summary>
-		Task<ActionResult> VerifyIfUpdateApplied();
+		Task<ActionResult> VerifyIfUpdateAppliedAsync();
+
+		/// <summary>
+		/// Verifies if in the local db we have a version with the same number as the app exe version. 
+		/// If yes it marks the version as IsApplied=true.
+		/// </summary>
+		ActionResult MarkUpdateAsAppliedIfAppUpdated();
+
+
+		string GetLastAppliedVersion();
 
 		/// <summary>
 		/// Verifies if a new version is available by querying the web server and comparing the latest version available

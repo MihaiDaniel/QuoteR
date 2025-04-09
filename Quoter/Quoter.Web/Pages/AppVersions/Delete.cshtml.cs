@@ -23,52 +23,52 @@ namespace Quoter.Web.Pages.AppVersions
 			_fileVersionsService = fileVersionsService;
 		}
 
-		public async Task<IActionResult> OnGetAsync(Guid? id)
-		{
-			if (id == null || _context.AppVersions == null)
-			{
-				return NotFound();
-			}
+		//public async Task<IActionResult> OnGetAsync(Guid? id)
+		//{
+		//	if (id == null || _context.AppVersions == null)
+		//	{
+		//		return NotFound();
+		//	}
 
-			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(m => m.Id == id);
+		//	AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(m => m.Id == id);
 
-			if (appVersion == null)
-			{
-				return NotFound();
-			}
-			else
-			{
-				ViewModel = appVersion;
-			}
-			return Page();
-		}
+		//	if (appVersion == null)
+		//	{
+		//		return NotFound();
+		//	}
+		//	else
+		//	{
+		//		ViewModel = appVersion;
+		//	}
+		//	return Page();
+		//}
 
-		public async Task<IActionResult> OnPostAsync(Guid? id)
-		{
-			if (id == null || _context.AppVersions == null)
-			{
-				return BadRequest();
-			}
-			try
-			{
-				AppVersion? appVersion = await _context.AppVersions.FindAsync(id);
+		//public async Task<IActionResult> OnPostAsync(Guid? id)
+		//{
+		//	if (id == null || _context.AppVersions == null)
+		//	{
+		//		return BadRequest();
+		//	}
+		//	try
+		//	{
+		//		AppVersion? appVersion = await _context.AppVersions.FindAsync(id);
 
-				if (appVersion != null)
-				{
-					_fileVersionsService.Delete(appVersion.Path);
+		//		if (appVersion != null)
+		//		{
+		//			_fileVersionsService.Delete(appVersion.Path);
 
-					ViewModel = appVersion;
-					_context.AppVersions.Remove(ViewModel);
-					await _context.SaveChangesAsync();
-				}
+		//			ViewModel = appVersion;
+		//			_context.AppVersions.Remove(ViewModel);
+		//			await _context.SaveChangesAsync();
+		//		}
 
-				return RedirectToPage("./Index");
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
+		//		return RedirectToPage("./Index");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		throw;
+		//	}
 
-		}
+		//}
 	}
 }

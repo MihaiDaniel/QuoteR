@@ -24,7 +24,7 @@
 				<thead>
 					<tr>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].IsAvailable)
+							@Html.DisplayNameFor(model => model.AppVersion[0].IsReleased)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.AppVersion[0].Name)
@@ -55,7 +55,7 @@
 					{
 						<tr>
 							<td>
-								@if (item.IsAvailable)
+								@if (item.IsReleased)
 								{
 									<span class="badge rounded-pill text-bg-success">Yes</span>
 								}

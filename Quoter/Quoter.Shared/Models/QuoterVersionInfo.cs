@@ -14,7 +14,7 @@ namespace Quoter.Shared.Models
 		/// <summary>
 		/// Unique id of the version as is on the update server.
 		/// </summary>
-		public Guid Id { get; set; }
+		public string PublicId { get; set; }
 
 		public int Major { get; private set; }
 
@@ -24,9 +24,9 @@ namespace Quoter.Shared.Models
 
 		public int Revision { get; private set; }
 
-		public QuoterVersionInfo(Guid id, string version)
+		public QuoterVersionInfo(string id, string version)
 		{
-			Id = id;
+			PublicId = id;
 			string[] component = version.Split('.');
 			Major = int.Parse(component[0]);
 			Minor = int.Parse(component[1]);
@@ -41,6 +41,14 @@ namespace Quoter.Shared.Models
 			Minor = int.Parse(component[1]);
 			Build = int.Parse(component[2]);
 			Revision = int.Parse(component[3]);
+		}
+
+		public QuoterVersionInfo(int major, int minor, int build, int revision)
+		{
+			Major = major;
+			Minor = minor;
+			Build = build;
+			Revision = revision;
 		}
 
 		/// <summary>

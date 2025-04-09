@@ -28,6 +28,10 @@ namespace Quoter.App.Services
 		/// </remarks>
 		void EnqueueBackgroundJobAppUpdate();
 
+		bool IsAnyUpdateApplied();
+
+		bool ShowUpdateAppliedNotification();
+
 		/// <summary>
 		/// Displays the quote notification window with a new random quote (or signals the window 
 		/// to show another quote if is already open)

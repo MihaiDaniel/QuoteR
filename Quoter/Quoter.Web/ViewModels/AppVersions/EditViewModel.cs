@@ -9,7 +9,7 @@ namespace Quoter.Web.ViewModels.AppVersions
 	public class EditViewModel
 	{
 		[Required]
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 
 		[Required]
 		public string Name { get; set; }

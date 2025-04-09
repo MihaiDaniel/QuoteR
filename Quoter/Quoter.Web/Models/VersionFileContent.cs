@@ -1,6 +1,6 @@
 ﻿namespace Quoter.Web.Models
 {
-	public class VersionFile
+	public class VersionFileContent
 	{
 		public string FileName { get; set; }
 		public string Version { get; set; }

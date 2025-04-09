@@ -194,15 +194,15 @@ namespace Quoter.Framework.Services.AppSettings
 			}
 		}
 
-		public Guid RegistrationId
+		public string RegistrationId
 		{
 			get
 			{
-				return Get<Guid>(nameof(RegistrationId));
+				return Get<string>(nameof(RegistrationId));
 			}
 			set
 			{
-				Set<Guid>(nameof(RegistrationId), value);
+				Set<string>(nameof(RegistrationId), value);
 			}
 		}
 

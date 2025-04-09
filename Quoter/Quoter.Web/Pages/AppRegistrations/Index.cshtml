@@ -27,7 +27,7 @@
 							@Html.DisplayNameFor(model => model.AppRegistrations[0].Id)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppRegistrations[0].Identifier)
+							@Html.DisplayNameFor(model => model.AppRegistrations[0].InstallId)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.AppRegistrations[0].IpAddress)
@@ -38,7 +38,6 @@
 						<th>
 							@Html.DisplayNameFor(model => model.AppRegistrations[0].RegisteredDateTime)
 						</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,7 +48,7 @@
 								@Html.DisplayFor(modelItem => item.Id)
 							</td>
 							<td>
-								@Html.DisplayFor(modelItem => item.Identifier)
+								@Html.DisplayFor(modelItem => item.InstallId)
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.IpAddress)
@@ -59,10 +58,6 @@
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.RegisteredDateTime)
-							</td>
-							
-							<td>
-								<a asp-page="./Details" asp-route-id="@item.Id">Details</a>
 							</td>
 						</tr>
 					}

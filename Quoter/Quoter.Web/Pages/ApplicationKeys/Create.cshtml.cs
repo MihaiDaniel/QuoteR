@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
-using Quoter.Web.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace Quoter.Web.Pages.ApplicationKeys
@@ -58,8 +57,7 @@ namespace Quoter.Web.Pages.ApplicationKeys
 		{
 			AppKey appKey = new AppKey()
 			{
-				Key = NewKey,
-				CreatedDate = DateTime.Now,
+				Key = NewKey
 			};
 			_context.Add(appKey);
 			await _context.SaveChangesAsync();

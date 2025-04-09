@@ -11,7 +11,7 @@ namespace Quoter.Web.Data.Entities
 
 		#region FK
 
-		public Guid? AppRegistrationId { get; set; }
+		public int? AppRegistrationId { get; set; }
 
 		public AppRegistration? AppRegistration { get; set; }
 

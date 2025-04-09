@@ -14,7 +14,7 @@ namespace Quoter.Framework.Services.Versioning
 			Version? version = Assembly.GetEntryAssembly()?.GetName().Version;
 			if (version == null)
 			{
-				return new QuoterVersionInfo("0.0.0.0");
+				return new QuoterVersionInfo(0,0,0,0);
 			}
 			else
 			{

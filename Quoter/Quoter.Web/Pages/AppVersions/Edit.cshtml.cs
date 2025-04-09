@@ -24,9 +24,9 @@ namespace Quoter.Web.Pages.AppVersions
 			_appVersionService = appVersionService;
 		}
 
-		public async Task<IActionResult> OnGetAsync(Guid? id)
+		public async Task<IActionResult> OnGetAsync(int? id)
 		{
-			if (!await _appVersionService.IsAppVersionIdValid(id))
+			if (!await _context.AppVersions.AnyAsync(av => av.Id == id))
 			{
 				return BadRequest();
 			}
@@ -41,7 +41,7 @@ namespace Quoter.Web.Pages.AppVersions
 					Description = appVersion.Description,
 					Os = appVersion.Os,
 					Path = appVersion.Path,
-					IsAvailable = appVersion.IsAvailable,
+					IsAvailable = appVersion.IsReleased,
 				})
 				.FirstAsync();
 
@@ -66,7 +66,7 @@ namespace Quoter.Web.Pages.AppVersions
 
 				appVersion.Name = ViewModel.Name;
 				appVersion.Version = ViewModel.Version;
-				appVersion.IsAvailable = ViewModel.IsAvailable;
+				appVersion.IsReleased = ViewModel.IsAvailable;
 				appVersion.Os = ViewModel.Os;
 				appVersion.Description = ViewModel.Description;
 

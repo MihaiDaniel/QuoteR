@@ -106,18 +106,27 @@ namespace Quoter.App
 		/// <summary>
 		/// A timer event to delay the display of windows and update of the application
 		/// </summary>
-		private async void ElapsedTimerEventStartup()
+		private void ElapsedTimerEventStartup()
 		{
-			_logger.Debug("");
+			_logger.Debug("ElapsedTimerEventStartup called");
 			try
 			{
-				_timerStartup.Enabled = false;
+				// Startup initialization should run with a delay only once
+				_timerStartup.Stop();
 
-				// Only start diplaying welcome message or quote window after completing the setup
-				if (_settings.IsSetupFinished)
+				if (!_settings.IsSetupFinished)
 				{
+					_formsManager.ShowAndCloseOthers<WelcomeForm>();
+				}
+				else
+				{
+					if (_quoterApplicationService.IsAnyUpdateApplied())
+					{
+						_quoterApplicationService.ShowUpdateAppliedNotification();
+					}
+					// Only start diplaying welcome message or quote window after completing the setup
 					// Display the quotes form if we have it set to AlwaysOn
-					if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
+					else if (_settings.NotificationType == EnumNotificationType.AlwaysOn)
 					{
 						_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
 					}
@@ -125,10 +134,6 @@ namespace Quoter.App
 					{
 						_quoterApplicationService.ShowWelcomeNotificationWindow();
 					}
-				}
-				else
-				{
-					_formsManager.ShowAndCloseOthers<WelcomeForm>();
 				}
 
 				// Enqueue background jobs for the application
@@ -146,6 +151,10 @@ namespace Quoter.App
 			catch (Exception ex)
 			{
 				_logger.Error(ex);
+			}
+			finally
+			{
+				_timerStartup.Dispose();
 			}
 		}
 		/// <summary>

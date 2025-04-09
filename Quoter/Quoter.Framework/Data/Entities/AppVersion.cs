@@ -12,7 +12,7 @@ namespace Quoter.Framework.Data.Entities
 		/// <summary>
 		/// This is the application version id retrieved from the server
 		/// </summary>
-		public Guid VersionId { get; set; }
+		public string PublicId { get; set; }
 
 		public string Version { get; set; }
 

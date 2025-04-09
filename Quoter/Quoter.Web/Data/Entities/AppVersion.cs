@@ -17,7 +17,7 @@ namespace Quoter.Web.Data.Entities
 		/// </summary>
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 
 		/// <summary>
 		/// A name describing this version
@@ -30,6 +30,12 @@ namespace Quoter.Web.Data.Entities
 		/// </summary>
 		[Required]
 		public string Version { get; set; }
+
+		/// <summary>
+		/// A public id used to identify the application version (this is known by the application)
+		/// </summary>
+		[Required]
+		public string PublicId { get; set; }
 
 		/// <summary>
 		/// A short description of the version (eg. change log)
@@ -49,14 +55,14 @@ namespace Quoter.Web.Data.Entities
 		public EnumVersionType Type { get; set; }
 
 		/// <summary>
-		/// Indicates if the update is available.
+		/// Indicates if the update is available for download.
 		/// App versions that are not available will not be downloadable by the
-		/// desktop application
+		/// desktop application on auto-update
 		/// </summary>
-		public bool IsAvailable { get; set; }
+		public bool IsReleased { get; set; }
 
 		/// <summary>
-		/// Path on disk of the file
+		/// Path on disk of the update file
 		/// </summary>
 		public string Path { get; set; }
 
@@ -75,6 +81,7 @@ namespace Quoter.Web.Data.Entities
 		{
 			CreationDate = DateTime.UtcNow;
 			LstAppVersionDownloads = new List<AppVersionDownload>();
+			PublicId = Guid.NewGuid().ToString();
 		}
 	}
 }

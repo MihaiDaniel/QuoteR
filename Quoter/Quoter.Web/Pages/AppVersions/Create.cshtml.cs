@@ -50,7 +50,7 @@ namespace Quoter.Web.Pages.AppVersions
 				}
 
 				string fileName = GetFileName();
-				string filePath = await _fileVersionsService.SaveFileVersionAsync(ViewModel.File, fileName);
+				string filePath = await _fileVersionsService.SaveFileVersionUploadAsync(ViewModel.File, fileName);
 
 				AppVersion newVersion = new()
 				{

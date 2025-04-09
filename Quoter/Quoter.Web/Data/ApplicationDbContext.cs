@@ -36,7 +36,7 @@ namespace Quoter.Web.Data
 				entity
 					.HasMany(e => e.LstUpdateDownloads)
 					.WithOne(e => e.AppRegistration)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.OnDelete(DeleteBehavior.Cascade);
 			});
 
 			modelBuilder.Entity<AppVersion>(entity =>
@@ -44,7 +44,7 @@ namespace Quoter.Web.Data
 				entity
 					.HasMany(e => e.LstAppVersionDownloads)
 					.WithOne(e => e.AppVersion)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.OnDelete(DeleteBehavior.Cascade);
 			});
 
 			modelBuilder.Entity<AppVersionDownload>(entity =>
@@ -52,7 +52,7 @@ namespace Quoter.Web.Data
 				entity
 					.HasOne(e => e.AppVersion)
 					.WithMany(e => e.LstAppVersionDownloads)
-					.OnDelete(DeleteBehavior.ClientSetNull);
+					.OnDelete(DeleteBehavior.Cascade);
 			});
 		}
 	}

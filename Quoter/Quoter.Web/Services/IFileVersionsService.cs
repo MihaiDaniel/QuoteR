@@ -6,9 +6,9 @@ namespace Quoter.Web.Services
 
 	public interface IFileVersionsService
 	{
-		Task<string> SaveFileVersionAsync(IFormFile file, string name = null);
+		Task<string> SaveFileVersionUploadAsync(IFormFile file, string name = null);
 
-		Task<VersionFile> GetVersionFileAsync(AppVersion appVersion);
+		Task<VersionFileContent> GetVersionFileContentAsync(AppVersion appVersion);
 
 		void Delete(string path);
 	}

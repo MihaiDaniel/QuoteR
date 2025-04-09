@@ -39,7 +39,7 @@ namespace Quoter.Framework.Services.AppSettings
 
 		EnumAutoUpdate AutoUpdate { get; set; }
 		string WebApiUrl { get; set; }
-		Guid RegistrationId { get; set; }
+		string RegistrationId { get; set; }
 
 		bool ShowCollectionsBasedOnLanguage { get; set; }
 		bool ShowWelcomeNotification { get; set; }

@@ -2,10 +2,10 @@
 {
 	public class LatestVersionInfoGetResponse
 	{
-		public Guid Id { get; set; }
+		public string Id { get; set; }
 		public string Version { get; set; }
 
-		public LatestVersionInfoGetResponse(Guid id, string version)
+		public LatestVersionInfoGetResponse(string id, string version)
 		{
 			Id = id;
 			Version = version;

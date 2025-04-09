@@ -2,9 +2,9 @@
 {
 	public class RegisterPostResponseModel
 	{
-		public Guid RegistrationId { get; set; }
+		public string RegistrationId { get; set; }
 
-		public RegisterPostResponseModel(Guid registrationId)
+		public RegisterPostResponseModel(string registrationId)
 		{
 			RegistrationId = registrationId;
 		}

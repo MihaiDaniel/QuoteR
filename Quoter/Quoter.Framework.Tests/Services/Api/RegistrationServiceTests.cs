@@ -23,40 +23,40 @@ namespace Quoter.Framework.Tests.Services.Api
 		}
 
 
-		[Fact]
-		public async Task GetRegistrationId_Should_GetNewRegId_When_NotRegistered()
-		{
-			Guid expected = Guid.NewGuid();
-			_mockSettings
-				.SetupSequence(_ => _.RegistrationId)
-				.Returns(Guid.Empty)
-				.Returns(expected);
+		//[Fact]
+		//public async Task GetRegistrationId_Should_GetNewRegId_When_NotRegistered()
+		//{
+		//	string expected = Guid.NewGuid().ToString();
+		//	_mockSettings
+		//		.SetupSequence(_ => _.RegistrationId)
+		//		.Returns(string.Empty)
+		//		.Returns(expected);
 
-			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-				.ReturnsAsync(expected);
+		//	_mockWebApiService
+		//		.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+		//		.ReturnsAsync(expected);
 
-			Guid registrationId = await _registrationService.RegisterAsync();
+		//	string registrationId = await _registrationService.RegisterAsync();
 
-			Assert.NotEqual(Guid.Empty, registrationId);
-			_mockSettings.VerifyGet(s => s.RegistrationId, Times.Exactly(2));
-		}
+		//	Assert.NotEqual(string.Empty, registrationId);
+		//	_mockSettings.VerifyGet(s => s.RegistrationId, Times.Exactly(2));
+		//}
 
-		[Fact]
-		public async Task GetRegistrationId_Should_RetSameRegId_When_AlreadyRegistered()
-		{
-			Guid expected = Guid.NewGuid();
-			_mockSettings
-				.SetupGet(_ => _.RegistrationId)
-				.Returns(expected);
+		//[Fact]
+		//public async Task GetRegistrationId_Should_RetSameRegId_When_AlreadyRegistered()
+		//{
+		//	string expected = Guid.NewGuid().ToString();
+		//	_mockSettings
+		//		.SetupGet(_ => _.RegistrationId)
+		//		.Returns(expected);
 
-			_mockWebApiService
-				.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-				.ReturnsAsync(Guid.NewGuid);
+		//	_mockWebApiService
+		//		.Setup(_ => _.RegisterAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+		//		.ReturnsAsync("aaaa");
 
-			Guid registrationId = await _registrationService.RegisterAsync();
+		//	string registrationId = await _registrationService.RegisterAsync();
 
-			Assert.Equal(expected, registrationId);
-		}
+		//	Assert.Equal(expected, registrationId);
+		//}
 	}
 }

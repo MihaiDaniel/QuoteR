@@ -12,7 +12,7 @@ namespace Quoter.Web.Services
 			_context = context;
 		}
 
-		public async Task<bool> IsAppVersionIdValid(Guid? appVersionId)
+		public async Task<bool> IsAppVersionIdValid(int? appVersionId)
 		{
 			if (appVersionId is null || _context.AppVersions is null)
 			{

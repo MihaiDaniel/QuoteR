@@ -46,7 +46,7 @@ if (!Directory.Exists(dirSqlite))
 {
 	Directory.CreateDirectory(dirSqlite);
 }
-string sqlitePath = Path.Combine(dirSqlite, "Quoter.Web.db");
+string sqlitePath = Path.Combine(dirSqlite, "quoter.web.db");
 string connectionString = $"Data Source={sqlitePath}";
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 	options.UseSqlite(connectionString));

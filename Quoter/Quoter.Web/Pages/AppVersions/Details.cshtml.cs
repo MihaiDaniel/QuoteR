@@ -22,9 +22,9 @@ namespace Quoter.Web.Pages.AppVersions
 			_appVersionService = appVersionService;
 		}
 
-		public async Task<IActionResult> OnGetAsync(Guid? id)
+		public async Task<IActionResult> OnGetAsync(int? id)
 		{
-			if (!await _appVersionService.IsAppVersionIdValid(id))
+			if (!await _context.AppVersions.AnyAsync(av => av.Id == id))
 			{
 				return BadRequest();
 			}
@@ -41,7 +41,7 @@ namespace Quoter.Web.Pages.AppVersions
 					Description = v.Description,
 					Os = v.Os,
 					CreationDate = v.CreationDate,
-					IsAvailable = v.IsAvailable,
+					IsAvailable = v.IsReleased,
 					Path = v.Path,
 					VersionDownloads = v.LstAppVersionDownloads.Count
 				})
