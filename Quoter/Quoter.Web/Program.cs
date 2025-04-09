@@ -10,51 +10,87 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using Quoter.Web;
+using Serilog;
+using Serilog.Events;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorPages()
-	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-	.AddDataAnnotationsLocalization();
-builder.Services.AddControllers();
-builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddLocalization(options =>
+string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter");
+string sqliteDbName = "quoter.web.db";
+string sqliteDbLogsName = "quoter.web.logs.db";
+if (!Directory.Exists(dirLocalAppData))
 {
-	options.ResourcesPath = "Resources";
-});
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-	var supportedCultures = new[] { "en-US", "fr-FR", "ro-RO" };
-	options.SetDefaultCulture(supportedCultures[0])
-		.AddSupportedCultures(supportedCultures)
-		.AddSupportedUICultures(supportedCultures);
-	options.DefaultRequestCulture = new RequestCulture("en-US");
-});
-builder.Services.AddMvc();
-
-// PostgreSQL database
-//string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
-//	options.UseNpgsql(connectionString));
-
-// SQLite database
-string dirLocalAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-string dirSqlite = Path.Combine(dirLocalAppData, "Quoter");
-if (!Directory.Exists(dirSqlite))
-{
-	Directory.CreateDirectory(dirSqlite);
+	Directory.CreateDirectory(dirLocalAppData);
 }
-string sqlitePath = Path.Combine(dirSqlite, "quoter.web.db");
-string connectionString = $"Data Source={sqlitePath}";
-builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
-	options.UseSqlite(connectionString));
 
+Log.Logger = new LoggerConfiguration()
+	.MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
+	.MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
+	.MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
+	.MinimumLevel.Warning()
+	.WriteTo.Console()
+	.WriteTo.File(Path.Combine(dirLocalAppData, "Logs.txt"))
+	.WriteTo.SQLite(Path.Combine(dirLocalAppData, sqliteDbLogsName)) // Use different db because it caused file locking issues
+	.CreateLogger();
 
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+try
+{
+	WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+	
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+	builder.Services.AddSerilog();
+	// To read from appsettings
+	//builder.Services.AddSerilog((services, loggerConfiguration) =>
+	//	loggerConfiguration.ReadFrom.Configuration(builder.Configuration)
+	//						.ReadFrom.Services(services)
+	//						.Enrich.FromLogContext()
+	//						.WriteTo.SQLite(Path.Combine(dirLocalAppData,"quoter.web.logs.db")));
+
+	builder.Services.AddRazorPages()
+		.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+		.AddDataAnnotationsLocalization();
+	builder.Services.AddControllers();
+	builder.Services.AddHttpContextAccessor();
+
+	#region Localization
+
+	builder.Services.AddLocalization(options =>
+	{
+		options.ResourcesPath = "Resources";
+	});
+	builder.Services.Configure<RequestLocalizationOptions>(options =>
+	{
+		var supportedCultures = new[] { "en-US", "fr-FR", "ro-RO" };
+		options.SetDefaultCulture(supportedCultures[0])
+			.AddSupportedCultures(supportedCultures)
+			.AddSupportedUICultures(supportedCultures);
+		options.DefaultRequestCulture = new RequestCulture("en-US");
+	});
+
+	#endregion Localization
+
+	builder.Services.AddMvc();
+
+	#region Database
+
+	string connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+	// PostgreSQL database
+	//string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+	//builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
+	//	options.UseNpgsql(connectionString));
+
+	// SQLite database
+	if (string.IsNullOrEmpty(connectionString)) // Set a default path if not set in appsettings file
+	{
+		connectionString = $"Data Source={Path.Combine(dirLocalAppData, sqliteDbName)}";
+	}
+	builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
+		options.UseSqlite(connectionString));
+
+	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+	#endregion Database
+
+	builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 	{
 		options.SignIn.RequireConfirmedAccount = false;
 		options.SignIn.RequireConfirmedEmail = false;
@@ -69,58 +105,75 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 		options.Password.RequireLowercase = false;
 
 	})
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+		.AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddSwaggerGen(c =>
-{
-	c.OperationFilter<SwaggerRegistrationHeaderParameter>();
-});
+	builder.Services.AddSwaggerGen(c =>
+	{
+		c.OperationFilter<SwaggerRegistrationHeaderParameter>();
+	});
 
-// Web Application services
-builder.Services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
-builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
-builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
-builder.Services.AddScoped<IAppVersionService, AppVersionService>();
+	#region Quoter.Web services
 
+	builder.Services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
+	builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
+	builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
+	builder.Services.AddScoped<IAppVersionService, AppVersionService>();
 
-WebApplication app = builder.Build();
+	#endregion Quoter.Web services
 
-// Migrate the database if needed
-app.MigrateDatabase();
-// Seed data in the database if needed
-app.SeedDatabase(builder.Configuration).Wait();
+	WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseMigrationsEndPoint();
-	app.UseSwagger();
-	app.UseSwaggerUI();
-	app.UseDeveloperExceptionPage();
+	#region Middleware pipeline
+
+	app.UseSerilogRequestLogging();
+	
+	app.MigrateDatabase();							// Migrate the database if needed
+	app.SeedDatabase(builder.Configuration).Wait(); // Seed data in the database if needed
+
+	// Configure the HTTP request pipeline.
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseMigrationsEndPoint();
+		app.UseSwagger();
+		app.UseSwaggerUI();
+		app.UseDeveloperExceptionPage();
+	}
+	else
+	{
+		app.UseExceptionHandler("/Error");
+		// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+		app.UseHsts();
+	}
+	app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
+	app.UseForwardedHeaders(new ForwardedHeadersOptions
+	{
+		ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+		ForwardedHeaders.XForwardedProto
+	});
+
+	app.UseHttpsRedirection();
+	app.UseStaticFiles();
+
+	app.UseRouting();
+
+	app.UseAuthentication();
+	app.UseAuthorization();
+
+	app.MapRazorPages();
+	app.MapControllers();
+	app.UseRequestLocalization();
+
+	#endregion Middleware pipeline
+
+	app.Run();
 }
-else
+catch(Exception ex)
 {
-	app.UseExceptionHandler("/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+	Log.Fatal(ex, "Application terminated unexpectedly");
 }
-app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
-app.UseForwardedHeaders(new ForwardedHeadersOptions
+finally
 {
-	ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-	ForwardedHeaders.XForwardedProto
-});
+	Log.CloseAndFlush();
+}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapRazorPages();
-app.MapControllers();
-app.UseRequestLocalization();
-
-app.Run();

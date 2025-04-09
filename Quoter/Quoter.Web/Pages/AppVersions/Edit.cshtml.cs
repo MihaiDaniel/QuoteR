@@ -16,6 +16,7 @@ namespace Quoter.Web.Pages.AppVersions
 	public class EditModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly ILogger _logger;
 		private readonly IAppVersionService _appVersionService;
 
 		[BindProperty]
@@ -41,9 +42,10 @@ namespace Quoter.Web.Pages.AppVersions
 
 		public string Path { get; set; }
 
-		public EditModel(ApplicationDbContext context, IAppVersionService appVersionService)
+		public EditModel(ApplicationDbContext context, ILoggerFactory loggerFactory, IAppVersionService appVersionService)
 		{
 			_context = context;
+			_logger = loggerFactory.CreateLogger("AppVersions.Edit");
 			_appVersionService = appVersionService;
 		}
 
@@ -102,7 +104,8 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 			catch (Exception ex)
 			{
-				throw;
+				_logger.LogError(ex, "An exception occured while trying to edit {entity} with {property}={value}", nameof(AppVersion), nameof(AppVersion.Id), Id);
+				return StatusCode(500);
 			}
 		}
 

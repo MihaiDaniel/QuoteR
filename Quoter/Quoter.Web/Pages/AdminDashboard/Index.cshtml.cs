@@ -11,6 +11,7 @@ namespace Quoter.Web.Pages.AdminDashboard
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly ILogger _logger;
 
 		public IndexViewModel ViewModel { get; set; }
 

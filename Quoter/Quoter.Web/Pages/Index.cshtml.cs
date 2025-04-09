@@ -13,16 +13,16 @@ namespace Quoter.Web.Pages
 	/// </summary>
 	public class IndexModel : PageModel
 	{
-		private readonly ILogger<IndexModel> _logger;
+		private readonly ILogger _logger;
 		private readonly ApplicationDbContext _context;
 		private readonly IMemoryCache _memoryCache;
 
 		public IndexModel(
-			ILogger<IndexModel> logger,
+			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
 			IMemoryCache memoryCache)
 		{
-			_logger = logger;
+			_logger = loggerFactory.CreateLogger("Index");
 			_context = context;
 			_memoryCache = memoryCache;
 		}
@@ -59,7 +59,7 @@ namespace Quoter.Web.Pages
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occured while user tried to download latest version from website.");
+				_logger.LogError(ex, "An error occured while a user tried to download latest version from website.");
 				return BadRequest();
 			}
 		}

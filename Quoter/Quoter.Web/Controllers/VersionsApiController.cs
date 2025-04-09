@@ -61,12 +61,13 @@ namespace Quoter.Web.Controllers
 				}
 				else
 				{
+					_logger.LogWarning("An attempt was made to get the latest version info without any registration specified. Registration:{0}", GetRequestRegistration());
 					return BadRequest("No registration specified");
 				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Error occured on GetLatestVersion");
+				_logger.LogError(ex, "An exception occured when getting the latest version info");
 				return GetInternalServerErrorResponse();
 			}
 		}
@@ -82,6 +83,7 @@ namespace Quoter.Web.Controllers
 			{
 				if (!await IsClientRegistered())
 				{
+					_logger.LogWarning("An attempt was made to download a version without any registration specified. Registration:{0}", GetRequestRegistration());
 					return BadRequest("No registration specified");
 				}
 
@@ -91,12 +93,12 @@ namespace Quoter.Web.Controllers
 				if (appVersion is not null)
 				{
 					// Log a new version download by the client
-					AppVersionDownload appVersionDownload = new()
+					AppVersionDownload newDownload = new()
 					{
 						AppRegistrationId = await GetAppRegistrationId(),
 						AppVersionId = appVersion.Id
 					};
-					_context.AppVersionDownloads.Add(appVersionDownload);
+					_context.AppVersionDownloads.Add(newDownload);
 					await _context.SaveChangesAsync();
 
 					// Get from cache or by reading from file the content
@@ -113,12 +115,13 @@ namespace Quoter.Web.Controllers
 				}
 				else
 				{
+					_logger.LogWarning("An attempt was made to download a version with an invalid id. PublicId:{0}", versionId);
 					return BadRequest("Invalid versionId");
 				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Error occured on DownloadVersion");
+				_logger.LogError(ex, "An exception occured while a client attepted to download version with PublicId:{0}", versionId);
 				return GetInternalServerErrorResponse();
 			}
 		}

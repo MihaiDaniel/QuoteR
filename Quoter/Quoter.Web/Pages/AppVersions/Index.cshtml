@@ -24,25 +24,25 @@
 				<thead>
 					<tr>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].IsReleased)
+							@Html.DisplayNameFor(model => model.AppVersions[0].IsReleased)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].Name)
+							@Html.DisplayNameFor(model => model.AppVersions[0].Name)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].Version)
+							@Html.DisplayNameFor(model => model.AppVersions[0].Version)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].Type)
+							@Html.DisplayNameFor(model => model.AppVersions[0].Type)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].Description)
+							@Html.DisplayNameFor(model => model.AppVersions[0].Description)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].Os)
+							@Html.DisplayNameFor(model => model.AppVersions[0].Os)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.AppVersion[0].CreationDate)
+							@Html.DisplayNameFor(model => model.AppVersions[0].CreationDate)
 						</th>
 						<th>
 							@Localizer["Downloads"]
@@ -51,7 +51,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach (AppVersion item in Model.AppVersion)
+					@foreach (AppVersion item in Model.AppVersions)
 					{
 						<tr>
 							<td>

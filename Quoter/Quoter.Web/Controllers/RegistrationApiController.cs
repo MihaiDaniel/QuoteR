@@ -30,10 +30,12 @@ namespace Quoter.Web.Controllers
 				if (string.IsNullOrEmpty(requestModel.InstallId)
 					|| string.IsNullOrEmpty(requestModel.ApplicationKey))
 				{
+					_logger.LogWarning("An attempt was to register with missing info. InstallId:{0} , ApplicationKey:{1}", requestModel.InstallId, requestModel.ApplicationKey);
 					return BadRequest("Identifier provided is not valid");
 				}
 				if(!await _context.AppKeys.AnyAsync(k => k.Key == requestModel.ApplicationKey))
 				{
+					_logger.LogWarning("An attempt was to register with invalid ApplicationKey:{0} ", requestModel.ApplicationKey);
 					return BadRequest("Identifier provided is not valid");
 				}
 
@@ -43,11 +45,12 @@ namespace Quoter.Web.Controllers
 					.FirstOrDefaultAsync();
 				if (existingReg is not null)
 				{
+					_logger.LogWarning("An attempt was to register an already registered app RegistrationId:{0} ", existingReg.RegistrationId);
 					return Ok(new RegisterPostResponseModel(existingReg.RegistrationId));
 				}
 				
 				string? clientIpAddress = HttpContext.Connection?.RemoteIpAddress?.ToString();
-				AppRegistration appRegistration = new()
+				AppRegistration newRegistration = new()
 				{
 					InstallId = requestModel.InstallId.ToString(),
 					IpAddress = clientIpAddress,
@@ -55,19 +58,19 @@ namespace Quoter.Web.Controllers
 					RegisteredDateTime = DateTime.UtcNow,
 				};
 
-				_context.AppRegistrations.Add(appRegistration);
+				_context.AppRegistrations.Add(newRegistration);
 				await _context.SaveChangesAsync();
 
-				return Ok(new RegisterPostResponseModel(appRegistration.RegistrationId));
+				_logger.LogInformation("Registered succesfully for InstallId:{0}, RegistrationId:{0}", requestModel.InstallId, newRegistration.RegistrationId);
+
+				return Ok(new RegisterPostResponseModel(newRegistration.RegistrationId));
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Registration failed");
+				_logger.LogError(ex, "An registration exception occured for InstallId:{0} , ApplicationKey:{1}", requestModel.InstallId, requestModel.ApplicationKey);
 				return GetInternalServerErrorResponse();
 			}
-
 		}
-
 
 	}
 

@@ -15,7 +15,7 @@ namespace Quoter.Web.Pages.AppVersions
 		private readonly IFileVersionsService _fileVersionsService;
 		private readonly ILogger _logger;
 
-		public IList<AppVersion> AppVersion { get; set; }
+		public IList<AppVersion> AppVersions { get; set; }
 
 		public int TotalRecords { get; set; } = 0;
 
@@ -29,15 +29,15 @@ namespace Quoter.Web.Pages.AppVersions
 		{
 			_context = context;
 			_fileVersionsService = fileVersionsService;
-			AppVersion = new List<AppVersion>();
-			_logger = loggerFactory.CreateLogger<IndexModel>();
+			_logger = loggerFactory.CreateLogger("AppVersions.Index");
+			AppVersions = new List<AppVersion>();
 		}
 
 		public async Task OnGetAsync()
 		{
 			TotalRecords = await _context.AppVersions.CountAsync();
 
-			AppVersion = await _context.AppVersions
+			AppVersions = await _context.AppVersions
 				.AsNoTracking()
 				.Include(v => v.LstAppVersionDownloads)
 				.Skip((PageNo - 1) * PageSize)
@@ -48,31 +48,28 @@ namespace Quoter.Web.Pages.AppVersions
 
 		public async Task<IActionResult> OnPostDeleteAsync(int id)
 		{
-			if (id == 0)
-			{
-				return BadRequest();
-			}
 			try
 			{
 				AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Id == id);
 
-				if (appVersion != null)
+				if (appVersion is null)
 				{
-					//_context.AppVersionDownloads
-
+					_logger.LogWarning("An attempt was made to delete {entity} with an invalid {property}={value}", nameof(AppVersion), nameof(AppVersion.Id), id);
+					return BadRequest();
+				}
+				else
+				{
 					_fileVersionsService.Delete(appVersion.Path);
 					_context.AppVersions.Remove(appVersion);
 					await _context.SaveChangesAsync();
 				}
-
 				return RedirectToPage();
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Could not delete AppVersion {0}", id);
-				throw;
+				_logger.LogError(ex, "An exception occured while trying to delete {entity} with {property}={value}", nameof(AppVersion), nameof(AppVersion.Id), id);
+				return StatusCode(500);
 			}
-
 		}
 	}
 }

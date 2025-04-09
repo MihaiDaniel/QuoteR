@@ -11,22 +11,22 @@ namespace Quoter.Web.Pages.AppRegistrations
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly ILogger _logger;
 
 		public IList<AppRegistration> AppRegistrations { get; set; }
 
 		public int TotalRecords { get; set; }
 
 		[BindProperty(SupportsGet = true)]
-		public int PageNo { get; set; }
+		public int PageNo { get; set; } = 1;
 
 		[BindProperty(SupportsGet = true)]
-		public int PageSize { get; set; }
+		public int PageSize { get; set; } = 10;
 
-		public IndexModel(ApplicationDbContext context)
+		public IndexModel(ApplicationDbContext context, ILoggerFactory loggerFactory)
 		{
 			_context = context;
-			PageNo = 1;
-			PageSize = 10;
+			_logger = loggerFactory.CreateLogger("AppRegistrations.Index");
 		}
 
 		public async Task OnGetAsync()
@@ -44,6 +44,7 @@ namespace Quoter.Web.Pages.AppRegistrations
 			}
 			catch (Exception ex)
 			{
+				_logger.LogError(ex, "An error occured while fetching the list of {entity}", nameof(AppRegistration));
 			}
 		}
 	}

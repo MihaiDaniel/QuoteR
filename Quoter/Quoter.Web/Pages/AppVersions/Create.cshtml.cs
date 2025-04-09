@@ -14,7 +14,7 @@ namespace Quoter.Web.Pages.AppVersions
 	[Authorize]
 	public class CreateModel : PageModel
 	{
-		private readonly ILogger<CreateModel> _logger;
+		private readonly ILogger _logger;
 		private readonly IFileVersionsService _fileVersionsService;
 		private readonly ApplicationDbContext _context;
 
@@ -41,11 +41,11 @@ namespace Quoter.Web.Pages.AppVersions
 		public IFormFile FileUpload { get; set; }
 
 		public CreateModel(
-			ILogger<CreateModel> logger,
+			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
 			IFileVersionsService fileVersionsService)
 		{
-			_logger = logger;
+			_logger = loggerFactory.CreateLogger("AppVersions.Create");
 			_context = context;
 			_fileVersionsService = fileVersionsService;
 		}
@@ -57,15 +57,11 @@ namespace Quoter.Web.Pages.AppVersions
 
 		public async Task<IActionResult> OnPostAsync()
 		{
-			if (!ModelState.IsValid)
-			{
-				return Page();
-			}
 			try
 			{
-				bool isValid = await ValidatePostAsync();
-				if (!isValid)
+				if (!ModelState.IsValid || !await IsPostValidAsync())
 				{
+					_logger.LogWarning("An attempt was made to create {entity} with invalid model", nameof(AppVersion));
 					return Page();
 				}
 
@@ -84,13 +80,12 @@ namespace Quoter.Web.Pages.AppVersions
 				};
 				_context.AppVersions.Add(newVersion);
 				await _context.SaveChangesAsync();
-
 				return RedirectToPage("./Index");
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occured while trying to upload and save an update file.");
-				throw;
+				_logger.LogError(ex, "An exception occured while trying create a new {entity}", nameof(AppVersion));
+				return StatusCode(500);
 			}
 		}
 
@@ -109,7 +104,7 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 		}
 
-		private async Task<bool> ValidatePostAsync()
+		private async Task<bool> IsPostValidAsync()
 		{
 			Regex regexVersionFormat = new("^\\d+\\.\\d+\\.\\d+\\.\\d+$");
 			if (!regexVersionFormat.IsMatch(Version))

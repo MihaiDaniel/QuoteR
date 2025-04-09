@@ -11,7 +11,7 @@ namespace Quoter.Web.Pages.ApplicationKeys
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
-		private readonly ILogger<IndexModel> _logger;
+		private readonly ILogger _logger;
 		public IList<AppKey> AppKeys { get; set; } = new List<AppKey>();
 
 		public int TotalRecords { get; set; } = 0;
@@ -22,10 +22,10 @@ namespace Quoter.Web.Pages.ApplicationKeys
 		[BindProperty(SupportsGet = true)]
 		public int PageSize { get; set; } = 10;
 
-		public IndexModel(ApplicationDbContext context, ILogger<IndexModel> logger)
+		public IndexModel(ApplicationDbContext context, ILoggerFactory loggerFactory)
 		{
 			_context = context;
-			_logger = logger;
+			_logger = loggerFactory.CreateLogger("ApplicationKeys.Index");
 		}
 
 		public async Task OnGetAsync()
@@ -57,11 +57,15 @@ namespace Quoter.Web.Pages.ApplicationKeys
 					_context.AppKeys.Remove(appKey);
 					await _context.SaveChangesAsync();
 				}
+				else
+				{
+					_logger.LogWarning("An attempt was made to delete {entity} with an invalid {property}={value}", nameof(AppKey), nameof(AppKey.AppKeyId), id);
+				}
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "Delete of appkey {0} failed!", id);
-				throw;
+				_logger.LogError(ex, "An exception occured while deleting {entity} with {property}={value}",nameof(AppKey), nameof(AppKey.AppKeyId), id);
+				return StatusCode(500);
 			}
 			return RedirectToPage();
 		}

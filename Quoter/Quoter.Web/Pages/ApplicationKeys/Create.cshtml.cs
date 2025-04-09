@@ -9,7 +9,7 @@ namespace Quoter.Web.Pages.ApplicationKeys
 {
 	public class CreateModel : PageModel
 	{
-		private readonly ILogger<CreateModel> _logger;
+		private readonly ILogger _logger;
 		private readonly ApplicationDbContext _context;
 
 		[BindProperty]
@@ -17,10 +17,10 @@ namespace Quoter.Web.Pages.ApplicationKeys
 		public string NewKey { get; set; }
 
 		public CreateModel(
-			ILogger<CreateModel> logger,
+			ILoggerFactory loggerFactory,
 			ApplicationDbContext context)
 		{
-			_logger = logger;
+			_logger = loggerFactory.CreateLogger("ApplicationKeys.Create");
 			_context = context;
 		}
 
@@ -37,18 +37,17 @@ namespace Quoter.Web.Pages.ApplicationKeys
 			}
 			try
 			{
-				bool isValidKey = await IsValidPostAsync();
+				bool isValidKey = await IsPostValidAsync();
 				if (isValidKey)
 				{
 					await CreateApplicationKeyAsync();
 					return RedirectToPage("./Index");
 				}
-
 			}
 			catch (Exception ex)
 			{
-				_logger.LogError(ex, "An error occured while trying to create an application version.");
-				throw;
+				_logger.LogError(ex, "An error occured while trying to create an {entity}", nameof(AppKey));
+				return StatusCode(500);
 			}
 			return Page();
 		}
@@ -63,7 +62,7 @@ namespace Quoter.Web.Pages.ApplicationKeys
 			await _context.SaveChangesAsync();
 		}
 
-		private async Task<bool> IsValidPostAsync()
+		private async Task<bool> IsPostValidAsync()
 		{
 			if (await _context.AppKeys.AnyAsync(k => k.Key == NewKey) == true)
 			{
