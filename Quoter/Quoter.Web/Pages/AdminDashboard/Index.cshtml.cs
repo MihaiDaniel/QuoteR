@@ -11,13 +11,15 @@ namespace Quoter.Web.Pages.AdminDashboard
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
+		private readonly LogsDbContext _logsContext;
 		private readonly ILogger _logger;
 
 		public IndexViewModel ViewModel { get; set; }
 
-		public IndexModel(ApplicationDbContext context)
+		public IndexModel(ApplicationDbContext context, LogsDbContext logsContext)
 		{
 			_context = context;
+			_logsContext = logsContext;
 			ViewModel = new IndexViewModel();
 		}
 
@@ -39,6 +41,10 @@ namespace Quoter.Web.Pages.AdminDashboard
 			ViewModel.RegistrationsNo = await _context.AppRegistrations.CountAsync();
 
 			ViewModel.AppKeysNo = await _context.AppKeys.CountAsync();
+
+			ViewModel.ErrorsToday = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today && l.Level == "Error").CountAsync();
+			ViewModel.ErrorsLastSevenDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-7) && l.Level == "Error").CountAsync();
+			ViewModel.ErrorsLastThirtyDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-30) && l.Level == "Error").CountAsync();
 		}
 	}
 
@@ -73,5 +79,11 @@ namespace Quoter.Web.Pages.AdminDashboard
 		public int RegistrationsNo { get; set; }
 
 		public int AppKeysNo { get; set; }
+
+		public int ErrorsToday { get; set; }
+
+		public int ErrorsLastSevenDays { get; set; }
+
+		public int ErrorsLastThirtyDays { get; set; }
 	}
 }

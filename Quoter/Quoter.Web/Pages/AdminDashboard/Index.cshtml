@@ -131,18 +131,25 @@
 			<div class="card p-2 m-2  shadow">
 				<div class="p-1 text-center">
 					<div class="row">
-						<div class="col-12"><i class="bi bi-list-columns fs-1"></i></div>
+						<h5>@Localizer["Errors occurrence"]</h5>
 					</div>
 					<div class="row">
-						<div class="col-12 fw-bold">@Model.ViewModel.RegistrationsNo</div>
+						<div class="col-4">@Localizer["Today"]</div>
+						<div class="col-4">@Localizer["Week"]</div>
+						<div class="col-4">@Localizer["Month"]</div>
+					</div>
+					<div class="row">
+						<div class="col-4 fw-bold">@Model.ViewModel.ErrorsToday</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.ErrorsLastSevenDays</div>
+						<div class="col-4 fw-bold">@Model.ViewModel.ErrorsLastThirtyDays</div>
 					</div>
 				</div>
 				<div class="card-body">
 					<h3 class="card-title">@Localizer["Logs"]</h3>
 					<p class="card-text">
-						@Localizer["WORK IN PROGRESS"]
+						@Localizer["View web application logs"]
 					</p>
-					<a asp-page="/AppRegistrations/Index" class="btn btn-primary">@Localizer["View"]</a>
+					<a asp-page="/AppLogs/Index" class="btn btn-primary">@Localizer["View"]</a>
 				</div>
 			</div>
 		</div>

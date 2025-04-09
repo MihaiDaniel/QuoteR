@@ -1,0 +1,75 @@
+﻿@page
+@using Quoter.Web.Data.Entities;
+@using Quoter.Web.ViewModels.Shared;
+@model Quoter.Web.Pages.Logs.IndexModel
+
+@{
+	ViewData["Title"] = Localizer["Application logs"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Application logs"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
+}
+<div class="container">
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
+	<div class="container m-1">
+		<h1>@Localizer["Application logs"]</h1>
+	</div>
+	<div class="container mt-3">
+		<a asp-page="Create" class="btn btn-primary mb-2"><i class="bi bi-file-earmark-plus p-1"></i>@Localizer["Create"]</a>
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Logs[0].LogId)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Logs[0].Timestamp)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Logs[0].Level)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Logs[0].RenderedMessage)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (Log item in Model.Logs)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.LogId)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Timestamp)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Level)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.RenderedMessage)
+							</td>
+							
+							<td>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Details">
+									<a asp-page="./Details" asp-route-id="@item.LogId" class="btn btn-sm btn-info"><i class="bi bi-info-square"></i></a>
+								</span>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<paging page-no="Model.PageNo"
+					page-size="Model.PageSize"
+					total-records="Model.TotalRecords"
+					url-template="./AppLogs?PageNo={0}&PageSize={1}"
+					render-mode="Bootstrap5">
+			</paging>
+		</div>
+	</div>
+</div>

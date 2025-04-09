@@ -21,7 +21,7 @@ if (!Directory.Exists(dirLocalAppData))
 	Directory.CreateDirectory(dirLocalAppData);
 }
 
-Log.Logger = new LoggerConfiguration()
+Serilog.Log.Logger = new LoggerConfiguration()
 	.MinimumLevel.Override("Microsoft.AspNetCore.Hosting", LogEventLevel.Warning)
 	.MinimumLevel.Override("Microsoft.AspNetCore.Mvc", LogEventLevel.Warning)
 	.MinimumLevel.Override("Microsoft.AspNetCore.Routing", LogEventLevel.Warning)
@@ -85,6 +85,9 @@ try
 	}
 	builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 		options.UseSqlite(connectionString));
+
+	builder.Services.AddDbContextPool<LogsDbContext>(options =>
+		options.UseSqlite($"Data Source={Path.Combine(dirLocalAppData, sqliteDbLogsName)}"));
 
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -169,11 +172,11 @@ try
 }
 catch(Exception ex)
 {
-	Log.Fatal(ex, "Application terminated unexpectedly");
+	Serilog.Log.Fatal(ex, "Application terminated unexpectedly");
 }
 finally
 {
-	Log.CloseAndFlush();
+	Serilog.Log.CloseAndFlush();
 }
 
 

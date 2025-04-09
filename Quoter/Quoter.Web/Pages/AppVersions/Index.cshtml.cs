@@ -40,9 +40,9 @@ namespace Quoter.Web.Pages.AppVersions
 			AppVersions = await _context.AppVersions
 				.AsNoTracking()
 				.Include(v => v.LstAppVersionDownloads)
+				.OrderByDescending(v => v.CreationDate)
 				.Skip((PageNo - 1) * PageSize)
 				.Take(PageSize)
-				.OrderByDescending(v => v.CreationDate)
 				.ToListAsync();
 		}
 

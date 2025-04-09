@@ -15,6 +15,9 @@ namespace Quoter.Web.Extensions
 			using IServiceScope scope = app.Services.CreateScope();
 			using ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 			context.Database.Migrate();
+
+			using LogsDbContext logsContext = scope.ServiceProvider.GetService<LogsDbContext>();
+			logsContext.Database.EnsureCreated();
 		}
 
 		public static async Task SeedDatabase(this WebApplication app, ConfigurationManager configuration)
