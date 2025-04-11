@@ -25,6 +25,15 @@ namespace Quoter.Web.Pages.AdminDashboard
 
 		public async void OnGet()
 		{
+			ViewModel.CollectionsNo = await _context.AppCollections.CountAsync();
+			ViewModel.TopLanguageDownloads = await _context.AppCollectionDownloads
+				.GroupBy(cd => cd.AppCollection!.Language)
+				.OrderByDescending(g => g.Count())
+				.Select(g => g.Count())
+				.FirstOrDefaultAsync();
+			ViewModel.CollectionsDownloadedNo = await _context.AppCollectionDownloads
+				.CountAsync();
+
 			ViewModel.LatestVersion = await _context.AppVersions
 				.Where(v => v.IsReleased == true)
 				.OrderByDescending(v => v.CreationDate)

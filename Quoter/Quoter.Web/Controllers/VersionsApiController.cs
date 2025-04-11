@@ -17,13 +17,13 @@ namespace Quoter.Web.Controllers
 		private readonly ApplicationDbContext _context;
 		private readonly ILogger _logger;
 		private readonly IMemoryCache _memoryCache;
-		private readonly IFileVersionsService _fileVersionsService;
+		private readonly IFileUploadService fileUploadService;
 
-		public VersionsApiController(ApplicationDbContext context, ILoggerFactory loggerFactory, IMemoryCache memoryCache, IFileVersionsService fileVersionsService) : base(context)
+		public VersionsApiController(ApplicationDbContext context, ILoggerFactory loggerFactory, IMemoryCache memoryCache, IFileUploadService fileVersionsService) : base(context)
 		{
 			_context = context;
 			_memoryCache = memoryCache;
-			_fileVersionsService = fileVersionsService;
+			fileUploadService = fileVersionsService;
 			_logger = loggerFactory.CreateLogger<VersionsApiController>();
 		}
 
@@ -107,7 +107,7 @@ namespace Quoter.Web.Controllers
 						{
 							entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(2);
 
-							return await _fileVersionsService.GetVersionFileContentAsync(appVersion);
+							return await fileUploadService.GetVersionFileContentAsync(appVersion);
 						});
 					
 					ArgumentNullException.ThrowIfNull(fileContent);

@@ -1,0 +1,96 @@
+﻿@page
+@using Quoter.Web.Data.Entities;
+@using Quoter.Web.ViewModels.Shared;
+@model Quoter.Web.Pages.AppCollections.IndexModel
+
+@{
+	ViewData["Title"] = Localizer["Application collections"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Application collections"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
+}
+<div class="container">
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
+	<div class="container m-1">
+		<h1>@Localizer["Application collections"]</h1>
+	</div>
+	<div class="container mt-3">
+		<a asp-page="Create" class="btn btn-primary mb-2"><i class="bi bi-file-earmark-plus p-1"></i>@Localizer["Create"]</a>
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.AppCollections[0].Id)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppCollections[0].UploadDateTime)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppCollections[0].Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppCollections[0].Description)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.AppCollections[0].Language)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.AppCollections)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Id)
+							</td>
+							<td>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Date time is in UTC">
+									@item.UploadDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+								</span>
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Description)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.Language)
+							</td>
+							<td>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Download">
+									<a asp-page="./Index" asp-page-handler="Download" asp-route-id="@item.Id" class="btn btn-sm btn-primary"><i class="bi bi-download"></i></a>
+								</span>
+								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Delete">
+									<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete" data-bs-name="@item.Name" data-bs-action="/AppCollections/Index?handler=Delete&id=@item.Id.ToString()">
+										<i class="bi bi-trash"></i>
+									</button>
+								</span>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			<paging page-no="Model.PageNo"
+					page-size="Model.PageSize"
+					total-records="Model.TotalRecords"
+					url-template="./AppCollections?PageNo={0}&PageSize={1}"
+					render-mode="Bootstrap5">
+			</paging>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+@await Html.PartialAsync(
+			"_ModalDeletePartial",
+			new ModalDeleteViewModel(Localizer["ConfirmDelete"], Localizer["ConfirmDeleteVersion"]))
+
+@section Scripts {
+	<script src="~/js/modal-delete.js"></script>
+}

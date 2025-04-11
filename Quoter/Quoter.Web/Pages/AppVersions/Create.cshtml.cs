@@ -15,7 +15,7 @@ namespace Quoter.Web.Pages.AppVersions
 	public class CreateModel : PageModel
 	{
 		private readonly ILogger _logger;
-		private readonly IFileVersionsService _fileVersionsService;
+		private readonly IFileUploadService _fileUploadService;
 		private readonly ApplicationDbContext _context;
 
 		[BindProperty]
@@ -43,11 +43,11 @@ namespace Quoter.Web.Pages.AppVersions
 		public CreateModel(
 			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
-			IFileVersionsService fileVersionsService)
+			IFileUploadService fileVersionsService)
 		{
 			_logger = loggerFactory.CreateLogger("AppVersions.Create");
 			_context = context;
-			_fileVersionsService = fileVersionsService;
+			_fileUploadService = fileVersionsService;
 		}
 
 		public IActionResult OnGet()
@@ -65,8 +65,8 @@ namespace Quoter.Web.Pages.AppVersions
 					return Page();
 				}
 
-				string fileName = GetFileName();
-				string filePath = await _fileVersionsService.SaveFileVersionUploadAsync(FileUpload, fileName);
+				string fileName = _fileUploadService.GenerateUniqueFileName(FileUpload.FileName, EnumFileUploadType.AppVersion);
+				string filePath = await _fileUploadService.SaveFileUploadAsync(FileUpload, EnumFileUploadType.AppVersion, fileName);
 
 				AppVersion newVersion = new()
 				{
@@ -86,21 +86,6 @@ namespace Quoter.Web.Pages.AppVersions
 			{
 				_logger.LogError(ex, "An exception occured while trying create a new {entity}", nameof(AppVersion));
 				return StatusCode(500);
-			}
-		}
-
-		private string GetFileName()
-		{
-			switch (VersionType)
-			{
-				case EnumVersionType.UpdateZip:
-					if (FileUpload.FileName.Contains(".zip"))
-					{
-						return FileUpload.FileName;
-					}
-					return $"{Version}.zip";
-				default:
-					return FileUpload.FileName;
 			}
 		}
 

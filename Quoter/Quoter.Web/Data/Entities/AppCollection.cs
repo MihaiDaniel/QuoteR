@@ -15,14 +15,18 @@ namespace Quoter.Web.Data.Entities
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
+		[Display(Name = "Name")]
 		public string Name { get; set; }
 
+		[Display(Name = "Description")]
 		public string Description { get; set; }
 
 		public string Path { get; set; }
 
+		[Display(Name = "Language")]
 		public EnumLanguage Language { get; set; }
 
+		[Display(Name = "Upload date time")]
 		public DateTime UploadDateTime { get; set; }
 
 		#region FK

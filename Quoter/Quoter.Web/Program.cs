@@ -119,7 +119,7 @@ try
 
 	builder.Services.AddScoped<IStringLocalizer, StringLocalizer<SharedResource>>();
 	builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
-	builder.Services.AddScoped<IFileVersionsService, FileVersionsService>();
+	builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 	builder.Services.AddScoped<IAppVersionService, AppVersionService>();
 
 	#endregion Quoter.Web services

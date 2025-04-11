@@ -12,7 +12,7 @@ namespace Quoter.Web.Pages.AppVersions
 	public class IndexModel : PageModel
 	{
 		private readonly ApplicationDbContext _context;
-		private readonly IFileVersionsService _fileVersionsService;
+		private readonly IFileUploadService _fileUploadService;
 		private readonly ILogger _logger;
 
 		public IList<AppVersion> AppVersions { get; set; }
@@ -25,10 +25,10 @@ namespace Quoter.Web.Pages.AppVersions
 		[BindProperty(SupportsGet = true)]
 		public int PageSize { get; set; } = 10;
 
-		public IndexModel(ApplicationDbContext context, IFileVersionsService fileVersionsService, ILoggerFactory loggerFactory)
+		public IndexModel(ApplicationDbContext context, IFileUploadService fileVersionsService, ILoggerFactory loggerFactory)
 		{
 			_context = context;
-			_fileVersionsService = fileVersionsService;
+			_fileUploadService = fileVersionsService;
 			_logger = loggerFactory.CreateLogger("AppVersions.Index");
 			AppVersions = new List<AppVersion>();
 		}
@@ -59,7 +59,7 @@ namespace Quoter.Web.Pages.AppVersions
 				}
 				else
 				{
-					_fileVersionsService.Delete(appVersion.Path);
+					_fileUploadService.Delete(appVersion.Path);
 					_context.AppVersions.Remove(appVersion);
 					await _context.SaveChangesAsync();
 				}
