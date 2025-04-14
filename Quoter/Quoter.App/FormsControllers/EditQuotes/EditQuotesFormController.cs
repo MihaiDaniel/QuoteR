@@ -19,10 +19,10 @@ using Quoter.Framework.Services.AppSettings;
 
 namespace Quoter.App.FormsControllers.EditQuotes
 {
-    /// <summary>
-    /// Controller for the edit/add/delete quotes Tab of the <see cref="ManageForm"/>
-    /// </summary>
-    public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
+	/// <summary>
+	/// Controller for the edit/add/delete quotes Tab of the <see cref="Forms.ManageForm"/>
+	/// </summary>
+	public class EditQuotesFormController : IEditQuotesFormController, INotifyPropertyChanged
 	{
 		private readonly QuoterContext _context;
 		private readonly IStringResources _stringResources;

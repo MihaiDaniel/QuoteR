@@ -2,14 +2,14 @@
 
 namespace Quoter.App.Forms.Manage
 {
-    /// <summary>
-    /// Handles the favourite quotes form
-    /// </summary>
-    /// <remarks>
-    /// This is actually a tab in the <see cref="ManageForm"/>
+	/// <summary>
+	/// Handles the favourite quotes form
+	/// </summary>
+	/// <remarks>
+	/// This is actually a tab in the <see cref="Forms.ManageForm"/>
 	/// Associated controller <see cref="FormsControllers.FavouriteQuotes.IFavouriteQuotesFormController"/>
-    /// </remarks>
-    public interface IFavouriteQuotesForm
+	/// </remarks>
+	public interface IFavouriteQuotesForm
 	{
 		void SetChecksFavourites();
 

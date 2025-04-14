@@ -88,9 +88,9 @@ namespace Quoter.App.Forms
 			_settingsController.RegisterForm(this);
 
 			// Hide main navigation tabs (because we will use some buttons instead)
-			tabControl.Appearance = TabAppearance.FlatButtons;
-			tabControl.SizeMode = TabSizeMode.Fixed;
-			tabControl.ItemSize = new Size(0, 1);
+			//tabControl.Appearance = TabAppearance.FlatButtons;
+			//tabControl.SizeMode = TabSizeMode.Fixed;
+			//tabControl.ItemSize = new Size(0, 1);
 			tabControl.SelectTab(0);
 
 #if DEBUG

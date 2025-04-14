@@ -13,6 +13,7 @@ using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Models;
 using System.Diagnostics;
+using Quoter.App.Forms.Manage;
 
 namespace Quoter.App
 {
@@ -309,6 +310,7 @@ namespace Quoter.App
 					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(EventHandlerExitApp), "Exit"),
 #if DEBUG
 					new ToolStripMenuItem("Welcome", null, new EventHandler(EventHandlerShowWelcomeForm), "Welcome"),
+					new ToolStripMenuItem("Main", null, (obj, e) => { _formsManager.ShowAndCloseOthers<MainForm>(); }, "Main"),
 #endif
 				}
 			};

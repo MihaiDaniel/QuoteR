@@ -4,7 +4,7 @@ using Quoter.Framework.Enums;
 namespace Quoter.App.Forms.Manage
 {
 	/// <summary>
-	/// Interface for the <see cref="ManageForm"/>
+	/// Interface for the <see cref="Forms.ManageForm"/>
 	/// </summary>
 	public interface IManageForm : IForm, IResizableForm
 	{

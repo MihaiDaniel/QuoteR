@@ -11,10 +11,10 @@ using System.Runtime.CompilerServices;
 
 namespace Quoter.App.FormsControllers.Manage
 {
-    /// <summary>
-    /// Controller for the <see cref="ManageForm"/> that handles global stuff (not things related to inner tabs)
-    /// </summary>
-    public class ManageFormController : IManageFormController, IMessagingSubscriber, INotifyPropertyChanged
+	/// <summary>
+	/// Controller for the <see cref="Forms.ManageForm"/> that handles global stuff (not things related to inner tabs)
+	/// </summary>
+	public class ManageFormController : IManageFormController, IMessagingSubscriber, INotifyPropertyChanged
 	{
 		private readonly IMessagingService _messagingService;
 		private readonly IStringResources _stringResources;
@@ -93,7 +93,7 @@ namespace Quoter.App.FormsControllers.Manage
 			if (message == Event.OpeningForm && argument is OpeningFormArgs)
 			{
 				OpeningFormArgs formsManagerOptions = (OpeningFormArgs)argument;
-				if (formsManagerOptions.Type == typeof(ManageForm))
+				if (formsManagerOptions.Type == typeof(Forms.ManageForm))
 				{
 					ManageFormOptions manageFormOptions = (ManageFormOptions)formsManagerOptions.Parameters[0];
 					if (manageFormOptions != null)

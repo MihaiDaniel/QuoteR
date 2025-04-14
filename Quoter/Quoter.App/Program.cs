@@ -25,6 +25,7 @@ using Quoter.Framework.Services.Versioning;
 using System.Resources;
 using Quoter.App.Helpers.Extensions;
 using Quoter.Framework.Services.Registration;
+using Quoter.App.Forms.Manage;
 
 namespace Quoter.App
 {
@@ -104,6 +105,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<QuoteForm>();
 			serviceCollection.AddTransient<WelcomeForm>();
 			serviceCollection.AddTransient<ManageForm>();
+			serviceCollection.AddTransient<MainForm>();
 			serviceCollection.AddTransient<ReaderForm>();
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();

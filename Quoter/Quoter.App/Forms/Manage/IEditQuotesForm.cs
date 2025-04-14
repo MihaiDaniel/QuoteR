@@ -6,7 +6,7 @@ namespace Quoter.App.Forms.Manage
 	/// Handles the edit quotes form
 	/// </summary>
 	/// <remarks>
-	/// This is actually a tab in the <see cref="ManageForm"/>
+	/// This is actually a tab in the <see cref="Forms.ManageForm"/>
 	/// </remarks>
 	public interface IEditQuotesForm : IManageForm
 	{

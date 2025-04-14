@@ -34,7 +34,7 @@
 			btnMinimize = new Button();
 			lblTitle = new Label();
 			btnClose = new Button();
-			tabControl = new TabControl();
+			tabControl = new ReaLTaiizor.Controls.PoisonTabControl();
 			tabPage1 = new TabPage();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			tableLayoutPanel2 = new TableLayoutPanel();
@@ -1978,7 +1978,7 @@
 		private Panel pnlTitle;
 		private Label lblTitle;
 		private Button btnClose;
-		private TabControl tabControl;
+		private ReaLTaiizor.Controls.PoisonTabControl tabControl;
 		private TabPage tabPage1;
 		private Button btnAddCollection;
 		private ListBox lbChapters;
