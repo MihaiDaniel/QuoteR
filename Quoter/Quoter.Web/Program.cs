@@ -12,6 +12,7 @@ using Microsoft.Extensions.Localization;
 using Quoter.Web;
 using Serilog;
 using Serilog.Events;
+using AspNetCoreRateLimit;
 
 string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter");
 string sqliteDbName = "quoter.web.db";
@@ -43,6 +44,11 @@ try
 	//						.ReadFrom.Services(services)
 	//						.Enrich.FromLogContext()
 	//						.WriteTo.SQLite(Path.Combine(dirLocalAppData,"quoter.web.logs.db")));
+
+	builder.Services.AddMemoryCache();
+	builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+	builder.Services.AddInMemoryRateLimiting();
+	builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
 	builder.Services.AddRazorPages()
 		.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -129,7 +135,9 @@ try
 	#region Middleware pipeline
 
 	app.UseSerilogRequestLogging();
-	
+
+	app.UseIpRateLimiting();
+
 	app.MigrateDatabase();							// Migrate the database if needed
 	app.SeedDatabase(builder.Configuration).Wait(); // Seed data in the database if needed
 
