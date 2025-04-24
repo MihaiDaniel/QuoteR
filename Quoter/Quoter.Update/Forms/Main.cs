@@ -8,12 +8,15 @@ namespace Quoter.Update
 		private UpdateService _updateHandler;
 		private ProcessService _processHandler;
 
-		private string InstallFolderPath;
-		private string ApplicationExeName;
-		private string UpdateId;
-		private string ZipUpdateFolderPath;
-		private bool IsSilent;
-		private bool IsRestartedAsAdmin;
+		private string _installFolderPath;      // -i
+		private string _applicationExeName;     // -e
+		private string _updateId;               // -uid
+		private string _zipUpdateFolderPath;    // -u
+		private bool _isSilent;                 // -s
+		private bool _isRestartedAsAdmin;       // -r
+		private string _labelText = "Updating, please wait..."; // -m
+
+		private List<string> _argumentKeys = new List<string> { "-i", "-e", "-u", "-uid", "-s", "-r", "-m" };
 
 		private string[] _args;
 
@@ -37,6 +40,12 @@ namespace Quoter.Update
 			updateTimeoutTimer.Tick += (sender, e) => EventUpdateTimeout();
 			updateTimeoutTimer.Start();
 
+			ParseArguments(_args);
+			LogArguments(_args);
+
+			// Show the form if not in silent mode and display the message
+			InvokeIfRequired(this, SetVisibilityAndMessage);
+
 			// Update in background
 			await Task.Run(async () => { await UpdateApplicationAsync(); });
 		}
@@ -55,113 +64,189 @@ namespace Quoter.Update
 			Application.Exit();
 		}
 
+		private void SetVisibilityAndMessage()
+		{
+			if (_isSilent)
+			{
+				this.Visible = false;
+			}
+			else
+			{
+				this.Visible = true;
+				if (!string.IsNullOrEmpty(_labelText))
+				{
+					label.Text = _labelText;
+				}
+				else
+				{
+					// Default message if not provided
+					_labelText = "Updating, please wait...";
+				}
+			}
+		}
+
 		private async Task UpdateApplicationAsync()
 		{
 			try
 			{
-				SetupArguments();
-				if (this.InvokeRequired)
+				if (!AreArgumentsValid())
 				{
-					this.Invoke(new Action(() =>
-					{
-						if(IsSilent)
-						{
-							this.Visible = false;
-						}
-						else
-						{
-							this.Visible = true;
-						}
-					}));
+					Logger.Error("Arguments are not valid, closing.");
+					return;
 				}
-				if (VerifyArguments())
+				if (_processHandler.HasWriteRightOnFolder(_installFolderPath))
 				{
-					if (_processHandler.HasWriteRightOnFolder(InstallFolderPath))
+					bool isUpdateSuccesfull = _updateHandler.TryUpdate(_installFolderPath, _applicationExeName, _zipUpdateFolderPath);
+					if (isUpdateSuccesfull)
 					{
-						bool isUpdateSuccesfull = _updateHandler.TryUpdate(InstallFolderPath, ApplicationExeName, ZipUpdateFolderPath);
-						if (isUpdateSuccesfull)
-						{
-							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "");
-						}
-						else
-						{
-							_processHandler.StartProcess(Path.Combine(InstallFolderPath, ApplicationExeName), "");
-						}
-					}
-					else if (!IsRestartedAsAdmin)
-					{
-						string restarArgs = $"-i {InstallFolderPath} -e {ApplicationExeName} -u {ZipUpdateFolderPath} -uid {UpdateId} -s {IsSilent} -r true";
-						_processHandler.RestartUpdaterProcessAsAdmin(restarArgs);
+						_processHandler.StartProcess(Path.Combine(_installFolderPath, _applicationExeName), "");
 					}
 					else
 					{
-						Logger.Error("Cannot update the folder even with admin rights");
+						_processHandler.StartProcess(Path.Combine(_installFolderPath, _applicationExeName), "");
 					}
+				}
+				else if (!_isRestartedAsAdmin)
+				{
+					string restarArgs = $"-i {_installFolderPath} -e {_applicationExeName} -u {_zipUpdateFolderPath} -uid {_updateId} -s {_isSilent} -r true";
+					_processHandler.RestartUpdaterProcessAsAdmin(restarArgs);
 				}
 				else
 				{
-					Logger.Error("Arguments are not valid, closing.");
+					Logger.Error("Cannot update the folder even with admin rights");
 				}
+
 			}
 			catch (Exception ex)
 			{
-				Logger.Error(ex, "General error.");
+				Logger.Error(ex, "General error, update may have failed.");
 			}
 			finally
 			{
-				try { await Logger.WriteAsync(); } catch { /* Nothing to do */ }
-				if (this.InvokeRequired)
+				try
 				{
-					this.BeginInvoke(() =>
-					{
-						Application.Exit();
-					});
+					await Logger.WriteAsync();
+				}
+				catch { /* Nothing to do */ }
+				// Close the application
+				InvokeIfRequired(this, () => { Application.Exit(); });
+			}
+
+		}
+
+		private void ParseArguments(string[] args)
+		{
+			for (int index = 0; index < args.Length; index++)
+			{
+				string entry = args[index];
+				switch (entry)
+				{
+					case "-i": _installFolderPath = GetArgumentFromIndex(args, ref index); break;
+					case "-e": _applicationExeName = GetArgumentFromIndex(args, ref index).Replace(".dll", ".exe"); break;
+					case "-u": _zipUpdateFolderPath = GetArgumentFromIndex(args, ref index); break;
+					case "-uid": _updateId = GetArgumentFromIndex(args, ref index); break;
+					case "-s": _isSilent = GetArgumentFromIndex(args, ref index).ToLower() == "true"; break;
+					case "-r": _isRestartedAsAdmin = GetArgumentFromIndex(args, ref index).ToLower() == "true"; break;
+					case "-m": _labelText = GetArgumentFromIndex(args, ref index); break;
 				}
 			}
-
 		}
 
-		private void SetupArguments()
+		private string GetArgumentFromIndex(string[] args, ref int index)
 		{
-			StringBuilder sb = new StringBuilder();
-			foreach (string? arg in _args)
+			if (index < 0 || index >= args.Length)
 			{
-				sb.Append(arg);
-				sb.Append(" ");
+				return string.Empty;
 			}
-			//0123456789
-			// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 4 -s false -r false
-			string str = sb.ToString().Trim();
+			// Skip the current argument key
+			int currentIndex = index++;
+			// Find the argument value until we reach the next argument key
+			while (index < args.Length && !_argumentKeys.Contains(args[index]))
+			{
+				index++;
+			}
 
-			InstallFolderPath = str.Substring(str.IndexOf("-i") + 2, str.IndexOf("-e") - 2).Trim();
-			ApplicationExeName = str.Substring(str.IndexOf("-e") + 2, str.IndexOf("-u") - str.IndexOf("-e") - 3).Trim();
-			ZipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-uid") - str.IndexOf("-u") - 3).Trim();
-			UpdateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-s") - str.IndexOf("-uid") - 5).Trim();
-			IsSilent = str.Substring(str.IndexOf("-s") + 2, str.IndexOf("-r") - str.IndexOf("-s") - 2).Trim().ToLower() == "true";
-			IsRestartedAsAdmin = str.Substring(str.IndexOf("-r") + 2, str.Length - str.IndexOf("-r") - 2).Trim().ToLower() == "true";
+			return string.Join(' ', args[currentIndex..index]);
+		}
 
-			ApplicationExeName = ApplicationExeName.Replace(".dll", ".exe"); // Just in case we receive the dll name instead of the actual exe
-
+		private void LogArguments(string[] args)
+		{
 			Logger.Info("Starting arguments: ");
-			Logger.Info("args: " + str);
+			Logger.Info("args: " + string.Join(' ', args));
 			Logger.Info("----------------------");
-			Logger.Info("InstallFolderPath: " + InstallFolderPath);
-			Logger.Info("ApplicationExeName: " + ApplicationExeName);
-			Logger.Info("ZipUpdateFolderPath: " + ZipUpdateFolderPath);
-			Logger.Info("UpdateId: " + UpdateId);
-			Logger.Info("IsSilent: " + IsSilent.ToString());
-			Logger.Info("IsRestartedAsAdmin: " + IsRestartedAsAdmin.ToString());
+			Logger.Info($"{nameof(_installFolderPath)}: " + _installFolderPath);
+			Logger.Info($"{nameof(_applicationExeName)}: " + _applicationExeName);
+			Logger.Info($"{nameof(_zipUpdateFolderPath)}: " + _zipUpdateFolderPath);
+			Logger.Info($"{nameof(_updateId)}: " + _updateId);
+			Logger.Info($"{nameof(_isSilent)}: " + _isSilent.ToString());
+			Logger.Info($"{nameof(_isRestartedAsAdmin)}: " + _isRestartedAsAdmin.ToString());
+			Logger.Info($"{nameof(_labelText)}: " + _labelText.ToString());
 		}
 
-		private bool VerifyArguments()
+		private bool AreArgumentsValid()
 		{
-			if (string.IsNullOrEmpty(InstallFolderPath)
-				|| string.IsNullOrEmpty(ApplicationExeName)
-				|| string.IsNullOrEmpty(ZipUpdateFolderPath))
+			bool isValid = true;
+			if (string.IsNullOrEmpty(_installFolderPath))
 			{
-				return false;
+				Logger.Info("Install folder path is empty");
+				isValid = false;
 			}
-			return true;
+			if (string.IsNullOrEmpty(_applicationExeName))
+			{
+				Logger.Info("Application exe name is empty");
+				isValid = false;
+			}
+			if (string.IsNullOrEmpty(_zipUpdateFolderPath))
+			{
+				Logger.Info("Zip update folder path is empty");
+				isValid = false;
+			}
+
+			return isValid;
 		}
+
+		private void InvokeIfRequired(Form form, Action action)
+		{
+			if (form.InvokeRequired)
+			{
+				form.Invoke(action);
+			}
+			else
+			{
+				action();
+			}
+		}
+
+		//private void SetupArgumentsOld()
+		//{
+		//	StringBuilder sb = new StringBuilder();
+		//	foreach (string? arg in _args)
+		//	{
+		//		sb.Append(arg);
+		//		sb.Append(" ");
+		//	}
+		//	//0123456789
+		//	// -i C:\My\Path to\install folder -e MyExeName -u C:\My\Path to\update.zip -uid 4 -s false -r false -m Updating, please wait...
+		//	string str = sb.ToString().Trim();
+
+		//	_installFolderPath = str.Substring(str.IndexOf("-i") + 2, str.IndexOf("-e") - 2).Trim();
+		//	_applicationExeName = str.Substring(str.IndexOf("-e") + 2, str.IndexOf("-u") - str.IndexOf("-e") - 3).Trim();
+		//	_zipUpdateFolderPath = str.Substring(str.IndexOf("-u") + 2, str.IndexOf("-uid") - str.IndexOf("-u") - 3).Trim();
+		//	_updateId = str.Substring(str.IndexOf("-uid") + 4, str.IndexOf("-s") - str.IndexOf("-uid") - 5).Trim();
+		//	_isSilent = str.Substring(str.IndexOf("-s") + 2, str.IndexOf("-r") - str.IndexOf("-s") - 2).Trim().ToLower() == "true";
+		//	_isRestartedAsAdmin = str.Substring(str.IndexOf("-r") + 2, str.Length - str.IndexOf("-r") - 2).Trim().ToLower() == "true";
+
+		//	_applicationExeName = _applicationExeName.Replace(".dll", ".exe"); // Just in case we receive the dll name instead of the actual exe
+
+		//	Logger.Info("Starting arguments: ");
+		//	Logger.Info("args: " + str);
+		//	Logger.Info("----------------------");
+		//	Logger.Info("InstallFolderPath: " + _installFolderPath);
+		//	Logger.Info("ApplicationExeName: " + _applicationExeName);
+		//	Logger.Info("ZipUpdateFolderPath: " + _zipUpdateFolderPath);
+		//	Logger.Info("UpdateId: " + _updateId);
+		//	Logger.Info("IsSilent: " + _isSilent.ToString());
+		//	Logger.Info("IsRestartedAsAdmin: " + _isRestartedAsAdmin.ToString());
+		//}
 	}
 }

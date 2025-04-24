@@ -11,10 +11,10 @@ using System.Reflection;
 
 namespace Quoter.Framework.Services.Versioning
 {
-    /// <summary>
-    /// Service responible for updating the application
-    /// </summary>
-    public class UpdateService : IUpdateService
+	/// <summary>
+	/// Service responible for updating the application
+	/// </summary>
+	public class UpdateService : IUpdateService
 	{
 		private readonly ILogger _logger;
 		private readonly IRegistrationService _registrationService;
@@ -78,7 +78,7 @@ namespace Quoter.Framework.Services.Versioning
 			//{
 			//	_logger.Debug($"Db version: Id={version.Id}, Version={version.Version}, IsApplied={version.IsApplied}");
 			//}
-			
+
 			AppVersion? appVersion = await _context.AppVersions.FirstOrDefaultAsync(v => v.Version == currentVersion.ToString());
 			if (appVersion != null)
 			{
@@ -117,7 +117,7 @@ namespace Quoter.Framework.Services.Versioning
 		public string GetLastAppliedVersion()
 		{
 			AppVersion? version = _context.AppVersions.Where(v => v.IsApplied).OrderBy(v => v.Id).LastOrDefault();
-			if(version != null)
+			if (version != null)
 			{
 				return version.Version;
 			}
@@ -171,12 +171,12 @@ namespace Quoter.Framework.Services.Versioning
 				{
 					await Task.Delay(1000);
 					continue;
-				};
+				}
 				if (_messagingService.ExistsAnnouncement(Event.ExportInProgress))
 				{
 					await Task.Delay(1000);
 					continue;
-				};
+				}
 				_logger.Info("Waiting for background task has ended, continuing...");
 				return;
 			}
@@ -216,7 +216,7 @@ namespace Quoter.Framework.Services.Versioning
 		private string GetUpdaterAppExePath()
 		{
 			string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			return Path.Combine(currentDir, "Updater", "Quoter.Update.exe");
+			return Path.Combine(currentDir, "Updater", "Updater.exe");
 		}
 
 		/// <remarks>
