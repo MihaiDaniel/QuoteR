@@ -421,7 +421,7 @@ namespace Quoter.Framework.Services.AppSettings
 			}
 			else if (typeof(T) == typeof(double))
 			{
-				return double.Parse(value);
+				return double.Parse(value, System.Globalization.CultureInfo.InvariantCulture); // 0.9 will be parsed as 9 in RO culture thread
 			}
 			else if (typeof(T) == typeof(bool))
 			{
