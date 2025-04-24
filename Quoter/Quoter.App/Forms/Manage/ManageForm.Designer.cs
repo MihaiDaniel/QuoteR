@@ -212,7 +212,7 @@
 			// pictureBox1
 			// 
 			pictureBox1.BackColor = Color.Transparent;
-			pictureBox1.BackgroundImage = Resources.Resources.book_96;
+			pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 			pictureBox1.Location = new Point(5, 5);
 			pictureBox1.Name = "pictureBox1";

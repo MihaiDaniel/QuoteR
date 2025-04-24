@@ -382,7 +382,7 @@
     <value>Afficher sous forme de notification contextuelle</value>
   </data>
   <data name="Quoter" xml:space="preserve">
-    <value>Quoter</value>
+    <value>Minute Verse</value>
   </data>
   <data name="Quotes" xml:space="preserve">
     <value>Citations</value>
@@ -475,7 +475,7 @@
     <value>Son de notification</value>
   </data>
   <data name="QuoterIntroduction" xml:space="preserve">
-    <value>Quoter vous permet de recevoir des notifications régulières sur votre bureau de vos citations ou versets préférés. Sélectionnez une langue et appuyez sur suivant pour continuer.</value>
+    <value>Minute Verse vous permet de recevoir des notifications régulières sur votre bureau de vos citations ou versets préférés. Sélectionnez une langue et appuyez sur suivant pour continuer.</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Suivante</value>

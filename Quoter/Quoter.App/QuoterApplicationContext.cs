@@ -60,7 +60,7 @@ namespace Quoter.App
 
 			_trayIcon = new NotifyIcon()
 			{
-				Icon = Resources.Resources.icon_book_black,
+				Icon = ConvertByteArrayToIcon(Resources.Resources.minute_verse),
 				ContextMenuStrip = GetContextMenuStrip(),
 				Text = _stringResources["Quoter"],
 				Visible = true
@@ -401,6 +401,14 @@ namespace Quoter.App
 				{
 					_logger.Error(ex);
 				}
+			}
+		}
+
+		private Icon ConvertByteArrayToIcon(byte[] iconBytes)
+		{
+			using (var ms = new MemoryStream(iconBytes))
+			{
+				return new Icon(ms);
 			}
 		}
 	}

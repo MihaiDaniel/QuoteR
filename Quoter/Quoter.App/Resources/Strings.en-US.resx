@@ -187,7 +187,7 @@
     <value>A collection with the same name already exists</value>
   </data>
   <data name="Quoter" xml:space="preserve">
-    <value>Quoter</value>
+    <value>Minute Verse</value>
   </data>
   <data name="WelcomeStartupMessage" xml:space="preserve">
     <value>Application has started. It will notify you regularly with quotes.</value>
@@ -475,7 +475,7 @@
     <value>Notification sound</value>
   </data>
   <data name="QuoterIntroduction" xml:space="preserve">
-    <value>Quoter allows you to receive regular notifications on your desktop of your favourite quotes or verses. Select a language and press next to continue.</value>
+    <value>Minute Verse allows you to receive regular notifications on your desktop of your favourite quotes or verses. Select a language and press next to continue.</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>

@@ -187,7 +187,7 @@
     <value>O colecție cu același nume deja există</value>
   </data>
   <data name="Quoter" xml:space="preserve">
-    <value>Quoter</value>
+    <value>Minute Verse</value>
   </data>
   <data name="WelcomeStartupMessage" xml:space="preserve">
     <value>Aplicația a pornit în fundal. Va afișa periodic citatele tale preferate.</value>
@@ -475,7 +475,7 @@
     <value>Sunet notificări</value>
   </data>
   <data name="QuoterIntroduction" xml:space="preserve">
-    <value>Quoter îti afișează în mod regulat citatele sau versetele tale preferate. Alege o limbă și apasă înainte pentru a continua.</value>
+    <value>Minute Verse îti afișează în mod regulat citatele sau versetele tale preferate. Alege o limbă și apasă înainte pentru a continua.</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Înainte</value>
