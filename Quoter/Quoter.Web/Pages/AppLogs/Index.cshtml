@@ -18,7 +18,9 @@
 		<h1>@Localizer["Application logs"]</h1>
 	</div>
 	<div class="container mt-3">
-		<a asp-page="Create" class="btn btn-primary mb-2"><i class="bi bi-file-earmark-plus p-1"></i>@Localizer["Create"]</a>
+		<form class="form-inline" method="post">
+			<button class="btn btn-danger" asp-page="/AppLogs/Index" asp-page-handler="DeleteOldLogs" type="submit"><i class="bi bi bi-trash p-1"></i>@Localizer["Delete logs older than 30 days"]</button>
+		</form>
 		<div class="table-responsive">
 			<table class="table table-sm table-striped table-hover">
 				<thead>
@@ -46,7 +48,7 @@
 								@Html.DisplayFor(modelItem => item.LogId)
 							</td>
 							<td>
-								@Html.DisplayFor(modelItem => item.Timestamp)
+								@item.Timestamp.ToString("yyyy/MM/dd HH:mm:ss,fff")
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.Level)
@@ -54,7 +56,7 @@
 							<td>
 								@Html.DisplayFor(modelItem => item.RenderedMessage)
 							</td>
-							
+
 							<td>
 								<span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-content="Details">
 									<a asp-page="./Details" asp-route-id="@item.LogId" class="btn btn-sm btn-info"><i class="bi bi-info-square"></i></a>

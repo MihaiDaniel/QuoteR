@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
+using System.Text.Json;
 
 namespace Quoter.Web.Pages.AppLogs
 {
@@ -37,7 +38,7 @@ namespace Quoter.Web.Pages.AppLogs
 				Timestamp = log.Timestamp.ToString("yyyy/MM/dd hh:mm:ss,fff");
 				Level = log.Level;
 				Exception = log.Exception;
-				RenderedMessage = log.RenderedMessage;
+				RenderedMessage = ParseRenderedMessageWithProperties(log.RenderedMessage, log.Properties);
 				Properties = log.Properties;
 			}
 			catch (Exception ex)
@@ -45,6 +46,31 @@ namespace Quoter.Web.Pages.AppLogs
 				_logger.LogError(ex, "An exception occured while retieving log details for {property}={value}", nameof(Log.LogId), id);
 			}
 			
+		}
+
+		private string ParseRenderedMessageWithProperties(string renderedMessage, string properties)
+		{
+			JsonDocument jsonDocument = JsonDocument.Parse(properties);
+			JsonElement jsonElement = jsonDocument.RootElement;
+
+			string[] propertiesInRenderedMsg = ExtractPropsFromRenderedMessage(renderedMessage);
+			foreach (string property in propertiesInRenderedMsg)
+			{
+				if (jsonElement.TryGetProperty(property, out JsonElement value))
+				{
+					renderedMessage = renderedMessage.Replace($"{{{property}}}", value.ToString());
+				}
+			}
+			return renderedMessage;
+		}
+
+		private string[] ExtractPropsFromRenderedMessage(string renderedMessage)
+		{
+			if (string.IsNullOrEmpty(renderedMessage))
+				return Array.Empty<string>();
+
+			var matches = System.Text.RegularExpressions.Regex.Matches(renderedMessage, @"\{([^}]+)\}");
+			return matches.Select(m => m.Groups[1].Value).ToArray();
 		}
 	}
 }

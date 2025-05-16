@@ -43,5 +43,25 @@ namespace Quoter.Web.Pages.Logs
 				})
 				.ToListAsync();
 		}
+
+		public async Task<IActionResult> OnPostDeleteOldLogsAsync()
+		{
+			try
+			{
+				var logs = await _context.Logs
+					.Where(l => l.Timestamp < DateTime.UtcNow.AddDays(-30))
+					.ToListAsync();
+				if (logs.Count > 0)
+				{
+					_context.Logs.RemoveRange(logs);
+					await _context.SaveChangesAsync();
+				}
+				return RedirectToPage();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 	}
 }
