@@ -17,6 +17,8 @@ namespace Quoter.Web.Pages
 		private readonly ApplicationDbContext _context;
 		private readonly IMemoryCache _memoryCache;
 
+		public bool IsDownloadAvailable { get; set; } = false;
+
 		public IndexModel(
 			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
@@ -29,6 +31,15 @@ namespace Quoter.Web.Pages
 
 		public void OnGet()
 		{
+			IsDownloadAvailable = _memoryCache.GetOrCreate("IsDownloadAvailable",
+				entry =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+				return _context.AppVersions
+					.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
+					.OrderBy(v => v.Id)
+					.Any();
+			});
 		}
 
 		/// <summary>

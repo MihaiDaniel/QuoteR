@@ -38,6 +38,9 @@ namespace Quoter.Web.Pages.AppVersions
 		public string? Description { get; set; }
 
 		[BindProperty]
+		public EnumVersionType? Type { get; set; }
+
+		[BindProperty]
 		public EnumOperatingSystem Os { get; set; }
 
 		public string Path { get; set; }
@@ -65,6 +68,7 @@ namespace Quoter.Web.Pages.AppVersions
 			Name = appVersion.Name;
 			Version = appVersion.Version;
 			Description = appVersion.Description;
+			Type = appVersion.Type;
 			Os = appVersion.Os;
 			Path = appVersion.Path;
 			IsReleased = appVersion.IsReleased;
@@ -119,7 +123,8 @@ namespace Quoter.Web.Pages.AppVersions
 
 			bool isDuplicateVersion = await _context.AppVersions
 				.AnyAsync(v => v.Version == Version
-							&& v.Type == existingVersion.Type);
+							&& v.Type == existingVersion.Type
+							&& v.Name != existingVersion.Name);
 			if (isDuplicateVersion)
 			{
 				ModelState.TryAddModelError($"{nameof(Version)}", "A version with the same version and version type already exists");

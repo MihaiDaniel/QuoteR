@@ -8,188 +8,250 @@
 	ViewData["Title"] = "Home page";
 }
 
-<div id="home" class="container-fluid m-0 p-0">
+<section id="home" class="hero section">
 
-	@* HOME & DOWNLOAD *@
+	<div class="container">
+		<div class="row gy-4">
+			<div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+				<h1>@Localizer["Build wisdom one verse at a time"]</h1>
+				<p>@Localizer["Remind yourself to take a break from your task and read a bit of scripture with Minute Verse!"]</p>
+				<p>@Localizer["Lots of customization options. Scroll down for more information, or click the button below to download the latest version. Available for free."]</p>
+				<div class="d-flex">
+					@if (Model.IsDownloadAvailable)
+					{
+						<a asp-page-handler="DownloadApp" class="btn btn-primary p-2"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
+					}
+					else
+					{
+						<div class="btn btn-secondary p-2">@Localizer["Download unavailable at this time"]</div>
+					}
 
-	<div class="row p-4 m-0">
-		@*Empty row for more space between sections*@
-	</div>
-	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5">
-		<div class="col-lg-5 p-1">
-			<h1 class="mb-4">Pause Verse</h1>
-			<p class="fs-4">Remind yourself to take a break from your task and read a bit of scripture!</p>
-			<p class="fs-6">Lots of customization options. Scroll down for more information, or click the button below to download the latest version. Available for Windows.</p>
-			<p class="fs-6">You can also check the Github repository if you want to take a look at the sources.</p>
-			<a asp-page-handler="DownloadApp" class="btn btn-primary"><i class="bi bi-download p-2"></i>Download</a>
-
-			<a href="https://github.com/MihaiDaniel/QuoteR" class="btn btn-secondary"><i class="bi bi-github p-2"></i>Github</a>
-		</div>
-		<div class="col-lg-5 p-1">
-			<div class="image-container">
-				<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg" alt="alternative">
+				</div>
+			</div>
+			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
+				<img src="~/images/mv-logo-512.png" class="img-fluid animated" alt="">
 			</div>
 		</div>
 	</div>
 
-	@* ABOUT *@
+</section>
 
+<section id="featured-services" class="featured-services section">
+	<div class="container">
+		<div class="row gy-4">
+			<div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
+				<div class="service-item position-relative">
+					<div class="icon"><i class="bi bi-bell icon"></i></div>
+					<h4 class ="stretched-link">@Localizer["Periodic notifications"]</h4>
+					<p>@Localizer["Receive regular notifications about your favourite verses. Various customization options available."]</p>
+				</div>
+			</div><!-- End Service Item -->
 
-	<div class="row p-3 m-0">
-		@*Empty row for more space between sections*@
-	</div>
-	<div id="about" class="row pb-4 pt-4 m-0 bg-light bg-gradient">
-		<div class="col text-center">
-			<h2 class="pt-5 h-line">About</h2>
-			<p>For who is this aplication made</p>
+			<div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="200">
+				<div class="service-item position-relative">
+					<div class="icon"><i class="bi bi-pencil-square icon"></i></div>
+					<h4 class="stretched-link">@Localizer["Collections editor"]</h4>
+					<p>@Localizer["Create and edit your own collections directly from the application."]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="300">
+				<div class="service-item position-relative">
+					<div class="icon"><i class="bi bi-share icon"></i></div>
+					<h4 class="stretched-link">@Localizer["Export and import"]</h4>
+					<p>@Localizer["Export your created collections or import collections created by other people."]</p>
+				</div>
+			</div><!-- End Service Item -->
 		</div>
 	</div>
+</section>
 
-
-@*	<div class="row justify-content-center m-0 ps-4 pe-4 pt-5 pb-5 bg-light">
-		<div class="col-4 p-1">
-			<div class="image-container">
-				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
-				@*<img class="img-fluid" src="~/images/quoter_main_screenshot.jpg">
+<section id="about" class="about section">
+	<!-- Section Title -->
+	<div class="container section-title" data-aos="fade-up">
+		<span>@Localizer["Who is this for"]<br></span>
+		<h2>@Localizer["About"]</h2>
+		<p>@Localizer[""]</p>
+	</div><!-- End Section Title -->
+	<div class="container">
+		<div class="row gy-4">
+			<div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+				<img src="~/images/man-on-computer.jpg" class="img-fluid" alt="">
+			</div>
+			<div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+				<h3>@Localizer["Do you work on your PC or laptop?"]</h3>
+				<p class="fst-italic">
+					@Localizer["Then Minute Verse is for you. A simple application that acts as a reminder to take a break from work and take a short dive in the wisdom of the Bible."]
+					@Localizer["Here are some ways you can use the app:"]
+				</p>
+				<ul>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["As a reminder to take a break from your work"]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Learning little by little verses from the Bible"]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["A tool to help you memorize some of your favourite verses using repetition throught the day"]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Create your own collection of verses or favourite quotes you want to remind yourself of"]</span></li>
+				</ul>
+				<p>
+					@Localizer["Easy to install and use as is. Currently available for Windows 10 and 11."]
+				</p>
 			</div>
 		</div>
-		<div class="col-4 p-1 ms-2">
-			<div class="card shadow">
-				<div class="card-body bg-light rounded">
-					<h5 class="card-title">Do you work on your laptop or PC?</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Then this application is for you.</h6>
-					<p class="card-text">Quoter regularly displays one of your favourite bible verses inside a notification on your desktop. You can use it to:</p>
-					<ul>
-						<li>Remind yourself to take a break from work.</li>
-						<li>Read some verses even if you're busy.</li>
-						<li>Memorise bible verses by repeating them.</li>
-					</ul>
+	</div>
+</section>
+
+<section id="stats" class="stats section">
+	<div class="container" data-aos="fade-up" data-aos-delay="100">
+		<div class="row gy-4">
+			<div class="col-lg-6 col-md-6">
+				<div class="stats-item text-center w-100 h-100">
+					<span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+					<p>@Localizer["Downloads"]</p>
+				</div>
+			</div><!-- End Stats Item -->
+
+			<div class="col-lg-6 col-md-6">
+				<div class="stats-item text-center w-100 h-100">
+					<span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+					<p>@Localizer["Bible translations"]</p>
+				</div>
+			</div><!-- End Stats Item -->
+		</div>
+	</div>
+</section>
+
+<section id="features" class="services section light-background">
+	<!-- Section Title -->
+	<div class="container section-title" data-aos="fade-up">
+		<span>@Localizer["Features"]</span>
+		<h2>@Localizer["Features"]</h2>
+		<p>@Localizer["See below all of the features of the application"]</p>
+	</div><!-- End Section Title -->
+	<div class="container">
+
+		<div class="row gy-4">
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-fadein-en.gif" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Periodic notifications"]</h3>
+					</a>
+					<p>@Localizer["You can customize the intervals when the notifications should appear and for how much time they should stay on screen."]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-scroll-en.gif" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Scrollable"]</h3>
+					</a>
+					<p>@Localizer["Scroll to the next or previous verses in the same book quickly from the notification window"]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-opacity-en.gif" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Customizable opactity"]</h3>
+					</a>
+					<p>@Localizer["Make the notification window more or less transparent depending on your preferences"]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-themes-en.jpg" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Multiple color themes"]</h3>
+					</a>
+					<p>@Localizer["Choose from a variety of pre-set colors to customize your notification window."]</p>
+					<a href="index" class="stretched-link"></a>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-link-en.png" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Integrated reader"]</h3>
+					</a>
+					<p>@Localizer["Click the chapter and verse to open a simplified reader if you want to get more context for the verse."]</p>
+					<a href="index" class="stretched-link"></a>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+				<div class="service-item position-relative">
+					<img class="w-100 p-1" src="~/images/mv-pinned-en.png" />
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Pinnable notification"]</h3>
+					</a>
+					<p>@Localizer["If you prefer, the notification window can be pinned on the desktop on top of other applications."]</p>
+					<a href="index" class="stretched-link"></a>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+				<div class="service-item position-relative">
+					<div class="icon">
+						<i class="bi bi-pencil-square"></i>
+					</div>
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Integrated editor"]</h3>
+					</a>
+					<p>@Localizer["Create and edit your own collections using the integrated editor. You can add new translations, with books and chapters or create simplified collections of your favourite verses."]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+				<div class="service-item position-relative">
+					<div class="icon">
+						<i class="bi bi-star"></i>
+					</div>
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Select your favourites"]</h3>
+					</a>
+					<p>@Localizer["You can select your favourite chapters or books or collections from which you want notifications."]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+			<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+				<div class="service-item position-relative">
+					<div class="icon">
+						<i class="bi bi-share"></i>
+					</div>
+					<a href="index" class="stretched-link">
+						<h3>@Localizer["Share or import collections"]</h3>
+					</a>
+					<p>@Localizer["Share your private collections with other people directly from the application. You can import or export any custom collections as files."]</p>
+				</div>
+			</div><!-- End Service Item -->
+
+		</div>
+	</div>
+</section><!-- /Services Section -->
+
+<!-- Call To Action Section -->
+<section id="call-to-action" class="call-to-action section accent-background">
+
+	<div class="container">
+		<div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+			<div class="col-xl-10">
+				<div class="text-center">
+					<h3>@Localizer["Download now"]</h3>
+					<p>@Localizer["Try it out and see if you like it. Run the installer once it's downloaded to install the application. Run through the welcome setup and you're good to go!"]</p>
+					@if (Model.IsDownloadAvailable)
+					{
+						<a asp-page-handler="DownloadApp" class="cta-btn"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
+					}
+					else
+					{
+						<div class="cta-btn">@Localizer["Download unavailable at this time"]</div>
+					}
 				</div>
 			</div>
 		</div>
-	</div>*@
-
-	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
-		<div class="col-lg-4">
-			<div class="image-container">
-				<img class="img-fluid" alt="screenshot" src="~/images/screenshot_notification_window.jpg" />
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card shadow">
-				<div class="card-body bg-light rounded">
-					<h5 class="card-title">Do you work on your laptop or PC?</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Then this application is for you.</h6>
-					<p class="card-text">Quoter regularly displays one of your favourite bible verses inside a notification on your desktop. You can use it to:</p>
-					<ul>
-						<li>Remind yourself to take a break from work.</li>
-						<li>Read some verses even if you're busy.</li>
-						<li>Memorise bible verses by repeating them.</li>
-					</ul>
-				</div>
-			</div>
-		</div>
 	</div>
 
-	@* FEATURES *@
-
-	<div class="row p-3 m-0">
-		@*Empty row for more space between sections*@
-	</div>
-	<div id="features" class="row pb-4 pt-4 m-0 bg-light-subtle bg-gradient">
-		<div class="col text-center">
-			<h2 class="pt-5 h-line">Features</h2>
-			<p>What can you expect from the application</p>
-		</div>
-	</div>
-
-	@* FEATURES first row *@
-
-	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
-		<div class="col-lg-4">
-			<div class="card p-2 m-2  shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Different modes</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Periodic notifications or always on screen</h6>
-					<p class="card-text">
-						Depending on your preferences you can choose to receive notifications as a popup or 
-						have an always-on window.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card p-2 m-2  shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Add your own verses</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Add, modify or delete collections, books, chapters and verses</h6>
-					<p class="card-text">
-						You can modify any of the existing verses or add your own collection. 
-						Not only that but you're free to add any type of verse or quote you like in an easy to use interface.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card p-2 m-2 shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Choose favourites</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Choose to display verses from a favourite collection/book/chapter</h6>
-					<p class="card-text">
-						The Favourites tab allows you to set exactly what specify the exact collection, book, or chapter 
-						from which you want the app to display the verses.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	@* FEATURES second row *@
-
-	<div class="row justify-content-center m-0 p-4 bg-light-subtle">
-		<div class="col-lg-4">
-			<div class="card p-2 m-2 shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Export and import</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Export and import any supported collection as a file</h6>
-					<p class="card-text">
-						If you want to make your own collection of verses you can use the export feature 
-						to generate a file you can share with your friends. The import feature allows you 
-						to add new collections from a file.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card p-2 m-2 shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">See what's next</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Navigation arrows to show the next or previous verse</h6>
-					<p class="card-text">
-						You can use the arrows on the notification window to scroll back and forth between the verses as you desire.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="card p-2 m-2 shadow">
-				<img src="~/images/screenshot_notification_window.jpg" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title">Curious to read more?</h5>
-					<h6 class="card-subtitle mb-2 text-body-secondary">Simple reader interface to browse the collection</h6>
-					<p class="card-text">
-						By clicking on the chapter and verse number inside the notification window you can open the read mode 
-						in which you can read the verse in it's context. Here you can also browse through your whole collection.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
+</section><!-- /Call To Action Section -->
