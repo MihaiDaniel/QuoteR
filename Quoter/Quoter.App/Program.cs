@@ -108,6 +108,7 @@ namespace Quoter.App
 			serviceCollection.AddTransient<DialogInputForm>();
 			serviceCollection.AddTransient<DialogMessageForm>();
 			serviceCollection.AddTransient<DialogExportFinishedForm>();
+			serviceCollection.AddTransient<DebugForm>();
 
 			// Forms controllers
 			serviceCollection.AddTransient<IManageFormController, ManageFormController>();

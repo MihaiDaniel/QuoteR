@@ -309,6 +309,7 @@ namespace Quoter.App
 					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(EventHandlerExitApp), "Exit"),
 #if DEBUG
 					new ToolStripMenuItem("Welcome", null, new EventHandler(EventHandlerShowWelcomeForm), "Welcome"),
+					new ToolStripMenuItem("Debug", null, new EventHandler((obj, e) => _formsManager.ShowAndCloseOthers<DebugForm>()), "Debug"),
 #endif
 				}
 			};
