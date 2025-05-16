@@ -13,6 +13,7 @@ using Quoter.Web;
 using Serilog;
 using Serilog.Events;
 using AspNetCoreRateLimit;
+using Microsoft.AspNetCore.Identity;
 
 string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter");
 string sqliteDbName = "quoter.web.db";
@@ -99,7 +100,7 @@ try
 
 	#endregion Database
 
-	builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+	builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 	{
 		options.SignIn.RequireConfirmedAccount = false;
 		options.SignIn.RequireConfirmedEmail = false;
@@ -112,9 +113,24 @@ try
 		options.Password.RequiredUniqueChars = 0;
 		options.Password.RequireUppercase = false;
 		options.Password.RequireLowercase = false;
+	}).AddEntityFrameworkStores<ApplicationDbContext>(); ;
 
-	})
-		.AddEntityFrameworkStores<ApplicationDbContext>();
+	//builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+	//{
+	//	options.SignIn.RequireConfirmedAccount = false;
+	//	options.SignIn.RequireConfirmedEmail = false;
+	//	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+	//	options.Lockout.MaxFailedAccessAttempts = 5;
+	//	options.User.RequireUniqueEmail = true;
+	//	options.Password.RequireDigit = false;
+	//	options.Password.RequireNonAlphanumeric = false;
+	//	options.Password.RequiredLength = 4;
+	//	options.Password.RequiredUniqueChars = 0;
+	//	options.Password.RequireUppercase = false;
+	//	options.Password.RequireLowercase = false;
+
+	//})
+	//	.AddEntityFrameworkStores<ApplicationDbContext>();
 
 	builder.Services.AddSwaggerGen(c =>
 	{

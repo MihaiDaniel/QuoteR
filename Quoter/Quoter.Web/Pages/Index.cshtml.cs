@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Quoter.Shared.Enums;
 using Quoter.Web.Data;
@@ -16,56 +18,69 @@ namespace Quoter.Web.Pages
 		private readonly ILogger _logger;
 		private readonly ApplicationDbContext _context;
 		private readonly IMemoryCache _memoryCache;
+		private readonly SignInManager<ApplicationUser> _signInManager;
 
+		/// <summary>
+		/// Indicates if any setup file is available for download
+		/// <see cref="AppVersion.IsReleased"/> = True and <see cref="AppVersion.Type"/> is <see cref="EnumVersionType.Installer"/>
+		/// </summary>
 		public bool IsDownloadAvailable { get; set; } = false;
+
+		/// <summary>
+		/// The total number of downloads of any of the versions
+		/// </summary>
+		public int DownloadsCount { get; set; } = 0;
 
 		public IndexModel(
 			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
-			IMemoryCache memoryCache)
+			IMemoryCache memoryCache,
+			SignInManager<ApplicationUser> signInManager)
 		{
 			_logger = loggerFactory.CreateLogger("Index");
 			_context = context;
 			_memoryCache = memoryCache;
+			_signInManager = signInManager;
 		}
 
-		public void OnGet()
+		public async Task OnGet()
 		{
-			IsDownloadAvailable = _memoryCache.GetOrCreate("IsDownloadAvailable",
-				entry =>
+			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync("IsDownloadAvailable",
+				async entry =>
 			{
-				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
-				return _context.AppVersions
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+				return await _context.AppVersions
 					.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
-					.OrderBy(v => v.Id)
-					.Any();
+					.AnyAsync();
 			});
+
+			DownloadsCount = await _memoryCache.GetOrCreateAsync("DownloadsCount",
+				async entry =>
+				{
+					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+					return await _context.AppVersionDownloads.CountAsync();
+				});
 		}
 
 		/// <summary>
 		/// Returns the file for the latest version of the application installer
 		/// </summary>
-		public ActionResult OnGetDownloadApp()
+		public async Task<ActionResult> OnGetDownloadApp()
 		{
 			try
 			{
-				AppVersion latestVersion = _memoryCache.GetOrCreate("WebLatestVersion",
-				entry =>
-				{
-					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
-
-					return _context.AppVersions
-						.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
-						.OrderBy(v => v.Id)
-						.Last();
-				})!;
-
-				if (!System.IO.File.Exists(latestVersion.Path))
-				{
-					throw new ArgumentException($"File does not exist {latestVersion.Path}");
-				}
-
+				AppVersion latestVersion = await GetLatestVersionAsync();
 				byte[] bytes = System.IO.File.ReadAllBytes(latestVersion.Path);
+
+				_context.AppVersionDownloads
+					.Add(new AppVersionDownload
+					{
+						AppVersionId = latestVersion.Id,
+						AppVersion = latestVersion,
+						DownloadDateTime = DateTime.UtcNow,
+					});
+				await _context.SaveChangesAsync();
+
 				return File(bytes, "application/octet-stream", latestVersion.Name);
 			}
 			catch (Exception ex)
@@ -88,6 +103,47 @@ namespace Quoter.Web.Pages
 				new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) });
 
 			return LocalRedirect(returnUrl);
+		}
+
+		public async Task<IActionResult> OnPostLogoutAsync(string returnUrl)
+		{
+			await _signInManager.SignOutAsync();
+			_logger.LogInformation("User logged out.");
+			if (returnUrl != null)
+			{
+				return LocalRedirect(returnUrl);
+			}
+			else
+			{
+				// This needs to be a redirect so that the browser performs a new
+				// request and the identity for the user gets updated.
+				return RedirectToPage();
+			}
+		}
+
+		/// <summary>
+		/// Retrieves the latest released installer version and verifies file existence.
+		/// </summary>
+		private async Task<AppVersion> GetLatestVersionAsync()
+		{
+			AppVersion? latestVersion = await _memoryCache.GetOrCreateAsync("WebLatestVersion", async entry =>
+			{
+				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+				return await _context.AppVersions
+					.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
+					.OrderBy(v => v.Id)
+					.LastOrDefaultAsync();
+			});
+
+			if (latestVersion == null)
+			{
+				throw new ArgumentException("Latest version is null.");
+			}
+			if (!System.IO.File.Exists(latestVersion.Path))
+			{
+				throw new ArgumentException($"File does not exist {latestVersion.Path}");
+			}
+			return latestVersion;
 		}
 	}
 }

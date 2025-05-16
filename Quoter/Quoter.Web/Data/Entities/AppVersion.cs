@@ -55,7 +55,7 @@ namespace Quoter.Web.Data.Entities
 		public EnumVersionType Type { get; set; }
 
 		/// <summary>
-		/// Indicates if the update is available for download.
+		/// Indicates if the update/setup is available for download.
 		/// App versions that are not available will not be downloadable by the
 		/// desktop application on auto-update, nor by the website download
 		/// </summary>
