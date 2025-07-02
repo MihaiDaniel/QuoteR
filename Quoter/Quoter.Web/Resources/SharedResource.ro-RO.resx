@@ -187,4 +187,145 @@
   <data name="ViewAndManageApplicationKeys" xml:space="preserve">
     <value>Administreaza cheile aplicatiei</value>
   </data>
+  <data name="Build wisdom one verse at a time" xml:space="preserve">
+    <value>Clădește-ți înțelepciunea verset cu verset</value>
+  </data>
+  <data name="Remind yourself..." xml:space="preserve">
+    <value>Amintiți-vă să luați o pauză de la cotidian și să citiți puțin din Scriptură cu Minute Verse!</value>
+  </data>
+  <data name="Lots of customization options..." xml:space="preserve">
+    <value>O mulțime de opțiuni de personalizare disponibile. Derulați în jos pentru mai multe informații sau faceți clic pe butonul de mai jos pentru a descărca cea mai recentă versiune. Disponibil complet gratuit.</value>
+  </data>
+  <data name="Download unavailable at this time" xml:space="preserve">
+    <value>Descărcarea nu este disponibilă în acest moment</value>
+  </data>
+  <data name="Download for Windows" xml:space="preserve">
+    <value>Descarcă pentru Windows</value>
+  </data>
+  <data name="Periodic notifications" xml:space="preserve">
+    <value>Notificări periodice</value>
+  </data>
+  <data name="Receive regular notifications..." xml:space="preserve">
+    <value>Primește notificări regulate despre versetele tale preferate. Diverse opțiuni de personalizare disponibile.</value>
+  </data>
+  <data name="Collections editor" xml:space="preserve">
+    <value>Editor de colecții</value>
+  </data>
+  <data name="Create and edit your own..." xml:space="preserve">
+    <value>Creați și editați propriile colecții direct din aplicație.</value>
+  </data>
+  <data name="Export and import" xml:space="preserve">
+    <value>Export și import</value>
+  </data>
+  <data name="Export your created collections..." xml:space="preserve">
+    <value>Exportați colecțiile create sau importați colecții create de alte persoane.</value>
+  </data>
+  <data name="Who is this for" xml:space="preserve">
+    <value>Cui i se adresează aplicația</value>
+  </data>
+  <data name="Do you work on your PC or laptop?" xml:space="preserve">
+    <value>Lucrați pe PC sau pe laptop?</value>
+  </data>
+  <data name="Then Minute Verse is for you..." xml:space="preserve">
+    <value>Atunci Minute Verse este pentru tine. O aplicație simplă care îți amintește să iei o pauză de la serviciu și să te scufunzi în înțelepciunea Bibliei.</value>
+  </data>
+  <data name="Here are some ways you can use the app:" xml:space="preserve">
+    <value>Iată câteva modalități prin care puteți utiliza aplicația:</value>
+  </data>
+  <data name="As a reminder..." xml:space="preserve">
+    <value>Ca o reamintire să luați o pauză de la muncă</value>
+  </data>
+  <data name="Learning little by little..." xml:space="preserve">
+    <value>Să învățați puțin câte puțin versete din Biblie</value>
+  </data>
+  <data name="A tool to help you memorize..." xml:space="preserve">
+    <value>Ca un instrument care te ajută să memorezi unele dintre versetele tale preferate folosind repetiția pe parcursul zilei</value>
+  </data>
+  <data name="Create your own collection..." xml:space="preserve">
+    <value>Creează-ți propria colecție de versete sau citate preferate de care vrei să-ți amintești</value>
+  </data>
+  <data name="Easy to install and use as is..." xml:space="preserve">
+    <value>Ușor de instalat și de utilizat așa cum este. Disponibil în prezent pentru Windows 10 și 11.</value>
+  </data>
+  <data name="Bible translations" xml:space="preserve">
+    <value>Traduceri ale Bibliei</value>
+  </data>
+  <data name="See below all of the features of the application" xml:space="preserve">
+    <value>Vedeți mai jos toate funcțiile aplicației</value>
+  </data>
+  <data name="You can customize the intervals..." xml:space="preserve">
+    <value>Puteți personaliza intervalul de timp în care să apară notificările și durata cât să rămână pe ecran.</value>
+  </data>
+  <data name="Scrollable" xml:space="preserve">
+    <value>Notificare navigabilă</value>
+  </data>
+  <data name="Scroll to the next or previous verses..." xml:space="preserve">
+    <value>Derulați rapid la versetele următoare sau anterioare din aceeași carte din fereastra de notificări</value>
+  </data>
+  <data name="Customizable opactity" xml:space="preserve">
+    <value>Opacitate personalizabilă</value>
+  </data>
+  <data name="Make the notification window..." xml:space="preserve">
+    <value>Faceți fereastra de notificare mai mult sau mai puțin transparentă în funcție de preferințe</value>
+  </data>
+  <data name="Multiple color themes" xml:space="preserve">
+    <value>Teme de culori multiple</value>
+  </data>
+  <data name="Choose from a variety of pre-set color..." xml:space="preserve">
+    <value>Alegeți dintr-o varietate de culori prestabilite pentru a personaliza fereastra de notificări.</value>
+  </data>
+  <data name="Virtual book" xml:space="preserve">
+    <value>Carte virtuală</value>
+  </data>
+  <data name="Click the chapter and verse to open a simplified reader..." xml:space="preserve">
+    <value>Faceți clic pe capitol și pe verset pentru a deschide o carte virtuală simplificată dacă doriți să obțineți mai mult context pentru verset.</value>
+  </data>
+  <data name="Pinnable notification" xml:space="preserve">
+    <value>Notificare fixabilă</value>
+  </data>
+  <data name="If you prefer, the notification window..." xml:space="preserve">
+    <value>Dacă preferați, fereastra de notificări poate fi fixată pe desktop, deasupra altor aplicații.</value>
+  </data>
+  <data name="Integrated editor" xml:space="preserve">
+    <value>Editor integrat</value>
+  </data>
+  <data name="Create and edit your own collections using the integrated editor..." xml:space="preserve">
+    <value>Creați și editați propriile colecții folosind editorul integrat. Puteți adăuga traduceri noi, cu cărți și capitole sau puteți crea colecții simplificate ale versurilor dvs. preferate.</value>
+  </data>
+  <data name="Select your favourites" xml:space="preserve">
+    <value>Selectați-vă versetele favoritele</value>
+  </data>
+  <data name="You can select your favourite chapters or books..." xml:space="preserve">
+    <value>Puteți selecta capitolele, cărțile sau colecțiile preferate din care doriți notificări.</value>
+  </data>
+  <data name="Share or import collections" xml:space="preserve">
+    <value>Exportați sau importați colecții</value>
+  </data>
+  <data name="Share your private collections..." xml:space="preserve">
+    <value>Partajează colecțiile tale private cu alte persoane direct din aplicație. Poți importa sau exporta orice colecții personalizate ca fișiere.</value>
+  </data>
+  <data name="Download now" xml:space="preserve">
+    <value>Descarcă acum</value>
+  </data>
+  <data name="Try it out and see if you like it..." xml:space="preserve">
+    <value>Încercați aplicația și vedeți dacă vă place. Rulați programul de instalare după ce s-a descărcat kitul pentru a instala aplicația. Apoi rulați configurarea inițială și gata!</value>
+  </data>
+  <data name="Build faith" xml:space="preserve">
+    <value>Clădește-ți credința</value>
+  </data>
+  <data name="One verse at a time." xml:space="preserve">
+    <value>Verset cu verset.</value>
+  </data>
+  <data name="Keep this Book of the Law always..." xml:space="preserve">
+    <value>Iar cartea acestei legi să nu lipsească, ci întru ea să cugeți ziua și noaptea, pentru ca tu să înțelegi cum anume să faci toate lucrurile care sunt scrise [în ea]; atunci vei păși drept și-ți vei face căile ușoare și atunci vei fi înțelept.</value>
+  </data>
+  <data name="Joshua 1:8" xml:space="preserve">
+    <value>Iosua 1:8</value>
+  </data>
+  <data name="All Rights Reserved" xml:space="preserve">
+    <value>Toate drepturile rezervate</value>
+  </data>
+  <data name="Useful links" xml:space="preserve">
+    <value>Linkuri utile</value>
+  </data>
 </root>

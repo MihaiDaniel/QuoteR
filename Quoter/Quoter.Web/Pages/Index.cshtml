@@ -5,7 +5,7 @@
 @page
 @model IndexModel
 @{
-	ViewData["Title"] = "Home page";
+	ViewData["Title"] = Localizer["Home"];
 }
 
 <section id="home" class="hero section">
@@ -14,8 +14,8 @@
 		<div class="row gy-4">
 			<div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
 				<h1>@Localizer["Build wisdom one verse at a time"]</h1>
-				<p>@Localizer["Remind yourself to take a break from your task and read a bit of scripture with Minute Verse!"]</p>
-				<p>@Localizer["Lots of customization options. Scroll down for more information, or click the button below to download the latest version. Available for free."]</p>
+				<p>@Localizer["Remind yourself..."]</p>
+				<p>@Localizer["Lots of customization options..."]</p>
 				<div class="d-flex">
 					@if (Model.IsDownloadAvailable)
 					{
@@ -29,7 +29,18 @@
 				</div>
 			</div>
 			<div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
-				<img src="~/images/mv-media-en.png" class="img-fluid animated" alt="">
+				@switch (Model.CurrentCulture)
+				{
+					case "en-US":
+						<img src="~/images/mv-media-en.png" class="img-fluid animated" alt="">
+						break;
+					case "ro-RO":
+						<img src="~/images/mv-media-ro.png" class="img-fluid animated" alt="">
+						break;
+					case "fr-FR":
+						<img src="~/images/mv-media-fr.png" class="img-fluid animated" alt="">
+						break;
+				}
 			</div>
 		</div>
 	</div>
@@ -42,8 +53,8 @@
 			<div class="col-lg-4 d-flex" data-aos="fade-up" data-aos-delay="100">
 				<div class="service-item position-relative">
 					<div class="icon"><i class="bi bi-bell icon"></i></div>
-					<h4 class ="stretched-link">@Localizer["Periodic notifications"]</h4>
-					<p>@Localizer["Receive regular notifications about your favourite verses. Various customization options available."]</p>
+					<h4 class="stretched-link">@Localizer["Periodic notifications"]</h4>
+					<p>@Localizer["Receive regular notifications..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -51,7 +62,7 @@
 				<div class="service-item position-relative">
 					<div class="icon"><i class="bi bi-pencil-square icon"></i></div>
 					<h4 class="stretched-link">@Localizer["Collections editor"]</h4>
-					<p>@Localizer["Create and edit your own collections directly from the application."]</p>
+					<p>@Localizer["Create and edit your own..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -59,7 +70,7 @@
 				<div class="service-item position-relative">
 					<div class="icon"><i class="bi bi-share icon"></i></div>
 					<h4 class="stretched-link">@Localizer["Export and import"]</h4>
-					<p>@Localizer["Export your created collections or import collections created by other people."]</p>
+					<p>@Localizer["Export your created collections..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 		</div>
@@ -81,17 +92,17 @@
 			<div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
 				<h3>@Localizer["Do you work on your PC or laptop?"]</h3>
 				<p class="fst-italic">
-					@Localizer["Then Minute Verse is for you. A simple application that acts as a reminder to take a break from work and take a short dive in the wisdom of the Bible."]
+					@Localizer["Then Minute Verse is for you..."]
 					@Localizer["Here are some ways you can use the app:"]
 				</p>
 				<ul>
-					<li><i class="bi bi-check2-all"></i> <span>@Localizer["As a reminder to take a break from your work"]</span></li>
-					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Learning little by little verses from the Bible"]</span></li>
-					<li><i class="bi bi-check2-all"></i> <span>@Localizer["A tool to help you memorize some of your favourite verses using repetition throught the day"]</span></li>
-					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Create your own collection of verses or favourite quotes you want to remind yourself of"]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["As a reminder..."]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Learning little by little..."]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["A tool to help you memorize..."]</span></li>
+					<li><i class="bi bi-check2-all"></i> <span>@Localizer["Create your own collection..."]</span></li>
 				</ul>
 				<p>
-					@Localizer["Easy to install and use as is. Currently available for Windows 10 and 11."]
+					@Localizer["Easy to install and use as is..."]
 				</p>
 			</div>
 		</div>
@@ -135,7 +146,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Periodic notifications"]</h3>
 					</a>
-					<p>@Localizer["You can customize the intervals when the notifications should appear and for how much time they should stay on screen."]</p>
+					<p>@Localizer["You can customize the intervals..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -145,7 +156,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Scrollable"]</h3>
 					</a>
-					<p>@Localizer["Scroll to the next or previous verses in the same book quickly from the notification window"]</p>
+					<p>@Localizer["Scroll to the next or previous verses..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -155,7 +166,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Customizable opactity"]</h3>
 					</a>
-					<p>@Localizer["Make the notification window more or less transparent depending on your preferences"]</p>
+					<p>@Localizer["Make the notification window..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -165,7 +176,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Multiple color themes"]</h3>
 					</a>
-					<p>@Localizer["Choose from a variety of pre-set colors to customize your notification window."]</p>
+					<p>@Localizer["Choose from a variety of pre-set color..."]</p>
 					<a href="index" class="stretched-link"></a>
 				</div>
 			</div><!-- End Service Item -->
@@ -174,9 +185,9 @@
 				<div class="service-item position-relative">
 					<img class="w-100 p-1" src="~/images/mv-link-en.png" />
 					<a href="index" class="stretched-link">
-						<h3>@Localizer["Integrated reader"]</h3>
+						<h3>@Localizer["Virtual book"]</h3>
 					</a>
-					<p>@Localizer["Click the chapter and verse to open a simplified reader if you want to get more context for the verse."]</p>
+					<p>@Localizer["Click the chapter and verse to open a simplified reader..."]</p>
 					<a href="index" class="stretched-link"></a>
 				</div>
 			</div><!-- End Service Item -->
@@ -187,7 +198,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Pinnable notification"]</h3>
 					</a>
-					<p>@Localizer["If you prefer, the notification window can be pinned on the desktop on top of other applications."]</p>
+					<p>@Localizer["If you prefer, the notification window..."]</p>
 					<a href="index" class="stretched-link"></a>
 				</div>
 			</div><!-- End Service Item -->
@@ -200,7 +211,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Integrated editor"]</h3>
 					</a>
-					<p>@Localizer["Create and edit your own collections using the integrated editor. You can add new translations, with books and chapters or create simplified collections of your favourite verses."]</p>
+					<p>@Localizer["Create and edit your own collections using the integrated editor..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -212,7 +223,7 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Select your favourites"]</h3>
 					</a>
-					<p>@Localizer["You can select your favourite chapters or books or collections from which you want notifications."]</p>
+					<p>@Localizer["You can select your favourite chapters or books..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
@@ -224,14 +235,13 @@
 					<a href="index" class="stretched-link">
 						<h3>@Localizer["Share or import collections"]</h3>
 					</a>
-					<p>@Localizer["Share your private collections with other people directly from the application. You can import or export any custom collections as files."]</p>
+					<p>@Localizer["Share your private collections..."]</p>
 				</div>
 			</div><!-- End Service Item -->
 
 		</div>
 	</div>
 </section><!-- /Services Section -->
-
 <!-- Call To Action Section -->
 <section id="call-to-action" class="call-to-action section accent-background">
 
@@ -240,7 +250,7 @@
 			<div class="col-xl-10">
 				<div class="text-center">
 					<h3>@Localizer["Download now"]</h3>
-					<p>@Localizer["Try it out and see if you like it. Run the installer once it's downloaded to install the application. Run through the welcome setup and you're good to go!"]</p>
+					<p>@Localizer["Try it out and see if you like it..."]</p>
 					@if (Model.IsDownloadAvailable)
 					{
 						<a asp-page-handler="DownloadApp" class="cta-btn"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>

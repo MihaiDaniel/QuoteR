@@ -115,4 +115,148 @@
   <data name="French" xml:space="preserve">
     <value>Français</value>
   </data>
+  <data name="Build wisdom one verse at a time" xml:space="preserve">
+    <value>Construisez la sagesse un verset à la fois</value>
+  </data>
+  <data name="Remind yourself..." xml:space="preserve">
+    <value>Rappelez-vous de faire une pause dans votre tâche et de lire un peu d’Écriture avec Minute Verse !</value>
+  </data>
+  <data name="Lots of customization options..." xml:space="preserve">
+    <value>De nombreuses options de personnalisation. Faites défiler la page pour plus d'informations ou cliquez sur le bouton ci-dessous pour télécharger la dernière version. Disponible gratuitement.</value>
+  </data>
+  <data name="Download unavailable at this time" xml:space="preserve">
+    <value>Téléchargement indisponible pour le moment</value>
+  </data>
+  <data name="Download for Windows" xml:space="preserve">
+    <value>Télécharger pour Windows</value>
+  </data>
+  <data name="Periodic notifications" xml:space="preserve">
+    <value>Notifications périodiques</value>
+  </data>
+  <data name="Receive regular notifications..." xml:space="preserve">
+    <value>Recevez régulièrement des notifications sur vos versets préférés. Plusieurs options de personnalisation sont disponibles.</value>
+  </data>
+  <data name="Collections editor" xml:space="preserve">
+    <value>Éditeur de collections</value>
+  </data>
+  <data name="Create and edit your own..." xml:space="preserve">
+    <value>Créez et modifiez vos propres collections directement depuis l'application.</value>
+  </data>
+  <data name="Export and import" xml:space="preserve">
+    <value>Exportation et importation</value>
+  </data>
+  <data name="Export your created collections..." xml:space="preserve">
+    <value>Exportez vos collections créées ou importez des collections créées par d'autres personnes.</value>
+  </data>
+  <data name="Who is this for" xml:space="preserve">
+    <value>À qui s'adresse-t-il</value>
+  </data>
+  <data name="Do you work on your PC or laptop?" xml:space="preserve">
+    <value>Travaillez-vous sur votre PC ou votre ordinateur portable ?</value>
+  </data>
+  <data name="Then Minute Verse is for you..." xml:space="preserve">
+    <value>Alors Minute Verse est fait pour vous. Une application simple qui vous rappelle de faire une pause et de vous plonger dans la sagesse de la Bible.</value>
+  </data>
+  <data name="Here are some ways you can use the app:" xml:space="preserve">
+    <value>Voici quelques façons d’utiliser l’application :</value>
+  </data>
+  <data name="As a reminder..." xml:space="preserve">
+    <value>Pour vous rappeler de faire une pause dans votre travail</value>
+  </data>
+  <data name="Learning little by little..." xml:space="preserve">
+    <value>Apprendre petit à petit des versets de la Bible</value>
+  </data>
+  <data name="A tool to help you memorize..." xml:space="preserve">
+    <value>Un outil pour vous aider à mémoriser certains de vos versets préférés en les répétant tout au long de la journée</value>
+  </data>
+  <data name="Create your own collection..." xml:space="preserve">
+    <value>Créez votre propre collection de versets ou de citations préférées dont vous souhaitez vous souvenir</value>
+  </data>
+  <data name="Easy to install and use as is..." xml:space="preserve">
+    <value>Facile à installer et à utiliser. Actuellement disponible pour Windows 10 et 11.</value>
+  </data>
+  <data name="Downloads" xml:space="preserve">
+    <value>Téléchargements</value>
+  </data>
+  <data name="Bible translations" xml:space="preserve">
+    <value>traductions de la Bible</value>
+  </data>
+  <data name="See below all of the features of the application" xml:space="preserve">
+    <value>Voir ci-dessous toutes les fonctionnalités de l'application</value>
+  </data>
+  <data name="You can customize the intervals..." xml:space="preserve">
+    <value>Vous pouvez personnaliser les intervalles auxquels les notifications doivent apparaître et la durée pendant laquelle elles doivent rester à l'écran.</value>
+  </data>
+  <data name="Scrollable" xml:space="preserve">
+    <value>Défilable</value>
+  </data>
+  <data name="Scroll to the next or previous verses..." xml:space="preserve">
+    <value>Faites défiler rapidement les versets suivants ou précédents du même livre à partir de la fenêtre de notification</value>
+  </data>
+  <data name="Customizable opactity" xml:space="preserve">
+    <value>Opacité personnalisable</value>
+  </data>
+  <data name="Make the notification window..." xml:space="preserve">
+    <value>Rendre la fenêtre de notification plus ou moins transparente selon vos préférences</value>
+  </data>
+  <data name="Multiple color themes" xml:space="preserve">
+    <value>Plusieurs thèmes de couleurs</value>
+  </data>
+  <data name="Choose from a variety of pre-set color..." xml:space="preserve">
+    <value>Choisissez parmi une variété de couleurs prédéfinies pour personnaliser votre fenêtre de notification.</value>
+  </data>
+  <data name="Virtual book" xml:space="preserve">
+    <value>Livre virtuel</value>
+  </data>
+  <data name="Click the chapter and verse to open a simplified reader..." xml:space="preserve">
+    <value>Cliquez sur le chapitre et le verset pour ouvrir un livre virtuel simplifié si vous souhaitez obtenir plus de contexte pour le verset.</value>
+  </data>
+  <data name="Pinnable notification" xml:space="preserve">
+    <value>Notification épinglable</value>
+  </data>
+  <data name="If you prefer, the notification window..." xml:space="preserve">
+    <value>Si vous préférez, la fenêtre de notification peut être épinglée sur le bureau au-dessus d'autres applications.</value>
+  </data>
+  <data name="Integrated editor" xml:space="preserve">
+    <value>Éditeur intégré</value>
+  </data>
+  <data name="Create and edit your own collections using the integrated editor..." xml:space="preserve">
+    <value>Créez et modifiez vos propres recueils grâce à l'éditeur intégré. Vous pouvez ajouter de nouvelles traductions, avec des livres et des chapitres, ou créer des recueils simplifiés de vos vers préférés.</value>
+  </data>
+  <data name="Select your favourites" xml:space="preserve">
+    <value>Sélectionnez vos favoris</value>
+  </data>
+  <data name="You can select your favourite chapters or books..." xml:space="preserve">
+    <value>Vous pouvez sélectionner vos chapitres, livres ou collections préférés pour lesquels vous souhaitez recevoir des notifications.</value>
+  </data>
+  <data name="Share or import collections" xml:space="preserve">
+    <value>Partager ou importer des collections</value>
+  </data>
+  <data name="Share your private collections..." xml:space="preserve">
+    <value>Partagez vos collections privées avec d'autres personnes directement depuis l'application. Vous pouvez importer ou exporter vos collections personnalisées sous forme de fichiers.</value>
+  </data>
+  <data name="Download now" xml:space="preserve">
+    <value>Télécharger maintenant</value>
+  </data>
+  <data name="Try it out and see if you like it..." xml:space="preserve">
+    <value>Essayez-le et voyez si vous l'appréciez. Une fois téléchargé, lancez l'installateur pour installer l'application. Suivez la procédure de bienvenue et c'est parti !</value>
+  </data>
+  <data name="Build faith" xml:space="preserve">
+    <value>Construire la foi</value>
+  </data>
+  <data name="One verse at a time." xml:space="preserve">
+    <value>Un verset à la fois.</value>
+  </data>
+  <data name="Keep this Book of the Law always..." xml:space="preserve">
+    <value>Que ce livre de la loi ne s`éloigne point de ta bouche; médite-le jour et nuit, pour agir fidèlement selon tout ce qui y est écrit; car c`est alors que tu auras du succès dans tes entreprises, c`est alors que tu réussiras.</value>
+  </data>
+  <data name="Joshua 1:8" xml:space="preserve">
+    <value>Josué 1:8</value>
+  </data>
+  <data name="All Rights Reserved" xml:space="preserve">
+    <value>Tous droits réservés</value>
+  </data>
+  <data name="Useful links" xml:space="preserve">
+    <value>Liens utiles</value>
+  </data>
 </root>

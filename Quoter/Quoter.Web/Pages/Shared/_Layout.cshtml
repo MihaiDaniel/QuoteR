@@ -4,6 +4,7 @@
 @using Quoter.Web.Data.Entities;
 @using Quoter.Web.Services;
 @using System.Security.Claims
+@using System.Reflection
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IStringLocalizer<SharedResource> Localizer
@@ -16,6 +17,8 @@
 	{
 		culture = requestCultureFeature.RequestCulture.Culture.Name;
 	}
+
+	string version = Assembly.GetExecutingAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "0.0.0.0";
 }
 
 <!DOCTYPE html>
@@ -83,16 +86,20 @@
 							</a>
 							<ul>
 								<form method="post">
-								<li>
-									<form class="form-inline" method="post">
-										<button class="btn text-danger" asp-page="/Index" asp-page-handler="Logout" type="submit">Logout</button>
-									</form>
-								</li>
+									<li>
+										<form class="form-inline" method="post">
+											<button class="btn text-danger" asp-page="/Index" asp-page-handler="Logout" type="submit">Logout</button>
+										</form>
+									</li>
 								</form>
 							</ul>
 						</li>
 					}
 					<li class="dropdown">@await Html.PartialAsync("_SetCulturePartial", new { culture, returnUrl })</li>
+					@if (SignInManager.IsSignedIn(User))
+					{
+						<p class="text-secondary mt-3">@version</p>
+					}
 				</ul>
 				<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 			</nav>
@@ -114,33 +121,47 @@
 						<span class="sitename">Minute Verse</span>
 					</a>
 					<div class="footer-contact pt-3">
-						<p>Build faith...</p>
-						<p>One verse at a time.</p>
+						<p>@Localizer["Build faith"]</p>
+						<p>@Localizer["One verse at a time."]</p>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-3 footer-links">
-					<h4></h4>
+					<h4>@Localizer["Useful links"]</h4>
 					<ul>
-						<li><i class="bi bi-chevron-right"></i> <a href="#"></a></li>
+						@switch (culture)
+						{
+							case "en-US":
+								<li><i class="bi bi-chevron-right"></i> <a href="https://www.biblegateway.com/">Bible Gateway</a></li>
+								break;
+							case "fr-FR":
+								<li><i class="bi bi-chevron-right"></i> <a href="https://www.bibliacatolica.com.br/">Biblia</a></li>
+								break;
+							case "ro-RO":
+								<li><i class="bi bi-chevron-right"></i> <a href="https://ebiblia.ro/">eBiblia</a></li>
+								<li><i class="bi bi-chevron-right"></i> <a href="https://doxologia.ro/">Doxologia</a></li>
+								<li><i class="bi bi-chevron-right"></i> <a href="https://www.bibliaortodoxa.ro/">Biblia ortodxă</a></li>
+								<li><i class="bi bi-chevron-right"></i> <a href="https://www.resursecrestine.ro/">Resurse Creștine</a></li>
+								break;
+						}
 					</ul>
 				</div>
 
 				<div class="col-lg-2 col-md-3 footer-links">
 					<h4></h4>
 					<ul>
-						<li><i class="bi bi-chevron-right"></i> <a href="#"></a></li>
+						@* <li><i class="bi bi-chevron-right"></i> <a href="#"></a></li> *@
 					</ul>
 				</div>
 
 				<div class="col-lg-4 col-md-12">
-					<h4>Joshua 1:8</h4>
-					<p>Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful.</p>
+					<h4>@Localizer["Joshua 1:8"]</h4>
+					<p>@Localizer["Keep this Book of the Law always..."]</p>
 				</div>
 			</div>
 		</div>
 
 		<div class="container copyright text-center mt-4">
-			<p>© <span>Copyright</span> <strong class="px-1 sitename">Minute Verse</strong> <span> @DateTime.Now.Year All Rights Reserved</span></p>
+			<p>© <span>Copyright</span> <strong class="px-1 sitename">Minute Verse</strong> <span> @DateTime.Now.Year @Localizer["All Rights Reserved"]</span></p>
 			<div class="credits">
 				<!-- All the links in the footer should remain intact. -->
 				<!-- You can delete the links only if you've purchased the pro version. -->

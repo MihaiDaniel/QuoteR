@@ -31,6 +31,8 @@ namespace Quoter.Web.Pages
 		/// </summary>
 		public int DownloadsCount { get; set; } = 0;
 
+		public string CurrentCulture { get; set; } = "en-US";
+
 		public IndexModel(
 			ILoggerFactory loggerFactory,
 			ApplicationDbContext context,
@@ -45,6 +47,8 @@ namespace Quoter.Web.Pages
 
 		public async Task OnGet()
 		{
+			CurrentCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture.Name ?? "en-US";
+
 			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync("IsDownloadAvailable",
 				async entry =>
 			{

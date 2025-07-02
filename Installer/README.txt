@@ -1,3 +1,4 @@
+For Desktop application:
 To quickly create update packages use the python scripts:
 There are 4 versions:
 For \bin\Debug

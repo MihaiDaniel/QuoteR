@@ -187,4 +187,145 @@
   <data name="ViewAndManageApplicationKeys" xml:space="preserve">
     <value>View and manage application keys</value>
   </data>
+  <data name="Build wisdom one verse at a time" xml:space="preserve">
+    <value>Build wisdom one verse at a time</value>
+  </data>
+  <data name="Remind yourself..." xml:space="preserve">
+    <value>Remind yourself to take a break from your task and read a bit of scripture with Minute Verse!</value>
+  </data>
+  <data name="Lots of customization options..." xml:space="preserve">
+    <value>Lots of customization options. Scroll down for more information, or click the button below to download the latest version. Available for free.</value>
+  </data>
+  <data name="Download unavailable at this time" xml:space="preserve">
+    <value>Download unavailable at this time</value>
+  </data>
+  <data name="Download for Windows" xml:space="preserve">
+    <value>Download for Windows</value>
+  </data>
+  <data name="Periodic notifications" xml:space="preserve">
+    <value>Periodic notifications</value>
+  </data>
+  <data name="Receive regular notifications..." xml:space="preserve">
+    <value>Receive regular notifications about your favourite verses. Various customization options available.</value>
+  </data>
+  <data name="Collections editor" xml:space="preserve">
+    <value>Collections editor</value>
+  </data>
+  <data name="Create and edit your own..." xml:space="preserve">
+    <value>Create and edit your own collections directly from the application.</value>
+  </data>
+  <data name="Export and import" xml:space="preserve">
+    <value>Export and import</value>
+  </data>
+  <data name="Export your created collections..." xml:space="preserve">
+    <value>Export your created collections or import collections created by other people.</value>
+  </data>
+  <data name="Who is this for" xml:space="preserve">
+    <value>Who is this for</value>
+  </data>
+  <data name="Do you work on your PC or laptop?" xml:space="preserve">
+    <value>Do you work on your PC or laptop?</value>
+  </data>
+  <data name="Then Minute Verse is for you..." xml:space="preserve">
+    <value>Then Minute Verse is for you. A simple application that acts as a reminder to take a break from work and take a short dive in the wisdom of the Bible.</value>
+  </data>
+  <data name="Here are some ways you can use the app:" xml:space="preserve">
+    <value>Here are some ways you can use the app:</value>
+  </data>
+  <data name="As a reminder..." xml:space="preserve">
+    <value>As a reminder to take a break from your work</value>
+  </data>
+  <data name="Learning little by little..." xml:space="preserve">
+    <value>Learning little by little verses from the Bible</value>
+  </data>
+  <data name="A tool to help you memorize..." xml:space="preserve">
+    <value>A tool to help you memorize some of your favourite verses using repetition throughout the day</value>
+  </data>
+  <data name="Create your own collection..." xml:space="preserve">
+    <value>Create your own collection of verses or favourite quotes you want to remind yourself of</value>
+  </data>
+  <data name="Easy to install and use as is..." xml:space="preserve">
+    <value>Easy to install and use as is. Currently available for Windows 10 and 11.</value>
+  </data>
+  <data name="Bible translations" xml:space="preserve">
+    <value>Bible translations</value>
+  </data>
+  <data name="See below all of the features of the application" xml:space="preserve">
+    <value>See below all of the features of the application</value>
+  </data>
+  <data name="You can customize the intervals..." xml:space="preserve">
+    <value>You can customize the intervals when the notifications should appear and for how much time they should stay on screen.</value>
+  </data>
+  <data name="Scrollable" xml:space="preserve">
+    <value>Scrollable</value>
+  </data>
+  <data name="Scroll to the next or previous verses..." xml:space="preserve">
+    <value>Scroll to the next or previous verses in the same book quickly from the notification window</value>
+  </data>
+  <data name="Customizable opactity" xml:space="preserve">
+    <value>Customizable opactity</value>
+  </data>
+  <data name="Make the notification window..." xml:space="preserve">
+    <value>Make the notification window more or less transparent depending on your preferences</value>
+  </data>
+  <data name="Multiple color themes" xml:space="preserve">
+    <value>Multiple color themes</value>
+  </data>
+  <data name="Choose from a variety of pre-set color..." xml:space="preserve">
+    <value>Choose from a variety of pre-set colors to customize your notification window.</value>
+  </data>
+  <data name="Virtual book" xml:space="preserve">
+    <value>Virtual book</value>
+  </data>
+  <data name="Click the chapter and verse to open a simplified reader..." xml:space="preserve">
+    <value>Click the chapter and verse to open a simplified virtual book if you want to get more context for the verse.</value>
+  </data>
+  <data name="Pinnable notification" xml:space="preserve">
+    <value>Pinnable notification</value>
+  </data>
+  <data name="If you prefer, the notification window..." xml:space="preserve">
+    <value>If you prefer, the notification window can be pinned on the desktop on top of other applications.</value>
+  </data>
+  <data name="Integrated editor" xml:space="preserve">
+    <value>Integrated editor</value>
+  </data>
+  <data name="Create and edit your own collections using the integrated editor..." xml:space="preserve">
+    <value>Create and edit your own collections using the integrated editor. You can add new translations, with books and chapters or create simplified collections of your favourite verses.</value>
+  </data>
+  <data name="Select your favourites" xml:space="preserve">
+    <value>Select your favourites</value>
+  </data>
+  <data name="You can select your favourite chapters or books..." xml:space="preserve">
+    <value>You can select your favourite chapters or books or collections from which you want notifications.</value>
+  </data>
+  <data name="Share or import collections" xml:space="preserve">
+    <value>Share or import collections</value>
+  </data>
+  <data name="Share your private collections..." xml:space="preserve">
+    <value>Share your private collections with other people directly from the application. You can import or export any custom collections as files.</value>
+  </data>
+  <data name="Download now" xml:space="preserve">
+    <value>Download now</value>
+  </data>
+  <data name="Try it out and see if you like it..." xml:space="preserve">
+    <value>Try it out and see if you like it. Run the installer once it's downloaded to install the application. Run through the welcome setup and you're good to go!</value>
+  </data>
+  <data name="Build faith" xml:space="preserve">
+    <value>Build faith</value>
+  </data>
+  <data name="One verse at a time." xml:space="preserve">
+    <value>One verse at a time.</value>
+  </data>
+  <data name="Joshua 1:8" xml:space="preserve">
+    <value>Joshua 1:8</value>
+  </data>
+  <data name="Keep this Book of the Law always..." xml:space="preserve">
+    <value>Keep this Book of the Law always on your lips; meditate on it day and night, so that you may be careful to do everything written in it. Then you will be prosperous and successful.</value>
+  </data>
+  <data name="All Rights Reserved" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="Useful links" xml:space="preserve">
+    <value>Useful links</value>
+  </data>
 </root>
