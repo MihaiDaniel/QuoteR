@@ -8,6 +8,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IStringLocalizer<SharedResource> Localizer
+@inject Services.VersionProvider VersionProvider
 
 @{
 	string returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
@@ -18,7 +19,7 @@
 		culture = requestCultureFeature.RequestCulture.Culture.Name;
 	}
 
-	string version = Assembly.GetExecutingAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "0.0.0.0";
+	//string version = Assembly.GetExecutingAssembly()?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version ?? "0.0.0.0";
 }
 
 <!DOCTYPE html>
@@ -98,7 +99,7 @@
 					<li class="dropdown">@await Html.PartialAsync("_SetCulturePartial", new { culture, returnUrl })</li>
 					@if (SignInManager.IsSignedIn(User))
 					{
-						<p class="text-secondary mt-3">@version</p>
+						<p class="text-secondary mt-3">@VersionProvider.Version</p>
 					}
 				</ul>
 				<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

@@ -145,6 +145,7 @@ try
 	builder.Services.Configure<UsersConfiguration>(builder.Configuration.GetSection(UsersConfiguration.JsonKey));
 	builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 	builder.Services.AddScoped<IAppVersionService, AppVersionService>();
+	builder.Services.AddSingleton<VersionProvider>();
 
 	#endregion Quoter.Web services
 
