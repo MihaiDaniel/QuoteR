@@ -54,7 +54,7 @@
 	<link href="~/lib/enno/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
 	<link href="~/css/enno.css" rel="stylesheet" />
-
+	<script src="~/js/scrambler.js"></script>
 </head>
 <body class="index-page">
 
@@ -69,9 +69,9 @@
 
 			<nav id="navmenu" class="navmenu">
 				<ul>
-					<li><a href="#home" class="active">@Localizer["Home"]</a></li>
-					<li><a href="#about">@Localizer["About"]</a></li>
-					<li><a href="#features">@Localizer["Features"]</a></li>
+					<li><a asp-page="/Index" asp-fragment="home" class="active">@Localizer["Home"]</a></li>
+					<li><a asp-page="/Index" asp-fragment="about" class="active">@Localizer["About"]</a></li>
+					<li><a asp-page="/Index" asp-fragment="features" class="active">@Localizer["Features"]</a></li>
 					@if (SignInManager.IsSignedIn(User))
 					{
 						<li><a asp-page="/AdminDashboard/Index"><i class="bi bi-table m-1"></i>@Localizer["Admin Dashboard"]</a></li>
@@ -86,11 +86,11 @@
 							</a>
 							<ul>
 								<form method="post">
-									<li>
-										<form class="form-inline" method="post">
-											<button class="btn text-danger" asp-page="/Index" asp-page-handler="Logout" type="submit">Logout</button>
-										</form>
-									</li>
+								<li>
+									<form class="form-inline" method="post">
+										<button class="btn text-danger" asp-page="/Index" asp-page-handler="Logout" type="submit">Logout</button>
+									</form>
+								</li>
 								</form>
 							</ul>
 						</li>
@@ -147,9 +147,9 @@
 				</div>
 
 				<div class="col-lg-2 col-md-3 footer-links">
-					<h4></h4>
+					<h4>@Localizer["AboutUs"]</h4>
 					<ul>
-						@* <li><i class="bi bi-chevron-right"></i> <a href="#"></a></li> *@
+						<li><i class="bi bi-chevron-right"></i><a asp-page="Privacy">@Localizer["PrivacyPolicy"]</a></li>
 					</ul>
 				</div>
 

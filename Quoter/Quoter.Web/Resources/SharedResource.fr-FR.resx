@@ -259,4 +259,52 @@
   <data name="Useful links" xml:space="preserve">
     <value>Liens utiles</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+  <value>Politique de confidentialité</value>
+</data>
+  <data name="Privacy Policy for Minuteverse.eu" xml:space="preserve">
+  <value>Politique de confidentialité de Minuteverse.eu</value>
+</data>
+  <data name="Last updated: {0}" xml:space="preserve">
+  <value>Dernière mise à jour : {0}</value>
+</data>
+  <data name="At Minuteverse.eu, we respect your privacy and are committed to protecting it. This policy explains what information we collect and how we use it." xml:space="preserve">
+  <value>Chez Minuteverse.eu, nous respectons votre vie privée et nous nous engageons à la protéger. Cette politique explique quelles informations nous collectons et comment nous les utilisons.</value>
+</data>
+  <data name="Information We Collect" xml:space="preserve">
+  <value>Informations que nous collectons</value>
+</data>
+  <data name="We do not collect or request any personal or identifiable information from our users." xml:space="preserve">
+  <value>Nous ne collectons ni ne demandons aucune information personnelle ou identifiable auprès de nos utilisateurs.</value>
+</data>
+  <data name="The only information we collect is your IP address, which is used solely to count unique visitors to the website. This information is not used to identify you personally and is not linked to any other data." xml:space="preserve">
+  <value>La seule information que nous collectons est votre adresse IP, utilisée uniquement pour compter les visiteurs uniques du site. Cette information n'est pas utilisée pour vous identifier personnellement et n'est liée à aucune autre donnée.</value>
+</data>
+  <data name="How We Use Your Information" xml:space="preserve">
+  <value>Comment nous utilisons vos informations</value>
+</data>
+  <data name="The IP address is used exclusively for statistical purposes to determine the number of unique visitors. We do not use this information for marketing, profiling, or sharing with third parties, except as required by law." xml:space="preserve">
+  <value>L'adresse IP est utilisée exclusivement à des fins statistiques pour déterminer le nombre de visiteurs uniques. Nous n'utilisons pas ces informations à des fins de marketing, de profilage ou de partage avec des tiers, sauf si la loi l'exige.</value>
+</data>
+  <data name="Data Security" xml:space="preserve">
+  <value>Sécurité des données</value>
+</data>
+  <data name="We take appropriate technical and organizational measures to protect the limited data we collect." xml:space="preserve">
+  <value>Nous prenons des mesures techniques et organisationnelles appropriées pour protéger les données limitées que nous collectons.</value>
+</data>
+  <data name="Your Rights" xml:space="preserve">
+  <value>Vos droits</value>
+</data>
+  <data name="As no personal data is collected, there are no personal records to access, modify, or delete. If you have any concerns, you may contact us at:" xml:space="preserve">
+  <value>Aucune donnée personnelle n'étant collectée, il n'y a aucun enregistrement personnel à consulter, modifier ou supprimer. Si vous avez des questions, vous pouvez nous contacter à :</value>
+</data>
+  <data name="Changes to This Policy" xml:space="preserve">
+  <value>Modifications de cette politique</value>
+</data>
+  <data name="We may update this policy from time to time. Any changes will be posted on this page with an updated date." xml:space="preserve">
+  <value>Nous pouvons mettre à jour cette politique de temps à autre. Toute modification sera publiée sur cette page avec une date de mise à jour.</value>
+</data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>À propos de nous</value>
+  </data>
 </root>

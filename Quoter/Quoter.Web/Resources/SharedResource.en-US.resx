@@ -328,4 +328,52 @@
   <data name="Useful links" xml:space="preserve">
     <value>Useful links</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+  <value>Privacy Policy</value>
+</data>
+  <data name="Privacy Policy for Minuteverse.eu" xml:space="preserve">
+  <value>Privacy Policy for Minuteverse.eu</value>
+</data>
+  <data name="Last updated: {0}" xml:space="preserve">
+  <value>Last updated: {0}</value>
+</data>
+  <data name="At Minuteverse.eu, we respect your privacy and are committed to protecting it. This policy explains what information we collect and how we use it." xml:space="preserve">
+  <value>At Minuteverse.eu, we respect your privacy and are committed to protecting it. This policy explains what information we collect and how we use it.</value>
+</data>
+  <data name="Information We Collect" xml:space="preserve">
+  <value>Information We Collect</value>
+</data>
+  <data name="We do not collect or request any personal or identifiable information from our users." xml:space="preserve">
+  <value>We do not collect or request any personal or identifiable information from our users.</value>
+</data>
+  <data name="The only information we collect is your IP address, which is used solely to count unique visitors to the website. This information is not used to identify you personally and is not linked to any other data." xml:space="preserve">
+  <value>The only information we collect is your IP address, which is used solely to count unique visitors to the website. This information is not used to identify you personally and is not linked to any other data.</value>
+</data>
+  <data name="How We Use Your Information" xml:space="preserve">
+  <value>How We Use Your Information</value>
+</data>
+  <data name="The IP address is used exclusively for statistical purposes to determine the number of unique visitors. We do not use this information for marketing, profiling, or sharing with third parties, except as required by law." xml:space="preserve">
+  <value>The IP address is used exclusively for statistical purposes to determine the number of unique visitors. We do not use this information for marketing, profiling, or sharing with third parties, except as required by law.</value>
+</data>
+  <data name="Data Security" xml:space="preserve">
+  <value>Data Security</value>
+</data>
+  <data name="We take appropriate technical and organizational measures to protect the limited data we collect." xml:space="preserve">
+  <value>We take appropriate technical and organizational measures to protect the limited data we collect.</value>
+</data>
+  <data name="Your Rights" xml:space="preserve">
+  <value>Your Rights</value>
+</data>
+  <data name="As no personal data is collected, there are no personal records to access, modify, or delete. If you have any concerns, you may contact us at:" xml:space="preserve">
+  <value>As no personal data is collected, there are no personal records to access, modify, or delete. If you have any concerns, you may contact us at:</value>
+</data>
+  <data name="Changes to This Policy" xml:space="preserve">
+  <value>Changes to This Policy</value>
+</data>
+  <data name="We may update this policy from time to time. Any changes will be posted on this page with an updated date." xml:space="preserve">
+  <value>We may update this policy from time to time. Any changes will be posted on this page with an updated date.</value>
+</data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About us</value>
+  </data>
 </root>

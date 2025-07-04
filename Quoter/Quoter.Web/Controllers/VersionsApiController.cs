@@ -48,6 +48,12 @@ namespace Quoter.Web.Controllers
 						.Select(v => new QuoterVersionInfo(v.PublicId, v.Version))
 						.ToListAsync();
 
+					if(lstAllReleasedUpdates.Count == 0)
+					{
+						_logger.LogWarning("An attempt was made to get the latest version info, but no updates were found.");
+						return NotFound("No updates available");
+					}
+
 					// Normally newer versions should be added lastly, but just in case we compare them
 					QuoterVersionInfo latestVersion = lstAllReleasedUpdates.Last();
 					foreach (var versionToCompare in lstAllReleasedUpdates)

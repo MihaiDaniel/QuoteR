@@ -1,8 +1,45 @@
 ﻿@page
 @model PrivacyModel
+@inject IStringLocalizer<SharedResource> Localizer
 @{
-    ViewData["Title"] = "Privacy Policy";
+	ViewData["Title"] = Localizer["PrivacyPolicy"];
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container">
+	<div class="row gy-4">
+		<h1>@Localizer["Privacy Policy for Minuteverse.eu"]</h1>
+		<h5>@Localizer["Last updated: {0}", "04/07/2025"]</h5>
+		<p>
+			@Localizer["At Minuteverse.eu, we respect your privacy and are committed to protecting it. This policy explains what information we collect and how we use it."]
+		</p>
+	</div>
+	<div class="row gy-4">
+		<h2>@Localizer["Information We Collect"]</h2>
+		<p>
+			@Localizer["We do not collect or request any personal or identifiable information from our users."]
+		</p>
+		<p>
+			@Localizer["The only information we collect is your IP address, which is used solely to count unique visitors to the website. This information is not used to identify you personally and is not linked to any other data."]
+		</p>
+
+		<h2>@Localizer["How We Use Your Information"]</h2>
+		<p>
+			@Localizer["The IP address is used exclusively for statistical purposes to determine the number of unique visitors. We do not use this information for marketing, profiling, or sharing with third parties, except as required by law."]
+		</p>
+
+		<h2>@Localizer["Data Security"]</h2>
+		<p>
+			@Localizer["We take appropriate technical and organizational measures to protect the limited data we collect."]
+		</p>
+
+		<h2>@Localizer["Your Rights"]</h2>
+		<p>
+			@Localizer["As no personal data is collected, there are no personal records to access, modify, or delete. If you have any concerns, you may contact us at:"] <script type="text/javascript">scrambleIt("minuteverse","contact");</script>
+		</p>
+
+		<h2>@Localizer["Changes to This Policy"]</h2>
+		<p>
+			@Localizer["We may update this policy from time to time. Any changes will be posted on this page with an updated date."]
+		</p>
+	</div>
+</div>

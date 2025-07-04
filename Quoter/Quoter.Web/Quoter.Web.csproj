@@ -50,4 +50,9 @@
 		<EmbeddedResourceUseDependentUponConvention>false</EmbeddedResourceUseDependentUponConvention>
 		<FileVersion>0.2.0.0</FileVersion>
 	</PropertyGroup>
+
+	<Target Name="PostPublishVersioning" AfterTargets="Publish">
+		<Exec Command="pwsh ../web-bump-version.ps1" />
+	</Target>
+
 </Project>

@@ -328,4 +328,52 @@
   <data name="Useful links" xml:space="preserve">
     <value>Linkuri utile</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+  <value>Politica de confidențialitate</value>
+</data>
+  <data name="Privacy Policy for Minuteverse.eu" xml:space="preserve">
+  <value>Politica de confidențialitate pentru Minuteverse.eu</value>
+</data>
+  <data name="Last updated: {0}" xml:space="preserve">
+  <value>Ultima actualizare: {0}</value>
+</data>
+  <data name="At Minuteverse.eu, we respect your privacy and are committed to protecting it. This policy explains what information we collect and how we use it." xml:space="preserve">
+  <value>La Minuteverse.eu, vă respectăm confidențialitatea și ne angajăm să o protejăm. Această politică explică ce informații colectăm și cum le folosim.</value>
+</data>
+  <data name="Information We Collect" xml:space="preserve">
+  <value>Informații pe care le colectăm</value>
+</data>
+  <data name="We do not collect or request any personal or identifiable information from our users." xml:space="preserve">
+  <value>Nu colectăm și nu solicităm nicio informație personală sau identificabilă de la utilizatorii noștri.</value>
+</data>
+  <data name="The only information we collect is your IP address, which is used solely to count unique visitors to the website. This information is not used to identify you personally and is not linked to any other data." xml:space="preserve">
+  <value>Singura informație pe care o colectăm este adresa dumneavoastră IP, folosită exclusiv pentru a număra vizitatorii unici ai site-ului. Această informație nu este folosită pentru a vă identifica personal și nu este asociată cu alte date.</value>
+</data>
+  <data name="How We Use Your Information" xml:space="preserve">
+  <value>Cum folosim informațiile dumneavoastră</value>
+</data>
+  <data name="The IP address is used exclusively for statistical purposes to determine the number of unique visitors. We do not use this information for marketing, profiling, or sharing with third parties, except as required by law." xml:space="preserve">
+  <value>Adresa IP este folosită exclusiv în scopuri statistice pentru a determina numărul de vizitatori unici. Nu folosim aceste informații pentru marketing, profilare sau partajare cu terți, cu excepția cazurilor prevăzute de lege.</value>
+</data>
+  <data name="Data Security" xml:space="preserve">
+  <value>Securitatea datelor</value>
+</data>
+  <data name="We take appropriate technical and organizational measures to protect the limited data we collect." xml:space="preserve">
+  <value>Luăm măsuri tehnice și organizatorice adecvate pentru a proteja datele limitate pe care le colectăm.</value>
+</data>
+  <data name="Your Rights" xml:space="preserve">
+  <value>Drepturile dumneavoastră</value>
+</data>
+  <data name="As no personal data is collected, there are no personal records to access, modify, or delete. If you have any concerns, you may contact us at:" xml:space="preserve">
+  <value>Deoarece nu se colectează date personale, nu există înregistrări personale de accesat, modificat sau șters. Dacă aveți întrebări, ne puteți contacta la:</value>
+</data>
+  <data name="Changes to This Policy" xml:space="preserve">
+  <value>Modificări ale acestei politici</value>
+</data>
+  <data name="We may update this policy from time to time. Any changes will be posted on this page with an updated date." xml:space="preserve">
+  <value>Putem actualiza această politică periodic. Orice modificare va fi publicată pe această pagină cu data actualizată.</value>
+</data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>Despre noi</value>
+  </data>
 </root>
