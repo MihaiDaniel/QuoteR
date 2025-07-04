@@ -14,6 +14,8 @@ using Serilog;
 using Serilog.Events;
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Builder;
+using System.Net;
 
 string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter");
 string sqliteDbName = "quoter.web.db";
@@ -172,16 +174,23 @@ try
 		app.UseHsts();
 	}
 	app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
-	app.UseForwardedHeaders(new ForwardedHeadersOptions
-	{
-		ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-		ForwardedHeaders.XForwardedProto
-	});
+	
 
 	app.UseHttpsRedirection();
 	app.UseStaticFiles();
 
 	app.UseRouting();
+
+	// Set the forwared headers to get real IP from Nginx
+	ForwardedHeadersOptions forwardedHeadersOptions = new ()
+	{
+		ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+	};
+	// Trust the Docker bridge network and Nginx proxy's IP by default so forwared headers will work
+	forwardedHeadersOptions.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("172.17.0.0"), 16));
+	forwardedHeadersOptions.KnownProxies.Add(IPAddress.Parse("172.17.0.1"));
+
+	app.UseForwardedHeaders(forwardedHeadersOptions);
 
 	app.UseAuthentication();
 	app.UseAuthorization();
