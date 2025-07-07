@@ -39,7 +39,7 @@ jobs:
       run: ls -lR
 
     - name: Publish .NET 6 app
-      run: dotnet publish QuoteR/Quoter/Quoter.Web/Quoter.Web.csproj -c Release -o publish
+      run: dotnet publish Quoter/Quoter.Web/Quoter.Web.csproj -c Release -o publish
 
     - name: Build Docker image from publish directory
       run: |
