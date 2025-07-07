@@ -36,7 +36,7 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Publish .NET 6 app
-      run: dotnet publish -c Release -o publish
+      run: dotnet publish QuoteR/Quoter/Quoter.Web/Quoter.Web.csproj -c Release -o publish
 
     - name: Build Docker image from publish directory
       run: |
