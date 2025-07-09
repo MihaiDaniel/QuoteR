@@ -121,7 +121,7 @@
     <value>Setări</value>
   </data>
   <data name="folderNotExists" xml:space="preserve">
-    <value>Directorul selectat nu există. Selectați un director valid.</value>
+    <value>Directorul selectat nu există. Selectați un dosar valid.</value>
   </data>
   <data name="error" xml:space="preserve">
     <value>Eroare</value>
@@ -163,7 +163,7 @@
     <value>Salvează</value>
   </data>
   <data name="CreateEditQuotes" xml:space="preserve">
-    <value>Creează și modifică citatele</value>
+    <value>Creează și modifică versete</value>
   </data>
   <data name="ErrTextTooLong" xml:space="preserve">
     <value>Lungimea este prea mare</value>
@@ -208,7 +208,7 @@
     <value>Doriți să ștergeți colecția {0}? Tot conținutul acesteia se va pierde.</value>
   </data>
   <data name="QuotesSaved" xml:space="preserve">
-    <value>Noile citate s-au salvat cu success</value>
+    <value>Noile versete s-au salvat cu succes</value>
   </data>
   <data name="NewBook" xml:space="preserve">
     <value>Carte nouă</value>
@@ -259,13 +259,13 @@
     <value>Doriți să ștergeți capitolul {0}? Tot conținutul acestuia se va pierde.</value>
   </data>
   <data name="ModifyQuotes" xml:space="preserve">
-    <value>Modifică colecția de citate</value>
+    <value>Modifică colecția de versete</value>
   </data>
   <data name="ManageQuotes" xml:space="preserve">
-    <value>Administrează citatele preferate</value>
+    <value>Administrează versetele preferate</value>
   </data>
   <data name="Quotes" xml:space="preserve">
-    <value>Citate</value>
+    <value>Versete</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Limbă</value>
@@ -286,7 +286,7 @@
     <value>Arată colecțiile doar din limba selectată</value>
   </data>
   <data name="QuotesFrequency" xml:space="preserve">
-    <value>Arată citate la fiecare</value>
+    <value>Arată versete la fiecare</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>minute</value>
@@ -298,19 +298,19 @@
     <value>Modifică</value>
   </data>
   <data name="ShowAQuote" xml:space="preserve">
-    <value>Arată un citat</value>
+    <value>Arată un verset</value>
   </data>
   <data name="QuotesAddedToBook" xml:space="preserve">
-    <value>Citate adăugate la noua carte</value>
+    <value>Versete adăugate la noua carte</value>
   </data>
   <data name="QuotesAddedToBookMsg" xml:space="preserve">
-    <value>Colecția conține deja citate. Acestea au fost adăugate automat la noua carte {0}</value>
+    <value>Colecția conține deja versete. Acestea au fost adăugate automat la noua carte {0}</value>
   </data>
   <data name="QuotesAddedToChapter" xml:space="preserve">
-    <value>Citate adăugate la noul capitol</value>
+    <value>Versetele adăugate la noul capitol</value>
   </data>
   <data name="QuotesAddedToChapterMsg" xml:space="preserve">
-    <value>Cartea {0} conține deja citate. Acestea au fost adăugate automat la noul capitol {1}</value>
+    <value>Cartea {0} conține deja versete. Acestea au fost adăugate automat la noul capitol {1}</value>
   </data>
   <data name="NameAlreadyTaken" xml:space="preserve">
     <value>Nume deja folosit</value>
@@ -346,7 +346,7 @@
     <value>Cărți</value>
   </data>
   <data name="FavoritesText" xml:space="preserve">
-    <value>Aici poți alege colecțiile tale favorite din care se vor afișa citatele</value>
+    <value>Aici poți alege colecțiile tale favorite din care se vor afișa versetele</value>
   </data>
   <data name="OptionTrimRow" xml:space="preserve">
     <value>Șterge textul până la primul spațiu din rând</value>
@@ -355,10 +355,10 @@
     <value>Litere sau simboluri ignorate ( introduceți fără spații libere )</value>
   </data>
   <data name="OptionAppendTextStart" xml:space="preserve">
-    <value>Text adăugat la începutul fiecărui citat</value>
+    <value>Text adăugat la începutul fiecărui verset</value>
   </data>
   <data name="OptionAppendTextEnd" xml:space="preserve">
-    <value>Text adăugat la finalul fiecărui citat</value>
+    <value>Text adăugat la finalul fiecărui verset</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Opțiuni</value>
@@ -445,7 +445,7 @@
     <value>Locație notificări</value>
   </data>
   <data name="NotificationFont" xml:space="preserve">
-    <value>Fontul citatelor</value>
+    <value>Fontul notificărilor</value>
   </data>
   <data name="Change" xml:space="preserve">
     <value>Schimbă</value>
@@ -569,5 +569,11 @@
   </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>Deschide dosarul</value>
+  </data>
+  <data name="SetupNotFinished" xml:space="preserve">
+    <value>Configurarea nu a fost finalizată</value>
+  </data>
+  <data name="SetupNotFinishedMsg" xml:space="preserve">
+    <value>Vă rugăm să finalizați configurarea de bun venit înainte de a continua.</value>
   </data>
 </root>

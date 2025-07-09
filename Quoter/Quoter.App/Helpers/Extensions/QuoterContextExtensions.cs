@@ -20,7 +20,7 @@ namespace Quoter.App.Helpers.Extensions
 		/// </summary>
 		private static void SeedAppSettings(QuoterContext context)
 		{
-			TrySeedAppSetting(context, nameof(IAppSettings.IsFirstStart), false);
+			TrySeedAppSetting(context, nameof(IAppSettings.IsFirstStart), true);
 			TrySeedAppSetting(context, nameof(IAppSettings.IsSetupFinished), false);
 			TrySeedAppSetting(context, nameof(IAppSettings.InstallId), "");
 

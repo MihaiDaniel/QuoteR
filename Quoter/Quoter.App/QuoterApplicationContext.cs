@@ -253,26 +253,48 @@ namespace Quoter.App
 
 		private void EventHandlerShowQuoteOnUserRequest(object? sender, EventArgs e)
 		{
+			if (!_settings.IsSetupFinished)
+			{
+				_formsManager.ShowDialogWarning(_stringResources["SetupNotFinished"],_stringResources["SetupNotFinishedMsg"]);
+				return;
+			}
 			_quoterApplicationService.ShowRandomQuoteInNotificationWindow();
 		}
 
 		private void EventHandlerOpenEditQuotes(object? sender, EventArgs e)
 		{
+			if (!_settings.IsSetupFinished)
+			{
+				_formsManager.ShowDialogWarning(_stringResources["SetupNotFinished"], _stringResources["SetupNotFinishedMsg"]);
+				return;
+			}
 			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.EditQuotes });
 		}
+
 		private void EventHandlerOpenFavourties(object? sender, EventArgs e)
 		{
+			if (!_settings.IsSetupFinished)
+			{
+				_formsManager.ShowDialogWarning(_stringResources["SetupNotFinished"], _stringResources["SetupNotFinishedMsg"]);
+				return;
+			}
 			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.FavouriteQuotes });
 		}
 
 		private void EventHandlerOpenSettings(object? sender, EventArgs e)
 		{
+			if (!_settings.IsSetupFinished)
+			{
+				_formsManager.ShowDialogWarning(_stringResources["SetupNotFinished"], _stringResources["SetupNotFinishedMsg"]);
+				return;
+			}
 			_formsManager.ShowAndCloseOthers<ManageForm>(new ManageFormOptions() { Tab = EnumTab.Settings });
 		}
 
 		private void EventHandlerExitApp(object? sender, EventArgs e)
 		{
 			_trayIcon.Visible = false; // Hide tray icon, otherwise it will remain shown until user mouses over it
+			_trayIcon.Dispose();
 			Application.Exit();
 		}
 
@@ -284,7 +306,7 @@ namespace Quoter.App
 		private ContextMenuStrip GetContextMenuStrip()
 		{
 			string pauseResumeText = _settings.IsPaused ? _stringResources["Resume"] : _stringResources["Pause"];
-			Bitmap pauseResumeImage = _settings.IsPaused ? Resources.Resources.play_32 : Resources.Resources.pause_32;
+			Bitmap pauseResumeImage = _settings.IsPaused ? Resources.Resources.play_16 : Resources.Resources.pause_16;
 			ContextMenuStrip contextMenuStrip = new ContextMenuStrip()
 			{
 
@@ -300,13 +322,13 @@ namespace Quoter.App
 
 					new ToolStripSeparator(),
 					new ToolStripMenuItem(pauseResumeText, pauseResumeImage, new EventHandler(PauseOrResumeEventHandler), "PauseOrResume"),
-					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_32, new EventHandler(EventHandlerShowQuoteOnUserRequest), "ShowAQuote"),
+					new ToolStripMenuItem(_stringResources["ShowAQuote"], Resources.Resources.quote_16, new EventHandler(EventHandlerShowQuoteOnUserRequest), "ShowAQuote"),
 					new ToolStripSeparator(),
-					new ToolStripMenuItem(_stringResources["Edit"], Resources.Resources.edit_32, new EventHandler(EventHandlerOpenEditQuotes), "Edit"),
-					new ToolStripMenuItem(_stringResources["Favourites"], Resources.Resources.star_32, new EventHandler(EventHandlerOpenFavourties), "Favourites"),
-					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_32, new EventHandler(EventHandlerOpenSettings), "Settings"),
+					new ToolStripMenuItem(_stringResources["Edit"], Resources.Resources.edit_16, new EventHandler(EventHandlerOpenEditQuotes), "Edit"),
+					new ToolStripMenuItem(_stringResources["Favourites"], Resources.Resources.star_16, new EventHandler(EventHandlerOpenFavourties), "Favourites"),
+					new ToolStripMenuItem(_stringResources["Settings"], Resources.Resources.settings_16, new EventHandler(EventHandlerOpenSettings), "Settings"),
 					new ToolStripSeparator(),
-					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_32, new EventHandler(EventHandlerExitApp), "Exit"),
+					new ToolStripMenuItem(_stringResources["Exit"], Resources.Resources.exit_16, new EventHandler(EventHandlerExitApp), "Exit"),
 #if DEBUG
 					new ToolStripMenuItem("Welcome", null, new EventHandler(EventHandlerShowWelcomeForm), "Welcome"),
 					new ToolStripMenuItem("Debug", null, new EventHandler((obj, e) => _formsManager.ShowAndCloseOthers<DebugForm>()), "Debug"),

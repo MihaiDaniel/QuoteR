@@ -163,7 +163,7 @@
     <value>Save</value>
   </data>
   <data name="CreateEditQuotes" xml:space="preserve">
-    <value>Create and edit quotes</value>
+    <value>Create and edit verses</value>
   </data>
   <data name="ErrTextTooLong" xml:space="preserve">
     <value>Value is too long</value>
@@ -208,7 +208,7 @@
     <value>Are you sure you want to delete the collection {0} ? All it's content will be lost.</value>
   </data>
   <data name="QuotesSaved" xml:space="preserve">
-    <value>Quotes saved succesfully</value>
+    <value>Verses saved successfully</value>
   </data>
   <data name="NewBook" xml:space="preserve">
     <value>New book</value>
@@ -259,13 +259,13 @@
     <value>Are you sure you want to delete the chapter {0} ? All it's content will be lost.</value>
   </data>
   <data name="ModifyQuotes" xml:space="preserve">
-    <value>Modify your quotes collection</value>
+    <value>Modify your verses collection</value>
   </data>
   <data name="ManageQuotes" xml:space="preserve">
-    <value>Manage favourite quotes</value>
+    <value>Manage favourite verses</value>
   </data>
   <data name="Quotes" xml:space="preserve">
-    <value>Quotes</value>
+    <value>Verses</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -286,7 +286,7 @@
     <value>Show collections based on language</value>
   </data>
   <data name="QuotesFrequency" xml:space="preserve">
-    <value>Show quotes every</value>
+    <value>Show verses every</value>
   </data>
   <data name="Minutes" xml:space="preserve">
     <value>minutes</value>
@@ -298,19 +298,19 @@
     <value>Edit</value>
   </data>
   <data name="ShowAQuote" xml:space="preserve">
-    <value>Show a quote</value>
+    <value>Show a verse</value>
   </data>
   <data name="QuotesAddedToBook" xml:space="preserve">
-    <value>Quotes added to new book</value>
+    <value>Verses added to new book</value>
   </data>
   <data name="QuotesAddedToBookMsg" xml:space="preserve">
-    <value>Your collection contained quotes that were not assigned to any book. So they have been added automatically to {0}</value>
+    <value>Your collection contained verses that were not assigned to any book. So they have been added automatically to {0}</value>
   </data>
   <data name="QuotesAddedToChapter" xml:space="preserve">
-    <value>Quotes added to new chapter</value>
+    <value>Verses added to new chapter</value>
   </data>
   <data name="QuotesAddedToChapterMsg" xml:space="preserve">
-    <value>Your book {0} contained quotes that were not assigned to any chapter. So they have been added automatically to {1}</value>
+    <value>Your book {0} contained verses that were not assigned to any chapter. So they have been added automatically to {1}</value>
   </data>
   <data name="NameAlreadyTaken" xml:space="preserve">
     <value>Name already used</value>
@@ -346,7 +346,7 @@
     <value>Books</value>
   </data>
   <data name="FavoritesText" xml:space="preserve">
-    <value>Here you can choose your favourites collections from which to display quotes</value>
+    <value>Here you can choose your favourites collections from which to display verses</value>
   </data>
   <data name="OptionTrimRow" xml:space="preserve">
     <value>Trim row untill the first empty space character</value>
@@ -355,10 +355,10 @@
     <value>Excluded characters ( input characters with no spaces )</value>
   </data>
   <data name="OptionAppendTextStart" xml:space="preserve">
-    <value>Append text to the beginning of each quote</value>
+    <value>Append text to the beginning of each verse</value>
   </data>
   <data name="OptionAppendTextEnd" xml:space="preserve">
-    <value>Append text to the end of each quote</value>
+    <value>Append text to the end of each verse</value>
   </data>
   <data name="Options" xml:space="preserve">
     <value>Options</value>
@@ -569,5 +569,11 @@
   </data>
   <data name="OpenFolder" xml:space="preserve">
     <value>Open folder</value>
+  </data>
+  <data name="SetupNotFinished" xml:space="preserve">
+    <value>Setup not finished</value>
+  </data>
+  <data name="SetupNotFinishedMsg" xml:space="preserve">
+    <value>Please complete the welcome setup before continuing.</value>
   </data>
 </root>

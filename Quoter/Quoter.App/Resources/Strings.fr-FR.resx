@@ -307,7 +307,7 @@
     <value>Administrer</value>
   </data>
   <data name="ManageQuotes" xml:space="preserve">
-    <value>Gérer les citations préférées</value>
+    <value>Gérer les versets préférées</value>
   </data>
   <data name="MergeCollections" xml:space="preserve">
     <value>Fusionner des collections portant le même nom dans celles existantes</value>
@@ -316,7 +316,7 @@
     <value>minutes</value>
   </data>
   <data name="ModifyQuotes" xml:space="preserve">
-    <value>Modifier votre collection de citations</value>
+    <value>Modifier votre collection de versets</value>
   </data>
   <data name="NameAlreadyTaken" xml:space="preserve">
     <value>Nom déjà utilisé</value>
@@ -385,19 +385,19 @@
     <value>Minute Verse</value>
   </data>
   <data name="Quotes" xml:space="preserve">
-    <value>Citations</value>
+    <value>Versets</value>
   </data>
   <data name="QuotesAddedToBook" xml:space="preserve">
-    <value>Citations ajoutées au nouveau livre</value>
+    <value>Versets ajoutées au nouveau livre</value>
   </data>
   <data name="QuotesAddedToBookMsg" xml:space="preserve">
-    <value>Votre collection contenait des citations qui n'étaient attribuées à aucun livre. Ils ont donc été ajoutés automatiquement à {0}</value>
+    <value>Votre collection contenait des versets qui n'étaient attribuées à aucun livre. Ils ont donc été ajoutés automatiquement à {0}</value>
   </data>
   <data name="QuotesAddedToChapter" xml:space="preserve">
-    <value>Citations ajoutées au nouveau chapitre</value>
+    <value>Versets ajoutées au nouveau chapitre</value>
   </data>
   <data name="QuotesAddedToChapterMsg" xml:space="preserve">
-    <value>Votre livre {0} contenait des citations qui n'étaient attribuées à aucun chapitre. Ils ont donc été ajoutés automatiquement à {1}</value>
+    <value>Votre livre {0} contenait des versets qui n'étaient attribuées à aucun chapitre. Ils ont donc été ajoutés automatiquement à {1}</value>
   </data>
   <data name="QuotesAutoclose" xml:space="preserve">
     <value>Notifications contextuelles de fermeture automatique après</value>
@@ -406,10 +406,10 @@
     <value>CitationsCollection</value>
   </data>
   <data name="QuotesFrequency" xml:space="preserve">
-    <value>Afficher les devis tous les</value>
+    <value>Afficher les versets tous les</value>
   </data>
   <data name="QuotesSaved" xml:space="preserve">
-    <value>Citations enregistrés avec succès</value>
+    <value>Versets enregistrés avec succès</value>
   </data>
   <data name="Resume" xml:space="preserve">
     <value>Reprendre</value>
@@ -424,7 +424,7 @@
     <value>Paramètres</value>
   </data>
   <data name="ShowAQuote" xml:space="preserve">
-    <value>Afficher un citation</value>
+    <value>Afficher un verset</value>
   </data>
   <data name="ShowCollectionsByLanguage" xml:space="preserve">
     <value>Afficher les collections en fonction de la langue</value>
@@ -518,5 +518,62 @@
   </data>
   <data name="ConfirmExit" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir quitter?</value>
+  </data>
+  <data name="WarnReaderNoCollectionMsg" xml:space="preserve">
+    <value>La collection que vous avez sélectionnée pour lire n'existe pas.</value>
+  </data>
+  <data name="WarnReaderNoCollection" xml:space="preserve">
+    <value>La collection n'existe pas</value>
+  </data>
+  <data name="NoCollection" xml:space="preserve">
+    <value>Aucune collection choisie</value>
+  </data>
+  <data name="PleaseSelectACollection" xml:space="preserve">
+    <value>Veuillez d'abord sélectionner une collection</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Plus tard</value>
+  </data>
+  <data name="NewUpdateAvailableMsg" xml:space="preserve">
+    <value>Une nouvelle mise à jour est disponible. Voulez-vous la télécharger et l'installer maintenant ?</value>
+  </data>
+  <data name="UpdateAuto" xml:space="preserve">
+    <value>Mettre à jour automatiquement</value>
+  </data>
+  <data name="UpdateAsk" xml:space="preserve">
+    <value>Demander une mise à jour</value>
+  </data>
+  <data name="UpdateNever" xml:space="preserve">
+    <value>Ne jamais mettre à jour</value>
+  </data>
+  <data name="UpdateMode" xml:space="preserve">
+    <value>Mode de mise à jour</value>
+  </data>
+  <data name="ErrSelectOneCollection" xml:space="preserve">
+    <value>Veuillez choisir au moins une collection pour continuer.</value>
+  </data>
+  <data name="UpdateApplied" xml:space="preserve">
+    <value>Application mise à jour</value>
+  </data>
+  <data name="UpdateAppliedMessage" xml:space="preserve">
+    <value>L'application a été mise à jour avec succès vers la version {0}</value>
+  </data>
+  <data name="ErrCantImportAlreadyInProgress" xml:space="preserve">
+    <value>Impossible d'importer car une importation est déjà en cours.</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
+  </data>
+  <data name="OptionTrimCharsUntil" xml:space="preserve">
+    <value>Couper jusqu'au premier</value>
+  </data>
+  <data name="OptionReplaceChars" xml:space="preserve">
+    <value>Remplacer par :</value>
+  </data>
+  <data name="SetupNotFinished" xml:space="preserve">
+    <value>Installation non terminée</value>
+  </data>
+  <data name="SetupNotFinishedMsg" xml:space="preserve">
+    <value>Veuillez terminer la configuration de bienvenue avant de continuer.</value>
   </data>
 </root>

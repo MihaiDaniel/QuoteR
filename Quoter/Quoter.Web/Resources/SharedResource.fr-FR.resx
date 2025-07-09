@@ -307,4 +307,22 @@
   <data name="AboutUs" xml:space="preserve">
     <value>À propos de nous</value>
   </data>
+  <data name="Admin Dashboard" xml:space="preserve">
+    <value>Tableau de bord d'administration</value>
+  </data>
+  <data name="Versions" xml:space="preserve">
+    <value>Versions</value>
+  </data>
+  <data name="Registrations" xml:space="preserve">
+    <value>Inscriptions</value>
+  </data>
+  <data name="Admin shortcuts" xml:space="preserve">
+    <value>Admin shortcuts</value>
+  </data>
+  <data name="Application versions" xml:space="preserve">
+    <value>Versions d'application</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
 </root>

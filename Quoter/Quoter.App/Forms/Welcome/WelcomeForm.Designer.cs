@@ -30,10 +30,10 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeForm));
 			pnlTitle = new Panel();
-			lblVersion = new Label();
 			pictureBox1 = new PictureBox();
 			lblTitle = new Label();
 			btnClose = new Button();
+			lblVersion = new Label();
 			tabControl = new TabControl();
 			tabPage1 = new TabPage();
 			label1 = new Label();
@@ -86,20 +86,9 @@
 			pnlTitle.Size = new Size(683, 30);
 			pnlTitle.TabIndex = 1;
 			// 
-			// lblVersion
-			// 
-			lblVersion.AutoSize = true;
-			lblVersion.Font = new Font("Calibri", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-			lblVersion.ForeColor = SystemColors.ButtonShadow;
-			lblVersion.Location = new Point(632, 3);
-			lblVersion.Name = "lblVersion";
-			lblVersion.Size = new Size(40, 13);
-			lblVersion.TabIndex = 23;
-			lblVersion.Text = "0.0.0.0";
-			// 
 			// pictureBox1
 			// 
-			pictureBox1.BackgroundImage = Resources.Resources.book_96;
+			pictureBox1.BackgroundImage = Resources.Resources.logo_very_small;
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 			pictureBox1.Location = new Point(9, 6);
 			pictureBox1.Name = "pictureBox1";
@@ -114,9 +103,9 @@
 			lblTitle.ForeColor = Color.White;
 			lblTitle.Location = new Point(40, 7);
 			lblTitle.Name = "lblTitle";
-			lblTitle.Size = new Size(54, 19);
+			lblTitle.Size = new Size(95, 19);
 			lblTitle.TabIndex = 2;
-			lblTitle.Text = "Quoter";
+			lblTitle.Text = "Minute Verse";
 			// 
 			// btnClose
 			// 
@@ -135,6 +124,17 @@
 			btnClose.Text = "✕";
 			btnClose.UseVisualStyleBackColor = false;
 			btnClose.Click += btnClose_Click;
+			// 
+			// lblVersion
+			// 
+			lblVersion.AutoSize = true;
+			lblVersion.Font = new Font("Calibri", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+			lblVersion.ForeColor = SystemColors.ButtonShadow;
+			lblVersion.Location = new Point(632, 3);
+			lblVersion.Name = "lblVersion";
+			lblVersion.Size = new Size(40, 13);
+			lblVersion.TabIndex = 23;
+			lblVersion.Text = "0.0.0.0";
 			// 
 			// tabControl
 			// 

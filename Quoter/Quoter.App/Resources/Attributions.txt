@@ -3,3 +3,4 @@
 <a href="https://www.flaticon.com/free-icons/play-button" title="play button icons">Play button icons created by Vector Squad - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Vector Squad - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/flag" title="flag icons">Flag icons created by Freepik - Flaticon</a>
+Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a>
