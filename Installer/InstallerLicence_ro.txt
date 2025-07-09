@@ -1,19 +1,19 @@
-MinuteVerse - quotes and verses software
+MinuteVerse - software pentru citate și versete
 
-Copyright 2025 by the contributors
+Drepturi de autor 2025 de la contribuitori
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+Acest program este software liber; îl puteți redistribui și/sau modifica
+în conformitate cu termenii Licenței Publice Generale GNU, așa cum este publicată de
+Fundația pentru Software Liber; fie versiunea 2 a Licenței, fie
+(la alegerea dumneavoastră) orice versiune ulterioară.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Acest program este distribuit în speranța că va fi util,
+dar FĂRĂ NICIO GARANȚIE; fără nici măcar garanția implicită de
+VANDABILITATE sau POTRIVIRE PENTRU UN ANUMIT SCOP. Consultați
+Licența Publică Generală GNU pentru mai multe detalii.
 
-This program cannot be used for any commercial purposes. Any modifications,
-distributions must be free.
+Acest program nu poate fi utilizat în scopuri comerciale. Orice modificări,
+distribuții trebuie să fie gratuite.
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 

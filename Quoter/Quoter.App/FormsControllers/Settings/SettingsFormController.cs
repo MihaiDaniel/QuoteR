@@ -317,7 +317,7 @@ namespace Quoter.App.FormsControllers.Settings
 					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
 					WshShell shell = new WshShell();
 					IWshShortcut windowsApplicationShortcut = (IWshShortcut)shell.CreateShortcut(shortCutLinkFilePath);
-					windowsApplicationShortcut.Description = "Startup Quoter";
+					windowsApplicationShortcut.Description = "Startup MinuteVerse";
 					windowsApplicationShortcut.WorkingDirectory = Application.StartupPath;
 					windowsApplicationShortcut.TargetPath = Application.ExecutablePath;
 					windowsApplicationShortcut.Save();

@@ -1,19 +1,14 @@
-MinuteVerse - quotes and verses software
+MinuteVerse - Logiciel de citations et de vers
 
-Copyright 2025 by the contributors
+Copyright 2025 par les contributeurs
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence publique générale GNU telle que publiée par la Free Software Foundation ; soit la version 2 de la Licence, soit (à votre choix) toute version ultérieure.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Ce programme est distribué dans l'espoir qu'il soit utile,
+mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de
+QUALITÉ MARCHANDE ou d'ADÉQUATION À UN USAGE PARTICULIER. Consultez la Licence publique générale GNU pour plus de détails.
 
-This program cannot be used for any commercial purposes. Any modifications,
-distributions must be free.
+Ce programme ne peut être utilisé à des fins commerciales. Toute modification ou distribution doit être libre.
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
