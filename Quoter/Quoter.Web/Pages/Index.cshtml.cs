@@ -22,7 +22,6 @@ namespace Quoter.Web.Pages
 
 		/// <summary>
 		/// Indicates if any setup file is available for download
-		/// <see cref="AppVersion.IsReleased"/> = True and <see cref="AppVersion.Type"/> is <see cref="EnumVersionType.Installer"/>
 		/// </summary>
 		public bool IsDownloadAvailable { get; set; } = false;
 
@@ -48,12 +47,14 @@ namespace Quoter.Web.Pages
 		public async Task OnGet()
 		{
 			CurrentCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture.Name ?? "en-US";
-			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync("IsDownloadAvailable",
+
+			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync(Constants.MemoryCacheKeys.IsDownloadAvailable,
 				async entry =>
 			{
 				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
 				return await _context.AppVersions
-					.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
+					.Where(v => v.IsReleased 
+						&& (v.Type == EnumVersionType.Installer || v.Type == EnumVersionType.ZipArchive))
 					.AnyAsync();
 			});
 
@@ -62,7 +63,7 @@ namespace Quoter.Web.Pages
 				_logger.LogInformation("No download available for the latest version.");
 			}
 
-			DownloadsCount = await _memoryCache.GetOrCreateAsync("DownloadsCount",
+			DownloadsCount = await _memoryCache.GetOrCreateAsync(Constants.MemoryCacheKeys.DownloadsCount,
 				async entry =>
 				{
 					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
@@ -105,7 +106,6 @@ namespace Quoter.Web.Pages
 					.Add(new AppVersionDownload
 					{
 						AppVersionId = latestVersion.Id,
-						AppVersion = latestVersion,
 						DownloadDateTime = DateTime.UtcNow,
 					});
 				await _context.SaveChangesAsync();
@@ -155,7 +155,7 @@ namespace Quoter.Web.Pages
 		/// </summary>
 		private async Task<AppVersion> GetLatestVersionAsync()
 		{
-			AppVersion? latestVersion = await _memoryCache.GetOrCreateAsync("WebLatestVersion", async entry =>
+			AppVersion? latestVersion = await _memoryCache.GetOrCreateAsync(Constants.MemoryCacheKeys.LatestAppVersionForDownload, async entry =>
 			{
 				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
 				entry.SlidingExpiration = TimeSpan.FromMinutes(5);

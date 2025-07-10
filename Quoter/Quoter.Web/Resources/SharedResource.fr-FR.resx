@@ -325,4 +325,7 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Tableau de bord</value>
   </data>
+  <data name="Downloading..." xml:space="preserve">
+    <value>Téléchargement en cours...</value>
+  </data>
 </root>

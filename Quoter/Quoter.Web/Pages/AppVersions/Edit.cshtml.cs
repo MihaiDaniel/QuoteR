@@ -89,26 +89,32 @@ namespace Quoter.Web.Pages.AppVersions
 			}
 			try
 			{
-				AppVersion? appVersion = _context.AppVersions.FirstOrDefault(a => a.Id == Id);
-				if (appVersion == null)
+				AppVersion? editedVersion = _context.AppVersions.FirstOrDefault(a => a.Id == Id);
+				if (editedVersion == null)
 				{
 					return BadRequest();
 				}
-				if(!await ValidatePostAsync(appVersion))
+				if(!await ValidatePostAsync(editedVersion))
 				{
 					return Page();
 				}
 
-				appVersion.Name = Name;
-				appVersion.Version = Version;
-				appVersion.IsReleased = IsReleased;
-				appVersion.Os = Os;
-				appVersion.Description = Description;
+				bool isReleasedBeforeEdit = editedVersion.IsReleased;
+
+				editedVersion.Name = Name;
+				editedVersion.Version = Version;
+				editedVersion.IsReleased = IsReleased;
+				editedVersion.Os = Os;
+				editedVersion.Description = Description;
 
 				await _context.SaveChangesAsync();
 
-				// Invalidate cache for download availability
-				_memoryCache.Remove("IsDownloadAvailable");
+				// Invalidate cache for download availability if the IsReleased property has changed
+				if (IsReleased != isReleasedBeforeEdit)
+				{
+					_memoryCache.Remove(Constants.MemoryCacheKeys.IsDownloadAvailable);
+					_memoryCache.Remove(Constants.MemoryCacheKeys.LatestAppVersionForDownload);
+				}
 
 				return RedirectToPage("./Index");
 			}

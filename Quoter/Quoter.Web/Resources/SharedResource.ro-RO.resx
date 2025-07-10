@@ -466,4 +466,7 @@
   <data name="Latest released version:" xml:space="preserve">
     <value>Cea mai recentă versiune:</value>
   </data>
+  <data name="Downloading..." xml:space="preserve">
+    <value>Se descarcă...</value>
+  </data>
 </root>
