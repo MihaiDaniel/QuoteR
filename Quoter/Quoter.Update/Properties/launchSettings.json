@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Quoter.Update": {
+      "commandName": "Project",
+      "commandLineArgs": "-i C:\\Users\\Daniel Dumitru\\Downloads\\minuteverse(1) -e MinuteVerse.dll -u C:\\Users\\DanielDumitru\\AppData\\Local\\Quoter\\Updates\\mv-update-0.2.1.0.zip -uid 1 -s True -r false"
+    }
+  }
+}

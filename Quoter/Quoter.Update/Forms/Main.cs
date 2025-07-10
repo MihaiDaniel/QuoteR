@@ -136,7 +136,8 @@ namespace Quoter.Update
 
 		private void ParseArguments(string[] args)
 		{
-			for (int index = 0; index < args.Length; index++)
+			int index = 0;
+			while(index < args.Length)
 			{
 				string entry = args[index];
 				switch (entry)
@@ -159,14 +160,17 @@ namespace Quoter.Update
 				return string.Empty;
 			}
 			// Skip the current argument key
-			int currentIndex = index++;
+			index++;
+			int argValueStartIndex = index;
+			int argValueEndIndex = index; // Initialize to the same index in case we have no value
+			
 			// Find the argument value until we reach the next argument key
 			while (index < args.Length && !_argumentKeys.Contains(args[index]))
 			{
-				index++;
+				index++; // skip current value (in case there are values with spaces)
+				argValueEndIndex = index;
 			}
-
-			return string.Join(' ', args[currentIndex..index]);
+			return string.Join(' ', args[argValueStartIndex..argValueEndIndex]);
 		}
 
 		private void LogArguments(string[] args)
