@@ -376,4 +376,94 @@
   <data name="AboutUs" xml:space="preserve">
     <value>Despre noi</value>
   </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistici</value>
+  </data>
+  <data name="Overall" xml:space="preserve">
+    <value>Vedere de ansamblu</value>
+  </data>
+  <data name="AllTimeVisits:" xml:space="preserve">
+    <value>Vizite totale:</value>
+  </data>
+  <data name="AllTimeUniqueVisitors:" xml:space="preserve">
+    <value>Vizitator unici total:</value>
+  </data>
+  <data name="TodayVisits:" xml:space="preserve">
+    <value>Vizite azi:</value>
+  </data>
+  <data name="TodayUniqueVisitors:" xml:space="preserve">
+    <value>Vizitator unici azi:</value>
+  </data>
+  <data name="PreviousMonths" xml:space="preserve">
+    <value>Lunile precedente</value>
+  </data>
+  <data name="YearAndMonth" xml:space="preserve">
+    <value>An și lună</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Vizite</value>
+  </data>
+  <data name="UniqueVisitors" xml:space="preserve">
+    <value>Vizitatori unici</value>
+  </data>
+  <data name="ApplicationKeys" xml:space="preserve">
+    <value>Chei aplicație</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Loguri</value>
+  </data>
+  <data name="View web application logs" xml:space="preserve">
+    <value>Vezi logurile aplicației web</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Vizionează</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Azi</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Lună</value>
+  </data>
+  <data name="Errors occurrence" xml:space="preserve">
+    <value>Erori aparute</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Data creării</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Cheie</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>Adresă IP</value>
+  </data>
+  <data name="LocalWinRegionCode" xml:space="preserve">
+    <value>Cod de regiune local</value>
+  </data>
+  <data name="RegisteredDateTime" xml:space="preserve">
+    <value>Data înregistrării</value>
+  </data>
+  <data name="InstallId" xml:space="preserve">
+    <value>ID instalare</value>
+  </data>
+  <data name="IsReleased" xml:space="preserve">
+    <value>Disponibil</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Data creării</value>
+  </data>
+  <data name="Latest released version:" xml:space="preserve">
+    <value>Cea mai recentă versiune:</value>
+  </data>
 </root>

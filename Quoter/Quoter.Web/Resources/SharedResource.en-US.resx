@@ -376,4 +376,94 @@
   <data name="AboutUs" xml:space="preserve">
     <value>About us</value>
   </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="Overall" xml:space="preserve">
+    <value>Overall</value>
+  </data>
+  <data name="AllTimeVisits:" xml:space="preserve">
+    <value>All time visits:</value>
+  </data>
+  <data name="AllTimeUniqueVisitors:" xml:space="preserve">
+    <value>All time unique visitors:</value>
+  </data>
+  <data name="TodayVisits:" xml:space="preserve">
+    <value>Today visits:</value>
+  </data>
+  <data name="TodayUniqueVisitors:" xml:space="preserve">
+    <value>Today unique visitors:</value>
+  </data>
+  <data name="PreviousMonths" xml:space="preserve">
+    <value>Previous months</value>
+  </data>
+  <data name="YearAndMonth" xml:space="preserve">
+    <value>Year and month</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="UniqueVisitors" xml:space="preserve">
+    <value>Unique visitors</value>
+  </data>
+  <data name="ApplicationKeys" xml:space="preserve">
+    <value>Application keys</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="View web application logs" xml:space="preserve">
+    <value>View web application logs</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Errors occurrence" xml:space="preserve">
+    <value>Errors occurrence</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="LocalWinRegionCode" xml:space="preserve">
+    <value>Local region code</value>
+  </data>
+  <data name="RegisteredDateTime" xml:space="preserve">
+    <value>Registered date time</value>
+  </data>
+  <data name="InstallId" xml:space="preserve">
+    <value>Install ID</value>
+  </data>
+  <data name="IsReleased" xml:space="preserve">
+    <value>Released</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Creation date</value>
+  </data>
+  <data name="Latest released version:" xml:space="preserve">
+    <value>Latest released version:</value>
+  </data>
 </root>

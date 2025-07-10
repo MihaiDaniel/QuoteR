@@ -7,12 +7,12 @@ namespace Quoter.Web.Services
 	public class VisitsStatisticsJob : BackgroundService
 	{
 		private readonly ILogger _logger;
-		private readonly ApplicationDbContext _context;
+		private readonly IServiceProvider _serviceProvider;
 
-		public VisitsStatisticsJob(ILoggerFactory loggerFactory, ApplicationDbContext context)
+		public VisitsStatisticsJob(ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
 		{
 			_logger = loggerFactory.CreateLogger("VisitsStatisticsService");
-			_context = context;
+			_serviceProvider = serviceProvider;
 		}
 
 		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -21,6 +21,9 @@ namespace Quoter.Web.Services
 			{
 				try
 				{
+					using var scope = _serviceProvider.CreateScope();
+					using var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
 					DateTime currentDateTime = DateTime.UtcNow;
 					DateTime startOfCurrentDay = new DateTime(
 						currentDateTime.Year,
@@ -33,12 +36,12 @@ namespace Quoter.Web.Services
 					while (!allStatsGenerated)
 					{
 						
-						VisitsStatistic? stats = await _context.VisitsStatistics
+						VisitsStatistic? stats = await context.VisitsStatistics
 							.FirstOrDefaultAsync(s => s.Date == startOfPreviousDay.Date, stoppingToken);
 
 						if (stats is null)
 						{
-							await GenerateStatsForPreviousDay(startOfPreviousDay);
+							await GenerateStatsForPreviousDay(startOfPreviousDay, context);
 							startOfPreviousDay = startOfPreviousDay.AddDays(-1);
 						}
 						else
@@ -66,10 +69,10 @@ namespace Quoter.Web.Services
 			}
 		}
 
-		private async Task GenerateStatsForPreviousDay(DateTime startOfPreviousDay)
+		private async Task GenerateStatsForPreviousDay(DateTime startOfPreviousDay, ApplicationDbContext context)
 		{
 			DateTime endOfPreviousDay = startOfPreviousDay.AddDays(1).AddSeconds(-1);
-			List<Visit> visits = await _context.Visits
+			List<Visit> visits = await context.Visits
 				.Where(v => v.VisitDate.Date >= startOfPreviousDay.Date && v.VisitDate <= endOfPreviousDay)
 				.ToListAsync();
 
@@ -79,7 +82,7 @@ namespace Quoter.Web.Services
 				.Distinct()
 				.Count();
 
-			_context.VisitsStatistics.Add(new VisitsStatistic()
+			context.VisitsStatistics.Add(new VisitsStatistic()
 			{
 				Date = startOfPreviousDay.Date,
 				Url = "/",
@@ -87,14 +90,14 @@ namespace Quoter.Web.Services
 				UniqueVisitorsCount = uniqueVisitorsCount
 			});
 
-			await _context.SaveChangesAsync();
+			await context.SaveChangesAsync();
 
 			// Remove visits from the database after statistics are generated
-			_context.Visits.RemoveRange(visits);
-			await _context.SaveChangesAsync();
+			context.Visits.RemoveRange(visits);
+			await context.SaveChangesAsync();
 
 			// Reset the auto-increment counter for Visits table to avoid overflow in the future
-			await _context.Database.ExecuteSqlRawAsync($"DELETE FROM sqlite_sequence WHERE name='Visits';");
+			await context.Database.ExecuteSqlRawAsync($"DELETE FROM sqlite_sequence WHERE name='Visits';");
 		}
 	}
 }

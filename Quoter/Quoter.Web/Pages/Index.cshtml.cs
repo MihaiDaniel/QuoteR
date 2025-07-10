@@ -69,14 +69,26 @@ namespace Quoter.Web.Pages
 					return await _context.AppVersionDownloads.CountAsync();
 				});
 
+			await LogVisitAsync();
+			
+		}
 
-			_context.Visits.Add(new Visit()
+		private async Task LogVisitAsync()
+		{
+			try
 			{
-				IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
-				Url = Request.Path,
-				VisitDate = DateTime.UtcNow,
-			});
-			await _context.SaveChangesAsync();
+				_context.Visits.Add(new Visit()
+				{
+					IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
+					Url = Request.Path,
+					VisitDate = DateTime.UtcNow,
+				});
+				await _context.SaveChangesAsync();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "An error occurred while logging visit to the website.");
+			}
 		}
 
 		/// <summary>

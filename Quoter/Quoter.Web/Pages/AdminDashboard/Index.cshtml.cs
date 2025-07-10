@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Quoter.Shared.Enums;
 using Quoter.Web.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace Quoter.Web.Pages.AdminDashboard
 {
@@ -54,6 +55,47 @@ namespace Quoter.Web.Pages.AdminDashboard
 			ViewModel.ErrorsToday = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today && l.Level == "Error").CountAsync();
 			ViewModel.ErrorsLastSevenDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-7) && l.Level == "Error").CountAsync();
 			ViewModel.ErrorsLastThirtyDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-30) && l.Level == "Error").CountAsync();
+
+			ViewModel.Statistics = await GetStatisticsAsync();
+		}
+
+		private async Task<StatisticsViewModel> GetStatisticsAsync()
+		{
+			StatisticsViewModel model = new();
+
+			
+
+			DateTime startOfCurrentDay = new DateTime(
+				DateTime.UtcNow.Year,
+				DateTime.UtcNow.Month,
+				DateTime.UtcNow.Day,
+				0, 0, 0, DateTimeKind.Utc);
+
+			model.TodayVisits = await _context.Visits
+				.Where(s => s.VisitDate >= startOfCurrentDay)
+				.CountAsync();
+
+			model.TodayUniqueVisitors = await _context.Visits
+				.Where(s => s.VisitDate >= startOfCurrentDay)
+				.GroupBy(s => s.IpAddress)
+				.CountAsync();
+
+			model.AllTimeVisits = model.TodayVisits + await _context.VisitsStatistics.SumAsync(s => s.VisitsCount);
+			model.AllTimeUniqueVisitors = model.TodayUniqueVisitors + await _context.VisitsStatistics.SumAsync(s => s.UniqueVisitorsCount);
+
+			// Stats for previous months
+			model.MonthlyStatistics = await _context.VisitsStatistics
+				.OrderBy(s => s.Date)
+				.GroupBy(s => new { s.Date.Year, s.Date.Month })
+				.Select(grouping => new MonthlyStatisticsViewModel
+				{
+					YearAndMonth = $"{grouping.Key.Year}-{grouping.Key.Month}",
+					Visits = grouping.Sum(s => s.VisitsCount),
+					UniqueVisitors = grouping.Sum(s => s.UniqueVisitorsCount),
+				})
+				.ToListAsync();
+
+			return model;
 		}
 	}
 
@@ -94,5 +136,30 @@ namespace Quoter.Web.Pages.AdminDashboard
 		public int ErrorsLastSevenDays { get; set; }
 
 		public int ErrorsLastThirtyDays { get; set; }
+
+		public StatisticsViewModel Statistics { get; set; } = new StatisticsViewModel();
+	}
+
+	public class StatisticsViewModel
+	{
+		public int AllTimeVisits { get; set; }
+		public int AllTimeUniqueVisitors { get; set; }
+
+		public int TodayVisits { get; set; }
+		public int TodayUniqueVisitors { get; set; }
+
+		public List<MonthlyStatisticsViewModel> MonthlyStatistics { get; set; } = new List<MonthlyStatisticsViewModel>();
+	}
+
+	public class MonthlyStatisticsViewModel
+	{
+		[Display(Name = "YearAndMonth")]
+		public string YearAndMonth { get; set; }// e.g. "2023-10"
+
+		[Display(Name = "Visits")]
+		public int Visits { get; set; }
+
+		[Display(Name = "UniqueVisitors")]
+		public int UniqueVisitors { get; set; }
 	}
 }
