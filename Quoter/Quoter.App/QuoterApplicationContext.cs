@@ -13,6 +13,7 @@ using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Models;
 using System.Diagnostics;
+using IWshRuntimeLibrary;
 
 namespace Quoter.App
 {
@@ -76,6 +77,23 @@ namespace Quoter.App
 				_settings.InstallId = Guid.NewGuid().ToString();
 				_settings.Language = LanguageHelper.SetCurrentUICultureForCurrentThread();
 				_settings.IsFirstStart = false;
+
+				// Setup start with windows by default
+				try
+				{
+					string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
+					WshShell shell = new WshShell();
+					IWshShortcut windowsApplicationShortcut = (IWshShortcut)shell.CreateShortcut(shortCutLinkFilePath);
+					windowsApplicationShortcut.Description = "Startup MinuteVerse";
+					windowsApplicationShortcut.WorkingDirectory = Application.StartupPath;
+					windowsApplicationShortcut.TargetPath = Application.ExecutablePath;
+					windowsApplicationShortcut.Save();
+				}
+				catch(Exception ex)
+				{
+					_logger.Error(ex, "Error setting startup with Windows");
+				}
 			}
 			else
 			{
