@@ -48,7 +48,6 @@ namespace Quoter.Web.Pages
 		public async Task OnGet()
 		{
 			CurrentCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture.Name ?? "en-US";
-
 			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync("IsDownloadAvailable",
 				async entry =>
 			{
@@ -58,12 +57,26 @@ namespace Quoter.Web.Pages
 					.AnyAsync();
 			});
 
+			if(!IsDownloadAvailable)
+			{
+				_logger.LogInformation("No download available for the latest version.");
+			}
+
 			DownloadsCount = await _memoryCache.GetOrCreateAsync("DownloadsCount",
 				async entry =>
 				{
 					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
 					return await _context.AppVersionDownloads.CountAsync();
 				});
+
+
+			_context.Visits.Add(new Visit()
+			{
+				IpAddress = Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
+				Url = Request.Path,
+				VisitDate = DateTime.UtcNow,
+			});
+			await _context.SaveChangesAsync();
 		}
 
 		/// <summary>

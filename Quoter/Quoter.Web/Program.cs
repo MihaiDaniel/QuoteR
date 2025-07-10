@@ -147,6 +147,8 @@ try
 	builder.Services.AddScoped<IAppVersionService, AppVersionService>();
 	builder.Services.AddSingleton<VersionProvider>();
 
+	builder.Services.AddHostedService<VisitsStatisticsJob>();
+
 	#endregion Quoter.Web services
 
 	WebApplication app = builder.Build();

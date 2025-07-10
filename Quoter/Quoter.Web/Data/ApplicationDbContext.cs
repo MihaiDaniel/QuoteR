@@ -29,6 +29,10 @@ namespace Quoter.Web.Data
 
 		public DbSet<Parameter> Parameters { get; set; }
 
+		public DbSet<Visit> Visits { get; set; }
+
+		public DbSet<VisitsStatistic> VisitsStatistics { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

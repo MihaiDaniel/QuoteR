@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Quoter.Shared.Enums;
 using Quoter.Web.Data;
 using Quoter.Web.Data.Entities;
@@ -18,6 +19,7 @@ namespace Quoter.Web.Pages.AppVersions
 		private readonly ApplicationDbContext _context;
 		private readonly ILogger _logger;
 		private readonly IAppVersionService _appVersionService;
+		private readonly IMemoryCache _memoryCache;
 
 		[BindProperty]
 		[Required]
@@ -45,11 +47,12 @@ namespace Quoter.Web.Pages.AppVersions
 
 		public string Path { get; set; }
 
-		public EditModel(ApplicationDbContext context, ILoggerFactory loggerFactory, IAppVersionService appVersionService)
+		public EditModel(ApplicationDbContext context, ILoggerFactory loggerFactory, IAppVersionService appVersionService, IMemoryCache memoryCache)
 		{
 			_context = context;
 			_logger = loggerFactory.CreateLogger("AppVersions.Edit");
 			_appVersionService = appVersionService;
+			_memoryCache = memoryCache;
 		}
 
 		public async Task<IActionResult> OnGetAsync(int? id)
@@ -103,6 +106,9 @@ namespace Quoter.Web.Pages.AppVersions
 				appVersion.Description = Description;
 
 				await _context.SaveChangesAsync();
+
+				// Invalidate cache for download availability
+				_memoryCache.Remove("IsDownloadAvailable");
 
 				return RedirectToPage("./Index");
 			}
