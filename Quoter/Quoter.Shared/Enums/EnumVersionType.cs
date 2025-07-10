@@ -21,6 +21,12 @@
 		/// <summary>
 		/// This represents zip a file used to update the installed application (used by the auto-updater)
 		/// </summary>
-		UpdateZip = 2
+		UpdaterZipPackage = 2,
+
+		/// <summary>
+		/// This represents a zipped application file, which is used to distribute the app in a compressed format
+		/// without the installer
+		/// </summary>
+		ZipArchive = 3,
 	}
 }

@@ -85,7 +85,7 @@ namespace Quoter.Web.Pages
 					});
 				await _context.SaveChangesAsync();
 
-				return File(bytes, "application/octet-stream", latestVersion.Name);
+				return File(bytes, "application/octet-stream", latestVersion.OriginalFileName);
 			}
 			catch (Exception ex)
 			{
@@ -133,8 +133,9 @@ namespace Quoter.Web.Pages
 			AppVersion? latestVersion = await _memoryCache.GetOrCreateAsync("WebLatestVersion", async entry =>
 			{
 				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+				entry.SlidingExpiration = TimeSpan.FromMinutes(5);
 				return await _context.AppVersions
-					.Where(v => v.IsReleased && v.Type == EnumVersionType.Installer)
+					.Where(v => v.IsReleased && (v.Type == EnumVersionType.Installer || v.Type == EnumVersionType.ZipArchive))
 					.OrderBy(v => v.Id)
 					.LastOrDefaultAsync();
 			});

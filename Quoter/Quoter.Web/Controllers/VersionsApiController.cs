@@ -43,7 +43,7 @@ namespace Quoter.Web.Controllers
 				if (await IsClientRegistered())
 				{
 					List<QuoterVersionInfo> lstAllReleasedUpdates = await _context.AppVersions
-						.Where(v => v.IsReleased && v.Type == EnumVersionType.UpdateZip)
+						.Where(v => v.IsReleased && v.Type == EnumVersionType.UpdaterZipPackage)
 						.OrderBy(v => v.Id)
 						.Select(v => new QuoterVersionInfo(v.PublicId, v.Version))
 						.ToListAsync();

@@ -62,6 +62,11 @@ namespace Quoter.Web.Data.Entities
 		public bool IsReleased { get; set; }
 
 		/// <summary>
+		/// Original file name of the update file
+		/// </summary>
+		public string OriginalFileName { get; set; }
+
+		/// <summary>
 		/// Path on disk of the update file
 		/// </summary>
 		public string Path { get; set; }

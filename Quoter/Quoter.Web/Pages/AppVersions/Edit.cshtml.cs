@@ -121,13 +121,14 @@ namespace Quoter.Web.Pages.AppVersions
 				ModelState.TryAddModelError($"{nameof(Version)}", "Version format is incorrect, example correct format: 1.2.3.4");
 			}
 
-			bool isDuplicateVersion = await _context.AppVersions
+			bool isSimilarReleasedVersion = await _context.AppVersions
 				.AnyAsync(v => v.Version == Version
 							&& v.Type == existingVersion.Type
-							&& v.Name != existingVersion.Name);
-			if (isDuplicateVersion)
+							&& v.Name != existingVersion.Name
+							&& v.IsReleased == true);
+			if (isSimilarReleasedVersion && IsReleased)
 			{
-				ModelState.TryAddModelError($"{nameof(Version)}", "A version with the same version and version type already exists");
+				ModelState.TryAddModelError($"{nameof(Version)}", "A released version with the same version, name and version type already exists");
 				return false;
 			}
 			return true;

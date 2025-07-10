@@ -75,6 +75,7 @@ namespace Quoter.Web.Pages.AppVersions
 					Description = Description,
 					Type = VersionType,
 					Os = Os,
+					OriginalFileName = FileUpload.FileName,
 					Path = filePath,
 					CreationDate = DateTime.UtcNow
 				};
@@ -97,15 +98,16 @@ namespace Quoter.Web.Pages.AppVersions
 				ModelState.TryAddModelError($"{nameof(Version)}", "Version format is incorrect, example correct format: 1.2.3.4");
 			}
 
-			bool isDuplicateVersion = await _context.AppVersions
-				.AnyAsync(v => v.Version == Version
-							&& v.Type == VersionType);
-			if (isDuplicateVersion)
-			{
-				ModelState.TryAddModelError($"{nameof(Version)}", "A version with the same version and version type already exists");
-				ModelState.TryAddModelError($"{nameof(VersionType)}", "A version with the same version and version type already exists");
-				return false;
-			}
+			// Comment duplicate. Allow duplicate versions for now, check when "Releasing" for duplicates
+			//bool isDuplicateVersion = await _context.AppVersions
+			//	.AnyAsync(v => v.Version == Version
+			//				&& v.Type == VersionType);
+			//if (isDuplicateVersion)
+			//{
+			//	ModelState.TryAddModelError($"{nameof(Version)}", "A version with the same version and version type already exists");
+			//	ModelState.TryAddModelError($"{nameof(VersionType)}", "A version with the same version and version type already exists");
+			//	return false;
+			//}
 			return true;
 		}
 	}

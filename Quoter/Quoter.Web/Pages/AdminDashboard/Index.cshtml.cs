@@ -44,7 +44,7 @@ namespace Quoter.Web.Pages.AdminDashboard
 				.Where(vd => vd.AppVersion!.Type == EnumVersionType.Installer)
 				.CountAsync();
 			ViewModel.VersionsUpdates = await _context.AppVersionDownloads
-				.Where(vd => vd.AppVersion!.Type == EnumVersionType.UpdateZip)
+				.Where(vd => vd.AppVersion!.Type == EnumVersionType.UpdaterZipPackage)
 				.CountAsync();
 
 			ViewModel.RegistrationsNo = await _context.AppRegistrations.CountAsync();
