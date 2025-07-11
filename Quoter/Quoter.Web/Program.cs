@@ -50,7 +50,15 @@ try
 	builder.Services.AddInMemoryRateLimiting();
 	builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
-	builder.Services.AddRazorPages()
+	builder.Services.AddRazorPages(options =>
+		{
+			options.Conventions.AuthorizeFolder("/AdminDashboard");
+			options.Conventions.AuthorizeFolder("/AppCollections");
+			options.Conventions.AuthorizeFolder("/ApplicationKeys");
+			options.Conventions.AuthorizeFolder("/AppLogs");
+			options.Conventions.AuthorizeFolder("/AppRegistrations");
+			options.Conventions.AuthorizeFolder("/AppVersions");
+		})
 		.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
 		.AddDataAnnotationsLocalization();
 	builder.Services.AddControllers();
@@ -135,6 +143,13 @@ try
 	{
 		c.OperationFilter<SwaggerRegistrationHeaderParameter>();
 	});
+
+	builder.Services.AddAuthentication("Cookies")
+		.AddCookie("Cookies", options =>
+		{
+			options.LoginPath = "/Account/Login";
+		});
+	builder.Services.AddAuthorization();
 
 	#region Quoter.Web services
 
