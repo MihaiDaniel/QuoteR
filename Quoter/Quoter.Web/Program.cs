@@ -14,12 +14,9 @@ using Serilog;
 using Serilog.Events;
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Builder;
 using System.Net;
 
-string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Quoter");
-string sqliteDbName = "quoter.web.db";
-string sqliteDbLogsName = "quoter.web.logs.db";
+string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.Folders.AppData);
 if (!Directory.Exists(dirLocalAppData))
 {
 	Directory.CreateDirectory(dirLocalAppData);
@@ -32,7 +29,7 @@ Serilog.Log.Logger = new LoggerConfiguration()
 	.MinimumLevel.Warning()
 	.WriteTo.Console()
 	.WriteTo.File(Path.Combine(dirLocalAppData, "Logs.txt"))
-	.WriteTo.SQLite(Path.Combine(dirLocalAppData, sqliteDbLogsName)) // Use different db because it caused file locking issues
+	.WriteTo.SQLite(Path.Combine(dirLocalAppData, Constants.Database.SqliteLogsDbName)) // Use different db because it caused file locking issues
 	.CreateLogger();
 
 try
@@ -90,13 +87,13 @@ try
 	// SQLite database
 	if (string.IsNullOrEmpty(connectionString)) // Set a default path if not set in appsettings file
 	{
-		connectionString = $"Data Source={Path.Combine(dirLocalAppData, sqliteDbName)}";
+		connectionString = $"Data Source={Path.Combine(dirLocalAppData, Constants.Database.SqliteDbName)}";
 	}
 	builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
 		options.UseSqlite(connectionString));
 
 	builder.Services.AddDbContextPool<LogsDbContext>(options =>
-		options.UseSqlite($"Data Source={Path.Combine(dirLocalAppData, sqliteDbLogsName)}"));
+		options.UseSqlite($"Data Source={Path.Combine(dirLocalAppData, Constants.Database.SqliteLogsDbName)}"));
 
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

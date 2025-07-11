@@ -328,4 +328,34 @@
   <data name="Downloading..." xml:space="preserve">
     <value>Téléchargement en cours...</value>
   </data>
+  <data name="TheApplicationIsNotSigned" xml:space="preserve">
+    <value>Au démarrage de l'installation, Windows peut afficher un écran intelligent indiquant que l'éditeur n'est pas reconnu. Cela est dû au fait que l'application n'est pas signée par un certificat (ces certificats étant coûteux et payants chaque année). Vous pouvez donc cliquer sur « Plus d'infos » et « Exécuter quand même » pour lancer l'installation.</value>
+  </data>
+  <data name="FollowTheSetupInstructions" xml:space="preserve">
+    <value>Suivez les instructions d'installation pour installer l'application. Il est recommandé d'installer l'application uniquement pour l'utilisateur actuel ; sinon, vous aurez besoin des privilèges d'administrateur pour l'installer pour tous les utilisateurs.</value>
+  </data>
+  <data name="Important:" xml:space="preserve">
+    <value>Important:</value>
+  </data>
+  <data name="InstallInfo" xml:space="preserve">
+    <value>Instructions d'installation</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>ici</value>
+  </data>
+  <data name="IfDownloadDoesNotStartClick" xml:space="preserve">
+    <value>Le téléchargement va bientôt commencer. Si ce n'est pas le cas, veuillez cliquer sur</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Merci!</value>
+  </data>
+  <data name="AfterInstalation" xml:space="preserve">
+    <value>Après l'installation</value>
+  </data>
+  <data name="ToStartTheApp" xml:space="preserve">
+    <value>Une fois l'application lancée, vous pouvez accéder aux paramètres, aux collections et à l'éditeur depuis la barre d'état système. Faites un clic droit sur l'icône pour afficher le menu.</value>
+  </data>
+  <data name="FinishDownload" xml:space="preserve">
+    <value>Terminer le téléchargement</value>
+  </data>
 </root>

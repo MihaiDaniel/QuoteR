@@ -1,0 +1,51 @@
+﻿@page
+@model Quoter.Web.Pages.DownloadModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+	ViewData["Title"] = Localizer["FinishDownload"];
+}
+
+<div class="container mt-5">
+	<div class="row gy-4 text-center">
+		<h1 class="fw-bold mt-">@Localizer["ThankYou"]</h1>
+		<p>
+			@Localizer["IfDownloadDoesNotStartClick"]
+			<a asp-page-handler="DownloadApp" id="download-link" class="fw-bold text-primary">@Localizer["Here"]</a>
+		</p>
+	</div>
+	<div class="row gy-4 mt-5">
+		<h2>@Localizer["InstallInfo"]</h2>
+
+		<p><strong class="text-danger fs-3 fw-bold">@Localizer["Important:"]</strong> @Localizer["TheApplicationIsNotSigned"]</p>
+		<div class="row">
+			<div class="col-lg-4"><img height="380px" src="~/images/tutorial/smart-screen-moreinfo.png" /></div>
+			<div class="col-lg-4"><img height="380px" src="~/images/tutorial/smart-screen-runanyway.png" /></div>
+		</div>
+
+		<p>@Localizer["FollowTheSetupInstructions"]</p>
+		<div class="row">
+			<div class="col-lg-4"><img width="420px" src="~/images/tutorial/install-1-select-install-mode.png" /></div>
+			<div class="col-lg-4"><img src="~/images/tutorial/install-2-language.png" /></div>
+			<div class="col-lg-4"><img width="420px" src="~/images/tutorial/install-3-licence.png" /></div>
+			<div class="col-lg-4"><img width="420px" src="~/images/tutorial/install-4-location.png" /></div>
+			<div class="col-lg-4"><img width="420px" src="~/images/tutorial/install-5-desktop-shortcut.png" /></div>
+			<div class="col-lg-4"><img width="420px" src="~/images/tutorial/install-6-finish.png" /></div>
+		</div>
+		
+		<h2 class="mt-4">@Localizer["AfterInstalation"]</h2>
+		<p>@Localizer["ToStartTheApp"]</p>
+		<div class="row">
+			<div class="col"><img src="~/images/tutorial/tray-icon.png" /></div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			setTimeout(function() {
+				document.getElementById("download-link").click();
+			}, 2000);
+		});
+	</script>
+}

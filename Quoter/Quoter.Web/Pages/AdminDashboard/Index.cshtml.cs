@@ -56,7 +56,26 @@ namespace Quoter.Web.Pages.AdminDashboard
 			ViewModel.ErrorsLastSevenDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-7) && l.Level == "Error").CountAsync();
 			ViewModel.ErrorsLastThirtyDays = await _logsContext.Logs.Where(l => l.Timestamp >= DateTime.Today.AddDays(-30) && l.Level == "Error").CountAsync();
 
+
+
+			string dirLocalAppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.Folders.AppData);
+			long fileSizeBytesMain = new FileInfo(Path.Combine(dirLocalAppData, Constants.Database.SqliteDbName)).Length;
+			long fileSizeBytesLogs = new FileInfo(Path.Combine(dirLocalAppData, Constants.Database.SqliteLogsDbName)).Length;
+
+			ViewModel.DatabaseSide = PrettyPrintSize(fileSizeBytesMain);
+			ViewModel.LogsDatabaseSide = PrettyPrintSize(fileSizeBytesLogs);
+
 			ViewModel.Statistics = await GetStatisticsAsync();
+		}
+
+		public static string PrettyPrintSize(long byteCount)
+		{
+			string[] suf = { "B", "KB", "MB", "GB", "TB" }; // Longs run out around EB
+			if (byteCount == 0)
+				return "0 B";
+			int place = Convert.ToInt32(Math.Floor(Math.Log(byteCount, 1024)));
+			double num = Math.Round(byteCount / Math.Pow(1024, place), 2);
+			return $"{num:N2} {suf[place]}";
 		}
 
 		private async Task<StatisticsViewModel> GetStatisticsAsync()
@@ -136,6 +155,10 @@ namespace Quoter.Web.Pages.AdminDashboard
 		public int ErrorsLastSevenDays { get; set; }
 
 		public int ErrorsLastThirtyDays { get; set; }
+
+		public string DatabaseSide { get; set; }
+
+		public string LogsDatabaseSide { get; set; }
 
 		public StatisticsViewModel Statistics { get; set; } = new StatisticsViewModel();
 	}

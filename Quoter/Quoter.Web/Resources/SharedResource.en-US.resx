@@ -469,4 +469,43 @@
   <data name="Downloading..." xml:space="preserve">
     <value>Downloading...</value>
   </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Thank you!</value>
+  </data>
+  <data name="IfDownloadDoesNotStartClick" xml:space="preserve">
+    <value>Your download will begin shortly. If that does not happen please click</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>here</value>
+  </data>
+  <data name="InstallInfo" xml:space="preserve">
+    <value>Installation instructions</value>
+  </data>
+  <data name="Important:" xml:space="preserve">
+    <value>Important:</value>
+  </data>
+  <data name="TheApplicationIsNotSigned" xml:space="preserve">
+    <value>When starting the setup, windows may show the smart screen that the publisher is not recognized. This is because the application is not signed with a certificate (because they are expensive and have to be paid yearly). So you can click More info and Run anyway to start the setup.</value>
+  </data>
+  <data name="FollowTheSetupInstructions" xml:space="preserve">
+    <value>Follow the installation instructions to install the application. It is recommended to install the application for the current user only, otherwise you will need administrator privileges if you want to install for all users.</value>
+  </data>
+  <data name="AfterInstalation" xml:space="preserve">
+    <value>After instalation</value>
+  </data>
+  <data name="ToStartTheApp" xml:space="preserve">
+    <value>Once the application has started you can access settings, collections and the editor from the tray. Right-click the icon to bring up the menu.</value>
+  </data>
+  <data name="FinishDownload" xml:space="preserve">
+    <value>Finish download</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Main</value>
+  </data>
 </root>

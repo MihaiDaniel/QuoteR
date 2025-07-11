@@ -19,10 +19,7 @@
 				<div class="d-flex">
 					@if (Model.IsDownloadAvailable)
 					{
-						<button id="downloadAppBtn" type="button" class="btn btn-primary p-2" onclick="downloadApp(this)">
-							<i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]
-						</button>
-						@* <a asp-page-handler="DownloadApp" class="btn btn-primary p-2"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a> *@
+						<a asp-page="Download" class="btn btn-primary p-2"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
 					}
 					else
 					{
@@ -256,10 +253,7 @@
 					<p>@Localizer["Try it out and see if you like it..."]</p>
 					@if (Model.IsDownloadAvailable)
 					{
-						<button id="downloadAppBtn" type="button" class="cta-btn" style="background-color:transparent" onclick="downloadApp(this)">
-							<i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]
-						</button>
-						@* <a asp-page-handler="DownloadApp" class="cta-btn"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a> *@
+						<a asp-page="Download" class="cta-btn"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
 					}
 					else
 					{
@@ -271,19 +265,3 @@
 	</div>
 
 </section><!-- /Call To Action Section -->
-@section Scripts {
-	<script>
-		function downloadApp(button) {
-			button.disabled = true;
-			button.classList.add("disabled");
-			button.innerHTML = '<i class="spinner-border spinner-border-sm me-2"></i>@Localizer["Downloading..."]';
-			window.location.href = '@Url.Page("Index", "DownloadApp")';
-
-			setTimeout(function() {
-				button.disabled = false;
-				button.classList.remove("disabled");
-				button.innerHTML = '<i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]';
-			}, 5000);
-		}
-	</script>
-}

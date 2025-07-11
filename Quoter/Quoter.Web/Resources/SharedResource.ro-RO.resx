@@ -469,4 +469,43 @@
   <data name="Downloading..." xml:space="preserve">
     <value>Se descarcă...</value>
   </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Mulțumim!</value>
+  </data>
+  <data name="IfDownloadDoesNotStartClick" xml:space="preserve">
+    <value>Descărcarea va începe în scurt timp. Dacă nu începe automat, apăsați</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>aici</value>
+  </data>
+  <data name="InstallInfo" xml:space="preserve">
+    <value>Instrucțiuni de instalare</value>
+  </data>
+  <data name="Important:" xml:space="preserve">
+    <value>Important:</value>
+  </data>
+  <data name="TheApplicationIsNotSigned" xml:space="preserve">
+    <value>La pornirea configurării, este posibil ca Windows să afișeze ecranul inteligent care indică faptul că editorul nu este recunoscut. Acest lucru se datorează faptului că aplicația nu este semnată cu un certificat (deoarece sunt scumpe și trebuie plătite anual). Așadar, puteți face clic pe Mai multe informații și pe Executare oricum pentru a începe instalarea.</value>
+  </data>
+  <data name="FollowTheSetupInstructions" xml:space="preserve">
+    <value>Urmați instrucțiunile de instalare pentru a instala aplicația. Se recomandă instalarea aplicației doar pentru utilizatorul curent, altfel veți avea nevoie de privilegii de administrator dacă doriți să o instalați pentru toți utilizatorii.</value>
+  </data>
+  <data name="AfterInstalation" xml:space="preserve">
+    <value>După instalare</value>
+  </data>
+  <data name="ToStartTheApp" xml:space="preserve">
+    <value>După ce aplicația a pornit, puteți accesa setările, colecțiile și editorul din bara de instrumente. Faceți clic dreapta pe pictogramă pentru a afișa meniul.</value>
+  </data>
+  <data name="FinishDownload" xml:space="preserve">
+    <value>Finalizare descărcare</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Statistici</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Baze de date</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>Principală</value>
+  </data>
 </root>
