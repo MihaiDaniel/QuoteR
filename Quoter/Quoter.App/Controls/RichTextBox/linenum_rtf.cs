@@ -1,4 +1,4 @@
-using Microsoft.VisualBasic;
+﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -170,6 +170,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this property to automatically resize the control (and reposition it if needed).")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool AutoSizing {
 			get { return zAutoSizing; }
 			set {
@@ -181,6 +182,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this property to enable LineNumbers for the chosen RichTextBox.")]
 		[System.ComponentModel.Category("Add LineNumbers to")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public RichTextBox ParentRichTextBox {
 			get { return zParent; }
 			set {
@@ -197,6 +199,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this property to dock the LineNumbers to a chosen side of the chosen RichTextBox.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public LineNumberDockSide DockSide {
 			get { return zDockSide; }
 			set {
@@ -208,6 +211,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this property to enable the control to act as an overlay ontop of the RichTextBox.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool _SeeThroughMode_ {
 			get { return zSeeThroughMode; }
 			set {
@@ -218,6 +222,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("BorderLines are shown on all sides of the LineNumber control.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool Show_BorderLines {
 			get { return zBorderLines_Show; }
 			set {
@@ -227,6 +232,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Color BorderLines_Color {
 			get { return zBorderLines_Color; }
 			set {
@@ -236,6 +242,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public float BorderLines_Thickness {
 			get { return zBorderLines_Thickness; }
 			set {
@@ -245,6 +252,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public System.Drawing.Drawing2D.DashStyle BorderLines_Style
 		{
 			get { return zBorderLines_Style; }
@@ -258,6 +266,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("GridLines are the horizontal divider-lines shown above each LineNumber.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool Show_GridLines {
 			get { return zGridLines_Show; }
 			set {
@@ -267,6 +276,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Color GridLines_Color {
 			get { return zGridLines_Color; }
 			set {
@@ -276,6 +286,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public float GridLines_Thickness {
 			get { return zGridLines_Thickness; }
 			set {
@@ -285,6 +296,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public System.Drawing.Drawing2D.DashStyle GridLines_Style
 		{
 			get { return zGridLines_Style; }
@@ -298,6 +310,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("MarginLines are shown on the Left or Right (or both in Height-mode) of the LineNumber control.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool Show_MarginLines {
 			get { return zMarginLines_Show; }
 			set {
@@ -307,6 +320,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public LineNumberDockSide MarginLines_Side {
 			get { return zMarginLines_Side; }
 			set {
@@ -316,6 +330,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Color MarginLines_Color {
 			get { return zMarginLines_Color; }
 			set {
@@ -325,6 +340,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public float MarginLines_Thickness {
 			get { return zMarginLines_Thickness; }
 			set {
@@ -334,6 +350,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public System.Drawing.Drawing2D.DashStyle MarginLines_Style
 		{
 			get { return zMarginLines_Style; }
@@ -347,6 +364,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("The BackgroundGradient is a gradual blend of two colors, shown in the back of each LineNumber's item-area.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool Show_BackgroundGradient {
 			get { return zGradient_Show; }
 			set {
@@ -356,6 +374,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Color BackgroundGradient_AlphaColor {
 			get { return zGradient_StartColor; }
 			set {
@@ -365,6 +384,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Color BackgroundGradient_BetaColor {
 			get { return zGradient_EndColor; }
 			set {
@@ -374,6 +394,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Appearance")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public System.Drawing.Drawing2D.LinearGradientMode BackgroundGradient_Direction
 		{
 			get { return zGradient_Direction; }
@@ -384,6 +405,7 @@ namespace LineNumbers
 		}
 
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool Show_LineNrs {
 			get { return zLineNumbers_Show; }
 			set {
@@ -394,6 +416,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this to set whether the LineNumbers are allowed to spill out of their item-area, or should be clipped by it.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool LineNrs_ClippedByItemRectangle {
 			get { return zLineNumbers_ClipByItemRectangle; }
 			set {
@@ -404,6 +427,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this to set whether the LineNumbers should have leading zeroes (based on the total amount of textlines).")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool LineNrs_LeadingZeroes {
 			get { return zLineNumbers_ShowLeadingZeroes; }
 			set {
@@ -415,6 +439,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this to set whether the LineNumbers should be shown as hexadecimal values.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool LineNrs_AsHexadecimal {
 			get { return zLineNumbers_ShowAsHexadecimal; }
 			set {
@@ -426,6 +451,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this property to manually reposition the LineNumbers, relative to their current location.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public Size LineNrs_Offset {
 			get { return zLineNumbers_Offset; }
 			set {
@@ -436,6 +462,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this to align the LineNumbers to a chosen corner (or center) within their item-area.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public System.Drawing.ContentAlignment LineNrs_Alignment {
 			get { return zLineNumbers_Alignment; }
 			set {
@@ -446,6 +473,7 @@ namespace LineNumbers
 
 		[System.ComponentModel.Description("Use this to apply Anti-Aliasing to the LineNumbers (high quality). Some fonts will look better without it, though.")]
 		[System.ComponentModel.Category("Additional Behavior")]
+		[System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Visible)]
 		public bool LineNrs_AntiAlias {
 			get { return zLineNumbers_AntiAlias; }
 			set {

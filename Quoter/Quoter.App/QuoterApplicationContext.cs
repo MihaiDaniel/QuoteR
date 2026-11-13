@@ -13,7 +13,6 @@ using Quoter.Framework.Services.Messaging;
 using Quoter.Framework.Services.AppSettings;
 using Quoter.Shared.Models;
 using System.Diagnostics;
-using IWshRuntimeLibrary;
 
 namespace Quoter.App
 {
@@ -83,8 +82,8 @@ namespace Quoter.App
 				{
 					string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
 					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
-					WshShell shell = new WshShell();
-					IWshShortcut windowsApplicationShortcut = (IWshShortcut)shell.CreateShortcut(shortCutLinkFilePath);
+					dynamic shell = Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell")!)!;
+					dynamic windowsApplicationShortcut = shell.CreateShortcut(shortCutLinkFilePath);
 					windowsApplicationShortcut.Description = "Startup MinuteVerse";
 					windowsApplicationShortcut.WorkingDirectory = Application.StartupPath;
 					windowsApplicationShortcut.TargetPath = Application.ExecutablePath;

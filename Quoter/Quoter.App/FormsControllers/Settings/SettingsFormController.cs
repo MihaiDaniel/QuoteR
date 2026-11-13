@@ -1,5 +1,4 @@
-﻿using IWshRuntimeLibrary;
-using Quoter.App.Forms;
+﻿using Quoter.App.Forms;
 using Quoter.App.Forms.Manage;
 using Quoter.App.Helpers;
 using Quoter.App.Models;
@@ -315,8 +314,8 @@ namespace Quoter.App.FormsControllers.Settings
 				{
 					string startupFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
 					string shortCutLinkFilePath = Path.Combine(startupFolderPath, Application.ProductName + ".lnk");
-					WshShell shell = new WshShell();
-					IWshShortcut windowsApplicationShortcut = (IWshShortcut)shell.CreateShortcut(shortCutLinkFilePath);
+					dynamic shell = Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell")!)!;
+					dynamic windowsApplicationShortcut = shell.CreateShortcut(shortCutLinkFilePath);
 					windowsApplicationShortcut.Description = "Startup MinuteVerse";
 					windowsApplicationShortcut.WorkingDirectory = Application.StartupPath;
 					windowsApplicationShortcut.TargetPath = Application.ExecutablePath;

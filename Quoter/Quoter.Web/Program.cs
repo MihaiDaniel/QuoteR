@@ -202,7 +202,7 @@ try
 		ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 	};
 	// Trust the Docker bridge network and Nginx proxy's IP by default so forwared headers will work
-	forwardedHeadersOptions.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("172.17.0.0"), 16));
+	forwardedHeadersOptions.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("172.17.0.0"), 16));
 	forwardedHeadersOptions.KnownProxies.Add(IPAddress.Parse("172.17.0.1"));
 
 	app.UseForwardedHeaders(forwardedHeadersOptions);
