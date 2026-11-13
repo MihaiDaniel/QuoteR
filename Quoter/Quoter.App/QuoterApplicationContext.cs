@@ -159,9 +159,9 @@ namespace Quoter.App
 				// Don't auto-update the application if the setup was not finished.
 				// This way we verify on next startup if update is available as normally 
 				// user should have already downloaded the latest version to install.
+				// Disabled auto-update from server
 				if (_settings.IsSetupFinished)
 				{
-					_quoterApplicationService.EnqueueBackgroundJobDisplayMessageIfAppWasUpdated();
 					_quoterApplicationService.EnqueueBackgroundJobAppUpdate();
 				}
 			}

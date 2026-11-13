@@ -63,21 +63,10 @@ namespace Quoter.App.Services
 			}, JobNameRegisterApp);
 		}
 
-		// TODO REMOVE
-		public void EnqueueBackgroundJobDisplayMessageIfAppWasUpdated()
-		{
-			_backgroundJobsService.Enqueue(async () =>
-			{
-				ActionResult result = await _updateService.VerifyIfUpdateAppliedAsync();
-				if (result.IsSuccess)
-				{
-					
-				}
-			}, JobNameNotifyIfAppWasUpdated);
-		}
-
+		[Obsolete("Autoupdate is disabled from server. This method is no longer used. Use store update instead")]
 		public void EnqueueBackgroundJobAppUpdate()
 		{
+			return; // Disabled auto-update from server
 			_backgroundJobsService.Enqueue(async () =>
 			{
 				_logger.Debug($"Beginning auto update job. AutoUpdate setting value: {_settings.AutoUpdate}");
@@ -106,12 +95,14 @@ namespace Quoter.App.Services
 
 		public bool IsAnyUpdateApplied()
 		{
+			return false; // Disabled auto-update from server
 			ActionResult result = _updateService.MarkUpdateAsAppliedIfAppUpdated();
 			return result.IsSuccess;
 		}
 
 		public bool ShowUpdateAppliedNotification()
 		{
+			return false; // Disabled auto-update from server
 			string version = _updateService.GetLastAppliedVersion();
 			
 			int autohideSeconds = 10;

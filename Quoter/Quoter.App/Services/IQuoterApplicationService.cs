@@ -16,16 +16,12 @@ namespace Quoter.App.Services
 		void EnqueueBackgroundJobAppRegistration();
 
 		/// <summary>
-		/// Enqueues a background job that will notify the user with a notification if the application was just updated
-		/// </summary>
-		void EnqueueBackgroundJobDisplayMessageIfAppWasUpdated();
-
-		/// <summary>
 		/// Enqueues a background job that will try to update the application
 		/// </summary>
 		/// <remarks>
 		/// Update will be done according to the user's setting (<see cref="EnumAutoUpdate"/>)
 		/// </remarks>
+		[Obsolete("Autoupdate is disabled from server. This method is no longer used. Use store update instead")]
 		void EnqueueBackgroundJobAppUpdate();
 
 		bool IsAnyUpdateApplied();
