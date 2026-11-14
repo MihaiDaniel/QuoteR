@@ -15,7 +15,7 @@ Write-Host "Created tag: $webTag" -ForegroundColor Green
 
 # 2. Publish the Quoter.Web project
 Write-Host "Publishing Quoter.Web" -ForegroundColor Green
-$publishDir = "../Quoter/Quoter.Web/bin/Release/net6.0/publish"
+$publishDir = "../Quoter/Quoter.Web/bin/Release/net10.0/publish"
 dotnet publish ../Quoter/Quoter.Web/Quoter.Web.csproj -c Release -o $publishDir
 
 # 2.1 Add version file with TAG inside the publish folder

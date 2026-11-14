@@ -1,6 +1,6 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 
-LABEL description="Quoter.Web docker image using .NET 6"
+LABEL description="Quoter.Web docker image using .NET 10"
 
 # Copy all files and folder from current client directory to container's directory
 COPY . /var/www/quoter
