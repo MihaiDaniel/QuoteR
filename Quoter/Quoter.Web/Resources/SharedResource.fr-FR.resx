@@ -130,6 +130,30 @@
   <data name="Download for Windows" xml:space="preserve">
     <value>Télécharger pour Windows</value>
   </data>
+  <data name="Get it from Microsoft Store" xml:space="preserve">
+    <value>Obtenir sur le Microsoft Store</value>
+  </data>
+  <data name="Not available yet" xml:space="preserve">
+    <value>Pas encore disponible</value>
+  </data>
+  <data name="Not available" xml:space="preserve">
+    <value>Non disponible</value>
+  </data>
+  <data name="Home page parameters" xml:space="preserve">
+    <value>Paramètres de la page d'accueil</value>
+  </data>
+  <data name="Store URL" xml:space="preserve">
+    <value>URL du Microsoft Store</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="EditHomePageParameters" xml:space="preserve">
+    <value>Modifier le lien Microsoft Store, le nombre de téléchargements et de traductions de la Bible affichés sur la page d'accueil.</value>
+  </data>
   <data name="Periodic notifications" xml:space="preserve">
     <value>Notifications périodiques</value>
   </data>

@@ -29,6 +29,8 @@ namespace Quoter.Web.Data
 
 		public DbSet<Parameter> Parameters { get; set; }
 
+		public DbSet<HomePageParameter> HomePageParameters { get; set; }
+
 		public DbSet<Visit> Visits { get; set; }
 
 		public DbSet<VisitsStatistic> VisitsStatistics { get; set; }

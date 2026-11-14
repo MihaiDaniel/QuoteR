@@ -1,0 +1,63 @@
+@page
+@using Quoter.Web.ViewModels.Shared;
+@model Quoter.Web.Pages.HomePageParameters.IndexModel
+
+@{
+	ViewData["Title"] = Localizer["Home page parameters"];
+
+	BreadCrumbsViewModel breadCrumbs = new(
+		Localizer["Home page parameters"],
+		new RouteViewModel(Localizer["Dashboard"], "/AdminDashboard/Index"));
+}
+
+<div class="container">
+
+	@await Html.PartialAsync("_BreadCrumbsPartial", breadCrumbs)
+
+	<div class="container m-1">
+		<h2>@Localizer["Home page parameters"]</h2>
+	</div>
+	<div class="container mt-2">
+		<form method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="row p-1">
+				<div class="col-2">
+					<label asp-for="StoreUrl" class="control-label">@Localizer["Store URL"]</label>
+				</div>
+				<div class="col-4">
+					<input asp-for="StoreUrl" class="form-control" placeholder="https://apps.microsoft.com/detail/..." />
+					<span asp-validation-for="StoreUrl" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="row p-1">
+				<div class="col-2">
+					<label asp-for="DownloadsCount" class="control-label">@Localizer["Downloads"]</label>
+				</div>
+				<div class="col-4">
+					<input asp-for="DownloadsCount" class="form-control" type="number" min="0" />
+					<span asp-validation-for="DownloadsCount" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="row p-1">
+				<div class="col-2">
+					<label asp-for="BibleTranslationsCount" class="control-label">@Localizer["Bible translations"]</label>
+				</div>
+				<div class="col-4">
+					<input asp-for="BibleTranslationsCount" class="form-control" type="number" min="0" />
+					<span asp-validation-for="BibleTranslationsCount" class="text-danger"></span>
+				</div>
+			</div>
+			<div class="row p-1">
+				<div class="col-2">
+					<button type="submit" class="btn btn-success">@Localizer["Save"]</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

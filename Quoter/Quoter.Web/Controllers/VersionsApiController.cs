@@ -81,6 +81,7 @@ namespace Quoter.Web.Controllers
 		/// <summary>
 		/// Download a version file based on it's public id.
 		/// </summary>
+		[NonAction] // Downloads are disabled for now
 		[Route("downloadVersion")]
 		[HttpGet]
 		public async Task<IActionResult> DownloadVersion([FromQuery] string versionId)

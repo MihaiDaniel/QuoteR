@@ -202,6 +202,30 @@
   <data name="Download for Windows" xml:space="preserve">
     <value>Download for Windows</value>
   </data>
+  <data name="Get it from Microsoft Store" xml:space="preserve">
+    <value>Get it from Microsoft Store</value>
+  </data>
+  <data name="Not available yet" xml:space="preserve">
+    <value>Not available yet</value>
+  </data>
+  <data name="Not available" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="Home page parameters" xml:space="preserve">
+    <value>Home page parameters</value>
+  </data>
+  <data name="Store URL" xml:space="preserve">
+    <value>Store URL</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditHomePageParameters" xml:space="preserve">
+    <value>Edit the Microsoft Store link, downloads count and bible translations count shown on the home page.</value>
+  </data>
   <data name="Periodic notifications" xml:space="preserve">
     <value>Periodic notifications</value>
   </data>

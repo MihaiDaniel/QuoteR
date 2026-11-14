@@ -202,6 +202,30 @@
   <data name="Download for Windows" xml:space="preserve">
     <value>Descarcă pentru Windows</value>
   </data>
+  <data name="Get it from Microsoft Store" xml:space="preserve">
+    <value>Descarcă din Microsoft Store</value>
+  </data>
+  <data name="Not available yet" xml:space="preserve">
+    <value>Nu este disponibil încă</value>
+  </data>
+  <data name="Not available" xml:space="preserve">
+    <value>Nu este disponibil</value>
+  </data>
+  <data name="Home page parameters" xml:space="preserve">
+    <value>Parametrii paginii principale</value>
+  </data>
+  <data name="Store URL" xml:space="preserve">
+    <value>URL Microsoft Store</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="EditHomePageParameters" xml:space="preserve">
+    <value>Editează linkul Microsoft Store, numărul de descărcări și numărul de traduceri biblice afișate pe pagina principală.</value>
+  </data>
   <data name="Periodic notifications" xml:space="preserve">
     <value>Notificări periodice</value>
   </data>

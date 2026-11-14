@@ -32,6 +32,7 @@ namespace Quoter.Web.Pages
 		/// <summary>
 		/// Returns the file for the latest version of the application installer
 		/// </summary>
+		[NonHandler] // Downloads are disabled for now
 		public async Task<ActionResult> OnGetDownloadApp()
 		{
 			try

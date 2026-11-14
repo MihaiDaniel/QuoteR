@@ -169,8 +169,6 @@ try
 
 	app.UseSerilogRequestLogging();
 
-	app.UseIpRateLimiting();
-
 	app.MigrateDatabase();							// Migrate the database if needed
 	app.SeedDatabase(builder.Configuration).Wait(); // Seed data in the database if needed
 
@@ -193,6 +191,9 @@ try
 
 	app.UseHttpsRedirection();
 	app.UseStaticFiles();
+
+	// Placed after static files so static asset requests are not counted
+	app.UseIpRateLimiting();
 
 	app.UseRouting();
 

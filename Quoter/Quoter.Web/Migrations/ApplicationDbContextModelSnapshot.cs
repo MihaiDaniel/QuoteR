@@ -15,7 +15,7 @@ namespace Quoter.Web.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.16");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.15");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -403,6 +403,26 @@ namespace Quoter.Web.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Quoter.Web.Data.Entities.HomePageParameter", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("BibleTranslationsCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DownloadsCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StoreUrl")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HomePageParameters");
                 });
 
             modelBuilder.Entity("Quoter.Web.Data.Entities.Parameter", b =>

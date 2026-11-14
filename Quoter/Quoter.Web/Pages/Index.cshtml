@@ -17,13 +17,13 @@
 				<p>@Localizer["Remind yourself..."]</p>
 				<p>@Localizer["Lots of customization options..."]</p>
 				<div class="d-flex">
-					@if (Model.IsDownloadAvailable)
+					@if (!string.IsNullOrWhiteSpace(Model.StoreUrl))
 					{
-						<a asp-page="Download" class="btn btn-primary p-2"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
+						<a href="@Model.StoreUrl" target="_blank" rel="noopener" class="btn btn-primary p-2"><i class="bi bi-microsoft p-2"></i>@Localizer["Get it from Microsoft Store"]</a>
 					}
 					else
 					{
-						<div class="btn btn-secondary p-2">@Localizer["Download unavailable at this time"]</div>
+						<div class="btn btn-secondary p-2">@Localizer["Not available yet"]</div>
 					}
 
 				</div>
@@ -114,14 +114,28 @@
 		<div class="row gy-4">
 			<div class="col-lg-6 col-md-6">
 				<div class="stats-item text-center w-100 h-100">
-					<span data-purecounter-start="0" data-purecounter-end="@Model.DownloadsCount" data-purecounter-duration="1" class="purecounter"></span>
+					@if (Model.DownloadsCount > 0)
+					{
+						<span data-purecounter-start="0" data-purecounter-end="@Model.DownloadsCount" data-purecounter-duration="1" class="purecounter"></span>
+					}
+					else
+					{
+						<span class="fw-bold">@Localizer["Not available"]</span>
+					}
 					<p>@Localizer["Downloads"]</p>
 				</div>
 			</div><!-- End Stats Item -->
 
 			<div class="col-lg-6 col-md-6">
 				<div class="stats-item text-center w-100 h-100">
-					<span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+					@if (Model.BibleTranslationsCount > 0)
+					{
+						<span data-purecounter-start="0" data-purecounter-end="@Model.BibleTranslationsCount" data-purecounter-duration="1" class="purecounter"></span>
+					}
+					else
+					{
+						<span class="fw-bold">@Localizer["Not available"]</span>
+					}
 					<p>@Localizer["Bible translations"]</p>
 				</div>
 			</div><!-- End Stats Item -->
@@ -251,13 +265,13 @@
 				<div class="text-center">
 					<h3>@Localizer["Download now"]</h3>
 					<p>@Localizer["Try it out and see if you like it..."]</p>
-					@if (Model.IsDownloadAvailable)
+					@if (!string.IsNullOrWhiteSpace(Model.StoreUrl))
 					{
-						<a asp-page="Download" class="cta-btn"><i class="bi bi-download p-2"></i>@Localizer["Download for Windows"]</a>
+						<a href="@Model.StoreUrl" target="_blank" rel="noopener" class="cta-btn"><i class="bi bi-microsoft p-2"></i>@Localizer["Get it from Microsoft Store"]</a>
 					}
 					else
 					{
-						<div class="cta-btn m">@Localizer["Download unavailable at this time"]</div>
+						<div class="cta-btn">@Localizer["Not available yet"]</div>
 					}
 				</div>
 			</div>

@@ -168,6 +168,21 @@
 
 
 	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
+		@* HOME PAGE PARAMETERS *@
+		<div class="col-lg-4">
+			<div class="card p-2 m-2  shadow">
+				<div class="card-body">
+					<h3 class="card-title">@Localizer["Home page parameters"]</h3>
+					<p class="card-text">
+						@Localizer["EditHomePageParameters"]
+					</p>
+					<a asp-page="/HomePageParameters/Index" class="btn btn-primary">@Localizer["Edit"]<i class="bi bi-pencil p-2"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center  m-0 p-4 bg-light-subtle">
 		
 		@* STATISTICS *@
 		<div class="col-lg-12">

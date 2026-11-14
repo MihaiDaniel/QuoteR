@@ -21,14 +21,19 @@ namespace Quoter.Web.Pages
 		private readonly SignInManager<ApplicationUser> _signInManager;
 
 		/// <summary>
-		/// Indicates if any setup file is available for download
+		/// Microsoft Store listing URL, null when not set
 		/// </summary>
-		public bool IsDownloadAvailable { get; set; } = false;
+		public string? StoreUrl { get; set; }
 
 		/// <summary>
-		/// The total number of downloads of any of the versions
+		/// Number of downloads shown on the home page, null or 0 when not set
 		/// </summary>
-		public int DownloadsCount { get; set; } = 0;
+		public int? DownloadsCount { get; set; }
+
+		/// <summary>
+		/// Number of bible translations shown on the home page, null or 0 when not set
+		/// </summary>
+		public int? BibleTranslationsCount { get; set; }
 
 		public string CurrentCulture { get; set; } = "en-US";
 
@@ -48,27 +53,10 @@ namespace Quoter.Web.Pages
 		{
 			CurrentCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture.Culture.Name ?? "en-US";
 
-			IsDownloadAvailable = await _memoryCache.GetOrCreateAsync(Constants.MemoryCacheKeys.IsDownloadAvailable,
-				async entry =>
-			{
-				entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
-				return await _context.AppVersions
-					.Where(v => v.IsReleased 
-						&& (v.Type == EnumVersionType.Installer || v.Type == EnumVersionType.ZipArchive))
-					.AnyAsync();
-			});
-
-			if(!IsDownloadAvailable)
-			{
-				_logger.LogInformation("No download available for the latest version.");
-			}
-
-			DownloadsCount = await _memoryCache.GetOrCreateAsync(Constants.MemoryCacheKeys.DownloadsCount,
-				async entry =>
-				{
-					entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
-					return await _context.AppVersionDownloads.CountAsync();
-				});
+			HomePageParameter? parameters = await _context.HomePageParameters.AsNoTracking().FirstOrDefaultAsync();
+			StoreUrl = parameters?.StoreUrl;
+			DownloadsCount = parameters?.DownloadsCount;
+			BibleTranslationsCount = parameters?.BibleTranslationsCount;
 
 			await LogVisitAsync();
 			
@@ -95,6 +83,7 @@ namespace Quoter.Web.Pages
 		/// <summary>
 		/// Returns the file for the latest version of the application installer
 		/// </summary>
+		[NonHandler] // Downloads are disabled for now
 		public async Task<ActionResult> OnGetDownloadApp()
 		{
 			try
