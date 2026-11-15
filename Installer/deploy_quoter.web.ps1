@@ -33,6 +33,6 @@ docker push $imageName
 
 # 5. Run remote commands
 Write-Host "Running remote commands" -ForegroundColor Green
-ssh $SSH "docker stop minuteverse || true && docker rm minuteverse || true && docker pull $imageName && docker run -d --restart unless-stopped -p 8080:80 -e ASPNETCORE_ENVIRONMENT=Production -e QUOTER_ADMIN_USER=$USER -e QUOTER_ADMIN_PASS=$PASS -v minuteverse:/root/.local/share --name minuteverse $imageName"
+ssh $SSH "docker stop minuteverse || true && docker rm minuteverse || true && docker pull $imageName && docker run -d --restart unless-stopped -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Production -e QUOTER_ADMIN_USER=$USER -e QUOTER_ADMIN_PASS=$PASS -v minuteverse:/root/.local/share --name minuteverse $imageName"
 
 Write-Host "Deployment complete for $imageName" -ForegroundColor Green

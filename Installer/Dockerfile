@@ -8,7 +8,7 @@ COPY . /var/www/quoter
 # Set the current working directory
 WORKDIR /var/www/quoter
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8080
+EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "Quoter.Web.dll"]
